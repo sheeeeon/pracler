@@ -1,4 +1,4 @@
-package com.icaynia.madori;
+package com.icaynia.soundki;
 
 import org.junit.Test;
 

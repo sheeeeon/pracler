@@ -1,4 +1,4 @@
-package com.icaynia.madori.Fragment;
+package com.icaynia.soundki.Fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.icaynia.madori.R;
+import com.icaynia.soundki.R;
 
 /**
  * Created by icaynia on 2017. 2. 8..

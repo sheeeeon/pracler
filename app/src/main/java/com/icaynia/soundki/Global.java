@@ -1,4 +1,4 @@
-package com.icaynia.madori;
+package com.icaynia.soundki;
 
 import android.app.Application;
 import android.content.res.Configuration;

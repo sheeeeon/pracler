@@ -1,4 +1,4 @@
-package com.icaynia.madori.Activity;
+package com.icaynia.soundki.Activity;
 
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -17,12 +17,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.widget.TextView;
-
-import com.icaynia.madori.Fragment.HomeFragment;
-import com.icaynia.madori.Fragment.MyMusicListFragment;
-import com.icaynia.madori.Fragment.ProfileFragment;
-import com.icaynia.madori.R;
+import com.icaynia.soundki.Data.RemoteDatabaseManager;
+import com.icaynia.soundki.Fragment.HomeFragment;
+import com.icaynia.soundki.Fragment.MyMusicListFragment;
+import com.icaynia.soundki.Fragment.ProfileFragment;
+import com.icaynia.soundki.R;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -71,6 +70,8 @@ public class MainActivity extends AppCompatActivity
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
+
+        RemoteDatabaseManager rdm = new RemoteDatabaseManager();
 
     }
 

@@ -1,4 +1,4 @@
-package com.icaynia.madori.Data;
+package com.icaynia.soundki.Data;
 
 /**
  * Created by icaynia on 2017. 2. 8..

@@ -1,4 +1,4 @@
-package com.icaynia.madori;
+package com.icaynia.soundki;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
