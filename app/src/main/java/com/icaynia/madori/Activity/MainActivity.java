@@ -19,7 +19,9 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
+import com.icaynia.madori.Fragment.HomeFragment;
 import com.icaynia.madori.Fragment.MyMusicListFragment;
+import com.icaynia.madori.Fragment.ProfileFragment;
 import com.icaynia.madori.R;
 
 public class MainActivity extends AppCompatActivity
@@ -134,6 +136,12 @@ public class MainActivity extends AppCompatActivity
             {
                 case 1:
                     rootView = new MyMusicListFragment().onCreateView(inflater, container, savedInstanceState);
+                    break;
+                case 2:
+                    rootView = new HomeFragment().onCreateView(inflater, container, savedInstanceState);
+                    break;
+                case 3:
+                    rootView = new ProfileFragment().onCreateView(inflater, container, savedInstanceState);
                     break;
 
             }
