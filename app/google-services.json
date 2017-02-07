@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "982090275386",
+    "firebase_url": "https://madori-a94d6.firebaseio.com",
+    "project_id": "madori-a94d6",
+    "storage_bucket": "madori-a94d6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:982090275386:android:62b0225b84e9cb43",
+        "android_client_info": {
+          "package_name": "com.icaynia.madori"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "982090275386-5p3kcsrlt36evr5tcntb139r8fpinkfv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDz3YOL5RUOQGiy-BCxeJWglB2op8lMpoc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "982090275386-5p3kcsrlt36evr5tcntb139r8fpinkfv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
