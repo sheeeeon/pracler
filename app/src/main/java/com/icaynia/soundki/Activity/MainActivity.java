@@ -139,10 +139,10 @@ public class MainActivity extends AppCompatActivity
             switch (getArguments().getInt(ARG_SECTION_NUMBER))
             {
                 case 1:
-                    rootView = new MyMusicListFragment().onCreateView(inflater, container, savedInstanceState);
+                    rootView = new HomeFragment().onCreateView(inflater, container, savedInstanceState);
                     break;
                 case 2:
-                    rootView = new HomeFragment().onCreateView(inflater, container, savedInstanceState);
+                    rootView = new MyMusicListFragment().onCreateView(inflater, container, savedInstanceState);
                     break;
                 case 3:
                     rootView = new ProfileFragment().onCreateView(inflater, container, savedInstanceState);
