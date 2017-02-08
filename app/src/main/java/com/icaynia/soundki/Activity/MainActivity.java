@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
-
+    public Snackbar playRemoteController;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -69,18 +69,15 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
+                playRemoteController = Snackbar.make(view, "", Snackbar.LENGTH_INDEFINITE);
+                Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) playRemoteController.getView();
 
+                View snackView = getLayoutInflater().inflate(R.layout.view_snackbar, null);
+                layout.setPadding(0, 0, 0, 0);
+                layout.addView(snackView, ActionBar.LayoutParams.MATCH_PARENT, 120);
+                playRemoteController.show();
             }
         });
-
-        Snackbar playRemoteController = Snackbar.make(tabLayout, "", Snackbar.LENGTH_INDEFINITE);
-        Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) playRemoteController.getView();
-
-        View snackView = getLayoutInflater().inflate(R.layout.view_snackbar, null);
-        layout.setPadding(0, 0, 0, 0);
-        layout.addView(snackView, ActionBar.LayoutParams.MATCH_PARENT, 120);
-        playRemoteController.show();
-
         //RemoteDatabaseManager rdm = new RemoteDatabaseManager();
 
     }
