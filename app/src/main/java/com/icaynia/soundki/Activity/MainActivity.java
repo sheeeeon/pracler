@@ -1,5 +1,6 @@
 package com.icaynia.soundki.Activity;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -62,14 +63,6 @@ public class MainActivity extends AppCompatActivity
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        Snackbar playRemoteController = Snackbar.make(tabLayout, "", Snackbar.LENGTH_INDEFINITE);
-        Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) playRemoteController.getView();
-
-        View snackView = getLayoutInflater().inflate(R.layout.view_snackbar, null);
-        layout.setPadding(0, 0, 0, 0);
-        layout.addView(snackView, 1500, 120);
-        playRemoteController.show();
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener()
         {
@@ -80,6 +73,13 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        Snackbar playRemoteController = Snackbar.make(tabLayout, "", Snackbar.LENGTH_INDEFINITE);
+        Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) playRemoteController.getView();
+
+        View snackView = getLayoutInflater().inflate(R.layout.view_snackbar, null);
+        layout.setPadding(0, 0, 0, 0);
+        layout.addView(snackView, ActionBar.LayoutParams.MATCH_PARENT, 120);
+        playRemoteController.show();
 
         //RemoteDatabaseManager rdm = new RemoteDatabaseManager();
 

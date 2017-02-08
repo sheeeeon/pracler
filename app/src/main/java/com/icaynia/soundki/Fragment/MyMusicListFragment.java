@@ -22,7 +22,6 @@ public class MyMusicListFragment extends Fragment
 
     private ListView listView;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_mymusic, container, false);
