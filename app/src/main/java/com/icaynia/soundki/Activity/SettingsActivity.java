@@ -20,7 +20,6 @@ import android.preference.RingtonePreference;
 import android.text.TextUtils;
 import android.view.MenuItem;
 
-import com.icaynia.madori.R;
 import com.icaynia.soundki.R;
 
 import java.util.List;
