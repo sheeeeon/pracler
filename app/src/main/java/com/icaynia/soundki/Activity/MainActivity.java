@@ -62,17 +62,26 @@ public class MainActivity extends AppCompatActivity
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
+        Snackbar playRemoteController = Snackbar.make(tabLayout, "", Snackbar.LENGTH_INDEFINITE);
+        Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) playRemoteController.getView();
+
+        View snackView = getLayoutInflater().inflate(R.layout.view_snackbar, null);
+        layout.setPadding(0, 0, 0, 0);
+        layout.addView(snackView, 1500, 120);
+        playRemoteController.show();
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+
             }
         });
 
-        RemoteDatabaseManager rdm = new RemoteDatabaseManager();
+
+        //RemoteDatabaseManager rdm = new RemoteDatabaseManager();
 
     }
 
