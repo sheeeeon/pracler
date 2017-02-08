@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "982090275386",
-    "firebase_url": "https://madori-a94d6.firebaseio.com",
-    "project_id": "madori-a94d6",
-    "storage_bucket": "madori-a94d6.appspot.com"
+    "project_number": "568276022739",
+    "firebase_url": "https://soundki-89180.firebaseio.com",
+    "project_id": "soundki-89180",
+    "storage_bucket": "soundki-89180.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:982090275386:android:62b0225b84e9cb43",
+        "mobilesdk_app_id": "1:568276022739:android:62b0225b84e9cb43",
         "android_client_info": {
-          "package_name": "com.icaynia.soundki"
+          "package_name": "com.icaynia.madori"
         }
       },
       "oauth_client": [
         {
-          "client_id": "982090275386-5p3kcsrlt36evr5tcntb139r8fpinkfv.apps.googleusercontent.com",
+          "client_id": "568276022739-gqt5n2vf0473qg6mj52224vf9ike9ocp.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDz3YOL5RUOQGiy-BCxeJWglB2op8lMpoc"
+          "current_key": "AIzaSyBLMg2khONe6RRctX0IatrsJrsap21h2RI"
         }
       ],
       "services": {
@@ -32,7 +32,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "982090275386-5p3kcsrlt36evr5tcntb139r8fpinkfv.apps.googleusercontent.com",
+              "client_id": "568276022739-gqt5n2vf0473qg6mj52224vf9ike9ocp.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

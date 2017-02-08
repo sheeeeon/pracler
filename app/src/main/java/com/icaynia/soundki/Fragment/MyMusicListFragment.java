@@ -17,8 +17,6 @@ import com.icaynia.soundki.R;
 public class MyMusicListFragment extends Fragment
 {
     private View v;
-
-    private SearchView searchView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_mymusiclist, container, false);
