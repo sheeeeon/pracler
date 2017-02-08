@@ -79,9 +79,10 @@ public class MainActivity extends AppCompatActivity
             }
         });
         //RemoteDatabaseManager rdm = new RemoteDatabaseManager();
+    }
+    public void onController() {
 
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
