@@ -42,6 +42,10 @@ public class MusicFileManager
                 MediaStore.Audio.Media.ARTIST
         };
 
+        if (context == null) {
+            return null;
+        }
+
         Cursor cursor = context.getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
                 projection, null, null, null);
 
