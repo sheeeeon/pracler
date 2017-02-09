@@ -115,7 +115,7 @@ public class MusicService extends Service
 
     public int getPlayingMusic()
     {
-        if (songId.isEmpty())
+        if (songId == null)
         {
             return 0;
         }
