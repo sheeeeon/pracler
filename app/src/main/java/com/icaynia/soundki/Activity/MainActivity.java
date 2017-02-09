@@ -109,6 +109,9 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
+    public MusicRemoteController getMusicRemoteController() {
+        return musicRemoteController;
+    }
     public void onSnackbarController() {
         playRemoteController.show();
         snackbarState = true;

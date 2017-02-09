@@ -6,6 +6,7 @@
               android:background="#cc402b3e">
 
     <RelativeLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -48,6 +49,7 @@
                     android:gravity="center_vertical">
 
                     <TextView
+                        android:id="@+id/artistView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingBottom="3dp"
@@ -56,6 +58,7 @@
                         android:textColor="#FFF"/>
 
                     <TextView
+                        android:id="@+id/nameView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="心做し"
