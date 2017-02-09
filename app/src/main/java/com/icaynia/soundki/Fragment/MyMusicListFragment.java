@@ -51,16 +51,10 @@ public class MyMusicListFragment extends Fragment
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
                 String songId = view.getTag().toString();
-                global.musicService.playMusic(songId);
-
-
                 MusicDto song = mMusicManager.getMusicDto(songId);
-                Log.e("MyMusicListFragment", "Song : " + song.title + " Artist : " + song.artist);
-                Bitmap albumArt = mMusicManager.getAlbumImage(getContext(), Integer.parseInt(song.albumid), 70);
 
-                ((MainActivity)getActivity()).getMusicRemoteController().updateSongInfo(
-                    albumArt, song.artist, song.title
-                );
+                Log.e("MyMusicListFragment", "Song : " + song.title + " Artist : " + song.artist);
+                global.playMusic(Integer.parseInt(songId));
             }
         });
         return v;

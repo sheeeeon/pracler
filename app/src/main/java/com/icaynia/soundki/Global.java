@@ -6,9 +6,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.os.IBinder;
 
+import com.icaynia.soundki.Activity.MainActivity;
+import com.icaynia.soundki.Data.MusicFileManager;
+import com.icaynia.soundki.Model.MusicDto;
 import com.icaynia.soundki.Service.MusicService;
+import com.icaynia.soundki.View.MusicRemoteController;
 
 /**
  * Created by icaynia on 2017. 2. 8..
@@ -18,6 +23,9 @@ public class Global extends Application
 {
     public MusicService musicService;
     public Intent musicServiceIntent;
+    public MusicFileManager mMusicManager;
+
+    public MusicRemoteController mainActivityMusicRemoteController;
 
     private ServiceConnection musicServiceConnection = new ServiceConnection() {
         @Override
@@ -44,6 +52,7 @@ public class Global extends Application
             startService(musicServiceIntent);
         }
 
+        mMusicManager = new MusicFileManager(getApplicationContext());
 
     }
     @Override
@@ -59,5 +68,17 @@ public class Global extends Application
     @Override
     public void onTerminate() {
         super.onTerminate();
+    }
+
+    public void playMusic(int songId)
+    {
+        musicService.playMusic(songId+"");
+
+        if (mainActivityMusicRemoteController != null)
+        {
+            MusicDto song = mMusicManager.getMusicDto(songId+"");
+            Bitmap albumArt = mMusicManager.getAlbumImage(getApplicationContext(), Integer.parseInt(song.albumid), 100);
+            mainActivityMusicRemoteController.updateSongInfo(albumArt, song.artist, song.title);
+        }
     }
 }
