@@ -14,7 +14,7 @@ import com.icaynia.soundki.R;
 
 public class PlayerActivity extends AppCompatActivity
 {
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {

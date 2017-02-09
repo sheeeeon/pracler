@@ -6,8 +6,35 @@
               android:background="@color/colorPrimary">
 
     <TextView
+        android:id="@+id/artist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="fffffff"/>
+        android:text="まじ娘"/>
+    <TextView
+        android:id="@+id/album"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Contrast"/>
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="心做し"/>
+    <TextView
+        android:id="@+id/alltime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="4:34"/>
+    <TextView
+        android:id="@+id/nowtime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0:00"/>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:background="#50000000"/>
 
 </LinearLayout>
