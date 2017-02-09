@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,6 +44,8 @@ public class MainActivity extends AppCompatActivity
      */
     private ViewPager mViewPager;
     public Snackbar playRemoteController;
+
+    private boolean snackbarState = false;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -63,25 +66,56 @@ public class MainActivity extends AppCompatActivity
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
+        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-                playRemoteController = Snackbar.make(view, "", Snackbar.LENGTH_INDEFINITE);
-                Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) playRemoteController.getView();
-
-                View snackView = getLayoutInflater().inflate(R.layout.view_snackbar, null);
-                layout.setPadding(0, 0, 0, 0);
-                layout.addView(snackView, ActionBar.LayoutParams.MATCH_PARENT, 120);
-                playRemoteController.show();
+                if (snackbarState)
+                    hideSnackbarController();
+                else
+                    onSnackbarController();
             }
         });
+
+        makeSnackbarController(fab);
+        onSnackbarController();
+
+
         //RemoteDatabaseManager rdm = new RemoteDatabaseManager();
     }
-    public void onController() {
 
+    public void makeSnackbarController(final View view)
+    {
+        playRemoteController = Snackbar.make(view, "", Snackbar.LENGTH_INDEFINITE);
+        Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) playRemoteController.getView();
+        View snackView = getLayoutInflater().inflate(R.layout.view_snackbar, null);
+        layout.setPadding(0, 0, 0, 0);
+        layout.addView(snackView, ActionBar.LayoutParams.MATCH_PARENT, 120);
+        playRemoteController.setCallback(new Snackbar.Callback() {
+            @Override
+            public void onDismissed(Snackbar snackbar, int event)
+            {
+                super.onDismissed(snackbar, event);
+                if (event == DISMISS_EVENT_SWIPE)
+                {
+                    makeSnackbarController(view);
+                }
+                hideSnackbarController();
+            }
+        });
+    }
+
+    public void onSnackbarController() {
+        playRemoteController.show();
+        snackbarState = true;
+    }
+
+    public void hideSnackbarController() {
+        playRemoteController.dismiss();
+        snackbarState = false;
     }
 
     @Override
