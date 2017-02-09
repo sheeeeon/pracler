@@ -21,6 +21,8 @@ import org.w3c.dom.Text;
 
 public class MusicRemoteController extends LinearLayout
 {
+    private View v;
+
     private ImageView albumImageView;
     private TextView artistTextView;
     private TextView nameTextView;
@@ -39,18 +41,19 @@ public class MusicRemoteController extends LinearLayout
 
     private void onCreate()
     {
-        this.viewInitialize();
         String infService = Context.LAYOUT_INFLATER_SERVICE;
         LayoutInflater li = (LayoutInflater) getContext().getSystemService(infService);
-        View v = li.inflate(R.layout.view_music_remote_controller, this, false);
+        v = li.inflate(R.layout.view_music_remote_controller, this, false);
         addView(v);
+        this.viewInitialize();
+
     }
 
     private void viewInitialize()
     {
-        albumImageView = (ImageView) findViewById(R.id.imageView);
-        artistTextView = (TextView) findViewById(R.id.artistView);
-        nameTextView = (TextView) findViewById(R.id.nameView);
+        albumImageView = (ImageView) v.findViewById(R.id.imageView);
+        artistTextView = (TextView) v.findViewById(R.id.artistView);
+        nameTextView = (TextView) v.findViewById(R.id.nameView);
     }
 
     public void setOnClickListener(OnClickListener listener)

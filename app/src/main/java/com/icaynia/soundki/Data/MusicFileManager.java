@@ -63,6 +63,35 @@ public class MusicFileManager
         return mediaList;
     }
 
+    public MusicDto getMusicDto(String id)
+    {
+        String[] projection = {
+                MediaStore.Audio.Media._ID,
+                MediaStore.Audio.Media.ALBUM_ID,
+                MediaStore.Audio.Media.TITLE,
+                MediaStore.Audio.Media.ARTIST
+        };
+
+        if (context == null)
+        {
+            return null;
+        }
+
+        Cursor cursor = context.getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                projection, null, null, null);
+
+        MusicDto musicDto = new MusicDto();
+        while(cursor.moveToNext()){
+            musicDto.id = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media._ID));
+            musicDto.albumid = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID));
+            musicDto.title = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE));
+            musicDto.artist = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST));
+        }
+
+        return musicDto;
+
+    }
+
     public Bitmap getAlbumImage(Context context, int album_id, int MAX_IMAGE_SIZE) {
         // NOTE: There is in fact a 1 pixel frame in the ImageView used to
         // display this drawable. Take it into account now, so we don't have to

@@ -2,6 +2,7 @@ package com.icaynia.soundki.Fragment;
 
 import android.content.Context;
 import android.database.DataSetObserver;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import com.icaynia.soundki.Activity.MainActivity;
 import com.icaynia.soundki.Data.MusicFileManager;
 import com.icaynia.soundki.Global;
 import com.icaynia.soundki.Model.MusicDto;
@@ -50,12 +52,17 @@ public class MyMusicListFragment extends Fragment
             {
                 String songId = view.getTag().toString();
                 global.musicService.playMusic(songId);
+
+
+                MusicDto song = mMusicManager.getMusicDto(songId);
+                Log.e("MyMusicListFragment", "Song : " + song.title + " Artist : " + song.artist);
+                Bitmap albumArt = mMusicManager.getAlbumImage(getContext(), Integer.parseInt(song.albumid), 70);
+
+                ((MainActivity)getActivity()).getMusicRemoteController().updateSongInfo(
+                    albumArt, song.artist, song.title
+                );
             }
         });
         return v;
     }
-
-
-
-
 }
