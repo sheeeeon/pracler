@@ -45,11 +45,13 @@ public class MainActivity extends AppCompatActivity
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
-    public Snackbar playRemoteController;
+    public  Snackbar playRemoteController;
 
     private MusicRemoteController musicRemoteController;
 
     private boolean snackbarState = false;
+
+    private Snackbar.SnackbarLayout layout;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -95,16 +97,14 @@ public class MainActivity extends AppCompatActivity
 
         global = (Global) getApplication();
         global.mainActivityMusicRemoteController = musicRemoteController;
-
     }
 
     public void onPlayerActivity()
     {
-
         Intent intent = new Intent(this, PlayerActivity.class);
         startActivity(intent);
     }
-    Snackbar.SnackbarLayout layout;
+
     public void makeSnackbarController(final View view)
     {
         playRemoteController = Snackbar.make(view, "", Snackbar.LENGTH_INDEFINITE);

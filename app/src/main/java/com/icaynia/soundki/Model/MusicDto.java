@@ -8,6 +8,7 @@ public class MusicDto
 {
     public String id;
     public String albumid;
+    public String albumName;
     public String title;
     public String artist;
 

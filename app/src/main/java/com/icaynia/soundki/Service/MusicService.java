@@ -22,7 +22,7 @@ public class MusicService extends Service
     public boolean playing = false;
     public int position;
 
-    public MusicDto song = new MusicDto();
+    private String songId;
 
     //binder
     private final IBinder musicBind = new MusicBinder();
@@ -31,7 +31,7 @@ public class MusicService extends Service
         public void run(){
             try {
                 Uri musicURI = Uri.withAppendedPath(
-                        MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, song.id);
+                        MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, songId);
                 mediaPlayer.reset();
                 mediaPlayer.setDataSource(getApplicationContext(), musicURI);
                 mediaPlayer.prepare();
@@ -98,11 +98,10 @@ public class MusicService extends Service
 
     public void playMusic(String songId)
     {
-        this.song.id = songId;
+        this.songId = songId;
         new Thread(task).start();
         playing = true;
     }
-
 
     public void start() {
         mediaPlayer.start();
@@ -112,5 +111,14 @@ public class MusicService extends Service
     public void pause() {
         mediaPlayer.pause();
         playing = false;
+    }
+
+    public int getPlayingMusic()
+    {
+        if (songId.isEmpty())
+        {
+            return 0;
+        }
+        return Integer.parseInt(songId);
     }
 }
