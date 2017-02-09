@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -45,6 +46,14 @@ public class PlayerActivity extends AppCompatActivity
         alltimeView = (TextView) findViewById(R.id.alltime);
         nowTime = (TextView) findViewById(R.id.nowtime);
         albumImageView = (ImageView) findViewById(R.id.albumView);
+
+        albumImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                global.musicService.pause();
+            }
+        });
     }
 
     public void update()
