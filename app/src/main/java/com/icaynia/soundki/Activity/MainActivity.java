@@ -90,11 +90,11 @@ public class MainActivity extends AppCompatActivity
         global.mainActivityMusicRemoteController = musicRemoteController;
 
     }
-
+    Snackbar.SnackbarLayout layout;
     public void makeSnackbarController(final View view)
     {
         playRemoteController = Snackbar.make(view, "", Snackbar.LENGTH_INDEFINITE);
-        Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) playRemoteController.getView();
+        layout = (Snackbar.SnackbarLayout) playRemoteController.getView();
         layout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
         View snackView = musicRemoteController;
         layout.setPadding(0, 0, 0, 0);
