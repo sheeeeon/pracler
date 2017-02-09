@@ -70,6 +70,7 @@ public class MusicFileManager
         Log.e("first", id);
         String[] projection = {
                 MediaStore.Audio.Media._ID,
+                MediaStore.Audio.Media.ALBUM,
                 MediaStore.Audio.Media.ALBUM_ID,
                 MediaStore.Audio.Media.TITLE,
                 MediaStore.Audio.Media.ARTIST
@@ -86,6 +87,7 @@ public class MusicFileManager
         MusicDto musicDto = new MusicDto();
         while(cursor.moveToNext()){
             musicDto.id = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media._ID));
+            musicDto.album = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM));
             musicDto.albumid = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID));
             musicDto.title = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE));
             musicDto.artist = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST));

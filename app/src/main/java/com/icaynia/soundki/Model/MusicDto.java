@@ -7,8 +7,8 @@ package com.icaynia.soundki.Model;
 public class MusicDto
 {
     public String id;
+    public String album;
     public String albumid;
-    public String albumName;
     public String title;
     public String artist;
 

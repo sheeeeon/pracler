@@ -54,7 +54,7 @@ public class PlayerActivity extends AppCompatActivity
         {
             MusicDto playingSong = global.mMusicManager.getMusicDto(songId+"");
             artistView.setText(playingSong.artist);
-            album.setText(playingSong.albumName);
+            album.setText(playingSong.album);
             titleView.setText(playingSong.title);
             Bitmap albumImage = global.mMusicManager.getAlbumImage(this, Integer.parseInt(playingSong.albumid), 200);
             albumImageView.setImageBitmap(albumImage);
