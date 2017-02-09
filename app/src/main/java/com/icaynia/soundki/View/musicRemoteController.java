@@ -46,7 +46,6 @@ public class MusicRemoteController extends LinearLayout
         v = li.inflate(R.layout.view_music_remote_controller, this, false);
         addView(v);
         this.viewInitialize();
-
     }
 
     private void viewInitialize()

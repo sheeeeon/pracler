@@ -70,6 +70,13 @@ public class MainActivity extends AppCompatActivity
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
         musicRemoteController = new MusicRemoteController(this);
+        musicRemoteController.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                onPlayerActivity();
+            }
+        });
 
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener()
@@ -89,6 +96,13 @@ public class MainActivity extends AppCompatActivity
         global = (Global) getApplication();
         global.mainActivityMusicRemoteController = musicRemoteController;
 
+    }
+
+    public void onPlayerActivity()
+    {
+
+        Intent intent = new Intent(this, PlayerActivity.class);
+        startActivity(intent);
     }
     Snackbar.SnackbarLayout layout;
     public void makeSnackbarController(final View view)
