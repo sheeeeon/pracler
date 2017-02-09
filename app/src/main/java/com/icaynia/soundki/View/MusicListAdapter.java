@@ -34,7 +34,8 @@ public class MusicListAdapter extends BaseAdapter
     {
         this.context = context;
         Log.e("test", context.getPackageName());
-        //inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+        this.list = list;
+        inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
@@ -88,7 +89,7 @@ public class MusicListAdapter extends BaseAdapter
         private static final String TAG = "AlbumImageTask";
         private int position;
         private ImageView imgView;
-        private MusicFileManager mMusicFileManager;
+        private MusicFileManager mMusicFileManager = new MusicFileManager(context);
 
         public void setImgView(ImageView _imgView)
         {
