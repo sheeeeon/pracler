@@ -25,6 +25,7 @@ import com.icaynia.soundki.Fragment.HomeFragment;
 import com.icaynia.soundki.Fragment.MyMusicListFragment;
 import com.icaynia.soundki.Fragment.ProfileFragment;
 import com.icaynia.soundki.R;
+import com.icaynia.soundki.View.MusicRemoteController;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -44,6 +45,8 @@ public class MainActivity extends AppCompatActivity
      */
     private ViewPager mViewPager;
     public Snackbar playRemoteController;
+
+    private MusicRemoteController musicRemoteController;
 
     private boolean snackbarState = false;
     @Override
@@ -65,7 +68,7 @@ public class MainActivity extends AppCompatActivity
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-
+        musicRemoteController = new MusicRemoteController(this);
 
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener()
@@ -81,17 +84,13 @@ public class MainActivity extends AppCompatActivity
         });
 
         makeSnackbarController(fab);
-        onSnackbarController();
-
-
-        //RemoteDatabaseManager rdm = new RemoteDatabaseManager();
     }
 
     public void makeSnackbarController(final View view)
     {
         playRemoteController = Snackbar.make(view, "", Snackbar.LENGTH_INDEFINITE);
         Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) playRemoteController.getView();
-        View snackView = getLayoutInflater().inflate(R.layout.view_snackbar, null);
+        View snackView = musicRemoteController;
         layout.setPadding(0, 0, 0, 0);
         layout.addView(snackView, ActionBar.LayoutParams.MATCH_PARENT, 120);
         playRemoteController.setCallback(new Snackbar.Callback() {

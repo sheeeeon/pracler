@@ -26,9 +26,14 @@
         <LinearLayout
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:background="#8000"
+            android:background="#4000"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/ic_play_black"/>
 
         </LinearLayout>
 
