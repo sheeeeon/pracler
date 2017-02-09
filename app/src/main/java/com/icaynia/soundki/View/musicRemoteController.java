@@ -40,4 +40,6 @@ public class MusicRemoteController extends LinearLayout
     {
 
     }
+
+
 }

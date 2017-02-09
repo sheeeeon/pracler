@@ -101,6 +101,7 @@ public class MainActivity extends AppCompatActivity
                 super.onDismissed(snackbar, event);
                 if (event == DISMISS_EVENT_SWIPE)
                 {
+                    ((Snackbar.SnackbarLayout) playRemoteController.getView()).removeAllViews();
                     makeSnackbarController(view);
                 }
                 hideSnackbarController();
