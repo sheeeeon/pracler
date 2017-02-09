@@ -3,7 +3,7 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="60dp"
-              android:background="@color/colorPrimary">
+              android:background="#B000">
 
     <RelativeLayout
         android:layout_width="match_parent"

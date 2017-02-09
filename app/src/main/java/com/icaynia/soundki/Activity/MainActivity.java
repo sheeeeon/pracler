@@ -90,6 +90,7 @@ public class MainActivity extends AppCompatActivity
     {
         playRemoteController = Snackbar.make(view, "", Snackbar.LENGTH_INDEFINITE);
         Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) playRemoteController.getView();
+        layout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
         View snackView = musicRemoteController;
         layout.setPadding(0, 0, 0, 0);
         layout.addView(snackView, ActionBar.LayoutParams.MATCH_PARENT, 120);
