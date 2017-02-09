@@ -1,6 +1,7 @@
 package com.icaynia.soundki.Data;
 
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -8,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
+import android.util.Log;
 
 import com.icaynia.soundki.Model.MusicDto;
 
@@ -65,6 +67,7 @@ public class MusicFileManager
 
     public MusicDto getMusicDto(String id)
     {
+        Log.e("first", id);
         String[] projection = {
                 MediaStore.Audio.Media._ID,
                 MediaStore.Audio.Media.ALBUM_ID,
@@ -76,8 +79,8 @@ public class MusicFileManager
         {
             return null;
         }
-
-        Cursor cursor = context.getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+        Uri singleUri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,Integer.parseInt(id));
+        Cursor cursor = context.getContentResolver().query(singleUri,
                 projection, null, null, null);
 
         MusicDto musicDto = new MusicDto();
@@ -86,6 +89,7 @@ public class MusicFileManager
             musicDto.albumid = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID));
             musicDto.title = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE));
             musicDto.artist = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST));
+            Log.e("tag", musicDto.id + " , " + musicDto.title);
         }
 
         return musicDto;
