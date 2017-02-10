@@ -8,6 +8,7 @@ import android.content.ServiceConnection;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.os.IBinder;
+import android.util.Log;
 
 import com.icaynia.soundki.Activity.MainActivity;
 import com.icaynia.soundki.Data.MusicFileManager;
@@ -33,6 +34,9 @@ public class Global extends Application
         {
             MusicService.MusicBinder binder = (MusicService.MusicBinder) service;
             musicService = binder.getService();
+            musicService.getPlayingMusic();
+
+            updateController();
         }
 
         @Override
@@ -73,9 +77,16 @@ public class Global extends Application
     public void playMusic(int songId)
     {
         musicService.playMusic(songId+"");
+        updateController();
+    }
 
-        if (mainActivityMusicRemoteController != null)
+    public void updateController()
+    {
+        if (mainActivityMusicRemoteController != null && musicService != null)
         {
+            int songId = musicService.getPlayingMusic();
+            if (songId == 0) return;
+            Log.e("global.updateController", musicService.getPlayingMusic()+"");
             MusicDto song = mMusicManager.getMusicDto(songId+"");
             Bitmap albumArt = mMusicManager.getAlbumImage(getApplicationContext(), Integer.parseInt(song.albumid), 100);
             mainActivityMusicRemoteController.updateSongInfo(albumArt, song.artist, song.title);
