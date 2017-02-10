@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
-              android:layout_width="match_parent"
+              android:layout_width="wrap_content"
               android:layout_height="match_parent"
-              android:background="@color/colorPrimary">
+              android:background="@color/colorPrimary"
+              android:id="@+id/contentBox">
 
     <LinearLayout
-        android:id="@+id/action_bar"
+        android:id="@+id/actionbar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:orientation="vertical"
@@ -24,7 +25,7 @@
             android:text="Contrast"/>
 
     </LinearLayout>
-    
+
     <LinearLayout
         android:id="@+id/remote_controller"
         android:layout_width="match_parent"
@@ -45,9 +46,9 @@
                 android:gravity="center_vertical|center_horizontal">
 
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/ic_play_black"/>
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:background="@drawable/ic_favorite_border_white"/>
 
             </LinearLayout>
 
@@ -97,9 +98,9 @@
                 android:gravity="center_vertical|center_horizontal">
 
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/ic_play_black"/>
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="@drawable/ic_more_vert_white"/>
 
             </LinearLayout>
 
@@ -131,10 +132,21 @@
         android:layout_height="wrap_content"
         android:text="0:00"/>
 
-    <ImageView
-        android:id="@+id/albumView"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:background="#50000000"/>
+    <LinearLayout
+        android:id="@+id/albumViewContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <ImageView
+            android:id="@+id/albumView"
+            android:layout_width="120px"
+            android:layout_height="120px"
+            android:orientation="vertical"
+            android:foreground="#60000000"/>
+
+    </LinearLayout>
+
 
 </RelativeLayout>

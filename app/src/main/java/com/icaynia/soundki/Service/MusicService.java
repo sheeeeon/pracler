@@ -60,7 +60,6 @@ public class MusicService extends Service
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.e("test", "onStartCommand");
-        position = intent.getIntExtra("position", 0);
 
         return super.onStartCommand(intent, flags, startId);
     }
