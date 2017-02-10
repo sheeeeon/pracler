@@ -97,7 +97,10 @@ public class MainActivity extends AppCompatActivity
         global = (Global) getApplication();
         global.mainActivityMusicRemoteController = musicRemoteController;
         global.updateController();
+<<<<<<< HEAD
 
+=======
+>>>>>>> 924392837876935144901933ea7e5157a55e44a0
     }
 
     public void onPlayerActivity()

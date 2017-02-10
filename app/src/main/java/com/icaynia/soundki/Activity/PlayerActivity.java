@@ -5,7 +5,10 @@ import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+<<<<<<< HEAD
 import android.util.Log;
+=======
+>>>>>>> 924392837876935144901933ea7e5157a55e44a0
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +57,10 @@ public class PlayerActivity extends AppCompatActivity
         albumImageView = (ImageView) findViewById(R.id.albumView);
         albumViewContainer = (LinearLayout) findViewById(R.id.albumViewContainer);
         Point point = getScreenSize();
+<<<<<<< HEAD
+=======
+        albumViewContainer.setMinimumWidth(1000);
+>>>>>>> 924392837876935144901933ea7e5157a55e44a0
         albumImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -72,6 +79,7 @@ public class PlayerActivity extends AppCompatActivity
             artistView.setText(playingSong.artist);
             album.setText(playingSong.album);
             titleView.setText(playingSong.title);
+<<<<<<< HEAD
             Bitmap albumImage = global.mMusicManager.getAlbumImage(this, Integer.parseInt(playingSong.albumid), getScreenSize().y);
 
             Log.e("screensize", getScreenSize().x+" "+getScreenSize().y+" bitmap : "+albumImage.getWidth());
@@ -99,8 +107,24 @@ public class PlayerActivity extends AppCompatActivity
                 , getScreenSize().y - 1); // 높이 (원본의 절반 크기)
         if (result != original) {
             original.recycle();
+=======
+            Bitmap albumImage = global.mMusicManager.getAlbumImage(this, Integer.parseInt(playingSong.albumid), 400);
+            albumImageView.setImageBitmap(albumImage);
+>>>>>>> 924392837876935144901933ea7e5157a55e44a0
         }
         return result;
     }
 
+<<<<<<< HEAD
 }
+=======
+    public Point getScreenSize()
+    {
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+
+        return size;
+    }
+}
+>>>>>>> 924392837876935144901933ea7e5157a55e44a0

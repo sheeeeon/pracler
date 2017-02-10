@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<<<<<<< HEAD
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
@@ -27,6 +28,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#9000"/>
+=======
+              android:orientation="vertical"
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:background="@color/colorPrimary"
+              android:id="@+id/contentBox">
+>>>>>>> 924392837876935144901933ea7e5157a55e44a0
 
     <LinearLayout
         android:id="@+id/actionbar"
@@ -70,7 +78,11 @@
                 <ImageView
                     android:layout_width="26dp"
                     android:layout_height="26dp"
+<<<<<<< HEAD
                     app:srcCompat="@drawable/ic_favorite_border_white"/>
+=======
+                    android:background="@drawable/ic_favorite_border_white"/>
+>>>>>>> 924392837876935144901933ea7e5157a55e44a0
 
             </LinearLayout>
 
@@ -83,7 +95,11 @@
                 <ImageView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
+<<<<<<< HEAD
                     app:srcCompat="@drawable/ic_previous_white"/>
+=======
+                    android:background="@drawable/ic_previous_white"/>
+>>>>>>> 924392837876935144901933ea7e5157a55e44a0
 
             </LinearLayout>
 
@@ -96,7 +112,11 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
+<<<<<<< HEAD
                     app:srcCompat="@drawable/ic_play_white"/>
+=======
+                    android:background="@drawable/ic_play_white"/>
+>>>>>>> 924392837876935144901933ea7e5157a55e44a0
 
             </LinearLayout>
 
@@ -109,7 +129,11 @@
                 <ImageView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
+<<<<<<< HEAD
                     app:srcCompat="@drawable/ic_next_white"/>
+=======
+                    android:background="@drawable/ic_next_white"/>
+>>>>>>> 924392837876935144901933ea7e5157a55e44a0
 
             </LinearLayout>
 
@@ -122,7 +146,11 @@
                 <ImageView
                     android:layout_width="32dp"
                     android:layout_height="32dp"
+<<<<<<< HEAD
                     app:srcCompat="@drawable/ic_more_vert_white"/>
+=======
+                    android:background="@drawable/ic_more_vert_white"/>
+>>>>>>> 924392837876935144901933ea7e5157a55e44a0
 
             </LinearLayout>
 
@@ -154,7 +182,27 @@
         android:layout_height="wrap_content"
         android:text="0:00"/>
 
+<<<<<<< HEAD
 
 
 
+=======
+    <LinearLayout
+        android:id="@+id/albumViewContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <ImageView
+            android:id="@+id/albumView"
+            android:layout_width="120px"
+            android:layout_height="120px"
+            android:orientation="vertical"
+            android:foreground="#60000000"/>
+
+    </LinearLayout>
+
+
+>>>>>>> 924392837876935144901933ea7e5157a55e44a0
 </RelativeLayout>
