@@ -1,10 +1,16 @@
 package com.icaynia.soundki.Activity;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
+import android.renderscript.Allocation;
+import android.renderscript.Element;
+import android.renderscript.RenderScript;
+import android.renderscript.ScriptIntrinsicBlur;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
@@ -25,12 +31,15 @@ import com.icaynia.soundki.R;
 
 public class PlayerActivity extends AppCompatActivity
 {
+    private boolean ENABLE_NO_STATUSBAR = true;
+
     private Global global;
     private TextView artistView;
     private TextView album;
     private TextView titleView;
     private TextView alltimeView;
     private TextView nowTime;
+    private ImageView albumImageBackgroundView;
     private ImageView albumImageView;
     private LinearLayout albumViewContainer;
     @Override
@@ -42,6 +51,8 @@ public class PlayerActivity extends AppCompatActivity
         initializeView();
         global = (Global) getApplication();
         update();
+
+
     }
 
     public void initializeView()
@@ -52,6 +63,7 @@ public class PlayerActivity extends AppCompatActivity
         alltimeView = (TextView) findViewById(R.id.alltime);
         nowTime = (TextView) findViewById(R.id.nowtime);
         albumImageView = (ImageView) findViewById(R.id.albumView);
+        albumImageBackgroundView = (ImageView) findViewById(R.id.albumView_blur);
         albumViewContainer = (LinearLayout) findViewById(R.id.albumViewContainer);
         Point point = getScreenSize();
         albumImageView.setOnClickListener(new View.OnClickListener() {
@@ -61,6 +73,11 @@ public class PlayerActivity extends AppCompatActivity
                 global.musicService.pause();
             }
         });
+
+        if (ENABLE_NO_STATUSBAR && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window w = getWindow(); // in Activity's onCreate() for instance
+            w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        }
     }
 
     public void update()
@@ -73,9 +90,10 @@ public class PlayerActivity extends AppCompatActivity
             album.setText(playingSong.album);
             titleView.setText(playingSong.title);
             Bitmap albumImage = global.mMusicManager.getAlbumImage(this, Integer.parseInt(playingSong.albumid), getScreenSize().y);
-
+            albumImageView.setImageBitmap(albumImage);
+            albumImage = blur(this, albumImage, 15);
             Log.e("screensize", getScreenSize().x+" "+getScreenSize().y+" bitmap : "+albumImage.getWidth());
-            albumImageView.setImageBitmap(cropBitmap(albumImage));
+            albumImageBackgroundView.setImageBitmap(cropBitmap(albumImage));
         }
     }
 
@@ -85,6 +103,12 @@ public class PlayerActivity extends AppCompatActivity
         Point size = new Point();
         display.getSize(size);
 
+        DisplayMetrics dm = getApplicationContext().getResources().getDisplayMetrics();
+        int width = dm.widthPixels;
+        int height = dm.heightPixels;
+
+        Log.e("renewsize ", width + ", " + height);
+        size.y = 1280;
         return size;
     }
 
@@ -101,6 +125,27 @@ public class PlayerActivity extends AppCompatActivity
             original.recycle();
         }
         return result;
+    }
+
+    public static Bitmap blur(Context context, Bitmap sentBitmap, int radius) {
+
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
+            Bitmap bitmap = sentBitmap.copy(sentBitmap.getConfig(), true);
+
+            final RenderScript rs = RenderScript.create(context);
+            final Allocation input = Allocation.createFromBitmap(rs, sentBitmap, Allocation.MipmapControl.MIPMAP_NONE,
+                    Allocation.USAGE_SCRIPT);
+            final Allocation output = Allocation.createTyped(rs, input.getType());
+            final ScriptIntrinsicBlur script = ScriptIntrinsicBlur.create(rs, Element.U8_4(rs));
+            script.setRadius(radius); //0.0f ~ 25.0f
+            script.setInput(input);
+            script.forEach(output);
+            output.copyTo(bitmap);
+            return bitmap;
+        } else {
+            return sentBitmap;
+        }
+
     }
 
 }

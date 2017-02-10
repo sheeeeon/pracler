@@ -52,11 +52,13 @@ public class MyMusicListFragment extends Fragment
             {
                 String songId = view.getTag().toString();
                 MusicDto song = mMusicManager.getMusicDto(songId);
+                ((MainActivity)getContext()).onSnackbarController();
 
                 Log.e("MyMusicListFragment", "Song : " + song.title + " Artist : " + song.artist);
                 global.playMusic(Integer.parseInt(songId));
             }
         });
+
         return v;
     }
 }
