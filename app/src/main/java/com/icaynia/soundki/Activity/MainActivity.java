@@ -57,7 +57,6 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
@@ -97,6 +96,8 @@ public class MainActivity extends AppCompatActivity
 
         global = (Global) getApplication();
         global.mainActivityMusicRemoteController = musicRemoteController;
+        global.updateController();
+
     }
 
     public void onPlayerActivity()
@@ -112,7 +113,7 @@ public class MainActivity extends AppCompatActivity
         layout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
         View snackView = musicRemoteController;
         layout.setPadding(0, 0, 0, 0);
-        layout.addView(snackView, ActionBar.LayoutParams.MATCH_PARENT, 160);
+        layout.addView(snackView, Snackbar.SnackbarLayout.LayoutParams.MATCH_PARENT, 160);
         playRemoteController.setCallback(new Snackbar.Callback() {
             @Override
             public void onDismissed(Snackbar snackbar, int event)

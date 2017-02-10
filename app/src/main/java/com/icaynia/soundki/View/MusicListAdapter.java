@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.icaynia.soundki.Data.MusicFileManager;
@@ -62,7 +63,7 @@ public class MusicListAdapter extends BaseAdapter
         if (convertView == null)
         {
             convertView = inflater.inflate(R.layout.view_list_musicrows, parent, false);
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            ListView.LayoutParams layoutParams = new ListView.LayoutParams(ListView.LayoutParams.MATCH_PARENT, ListView.LayoutParams.MATCH_PARENT);
             convertView.setLayoutParams(layoutParams);
         }
 
