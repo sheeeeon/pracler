@@ -80,11 +80,11 @@ public class PlayerActivity extends AppCompatActivity
         BUTTON_FAVORITE = (LinearLayout) findViewById(R.id.button_favorite);
         BUTTON_PREVIOUS = (LinearLayout) findViewById(R.id.button_previous);
         BUTTON_PLAY = (LinearLayout) findViewById(R.id.button_play);
+        IMAGE_PLAY = (ImageView) findViewById(R.id.button_play_icon);
         BUTTON_PLAY.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
-                IMAGE_PLAY = (ImageView) findViewById(R.id.button_play_icon);
                 boolean playState = global.musicService.playing;
                 Drawable icon;
                 if (playState)
