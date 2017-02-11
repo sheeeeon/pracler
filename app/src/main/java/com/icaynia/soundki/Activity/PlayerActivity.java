@@ -20,11 +20,13 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.icaynia.soundki.Global;
 import com.icaynia.soundki.Model.MusicDto;
 import com.icaynia.soundki.R;
+import com.icaynia.soundki.View.MusicSeekBar;
 
 /**
  * Created by icaynia on 2017. 2. 10..
@@ -56,6 +58,8 @@ public class PlayerActivity extends AppCompatActivity
     private LinearLayout BUTTON_MENU;
         private ImageView IMAGE_MENU;
 
+    private MusicSeekBar musicTimeBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -65,6 +69,10 @@ public class PlayerActivity extends AppCompatActivity
         initializeView();
         global = (Global) getApplication();
         update();
+
+        MusicTimeBarControlThread thread = new MusicTimeBarControlThread();
+        thread.run();
+
     }
 
     public void initializeView()
@@ -85,6 +93,7 @@ public class PlayerActivity extends AppCompatActivity
         BUTTON_NEXT = (LinearLayout) findViewById(R.id.button_next);
         BUTTON_MENU = (LinearLayout) findViewById(R.id.button_more);
         BUTTON_MENU.setOnClickListener(onClickMenuButton);
+        musicTimeBar = (MusicSeekBar) findViewById(R.id.musicTimeBar);
         Point point = getScreenSize();
         albumImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,6 +112,7 @@ public class PlayerActivity extends AppCompatActivity
     public void update()
     {
         int songId = global.musicService.getPlayingMusic();
+        /** 음악이 활성화되어있을 때 */
         if (songId != 0)
         {
             MusicDto playingSong = global.mMusicManager.getMusicDto(songId+"");
@@ -119,9 +129,20 @@ public class PlayerActivity extends AppCompatActivity
                 Log.e("screensize", getScreenSize().x+" "+getScreenSize().y+" bitmap : "+albumImage.getWidth());
                 albumImageBackgroundView.setImageBitmap(cropBitmap(albumImage));
             }
-            IMAGE_PLAY.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause_white));
+            /** 음악이 일시정지되어 있을 때 */
+            if (!global.musicService.playing)
+            {
+                IMAGE_PLAY.setImageDrawable(getResources().getDrawable(R.drawable.ic_play_white));
+            }
+            /** 음악이 플레이 중일 때 */
+            else
+            {
+                IMAGE_PLAY.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause_white));
+            }
         }
-        else
+
+        /** 음악 정지중일때 */
+        else if (songId == 0)
         {
             IMAGE_PLAY.setImageDrawable(getResources().getDrawable(R.drawable.ic_play_white));
         }
@@ -147,6 +168,7 @@ public class PlayerActivity extends AppCompatActivity
             IMAGE_PLAY.setImageDrawable(icon);
         }
     };
+
 
     public View.OnClickListener onClickMenuButton = new View.OnClickListener() {
         @Override
@@ -206,7 +228,28 @@ public class PlayerActivity extends AppCompatActivity
         } else {
             return sentBitmap;
         }
+    }
 
+    public class MusicTimeBarControlThread extends Thread
+    {
+        public void run() {
+            while (true)
+            {
+                if (global.musicService.getPlayingMusic() == 0) {
+                    break;
+                }
+                try {
+
+                    Log.e("Thread", global.musicService.getPlayingMusicCurrentPosition()+"");
+                    //this.sleep(100);
+                }
+                catch (Exception e)
+                {
+
+                }
+            }
+
+        }
     }
 
 }

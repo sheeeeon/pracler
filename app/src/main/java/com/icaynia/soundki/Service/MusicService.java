@@ -3,6 +3,7 @@ package com.icaynia.soundki.Service;
 import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.media.TimedText;
 import android.net.Uri;
 import android.os.Binder;
 import android.os.IBinder;
@@ -42,6 +43,11 @@ public class MusicService extends Service
                 mediaPlayer.setDataSource(getApplicationContext(), musicURI);
                 mediaPlayer.prepare();
                 mediaPlayer.start();
+
+                mediaPlayer.getCurrentPosition();
+
+                Log.e("MusicService", "getCurrentPosition:\n" + mediaPlayer.getCurrentPosition()+
+                        "\n\n getDuration():\n"+mediaPlayer.getDuration());
             }
             catch (Exception e) {
                 Log.e("SimplePlayer.", e.getMessage());
@@ -104,6 +110,8 @@ public class MusicService extends Service
         this.songId = songId;
         new Thread(task).start();
         playing = true;
+        /** for test */
+        getPlayingMusicCurrentPosition();
     }
 
     public void start() {
@@ -123,5 +131,15 @@ public class MusicService extends Service
             return 0;
         }
         return Integer.parseInt(songId);
+    }
+
+    public int getPlayingMusicDuration()
+    {
+        return mediaPlayer.getDuration();
+    }
+
+    public int getPlayingMusicCurrentPosition()
+    {
+        return mediaPlayer.getCurrentPosition();
     }
 }
