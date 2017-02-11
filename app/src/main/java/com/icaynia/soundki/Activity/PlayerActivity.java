@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -70,8 +71,21 @@ public class PlayerActivity extends AppCompatActivity
         global = (Global) getApplication();
         update();
 
-        MusicTimeBarControlThread thread = new MusicTimeBarControlThread();
-        thread.run();
+        musicTimeBar.setMaxValue(global.musicService.getPlayingMusicDuration());
+        musicTimeBar.setProgress(global.musicService.getPlayingMusicCurrentPosition());
+        Thread myThread = new Thread(new Runnable() {
+            public void run() {
+                while (true) {
+                    try {
+                        musicTimeBar.setProgress(global.musicService.getPlayingMusicCurrentPosition());
+                        Thread.sleep(300);
+                    } catch (Throwable t) {
+                    }
+                }
+            }
+        });
+
+        myThread.start();
 
     }
 
@@ -94,6 +108,17 @@ public class PlayerActivity extends AppCompatActivity
         BUTTON_MENU = (LinearLayout) findViewById(R.id.button_more);
         BUTTON_MENU.setOnClickListener(onClickMenuButton);
         musicTimeBar = (MusicSeekBar) findViewById(R.id.musicTimeBar);
+        musicTimeBar.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event)
+            {
+                if (event.getAction() == MotionEvent.ACTION_UP)
+                {
+                    global.musicService.mediaPlayer.seekTo(musicTimeBar.getProgress());
+                }
+                return false;
+            }
+        });
         Point point = getScreenSize();
         albumImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -227,28 +252,6 @@ public class PlayerActivity extends AppCompatActivity
             return bitmap;
         } else {
             return sentBitmap;
-        }
-    }
-
-    public class MusicTimeBarControlThread extends Thread
-    {
-        public void run() {
-            while (true)
-            {
-                if (global.musicService.getPlayingMusic() == 0) {
-                    break;
-                }
-                try {
-
-                    Log.e("Thread", global.musicService.getPlayingMusicCurrentPosition()+"");
-                    //this.sleep(100);
-                }
-                catch (Exception e)
-                {
-
-                }
-            }
-
         }
     }
 
