@@ -18,7 +18,13 @@ import com.icaynia.soundki.Model.MusicDto;
 public class MusicService extends Service
 {
     public MediaPlayer mediaPlayer = new MediaPlayer();
-
+    /**
+     *  NOTE :
+     *  The variable of 'playing' changes the following state:
+     *  when it playing something = true.
+     *  when it paused = false.
+     *  when it stopped = false.
+     */
     public boolean playing = false;
     public int position;
 
@@ -49,9 +55,7 @@ public class MusicService extends Service
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                // 노래가 끝나면
-                // TODO Auto-generated method stub
-
+                playing = false;
             }
         });
 

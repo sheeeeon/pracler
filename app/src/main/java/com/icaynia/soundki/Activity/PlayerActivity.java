@@ -3,6 +3,7 @@ package com.icaynia.soundki.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Point;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.renderscript.Allocation;
@@ -42,6 +43,19 @@ public class PlayerActivity extends AppCompatActivity
     private ImageView albumImageBackgroundView;
     private ImageView albumImageView;
     private LinearLayout albumViewContainer;
+
+
+    private LinearLayout BUTTON_FAVORITE;
+        private ImageView IMAGE_FAVORITE;
+    private LinearLayout BUTTON_PREVIOUS;
+        private ImageView IMAGE_PREVIOUS;
+    private LinearLayout BUTTON_PLAY;
+        private ImageView IMAGE_PLAY;
+    private LinearLayout BUTTON_NEXT;
+        private ImageView IMAGE_NEXT;
+    private LinearLayout BUTTON_MENU;
+        private ImageView IMAGE_MENU;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -51,8 +65,6 @@ public class PlayerActivity extends AppCompatActivity
         initializeView();
         global = (Global) getApplication();
         update();
-
-
     }
 
     public void initializeView()
@@ -65,6 +77,31 @@ public class PlayerActivity extends AppCompatActivity
         albumImageView = (ImageView) findViewById(R.id.albumView);
         albumImageBackgroundView = (ImageView) findViewById(R.id.albumView_blur);
         albumViewContainer = (LinearLayout) findViewById(R.id.albumViewContainer);
+        BUTTON_FAVORITE = (LinearLayout) findViewById(R.id.button_favorite);
+        BUTTON_PREVIOUS = (LinearLayout) findViewById(R.id.button_previous);
+        BUTTON_PLAY = (LinearLayout) findViewById(R.id.button_play);
+        BUTTON_PLAY.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                IMAGE_PLAY = (ImageView) findViewById(R.id.button_play_icon);
+                boolean playState = global.musicService.playing;
+                Drawable icon;
+                if (playState)
+                {
+                    global.musicService.pause();
+                    icon = getResources().getDrawable(R.drawable.ic_play_white);
+                }
+                else
+                {
+                    global.musicService.start();
+                    icon = getResources().getDrawable(R.drawable.ic_pause_white);
+                }
+                IMAGE_PLAY.setImageDrawable(icon);
+            }
+        });
+        BUTTON_NEXT = (LinearLayout) findViewById(R.id.button_next);
+        BUTTON_MENU = (LinearLayout) findViewById(R.id.button_more);
         Point point = getScreenSize();
         albumImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,10 +127,20 @@ public class PlayerActivity extends AppCompatActivity
             album.setText(playingSong.album);
             titleView.setText(playingSong.title);
             Bitmap albumImage = global.mMusicManager.getAlbumImage(this, Integer.parseInt(playingSong.albumid), getScreenSize().y);
-            albumImageView.setImageBitmap(albumImage);
-            albumImage = blur(this, albumImage, 15);
-            Log.e("screensize", getScreenSize().x+" "+getScreenSize().y+" bitmap : "+albumImage.getWidth());
-            albumImageBackgroundView.setImageBitmap(cropBitmap(albumImage));
+
+            /** when song haven't albumart */
+            if (albumImage != null)
+            {
+                albumImageView.setImageBitmap(albumImage);
+                albumImage = blur(this, albumImage, 15);
+                Log.e("screensize", getScreenSize().x+" "+getScreenSize().y+" bitmap : "+albumImage.getWidth());
+                albumImageBackgroundView.setImageBitmap(cropBitmap(albumImage));
+            }
+            IMAGE_PLAY.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause_white));
+        }
+        else
+        {
+            IMAGE_PLAY.setImageDrawable(getResources().getDrawable(R.drawable.ic_play_white));
         }
     }
 
