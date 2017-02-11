@@ -29,6 +29,12 @@ import com.icaynia.soundki.Model.MusicDto;
 import com.icaynia.soundki.R;
 import com.icaynia.soundki.View.MusicSeekBar;
 
+import org.w3c.dom.Text;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by icaynia on 2017. 2. 10..
  */
@@ -46,6 +52,9 @@ public class PlayerActivity extends AppCompatActivity
     private ImageView albumImageBackgroundView;
     private ImageView albumImageView;
     private LinearLayout albumViewContainer;
+
+    private TextView currentTimeView;
+    private TextView durationTimeView;
 
 
     private LinearLayout BUTTON_FAVORITE;
@@ -71,6 +80,8 @@ public class PlayerActivity extends AppCompatActivity
         global = (Global) getApplication();
         update();
 
+        durationTimeView.setText(convertToTime(global.musicService.getPlayingMusicDuration()));
+
         musicTimeBar.setMaxValue(global.musicService.getPlayingMusicDuration());
         musicTimeBar.setProgress(global.musicService.getPlayingMusicCurrentPosition());
         Thread myThread = new Thread(new Runnable() {
@@ -79,6 +90,7 @@ public class PlayerActivity extends AppCompatActivity
                     try {
                         musicTimeBar.setProgress(global.musicService.getPlayingMusicCurrentPosition());
                         Thread.sleep(300);
+                        currentTimeView.setText(convertToTime(global.musicService.getPlayingMusicCurrentPosition()));
                     } catch (Throwable t) {
                     }
                 }
@@ -91,6 +103,8 @@ public class PlayerActivity extends AppCompatActivity
 
     public void initializeView()
     {
+        currentTimeView = (TextView) findViewById(R.id.currentTime);
+        durationTimeView = (TextView) findViewById(R.id.durationTime);
         artistView = (TextView) findViewById(R.id.artist);
         album = (TextView) findViewById(R.id.album);
         titleView = (TextView) findViewById(R.id.title);
@@ -119,14 +133,27 @@ public class PlayerActivity extends AppCompatActivity
                 return false;
             }
         });
-        Point point = getScreenSize();
-        albumImageView.setOnClickListener(new View.OnClickListener() {
+
+        musicTimeBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onClick(View v)
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
             {
-                global.musicService.pause();
+                currentTimeView.setText(convertToTime(progress));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar)
+            {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar)
+            {
+
             }
         });
+        Point point = getScreenSize();
 
         if (ENABLE_NO_STATUSBAR && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window w = getWindow(); // in Activity's onCreate() for instance
@@ -253,6 +280,26 @@ public class PlayerActivity extends AppCompatActivity
         } else {
             return sentBitmap;
         }
+    }
+
+    public String convertToTime(int millis)
+    {
+        long second = (millis / 1000) % 60;
+        long minute = (millis / (1000 * 60)) % 60;
+        long hour = (millis / (1000 * 60 * 60)) % 24;
+
+        String time = String.format("%01d:%02d", minute, second);
+        if (minute > 9) {
+            time = String.format("%02d:%02d", minute, second);
+        }
+        if (hour > 0) {
+            time = String.format("%01d:%02d:%02d", hour, minute, second);
+        }
+        if (hour > 9) {
+            time = String.format("%02d:%02d:%02d", hour, minute, second);
+        }
+
+        return time;
     }
 
 }
