@@ -81,27 +81,10 @@ public class PlayerActivity extends AppCompatActivity
         BUTTON_PREVIOUS = (LinearLayout) findViewById(R.id.button_previous);
         BUTTON_PLAY = (LinearLayout) findViewById(R.id.button_play);
         IMAGE_PLAY = (ImageView) findViewById(R.id.button_play_icon);
-        BUTTON_PLAY.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
-                boolean playState = global.musicService.playing;
-                Drawable icon;
-                if (playState)
-                {
-                    global.musicService.pause();
-                    icon = getResources().getDrawable(R.drawable.ic_play_white);
-                }
-                else
-                {
-                    global.musicService.start();
-                    icon = getResources().getDrawable(R.drawable.ic_pause_white);
-                }
-                IMAGE_PLAY.setImageDrawable(icon);
-            }
-        });
+        BUTTON_PLAY.setOnClickListener(onClickPlayButton);
         BUTTON_NEXT = (LinearLayout) findViewById(R.id.button_next);
         BUTTON_MENU = (LinearLayout) findViewById(R.id.button_more);
+        BUTTON_MENU.setOnClickListener(onClickMenuButton);
         Point point = getScreenSize();
         albumImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,6 +127,37 @@ public class PlayerActivity extends AppCompatActivity
         }
     }
 
+    /** BUTTON CLICK LISTENER REGION */
+    public View.OnClickListener onClickPlayButton = new View.OnClickListener() {
+        @Override
+        public void onClick(View v)
+        {
+            boolean playState = global.musicService.playing;
+            Drawable icon;
+            if (playState)
+            {
+                global.musicService.pause();
+                icon = getResources().getDrawable(R.drawable.ic_play_white);
+            }
+            else
+            {
+                global.musicService.start();
+                icon = getResources().getDrawable(R.drawable.ic_pause_white);
+            }
+            IMAGE_PLAY.setImageDrawable(icon);
+        }
+    };
+
+    public View.OnClickListener onClickMenuButton = new View.OnClickListener() {
+        @Override
+        public void onClick(View v)
+        {
+
+        }
+    };
+
+
+    /** IMAGE PROCESSING FUNCTION */
     public Point getScreenSize()
     {
         Display display = getWindowManager().getDefaultDisplay();
