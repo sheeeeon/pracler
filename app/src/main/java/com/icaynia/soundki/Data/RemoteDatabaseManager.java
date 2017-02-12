@@ -2,6 +2,7 @@ package com.icaynia.soundki.Data;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.icaynia.soundki.Model.PlayLog;
 import com.icaynia.soundki.Model.User;
 
 /**
@@ -20,6 +21,15 @@ public class RemoteDatabaseManager
     public void addUser(User newUser)
     {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
+        DatabaseReference myRef = database.getReference("User");
+
+        myRef.child(newUser.user_id).setValue(newUser);
+    }
+
+    public void addPlayLog(String userId, PlayLog playLog)
+    {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("User").child(userId).child("Log");
+
     }
 }
