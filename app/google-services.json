@@ -8,12 +8,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:568276022739:android:62b0225b84e9cb43",
+        "mobilesdk_app_id": "1:568276022739:android:9d225068daa023a8",
         "android_client_info": {
           "package_name": "com.icaynia.soundki"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "568276022739-ocba60gsr94akn3i23hif44n9kk0l7l6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.icaynia.soundki",
+            "certificate_hash": "F391EBC036BB41FE02E09D108D2AA598C4D2D678"
+          }
+        },
         {
           "client_id": "568276022739-gqt5n2vf0473qg6mj52224vf9ike9ocp.apps.googleusercontent.com",
           "client_type": 3

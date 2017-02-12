@@ -1,5 +1,9 @@
 package com.icaynia.soundki.Data;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.icaynia.soundki.Model.User;
+
 /**
  * Created by icaynia on 2017. 2. 8..
  *
@@ -9,6 +13,13 @@ package com.icaynia.soundki.Data;
 
 public class RemoteDatabaseManager
 {
-    public RemoteDatabaseManager() {
+    public RemoteDatabaseManager()
+    {
+    }
+
+    public void addUser(User newUser)
+    {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("message");
     }
 }
