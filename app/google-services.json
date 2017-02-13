@@ -1,49 +1,32 @@
 {
   "project_info": {
-    "project_number": "568276022739",
-    "firebase_url": "https://soundki-89180.firebaseio.com",
-    "project_id": "soundki-89180",
-    "storage_bucket": "soundki-89180.appspot.com"
+    "project_number": "490886239821",
+    "firebase_url": "https://soundki-af9f1.firebaseio.com",
+    "project_id": "soundki-af9f1",
+    "storage_bucket": "soundki-af9f1.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:568276022739:android:9d225068daa023a8",
+        "mobilesdk_app_id": "1:490886239821:android:9d225068daa023a8",
         "android_client_info": {
           "package_name": "com.icaynia.soundki"
         }
       },
       "oauth_client": [
         {
-          "client_id": "568276022739-ocba60gsr94akn3i23hif44n9kk0l7l6.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.icaynia.soundki",
-            "certificate_hash": "F391EBC036BB41FE02E09D108D2AA598C4D2D678"
-          }
-        },
-        {
-          "client_id": "568276022739-gqt5n2vf0473qg6mj52224vf9ike9ocp.apps.googleusercontent.com",
+          "client_id": "490886239821-1uhjdmbo2edt0h66onnr495kgorlpj1v.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBLMg2khONe6RRctX0IatrsJrsap21h2RI"
-        }
-      ],
+      "api_key": [],
       "services": {
         "analytics_service": {
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "568276022739-gqt5n2vf0473qg6mj52224vf9ike9ocp.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2
