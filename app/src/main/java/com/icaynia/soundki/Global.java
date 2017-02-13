@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.facebook.FacebookSdk;
 import com.icaynia.soundki.Activity.MainActivity;
 import com.icaynia.soundki.Data.MusicFileManager;
 import com.icaynia.soundki.Model.MusicDto;
@@ -22,6 +23,7 @@ import com.icaynia.soundki.View.MusicRemoteController;
 
 public class Global extends Application
 {
+
     public MusicService musicService;
     public Intent musicServiceIntent;
     public MusicFileManager mMusicManager;
@@ -49,7 +51,7 @@ public class Global extends Application
     @Override
     public void onCreate() {
         super.onCreate();
-
+        FacebookSdk.sdkInitialize(getApplicationContext());
         if (musicServiceIntent == null) {
             musicServiceIntent = new Intent(this, MusicService.class);
             bindService(musicServiceIntent, musicServiceConnection, Context.BIND_AUTO_CREATE);
