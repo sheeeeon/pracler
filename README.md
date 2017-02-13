@@ -1,7 +1,7 @@
 SoundKi
 =======
 
-A Android application project that tracks listening to music.
+An Android application project that tracks listening to music.
 
 License
 -----
