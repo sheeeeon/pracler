@@ -14,6 +14,8 @@ This project follow MIT License.
 Build
 -----
 
+Android Studio version is 2.2 or later.
+
 For build and run this project, project must connect to Firebase.
 
 And it can on firebase console : https://console.firebase.google.com
