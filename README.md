@@ -3,6 +3,14 @@ SoundKi
 
 A Android application project that tracks listening to music.
 
+License
+-----
+
+This project follow MIT License.
+
+
+
+
 Build
 -----
 
