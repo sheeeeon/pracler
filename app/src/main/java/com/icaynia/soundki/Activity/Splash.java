@@ -1,6 +1,8 @@
 package com.icaynia.soundki.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
 import com.icaynia.soundki.R;
@@ -16,5 +18,21 @@ public class Splash extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run()
+            {
+
+            }
+        }, 1000);
     }
+
+    public void onLoginActivity()
+    {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
+
+
 }
