@@ -15,8 +15,11 @@ import com.icaynia.soundki.Activity.MainActivity;
 import com.icaynia.soundki.Data.LocalDatabaseManager;
 import com.icaynia.soundki.Data.MusicFileManager;
 import com.icaynia.soundki.Model.MusicDto;
+import com.icaynia.soundki.Model.PlayList;
 import com.icaynia.soundki.Service.MusicService;
 import com.icaynia.soundki.View.MusicRemoteController;
+
+import java.util.ArrayList;
 
 /**
  * Created by icaynia on 2017. 2. 8..
@@ -98,5 +101,15 @@ public class Global extends Application
             Bitmap albumArt = mMusicManager.getAlbumImage(getApplicationContext(), Integer.parseInt(song.albumid), 100);
             mainActivityMusicRemoteController.updateSongInfo(albumArt, song.artist, song.title);
         }
+    }
+
+    public PlayList getPlayList()
+    {
+        return null;
+    }
+
+    public ArrayList<PlayList> getPlayListArray()
+    {
+        return null;
     }
 }

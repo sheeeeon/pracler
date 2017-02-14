@@ -14,8 +14,10 @@ import android.widget.TextView;
 
 import com.icaynia.soundki.Data.MusicFileManager;
 import com.icaynia.soundki.Model.MusicDto;
+import com.icaynia.soundki.Model.PlayList;
 import com.icaynia.soundki.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,9 +30,9 @@ public class PlayListAdapter extends BaseAdapter
     private LayoutInflater inflater;
 
 
-    public List<MusicDto> list;
+    public ArrayList<PlayList> list;
 
-    public PlayListAdapter(Context context, List<MusicDto> list)
+    public PlayListAdapter(Context context, ArrayList<PlayList> list)
     {
         this.context = context;
         Log.e("test", context.getPackageName());
@@ -66,14 +68,8 @@ public class PlayListAdapter extends BaseAdapter
             convertView.setLayoutParams(layoutParams);
         }
 
-
-        ImageView album = (ImageView) convertView.findViewById(R.id.view_album);
-        album.setImageDrawable(context.getResources().getDrawable(android.R.drawable.ic_menu_report_image));
-        TextView title = (TextView) convertView.findViewById(R.id.view_title);
-        TextView artist = (TextView) convertView.findViewById(R.id.view_artist);
-
-        title.setText(list.get(position).title);
-        artist.setText(list.get(position).artist);
+        TextView playListTitle = (TextView) convertView.findViewById(R.id.playlist_title);
+        playListTitle.setText(list.get(position).getName());
 
         return convertView;
     }

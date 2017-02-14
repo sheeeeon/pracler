@@ -1,6 +1,7 @@
 package com.icaynia.soundki.Data;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.util.Log;
@@ -55,6 +56,7 @@ public class LocalDatabaseManager
         playList.addItem("test-song-uid");
         playList.addItem("test-song-uid");
         addPlayList(playList);
+        getPlayListArray();
 
     }
 
@@ -64,6 +66,16 @@ public class LocalDatabaseManager
         Gson gson = new Gson();
         Log.e("SS", gson.toJson(playList));
         db.execSQL("insert into playlist values(null, '123', '123');");
+    }
+
+    public ArrayList<String> getPlayListArray()
+    {
+        Cursor cursor = db.rawQuery("SELECT * FROM playlist", null);
+        while (cursor.moveToNext())
+        {
+            Log.e("getPlayList", cursor.getString(0)+", "+cursor.getString(1)+", "+cursor.getString(2));
+        }
+        return null;
     }
 
 }
