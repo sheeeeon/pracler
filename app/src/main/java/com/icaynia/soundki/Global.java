@@ -12,6 +12,7 @@ import android.util.Log;
 
 import com.facebook.FacebookSdk;
 import com.icaynia.soundki.Activity.MainActivity;
+import com.icaynia.soundki.Data.LocalDatabaseManager;
 import com.icaynia.soundki.Data.MusicFileManager;
 import com.icaynia.soundki.Model.MusicDto;
 import com.icaynia.soundki.Service.MusicService;
@@ -29,6 +30,8 @@ public class Global extends Application
     public MusicFileManager mMusicManager;
 
     public MusicRemoteController mainActivityMusicRemoteController;
+
+    public LocalDatabaseManager localDatabaseManager;
 
     private ServiceConnection musicServiceConnection = new ServiceConnection() {
         @Override
@@ -59,6 +62,8 @@ public class Global extends Application
         }
 
         mMusicManager = new MusicFileManager(getApplicationContext());
+
+        localDatabaseManager = new LocalDatabaseManager(this);
 
     }
     @Override

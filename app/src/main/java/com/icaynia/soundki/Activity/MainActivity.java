@@ -129,7 +129,8 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
-    public MusicRemoteController getMusicRemoteController() {
+    public MusicRemoteController getMusicRemoteController()
+    {
         return musicRemoteController;
     }
 
@@ -211,7 +212,7 @@ public class MainActivity extends AppCompatActivity
             switch (position)
             {
                 case 0:
-                    return "뉴스피드";
+                    return "홈";
                 case 1:
                     return "내 음악";
                 case 2:

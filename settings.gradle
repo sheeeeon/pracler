@@ -1,1 +1,1 @@
-include ':app', ':facebook-android-sdk-4.19.0'
+include ':app', ':facebook-android-sdk-4.19.0', ':gson-2.8.0-sources'
