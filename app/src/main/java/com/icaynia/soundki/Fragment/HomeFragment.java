@@ -7,13 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.icaynia.soundki.Model.MusicDto;
-import com.icaynia.soundki.Model.PlayList;
 import com.icaynia.soundki.R;
-import com.icaynia.soundki.View.PlayListAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by icaynia on 2017. 2. 8..

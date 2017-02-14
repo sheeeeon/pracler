@@ -14,6 +14,7 @@ import com.facebook.FacebookSdk;
 import com.icaynia.soundki.Activity.MainActivity;
 import com.icaynia.soundki.Data.LocalDatabaseManager;
 import com.icaynia.soundki.Data.MusicFileManager;
+import com.icaynia.soundki.Data.PlayListManager;
 import com.icaynia.soundki.Model.MusicDto;
 import com.icaynia.soundki.Model.PlayList;
 import com.icaynia.soundki.Service.MusicService;
@@ -33,8 +34,7 @@ public class Global extends Application
     public MusicFileManager mMusicManager;
 
     public MusicRemoteController mainActivityMusicRemoteController;
-
-    public LocalDatabaseManager localDatabaseManager;
+    public PlayListManager playListManager;
 
     private ServiceConnection musicServiceConnection = new ServiceConnection() {
         @Override
@@ -65,9 +65,7 @@ public class Global extends Application
         }
 
         mMusicManager = new MusicFileManager(getApplicationContext());
-
-        localDatabaseManager = new LocalDatabaseManager(this);
-
+        playListManager = new PlayListManager(this);
     }
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
@@ -101,15 +99,5 @@ public class Global extends Application
             Bitmap albumArt = mMusicManager.getAlbumImage(getApplicationContext(), Integer.parseInt(song.albumid), 100);
             mainActivityMusicRemoteController.updateSongInfo(albumArt, song.artist, song.title);
         }
-    }
-
-    public PlayList getPlayList()
-    {
-        return null;
-    }
-
-    public ArrayList<PlayList> getPlayListArray()
-    {
-        return null;
     }
 }

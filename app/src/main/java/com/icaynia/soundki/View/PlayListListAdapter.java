@@ -24,15 +24,14 @@ import java.util.List;
  * Created by icaynia on 14/02/2017.
  */
 
-public class PlayListAdapter extends BaseAdapter
+public class PlayListListAdapter extends BaseAdapter
 {
     private Context context;
     private LayoutInflater inflater;
 
-
     public ArrayList<PlayList> list;
 
-    public PlayListAdapter(Context context, ArrayList<PlayList> list)
+    public PlayListListAdapter(Context context, ArrayList<PlayList> list)
     {
         this.context = context;
         Log.e("test", context.getPackageName());
