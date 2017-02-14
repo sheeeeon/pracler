@@ -9,6 +9,12 @@
         app:showAsAction="never"/>
 
     <item
+        android:id="@+id/action_addplaylist"
+        android:orderInCategory="100"
+        android:title="재생 목록 추가"
+        app:showAsAction="never"/>
+
+    <item
         android:id="@+id/action_tag"
         android:orderInCategory="100"
         android:title="태그 편집"
