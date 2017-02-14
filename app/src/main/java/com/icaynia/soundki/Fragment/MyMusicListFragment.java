@@ -72,9 +72,7 @@ public class MyMusicListFragment extends Fragment
     }
 
     //Context Menu-------------------------------------
-    private ContextMenu cmenu;
-    private View cv;
-    private ContextMenu.ContextMenuInfo cmenuInfo;
+
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
                                     ContextMenu.ContextMenuInfo menuInfo) {
@@ -82,10 +80,6 @@ public class MyMusicListFragment extends Fragment
 
         menu.setHeaderTitle("메뉴");
         menu.add(0, v.getId(), 0, "재생목록에 추가");
-
-        this.cmenu = menu;
-        this.cv = v;
-        this.cmenuInfo = menuInfo;
 
         super.onCreateContextMenu(menu, v, menuInfo);
     }
