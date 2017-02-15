@@ -16,6 +16,8 @@ import com.icaynia.soundki.Model.MusicDto;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Created by icaynia on 2017. 2. 8..
@@ -61,6 +63,31 @@ public class MusicFileManager
             mediaList.add(musicDto);
         }
         cursor.close();
+
+        Comparator<MusicDto> compare = new Comparator<MusicDto>()
+        {
+            @Override
+            public int compare(MusicDto lhs, MusicDto rhs)
+            {
+                char lhsVal = lhs.title.charAt(0);
+                char rhsVal = rhs.title.charAt(0);
+
+                if (lhsVal > rhsVal)
+                {
+                    return 1;
+                }
+                else if (lhsVal == rhsVal)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+        };
+
+        Collections.sort(mediaList, compare);
 
         return mediaList;
     }
