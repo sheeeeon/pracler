@@ -166,6 +166,9 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
             return true;
+        } else if (id == R.id.action_nowplaying)
+        {
+            onPlayerActivity();
         }
 
         return super.onOptionsItemSelected(item);
