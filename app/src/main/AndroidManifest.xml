@@ -31,6 +31,11 @@
                   android:theme="@style/PlayerActivity"
                   android:screenOrientation="portrait">
         </activity>
+        <activity android:name=".Activity.PlayListActivity"
+                  android:theme="@style/AppTheme.NoActionBar"
+                  android:screenOrientation="portrait" >
+
+        </activity>
         <activity
             android:name=".Activity.SettingsActivity"
             android:label="@string/title_activity_settings">

@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.icaynia.soundki.Activity.MainActivity;
@@ -68,6 +69,15 @@ public class MyMusicListFragment extends Fragment
         });
         registerForContextMenu(listView);
 
+        Spinner spinner = (Spinner) v.findViewById(R.id.spin1);
+        String[] platforms = getResources().
+                getStringArray(R.array.mymusicfragment_sort);
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<String>(getContext(),
+                        android.R.layout.simple_spinner_dropdown_item,
+                        platforms);
+        spinner.setAdapter(adapter);
+
         return v;
     }
 
@@ -116,7 +126,8 @@ public class MyMusicListFragment extends Fragment
         //buider.setCancelable(false);  // 뒤로 가기 버튼 사용 금지.
         AlertDialog alert = builder.create();
         alert.show();
-
     }
+
+
 
 }

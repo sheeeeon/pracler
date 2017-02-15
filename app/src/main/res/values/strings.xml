@@ -6,6 +6,14 @@
 
     <string name="facebook_app_id">424097974597566</string>
 
+    <string-array name="mymusicfragment_sort">
+        <item>Android</item>
+        <item>Iphone</item>
+        <item>Windows</item>
+        <item>Bada</item>
+        <item>WebOS</item>
+    </string-array>
+
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->

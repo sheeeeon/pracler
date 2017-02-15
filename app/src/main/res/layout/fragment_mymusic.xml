@@ -4,31 +4,17 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <TextView
+    <Spinner android:id="@+id/spin1"
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"/>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="가장 많이 들은 노래"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="앨범이 없는 노래"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="들어보지 않은 노래"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="전체 음악"/>
+        android:orientation="horizontal">
 
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="재생목록"/>
+    </LinearLayout>
 
     <ListView
         android:id="@+id/listview"
