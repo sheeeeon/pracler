@@ -69,18 +69,18 @@ public class MusicFileManager
             @Override
             public int compare(MusicDto lhs, MusicDto rhs)
             {
-                char lhsVal = lhs.title.charAt(0);
-                char rhsVal = rhs.title.charAt(0);
+                char lhsVal = lhs.title.charAt(0); /** for example : 'f' */
+                char rhsVal = rhs.title.charAt(0); /** for example : 'a' */
 
-                if (lhsVal > rhsVal)
+                if (lhsVal > rhsVal) /** true */
                 {
                     return 1;
                 }
-                else if (lhsVal == rhsVal)
+                else if (lhsVal == rhsVal) /** false */
                 {
                     return 0;
                 }
-                else
+                else /** false */
                 {
                     return -1;
                 }
@@ -91,6 +91,17 @@ public class MusicFileManager
 
         return mediaList;
     }
+
+    public int SORT_NAME;
+    public int SORT_ALBUM;
+    public int SORT_ARTIST;
+    public int SORT_LENGTH;
+    public int SORT_PLAYCOUNT;
+    public ArrayList<MusicDto> sort(int SORT)
+    {
+        return null;
+    }
+
 
     public MusicDto getMusicDto(String id)
     {
