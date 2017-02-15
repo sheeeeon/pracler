@@ -7,11 +7,11 @@
     <string name="facebook_app_id">424097974597566</string>
 
     <string-array name="mymusicfragment_sort">
-        <item>Android</item>
-        <item>Iphone</item>
-        <item>Windows</item>
-        <item>Bada</item>
-        <item>WebOS</item>
+        <item>제목 순</item>
+        <item>앨범이름 순</item>
+        <item>아티스트 순</item>
+        <item>길이 순</item>
+        <item>재생 회수</item>
     </string-array>
 
     <!-- Strings related to Settings -->
