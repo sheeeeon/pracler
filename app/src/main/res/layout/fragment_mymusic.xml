@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="#3e1531">
+        android:background="#cc402b3e">
 
         <Spinner android:id="@+id/spin1"
                  android:layout_height="wrap_content"
