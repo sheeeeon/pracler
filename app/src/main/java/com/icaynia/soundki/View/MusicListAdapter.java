@@ -74,7 +74,7 @@ public class MusicListAdapter extends BaseAdapter
         TextView artist = (TextView) convertView.findViewById(R.id.view_artist);
 
         title.setText(list.get(position).title);
-        artist.setText(list.get(position).artist);
+        artist.setText(list.get(position).artist + " - " + list.get(position).album);
 
         convertView.setTag(list.get(position).id);
         MyAsyncTask myAsyncTask = new MyAsyncTask();
