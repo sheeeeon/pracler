@@ -43,6 +43,7 @@ public class MusicFileManager
         //가져오고 싶은 컬럼 명을 나열합니다. 음악의 아이디, 앰블럼 아이디, 제목, 아티스트 정보를 가져옵니다.
         String[] projection = {
                 MediaStore.Audio.Media._ID,
+                MediaStore.Audio.Media.ALBUM,
                 MediaStore.Audio.Media.ALBUM_ID,
                 MediaStore.Audio.Media.TITLE,
                 MediaStore.Audio.Media.ARTIST
@@ -58,6 +59,7 @@ public class MusicFileManager
         while(cursor.moveToNext()){
             MusicDto musicDto = new MusicDto();
             musicDto.id = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media._ID));
+            musicDto.album = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM));
             musicDto.albumid = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID));
             musicDto.title = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE));
             musicDto.artist = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST));
@@ -127,8 +129,26 @@ public class MusicFileManager
                     @Override
                     public int compare(MusicDto lhs, MusicDto rhs)
                     {
-                        char lhsVal = lhs.album.charAt(0);
-                        char rhsVal = rhs.album.charAt(0);
+                        Log.e("compare", "t : "+lhs.album);
+
+                        char lhsVal, rhsVal;
+                        if (lhs.album == null)
+                        {
+                            lhsVal = '0';
+                        }
+                        else
+                        {
+                            lhsVal = lhs.album.charAt(0);
+                        }
+                        if (rhs.album == null)
+                        {
+                            rhsVal = '0';
+                        }
+                        else
+                        {
+                            rhsVal = rhs.album.charAt(0);
+                        }
+
 
                         if (lhsVal > rhsVal) /** true */
                         {
