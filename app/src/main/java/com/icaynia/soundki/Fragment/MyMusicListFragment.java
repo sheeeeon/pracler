@@ -44,13 +44,14 @@ public class MyMusicListFragment extends Fragment
 
     private ListView listView;
     private MusicFileManager mMusicManager;
+    private ArrayList<MusicDto> list;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_mymusic, container, false);
         setHasOptionsMenu(true);
         mMusicManager = new MusicFileManager(getContext());
-        ArrayList<MusicDto> list = mMusicManager.getMusicList();
+        list = mMusicManager.getMusicList();
         listView = (ListView) v.findViewById(R.id.listview);
         listView.setAdapter(new MusicListAdapter(getContext(), list));
         global = (Global) getContext().getApplicationContext();
@@ -77,6 +78,30 @@ public class MyMusicListFragment extends Fragment
                         android.R.layout.simple_spinner_dropdown_item,
                         platforms);
         spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                if (position == 0)
+                    list = mMusicManager.sort(list, global.SORT_NAME);
+                else if (position == 1)
+                    list = mMusicManager.sort(list, global.SORT_ALBUM);
+                else if (position == 2)
+                    list = mMusicManager.sort(list, global.SORT_ARTIST);
+                else if (position == 3)
+                    list = mMusicManager.sort(list, global.SORT_LENGTH);
+                else if (position == 4)
+                    list = mMusicManager.sort(list, global.SORT_LENGTH);
+
+                listView.setAdapter(new MusicListAdapter(getContext(), list));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+
+            }
+        });
 
         return v;
     }

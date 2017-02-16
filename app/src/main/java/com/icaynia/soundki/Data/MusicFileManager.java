@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.View;
 
 import com.icaynia.soundki.Model.MusicDto;
 
@@ -92,14 +93,112 @@ public class MusicFileManager
         return mediaList;
     }
 
-    public int SORT_NAME;
-    public int SORT_ALBUM;
-    public int SORT_ARTIST;
-    public int SORT_LENGTH;
-    public int SORT_PLAYCOUNT;
-    public ArrayList<MusicDto> sort(int SORT)
+    public ArrayList<MusicDto> sort(ArrayList<MusicDto> mediaList, int SORT)
     {
-        return null;
+        Comparator<MusicDto> compare;
+        switch (SORT) {
+            case 0: /** NAME */
+            compare = new Comparator<MusicDto>()
+            {
+                @Override
+                public int compare(MusicDto lhs, MusicDto rhs)
+                {
+                    char lhsVal = lhs.title.charAt(0); /** for example : 'f' */
+                    char rhsVal = rhs.title.charAt(0); /** for example : 'a' */
+
+                    if (lhsVal > rhsVal) /** true */
+                    {
+                        return 1;
+                    }
+                    else if (lhsVal == rhsVal) /** false */
+                    {
+                        return 0;
+                    }
+                    else /** false */
+                    {
+                        return -1;
+                    }
+                }
+            };
+            break;
+            case 1: /** ALBUM */
+                compare = new Comparator<MusicDto>()
+                {
+                    @Override
+                    public int compare(MusicDto lhs, MusicDto rhs)
+                    {
+                        char lhsVal = lhs.album.charAt(0);
+                        char rhsVal = rhs.album.charAt(0);
+
+                        if (lhsVal > rhsVal) /** true */
+                        {
+                            return 1;
+                        }
+                        else if (lhsVal == rhsVal) /** false */
+                        {
+                            return 0;
+                        }
+                        else /** false */
+                        {
+                            return -1;
+                        }
+                    }
+                };
+                break;
+            case 2: /** ARTIST */
+                compare = new Comparator<MusicDto>()
+                {
+                    @Override
+                    public int compare(MusicDto lhs, MusicDto rhs)
+                    {
+                        char lhsVal = lhs.artist.charAt(0); /** for example : 'f' */
+                        char rhsVal = rhs.artist.charAt(0); /** for example : 'a' */
+
+                        if (lhsVal > rhsVal) /** true */
+                        {
+                            return 1;
+                        }
+                        else if (lhsVal == rhsVal) /** false */
+                        {
+                            return 0;
+                        }
+                        else /** false */
+                        {
+                            return -1;
+                        }
+                    }
+                };
+                break;
+            case 3: /** LENGTH */
+                compare = new Comparator<MusicDto>()
+                {
+                    @Override
+                    public int compare(MusicDto lhs, MusicDto rhs)
+                    {
+                        char lhsVal = lhs.artist.charAt(0); /** for example : 'f' */
+                        char rhsVal = rhs.artist.charAt(0); /** for example : 'a' */
+
+                        if (lhsVal > rhsVal) /** true */
+                        {
+                            return 1;
+                        }
+                        else if (lhsVal == rhsVal) /** false */
+                        {
+                            return 0;
+                        }
+                        else /** false */
+                        {
+                            return -1;
+                        }
+                    }
+                };
+                break;
+            default:
+                return null;
+        }
+
+        Collections.sort(mediaList, compare);
+        return mediaList;
     }
 
 

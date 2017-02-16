@@ -28,6 +28,11 @@ import java.util.ArrayList;
 
 public class Global extends Application
 {
+    public int SORT_NAME = 0;
+    public int SORT_ALBUM = 1;
+    public int SORT_ARTIST = 2;
+    public int SORT_LENGTH = 3;
+    public int SORT_PLAYCOUNT = 4;
 
     public MusicService musicService;
     public Intent musicServiceIntent;
