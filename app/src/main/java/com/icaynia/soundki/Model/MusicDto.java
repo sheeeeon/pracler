@@ -11,6 +11,6 @@ public class MusicDto
     public String albumid;
     public String title;
     public String artist;
-
+    public int length; // millis.
 
 }

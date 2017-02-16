@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
@@ -63,6 +64,7 @@ public class MusicFileManager
             musicDto.albumid = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID));
             musicDto.title = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE));
             musicDto.artist = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST));
+            musicDto.length = getLength(musicDto.id);
             mediaList.add(musicDto);
         }
         cursor.close();
@@ -89,6 +91,7 @@ public class MusicFileManager
                 }
             }
         };
+
 
         Collections.sort(mediaList, compare);
 
@@ -221,6 +224,26 @@ public class MusicFileManager
         return mediaList;
     }
 
+    public String convertToTime(int millis)
+    {
+        long second = (millis / 1000) % 60;
+        long minute = (millis / (1000 * 60)) % 60;
+        long hour = (millis / (1000 * 60 * 60)) % 24;
+
+        String time = String.format("%01d:%02d", minute, second);
+        if (minute > 9) {
+            time = String.format("%02d:%02d", minute, second);
+        }
+        if (hour > 0) {
+            time = String.format("%01d:%02d:%02d", hour, minute, second);
+        }
+        if (hour > 9) {
+            time = String.format("%02d:%02d:%02d", hour, minute, second);
+        }
+
+        return time;
+    }
+
 
     public MusicDto getMusicDto(String id)
     {
@@ -253,6 +276,23 @@ public class MusicFileManager
 
         return musicDto;
 
+    }
+
+    public int getLength(String songid)
+    {
+        MediaPlayer mp = new MediaPlayer();
+        Uri musicURI = Uri.withAppendedPath(
+                MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, songid);
+        try
+        {
+            mp.setDataSource(context, musicURI);
+            mp.prepare();
+        }
+        catch (Exception e)
+        {
+
+        }
+        return mp.getDuration();
     }
 
     public Bitmap getAlbumImage(Context context, int album_id, int MAX_IMAGE_SIZE) {

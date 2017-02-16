@@ -80,7 +80,7 @@ public class PlayerActivity extends AppCompatActivity
         global = (Global) getApplication();
         update();
 
-        durationTimeView.setText(convertToTime(global.musicService.getPlayingMusicDuration()));
+        durationTimeView.setText(global.mMusicManager.convertToTime(global.musicService.getPlayingMusicDuration()));
 
         musicTimeBar.setMaxValue(global.musicService.getPlayingMusicDuration());
         musicTimeBar.setProgress(global.musicService.getPlayingMusicCurrentPosition());
@@ -90,7 +90,7 @@ public class PlayerActivity extends AppCompatActivity
                     try {
                         musicTimeBar.setProgress(global.musicService.getPlayingMusicCurrentPosition());
                         Thread.sleep(300);
-                        currentTimeView.setText(convertToTime(global.musicService.getPlayingMusicCurrentPosition()));
+                        currentTimeView.setText(global.mMusicManager.convertToTime(global.musicService.getPlayingMusicCurrentPosition()));
                     } catch (Throwable t) {
                     }
                 }
@@ -138,7 +138,7 @@ public class PlayerActivity extends AppCompatActivity
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
             {
-                currentTimeView.setText(convertToTime(progress));
+                currentTimeView.setText(global.mMusicManager.convertToTime(progress));
             }
 
             @Override
@@ -282,24 +282,6 @@ public class PlayerActivity extends AppCompatActivity
         }
     }
 
-    public String convertToTime(int millis)
-    {
-        long second = (millis / 1000) % 60;
-        long minute = (millis / (1000 * 60)) % 60;
-        long hour = (millis / (1000 * 60 * 60)) % 24;
 
-        String time = String.format("%01d:%02d", minute, second);
-        if (minute > 9) {
-            time = String.format("%02d:%02d", minute, second);
-        }
-        if (hour > 0) {
-            time = String.format("%01d:%02d:%02d", hour, minute, second);
-        }
-        if (hour > 9) {
-            time = String.format("%02d:%02d:%02d", hour, minute, second);
-        }
-
-        return time;
-    }
 
 }

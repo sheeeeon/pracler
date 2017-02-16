@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.icaynia.soundki.Data.MusicFileManager;
+import com.icaynia.soundki.Global;
 import com.icaynia.soundki.Model.MusicDto;
 import com.icaynia.soundki.R;
 
@@ -25,6 +26,7 @@ import java.util.List;
 
 public class MusicListAdapter extends BaseAdapter
 {
+    private Global global;
     private Context context;
     private LayoutInflater inflater;
 
@@ -37,6 +39,7 @@ public class MusicListAdapter extends BaseAdapter
         Log.e("test", context.getPackageName());
         this.list = list;
         inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+        global = (Global) context.getApplicationContext();
     }
 
     @Override
@@ -74,7 +77,7 @@ public class MusicListAdapter extends BaseAdapter
         TextView artist = (TextView) convertView.findViewById(R.id.view_artist);
 
         title.setText(list.get(position).title);
-        artist.setText(list.get(position).artist + " - " + list.get(position).album);
+        artist.setText(list.get(position).artist + " - " + list.get(position).album + " - " + global.mMusicManager.convertToTime(list.get(position).length));
 
         convertView.setTag(list.get(position).id);
         MyAsyncTask myAsyncTask = new MyAsyncTask();
