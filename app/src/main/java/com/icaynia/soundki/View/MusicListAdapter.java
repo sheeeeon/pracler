@@ -51,7 +51,7 @@ public class MusicListAdapter extends BaseAdapter
     @Override
     public Object getItem(int position)
     {
-        return position;
+        return list.get(position).id;
     }
 
     @Override

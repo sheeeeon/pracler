@@ -41,6 +41,8 @@ public class Global extends Application
     public MusicRemoteController mainActivityMusicRemoteController;
     public PlayListManager playListManager;
 
+    public ArrayList<String> nowPlayingList = new ArrayList<String>();
+
     private ServiceConnection musicServiceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service)

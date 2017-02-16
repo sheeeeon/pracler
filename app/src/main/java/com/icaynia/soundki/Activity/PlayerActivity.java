@@ -56,7 +56,6 @@ public class PlayerActivity extends AppCompatActivity
     private TextView currentTimeView;
     private TextView durationTimeView;
 
-
     private LinearLayout BUTTON_FAVORITE;
         private ImageView IMAGE_FAVORITE;
     private LinearLayout BUTTON_PREVIOUS;

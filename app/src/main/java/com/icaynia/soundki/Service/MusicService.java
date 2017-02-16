@@ -10,6 +10,7 @@ import android.os.IBinder;
 import android.provider.MediaStore;
 import android.util.Log;
 
+import com.icaynia.soundki.Global;
 import com.icaynia.soundki.Model.MusicDto;
 
 /**
@@ -19,6 +20,7 @@ import com.icaynia.soundki.Model.MusicDto;
 public class MusicService extends Service
 {
     public MediaPlayer mediaPlayer = new MediaPlayer();
+    private Global global;
     /**
      *  NOTE :
      *  The variable of 'playing' changes the following state:
@@ -50,7 +52,7 @@ public class MusicService extends Service
                         "\n\n getDuration():\n"+mediaPlayer.getDuration());
             }
             catch (Exception e) {
-                Log.e("SimplePlayer.", e.getMessage());
+
             }
         }
     };
@@ -58,10 +60,17 @@ public class MusicService extends Service
     @Override
     public void onCreate() {
         super.onCreate();
+        global = (Global) getApplicationContext();
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 playing = false;
+                String nextid = global.nowPlayingList.get(0);
+                if (nextid != null)
+                {
+                    playMusic(nextid);
+                    global.nowPlayingList.remove(0);
+                }
             }
         });
 

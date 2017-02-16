@@ -66,6 +66,14 @@ public class MyMusicListFragment extends Fragment
 
                 Log.e("MyMusicListFragment", "Song : " + song.title + " Artist : " + song.artist);
                 global.playMusic(Integer.parseInt(songId));
+                ArrayList<String> nowPlayingList = new ArrayList<String>();
+
+                for (int pos = position+1; pos < listView.getAdapter().getCount(); pos++)
+                {
+                    nowPlayingList.add(listView.getAdapter().getItem(pos)+"");
+                }
+
+                global.nowPlayingList = nowPlayingList;
             }
         });
         registerForContextMenu(listView);
