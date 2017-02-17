@@ -32,6 +32,8 @@ public class MusicFileManager
     private String TAG = "MusicFileManager";
     private String rootSD;
 
+    private Bitmap tmpBitmap;
+
 
     public MusicFileManager(Context context)
     {
@@ -321,19 +323,19 @@ public class MusicFileManager
 
 
 
-                Bitmap b = BitmapFactory.decodeFileDescriptor(
+                tmpBitmap = BitmapFactory.decodeFileDescriptor(
                         fd.getFileDescriptor(), null, options);
 
-                if (b != null) {
+                if (tmpBitmap != null) {
                     // finally rescale to exactly the size we need
                     if (options.outWidth != MAX_IMAGE_SIZE || options.outHeight != MAX_IMAGE_SIZE) {
-                        Bitmap tmp = Bitmap.createScaledBitmap(b, MAX_IMAGE_SIZE, MAX_IMAGE_SIZE, true);
-                        b.recycle();
-                        b = tmp;
+                        Bitmap tmp = Bitmap.createScaledBitmap(tmpBitmap, MAX_IMAGE_SIZE, MAX_IMAGE_SIZE, true);
+                        tmpBitmap.recycle();
+                        tmpBitmap = tmp;
                     }
                 }
 
-                return b;
+                return tmpBitmap;
             } catch (FileNotFoundException e) {
             } finally {
                 try {

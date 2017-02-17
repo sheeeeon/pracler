@@ -69,12 +69,13 @@ public class PlayerActivity extends AppCompatActivity
 
     private MusicSeekBar musicTimeBar;
 
+    private Bitmap tmpBitmap;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player);
-
         initializeView();
         global = (Global) getApplication();
         update();
@@ -96,12 +97,27 @@ public class PlayerActivity extends AppCompatActivity
             }
         });
 
+
+
         myThread.start();
 
     }
 
+    @Override
+    public void onDestroy()
+    {
+        albumImageView = null;
+        albumImageBackgroundView = null;
+        global = null;
+        Log.e("finish", "fin");
+        System.gc();
+        super.onDestroy();
+    }
+
+
     public void initializeView()
     {
+
         currentTimeView = (TextView) findViewById(R.id.currentTime);
         durationTimeView = (TextView) findViewById(R.id.durationTime);
         artistView = (TextView) findViewById(R.id.artist);
@@ -170,15 +186,19 @@ public class PlayerActivity extends AppCompatActivity
             artistView.setText(playingSong.artist);
             album.setText(playingSong.album);
             titleView.setText(playingSong.title);
-            Bitmap albumImage = global.mMusicManager.getAlbumImage(this, Integer.parseInt(playingSong.albumid), getScreenSize().y);
 
-            /** when song haven't albumart */
-            if (albumImage != null)
+            tmpBitmap = global.mMusicManager.getAlbumImage(this, Integer.parseInt(playingSong.albumid), getScreenSize().y);
+
+            /** when song have albumart */
+            if (tmpBitmap != null)
             {
-                albumImageView.setImageBitmap(albumImage);
-                albumImage = blur(this, albumImage, 15);
-                Log.e("screensize", getScreenSize().x+" "+getScreenSize().y+" bitmap : "+albumImage.getWidth());
-                albumImageBackgroundView.setImageBitmap(cropBitmap(albumImage));
+                albumImageView.setImageBitmap(tmpBitmap);
+                tmpBitmap = blur(this, tmpBitmap, 15);
+                Log.e("screensize", getScreenSize().x+" "+getScreenSize().y+" bitmap : "+tmpBitmap.getWidth());
+                albumImageBackgroundView.setImageBitmap(cropBitmap(getScreenSize(), tmpBitmap));
+
+                tmpBitmap.recycle();
+                tmpBitmap = null;
             }
             /** 음악이 일시정지되어 있을 때 */
             if (!global.musicService.playing)
@@ -246,15 +266,15 @@ public class PlayerActivity extends AppCompatActivity
         return size;
     }
 
-    public Bitmap cropBitmap(Bitmap original) {
-        int startX = original.getWidth() / 2 - getScreenSize().x / 2;
+    public static Bitmap cropBitmap(Point screensize, Bitmap original) {
+        int startX = original.getWidth() / 2 - screensize.x / 2;
         Log.e("TAG", original.getHeight()+"");
 
         Bitmap result = Bitmap.createBitmap(original
                 , startX //X 시작위치 (원본의 4/1지점)
                 , 1 //Y 시작위치 (원본의 4/1지점)
-                , getScreenSize().x // 넓이 (원본의 절반 크기)
-                , getScreenSize().y - 1); // 높이 (원본의 절반 크기)
+                , screensize.x // 넓이 (원본의 절반 크기)
+                , screensize.y - 1); // 높이 (원본의 절반 크기)
         if (result != original) {
             original.recycle();
         }
