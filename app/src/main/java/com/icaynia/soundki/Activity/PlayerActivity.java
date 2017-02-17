@@ -71,6 +71,9 @@ public class PlayerActivity extends AppCompatActivity
 
     private Bitmap tmpBitmap;
 
+    Thread myThread;
+    private boolean threadController = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -80,26 +83,6 @@ public class PlayerActivity extends AppCompatActivity
         global = (Global) getApplication();
         update();
 
-        durationTimeView.setText(global.mMusicManager.convertToTime(global.musicService.getPlayingMusicDuration()));
-
-        musicTimeBar.setMaxValue(global.musicService.getPlayingMusicDuration());
-        musicTimeBar.setProgress(global.musicService.getPlayingMusicCurrentPosition());
-        Thread myThread = new Thread(new Runnable() {
-            public void run() {
-                while (true) {
-                    try {
-                        musicTimeBar.setProgress(global.musicService.getPlayingMusicCurrentPosition());
-                        Thread.sleep(300);
-                        currentTimeView.setText(global.mMusicManager.convertToTime(global.musicService.getPlayingMusicCurrentPosition()));
-                    } catch (Throwable t) {
-                    }
-                }
-            }
-        });
-
-
-
-        myThread.start();
 
     }
 
@@ -110,6 +93,8 @@ public class PlayerActivity extends AppCompatActivity
         albumImageBackgroundView = null;
         global = null;
         Log.e("finish", "fin");
+        threadController = false;
+        myThread = null;
         System.gc();
         super.onDestroy();
     }
@@ -217,6 +202,27 @@ public class PlayerActivity extends AppCompatActivity
         {
             IMAGE_PLAY.setImageDrawable(getResources().getDrawable(R.drawable.ic_play_white));
         }
+
+        /** 타임바 설정 */
+        durationTimeView.setText(global.mMusicManager.convertToTime(global.musicService.getPlayingMusicDuration()));
+
+        musicTimeBar.setMaxValue(global.musicService.getPlayingMusicDuration());
+        musicTimeBar.setProgress(global.musicService.getPlayingMusicCurrentPosition());
+        threadController = false;
+        threadController = true;
+        myThread = new Thread(new Runnable() {
+            public void run() {
+                while (threadController) {
+                    try {
+                        musicTimeBar.setProgress(global.musicService.getPlayingMusicCurrentPosition());
+                        Thread.sleep(300);
+                        currentTimeView.setText(global.mMusicManager.convertToTime(global.musicService.getPlayingMusicCurrentPosition()));
+                    } catch (Throwable t) {
+                    }
+                }
+            }
+        });
+        myThread.start();
     }
 
     /** BUTTON CLICK LISTENER REGION */
