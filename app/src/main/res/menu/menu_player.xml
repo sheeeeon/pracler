@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  Main Menu -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <!--  Item 1 -->
+    <item
+        android:id="@+id/menu1"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:title="Item 1"/>
+    <!--  Item 2 -->
+    <item
+        android:id="@+id/menu2"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom"
+        android:title="Item 2">
+        <!--  Item 2 submenu 3 item -->
+        <menu>
+            <item
+                android:id="@+id/menu21"
+                android:title="Item 2.1"/>
+            <item
+                android:id="@+id/menu22"
+                android:title="Item 2.2"/>
+            <item
+                android:id="@+id/menu23"
+                android:title="Item 2.3"/>
+        </menu>
+    </item>
+    <!-- close Item 2 -->
+
+    <!--  Item 3 -->
+    <item
+        android:id="@+id/menu3"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="Item 3"/>
+
+    <!--  Item 4 -->
+    <item
+        android:id="@+id/menu4"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom"
+        android:title="Item 4">
+        <!-- item 4 contains a submenu 3 radio buttons -->
+        <menu>
+            <group
+                android:id="@+id/group"
+                android:checkableBehavior="single" >
+                <item
+                    android:id="@+id/group_item1"
+                    android:onClick="onGroupItemClick"
+                    android:title="Red"/>
+                <item
+                    android:id="@+id/group_item2"
+                    android:onClick="onGroupItemClick"
+                    android:title="Green"/>
+                <item
+                    android:id="@+id/group_item3"
+                    android:onClick="onGroupItemClick"
+                    android:title="Blue"/>
+            </group>
+        </menu>
+    </item>
+    <!--  close Item 4 -->
+</menu>

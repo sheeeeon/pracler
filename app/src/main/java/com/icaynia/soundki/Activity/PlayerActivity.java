@@ -1,5 +1,6 @@
 package com.icaynia.soundki.Activity;
 
+import android.app.Instrumentation;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Point;
@@ -11,9 +12,15 @@ import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.PopupMenu;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Display;
+import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +30,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.icaynia.soundki.Global;
 import com.icaynia.soundki.Model.MusicDto;
@@ -161,6 +169,14 @@ public class PlayerActivity extends AppCompatActivity
         }
     }
 
+    public View.OnClickListener onClickMenuButton = new View.OnClickListener() {
+        @Override
+        public void onClick(View v)
+        {
+            openMenu();
+        }
+    };
+
     public void update()
     {
         int songId = global.musicService.getPlayingMusic();
@@ -246,15 +262,41 @@ public class PlayerActivity extends AppCompatActivity
         }
     };
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_player, menu);
+        return true;
+    }
 
-    public View.OnClickListener onClickMenuButton = new View.OnClickListener() {
-        @Override
-        public void onClick(View v)
-        {
-
+    public void onGroupItemClick (MenuItem item) {
+        if (item.isChecked()) {
+            item.setChecked(false);
+        } else {
+            item.setChecked(true);
         }
-    };
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        Toast.makeText(this, item.getTitle(), Toast.LENGTH_LONG).show();
+        return true;
+    }
+
+    //android Context Menu---
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View view,
+                                    ContextMenu.ContextMenuInfo menuInfo)
+    {
+        getMenuInflater().inflate(R.menu.menu_player, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item)
+    {
+        Toast.makeText(this, item.getTitle(), Toast.LENGTH_LONG).show();
+        return true;
+    }
 
     /** IMAGE PROCESSING FUNCTION */
     public Point getScreenSize()
@@ -306,6 +348,22 @@ public class PlayerActivity extends AppCompatActivity
             return sentBitmap;
         }
     }
+
+    public void openMenu()
+    {
+        new Thread(new Runnable()
+        {
+            public void run()
+            {
+                KeyEvent event = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_MENU);
+                new Instrumentation().sendKeySync(event);
+                KeyEvent event2 = new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_MENU);
+                new Instrumentation().sendKeySync(event2);
+            }
+        }).start();
+    }
+
+
 
 
 
