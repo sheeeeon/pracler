@@ -2,6 +2,7 @@ package com.icaynia.soundki.Activity;
 
 import android.app.Instrumentation;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
@@ -279,7 +280,13 @@ public class PlayerActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-        Toast.makeText(this, item.getTitle(), Toast.LENGTH_LONG).show();
+        switch (item.getItemId())
+        {
+            case R.id.action_onnowplaying:
+                onNowPlayingActivity();
+                break;
+        }
+        Toast.makeText(this, item.getItemId(), Toast.LENGTH_LONG).show();
         return true;
     }
 
@@ -363,6 +370,13 @@ public class PlayerActivity extends AppCompatActivity
         }).start();
     }
 
+
+
+    public void onNowPlayingActivity()
+    {
+        Intent intent = new Intent(this, PlayListActivity.class);
+        startActivity(intent);
+    }
 
 
 

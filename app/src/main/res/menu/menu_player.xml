@@ -3,10 +3,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <!--  Item 1 -->
     <item
-        android:id="@+id/menu1"
+        android:id="@+id/action_onnowplaying"
         android:orderInCategory="100"
         android:showAsAction="always"
-        android:title="Item 1"/>
+        android:title="현재 재생목록 보기"/>
     <!--  Item 2 -->
     <item
         android:id="@+id/menu2"

@@ -11,6 +11,7 @@ import android.os.IBinder;
 import android.util.Log;
 
 import com.facebook.FacebookSdk;
+import com.icaynia.soundki.Activity.LoginActivity;
 import com.icaynia.soundki.Activity.MainActivity;
 import com.icaynia.soundki.Data.LocalDatabaseManager;
 import com.icaynia.soundki.Data.MusicFileManager;
@@ -107,4 +108,5 @@ public class Global extends Application
             mainActivityMusicRemoteController.updateSongInfo(albumArt, song.artist, song.title);
         }
     }
+
 }
