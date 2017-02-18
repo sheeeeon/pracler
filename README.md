@@ -3,6 +3,8 @@ SoundKi
 
 An Android application project that tracks listening to music. This is project that under development.
 
+> [![acme2](screenshot/MainActivity_Fragment_MyMusicListFragment.png)](screenshot)
+
 License
 -----
 
