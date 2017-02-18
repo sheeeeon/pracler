@@ -10,6 +10,7 @@ import android.os.IBinder;
 import android.provider.MediaStore;
 import android.util.Log;
 
+import com.icaynia.soundki.Activity.PlayerActivity;
 import com.icaynia.soundki.Global;
 import com.icaynia.soundki.Model.MusicDto;
 
@@ -65,12 +66,14 @@ public class MusicService extends Service
             @Override
             public void onCompletion(MediaPlayer mp) {
                 playing = false;
-                String nextid = global.nowPlayingList.get(0);
-                if (nextid != null)
+                MusicDto nextMusic = global.nowPlayingList.get(0);
+                if (nextMusic != null)
                 {
-                    playMusic(nextid);
+                    playMusic(nextMusic.id);
                     global.nowPlayingList.remove(0);
                 }
+                global.updatePlayerActivity();
+                global.updateController();
             }
         });
 

@@ -50,12 +50,6 @@ public class LocalDatabaseManager
             Log.e("LocalDatabaseManager", "데이터베이스를 얻어올 수 없음");
         }
 
-        PlayList playList = new PlayList();
-        playList.addItem("test-song-uid");
-        playList.addItem("test-song-uid");
-        playList.addItem("test-song-uid");
-        playList.addItem("test-song-uid");
-        addPlayList(playList);
         getPlayListArray();
 
     }

@@ -25,6 +25,7 @@ import com.icaynia.soundki.Activity.MainActivity;
 import com.icaynia.soundki.Data.MusicFileManager;
 import com.icaynia.soundki.Global;
 import com.icaynia.soundki.Model.MusicDto;
+import com.icaynia.soundki.Model.PlayList;
 import com.icaynia.soundki.R;
 import com.icaynia.soundki.View.MusicListAdapter;
 
@@ -46,6 +47,8 @@ public class MyMusicListFragment extends Fragment
     private MusicFileManager mMusicManager;
     private ArrayList<MusicDto> list;
 
+    private MusicListAdapter musicListAdapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_mymusic, container, false);
@@ -53,7 +56,8 @@ public class MyMusicListFragment extends Fragment
         mMusicManager = new MusicFileManager(getContext());
         list = mMusicManager.getMusicList();
         listView = (ListView) v.findViewById(R.id.listview);
-        listView.setAdapter(new MusicListAdapter(getContext(), list));
+        musicListAdapter = new MusicListAdapter(getContext(), list);
+        listView.setAdapter(musicListAdapter);
         global = (Global) getContext().getApplicationContext();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -66,11 +70,12 @@ public class MyMusicListFragment extends Fragment
 
                 Log.e("MyMusicListFragment", "Song : " + song.title + " Artist : " + song.artist);
                 global.playMusic(Integer.parseInt(songId));
-                ArrayList<String> nowPlayingList = new ArrayList<String>();
+                PlayList nowPlayingList = new PlayList();
 
                 for (int pos = position+1; pos < listView.getAdapter().getCount(); pos++)
                 {
-                    nowPlayingList.add(listView.getAdapter().getItem(pos)+"");
+                    MusicDto dto = musicListAdapter.getItem(pos);
+                    nowPlayingList.addItem(dto);
                 }
 
                 global.nowPlayingList = nowPlayingList;

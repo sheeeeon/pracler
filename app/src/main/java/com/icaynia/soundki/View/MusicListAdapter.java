@@ -29,8 +29,6 @@ public class MusicListAdapter extends BaseAdapter
     private Global global;
     private Context context;
     private LayoutInflater inflater;
-
-
     public List<MusicDto> list;
 
     public MusicListAdapter(Context context, List<MusicDto> list)
@@ -49,9 +47,9 @@ public class MusicListAdapter extends BaseAdapter
     }
 
     @Override
-    public Object getItem(int position)
+    public MusicDto getItem(int position)
     {
-        return list.get(position).id;
+        return list.get(position);
     }
 
     @Override

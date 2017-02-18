@@ -9,21 +9,16 @@ import java.util.ArrayList;
 public class PlayList
 {
     private String playListName = "이름 없는 재생목록";
-    private ArrayList<String> list = new ArrayList<>();
+    private ArrayList<MusicDto> list = new ArrayList<>();
 
     public PlayList()
     {
 
     }
 
-    public ArrayList<String> getList()
+    public void addItem(MusicDto dto)
     {
-        return this.list;
-    }
-
-    public void addItem(String uid)
-    {
-        list.add(uid);
+        list.add(dto);
     }
 
     public String getName()
@@ -31,5 +26,19 @@ public class PlayList
         return this.playListName;
     }
 
+    public int size()
+    {
+        return list.size();
+    }
+
+    public MusicDto get(int position)
+    {
+        return list.get(position);
+    }
+
+    public void remove(int index)
+    {
+        list.remove(index);
+    }
 
 }

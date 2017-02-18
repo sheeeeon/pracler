@@ -13,6 +13,7 @@ import android.util.Log;
 import com.facebook.FacebookSdk;
 import com.icaynia.soundki.Activity.LoginActivity;
 import com.icaynia.soundki.Activity.MainActivity;
+import com.icaynia.soundki.Activity.PlayerActivity;
 import com.icaynia.soundki.Data.LocalDatabaseManager;
 import com.icaynia.soundki.Data.MusicFileManager;
 import com.icaynia.soundki.Data.PlayListManager;
@@ -42,7 +43,7 @@ public class Global extends Application
     public MusicRemoteController mainActivityMusicRemoteController;
     public PlayListManager playListManager;
 
-    public ArrayList<String> nowPlayingList = new ArrayList<String>();
+    public PlayList nowPlayingList = new PlayList();
 
     private ServiceConnection musicServiceConnection = new ServiceConnection() {
         @Override
@@ -94,6 +95,11 @@ public class Global extends Application
     {
         musicService.playMusic(songId+"");
         updateController();
+    }
+
+    public void updatePlayerActivity()
+    {
+        Log.e("u", "updatePlayerActivity");
     }
 
     public void updateController()
