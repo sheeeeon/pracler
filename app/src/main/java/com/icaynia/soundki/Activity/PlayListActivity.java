@@ -57,9 +57,12 @@ public class PlayListActivity extends AppCompatActivity
         // when 'listuid' value is 0, it means show now playlist.
         if (listuid.equals("0"))
         {
-            this.getSupportActionBar().setTitle("현재 재생중 ー 0곡");
+            this.getSupportActionBar().setTitle("현재 재생중 ー " + global.nowPlayingList.size() + "곡");
 
             adapter = new PlayListAdapter(this, global.nowPlayingList);
+
+            mainListView.setAdapter(adapter);
+
 
         }
     }
