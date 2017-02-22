@@ -78,7 +78,6 @@ public class PlayListActivity extends AppCompatActivity
             adapter = new PlayListAdapter(this, global.nowPlayingList);
 
             mainListView.setAdapter(adapter);
-            setListViewHeightBasedOnChildren(mainListView);
 
 
         }
