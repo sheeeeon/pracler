@@ -79,7 +79,6 @@ public class PlayListActivity extends AppCompatActivity
 
             mainListView.setAdapter(adapter);
 
-
         }
     }
 
