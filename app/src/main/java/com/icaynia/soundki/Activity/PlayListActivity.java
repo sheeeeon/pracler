@@ -85,7 +85,8 @@ public class PlayListActivity extends AppCompatActivity
             View listItem = listAdapter.getView(i, null, listView);
             //listItem.measure(0, 0);
             listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
-            totalHeight += listItem.getMeasuredHeight();
+            totalHeight += listItem.getMeasuredHeight() - 70;
+//            totalHeight += listItem.getMeasuredHeight();
         }
         ViewGroup.LayoutParams params = listView.getLayoutParams();
 
