@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
@@ -23,6 +25,7 @@ public class PlayListActivity extends AppCompatActivity
     public Global global;
     public ListView mainListView;
     public PlayListAdapter adapter;
+    private NestedScrollView scrollview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -53,6 +56,16 @@ public class PlayListActivity extends AppCompatActivity
     public void viewInitialize()
     {
         mainListView = (ListView) findViewById(R.id.listview);
+        scrollview = (NestedScrollView) findViewById(R.id.scrollview);
+        mainListView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event)
+            {
+                scrollview.requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
+
     }
 
     public void onList(String listuid)
