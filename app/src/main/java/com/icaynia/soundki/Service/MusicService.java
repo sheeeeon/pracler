@@ -66,10 +66,10 @@ public class MusicService extends Service
             @Override
             public void onCompletion(MediaPlayer mp) {
                 playing = false;
-                MusicDto nextMusic = global.nowPlayingList.get(0);
-                if (nextMusic != null)
+                String nextmusic_uid = global.nowPlayingList.get(0);
+                if (nextmusic_uid != null)
                 {
-                    playMusic(nextMusic.id);
+                    playMusic(nextmusic_uid);
                     global.nowPlayingList.remove(0);
                 }
                 global.updatePlayerActivity();

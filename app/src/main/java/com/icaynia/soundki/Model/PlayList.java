@@ -4,12 +4,14 @@ import java.util.ArrayList;
 
 /**
  * Created by icaynia on 14/02/2017.
+ *
+ *
  */
 
 public class PlayList
 {
     private String playListName = "이름 없는 재생목록";
-    private ArrayList<MusicDto> list = new ArrayList<>();
+    private ArrayList<String> list = new ArrayList<>(); // list saves local song uid
 
     public PlayList()
     {
@@ -18,7 +20,17 @@ public class PlayList
 
     public void addItem(MusicDto dto)
     {
-        list.add(dto);
+        list.add(dto.uid_local);
+    }
+
+    public void addItem(int uid)
+    {
+        list.add(uid+"");
+    }
+
+    public void addItem(String uid)
+    {
+        list.add(uid);
     }
 
     public String getName()
@@ -31,7 +43,7 @@ public class PlayList
         return list.size();
     }
 
-    public MusicDto get(int position)
+    public String get(int position)
     {
         return list.get(position);
     }

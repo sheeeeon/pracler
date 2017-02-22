@@ -61,12 +61,12 @@ public class MusicFileManager
 
         while(cursor.moveToNext()){
             MusicDto musicDto = new MusicDto();
-            musicDto.id = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media._ID));
+            musicDto.uid_local = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media._ID));
             musicDto.album = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM));
             musicDto.albumid = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID));
             musicDto.title = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE));
             musicDto.artist = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST));
-            musicDto.length = getLength(musicDto.id);
+            musicDto.length = getLength(musicDto.uid_local);
             mediaList.add(musicDto);
         }
         cursor.close();
@@ -268,12 +268,12 @@ public class MusicFileManager
 
         MusicDto musicDto = new MusicDto();
         while(cursor.moveToNext()){
-            musicDto.id = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media._ID));
+            musicDto.uid_local = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media._ID));
             musicDto.album = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM));
             musicDto.albumid = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID));
             musicDto.title = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE));
             musicDto.artist = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST));
-            Log.e("tag", musicDto.id + " , " + musicDto.title);
+            Log.e("tag", musicDto.uid_local + " , " + musicDto.title);
         }
 
         return musicDto;

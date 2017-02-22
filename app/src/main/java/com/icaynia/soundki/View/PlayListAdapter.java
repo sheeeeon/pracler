@@ -68,15 +68,17 @@ public class PlayListAdapter extends BaseAdapter
             convertView.setLayoutParams(layoutParams);
         }
 
+        MusicDto music = global.mMusicManager.getMusicDto(list.get(position));
+
         ImageView album = (ImageView) convertView.findViewById(R.id.view_album);
         album.setImageDrawable(context.getResources().getDrawable(android.R.drawable.ic_menu_report_image));
         TextView title = (TextView) convertView.findViewById(R.id.view_title);
         TextView artist = (TextView) convertView.findViewById(R.id.view_artist);
 
-        title.setText(list.get(position).title);
-        artist.setText(list.get(position).artist + " - " + list.get(position).album + " - " + global.mMusicManager.convertToTime(list.get(position).length));
+        title.setText(music.title);
+        artist.setText(music.title + " - " + music.album + " - " + global.mMusicManager.convertToTime(music.length));
 
-        convertView.setTag(list.get(position).id);
+        convertView.setTag(music.uid_local);
         MyAsyncTask myAsyncTask = new MyAsyncTask();
         myAsyncTask.setImgView(album);
         myAsyncTask.execute(position + "");
@@ -113,7 +115,7 @@ public class PlayListAdapter extends BaseAdapter
             for (String i : id)
             {
                 this.position = Integer.parseInt(i);
-                bitmap = mMusicFileManager.getAlbumImage(context, Integer.parseInt(list.get(position).albumid), 100);
+                bitmap = mMusicFileManager.getAlbumImage(context, Integer.parseInt(list.get(position)), 100);
             }
             return bitmap;
         }
