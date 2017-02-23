@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 /**
  * Created by icaynia on 14/02/2017.
+ *
+ * 플레이 리스트를 관리하는 곳.
  */
 
 public class PlayListManager
@@ -17,6 +19,7 @@ public class PlayListManager
         this.context = context;
     }
 
+    //로컬에 있는 플레이리스트를 모두 가져온다.
     public ArrayList<String> getPlayListList()
     {
         ArrayList<String> playListList = new ArrayList<String>();

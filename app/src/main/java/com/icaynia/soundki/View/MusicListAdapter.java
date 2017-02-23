@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.icaynia.soundki.Data.MusicFileManager;
 import com.icaynia.soundki.Global;
 import com.icaynia.soundki.Model.MusicDto;
+import com.icaynia.soundki.Model.PlayList;
 import com.icaynia.soundki.R;
 
 import java.util.List;
@@ -29,9 +30,9 @@ public class MusicListAdapter extends BaseAdapter
     private Global global;
     private Context context;
     private LayoutInflater inflater;
-    public List<MusicDto> list;
+    public PlayList list;
 
-    public MusicListAdapter(Context context, List<MusicDto> list)
+    public MusicListAdapter(Context context, PlayList list)
     {
         this.context = context;
         Log.e("test", context.getPackageName());

@@ -1,5 +1,11 @@
 package com.icaynia.soundki.Data;
 
+/**
+ *　Created by icaynia.
+ *
+ *  리모트 서버에서 곡의 정보를 가져오거나 내보내는 것.
+ */
+
 import com.icaynia.soundki.Model.MusicDto;
 
 import java.util.ArrayList;

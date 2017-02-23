@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.icaynia.soundki.Model.MusicDto;
+import com.icaynia.soundki.Model.PlayList;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -40,16 +41,12 @@ public class MusicFileManager
         this.context = context;
     }
 
-    public ArrayList<MusicDto> getMusicList() {
+    public PlayList getMusicList() {
 
-        ArrayList<MusicDto> mediaList = new ArrayList<>();
+        PlayList playList = new PlayList();
         //가져오고 싶은 컬럼 명을 나열합니다. 음악의 아이디, 앰블럼 아이디, 제목, 아티스트 정보를 가져옵니다.
         String[] projection = {
                 MediaStore.Audio.Media._ID,
-                MediaStore.Audio.Media.ALBUM,
-                MediaStore.Audio.Media.ALBUM_ID,
-                MediaStore.Audio.Media.TITLE,
-                MediaStore.Audio.Media.ARTIST
         };
 
         if (context == null) {
@@ -60,44 +57,12 @@ public class MusicFileManager
                 projection, null, null, null);
 
         while(cursor.moveToNext()){
-            MusicDto musicDto = new MusicDto();
-            musicDto.uid_local = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media._ID));
-            musicDto.album = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM));
-            musicDto.albumid = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID));
-            musicDto.title = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE));
-            musicDto.artist = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST));
-            musicDto.length = getLength(musicDto.uid_local);
-            mediaList.add(musicDto);
+            String uid_local = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media._ID));
+            playList.addItem(uid_local);
         }
         cursor.close();
 
-        Comparator<MusicDto> compare = new Comparator<MusicDto>()
-        {
-            @Override
-            public int compare(MusicDto lhs, MusicDto rhs)
-            {
-                char lhsVal = lhs.title.charAt(0); /** for example : 'f' */
-                char rhsVal = rhs.title.charAt(0); /** for example : 'a' */
-
-                if (lhsVal > rhsVal) /** true */
-                {
-                    return 1;
-                }
-                else if (lhsVal == rhsVal) /** false */
-                {
-                    return 0;
-                }
-                else /** false */
-                {
-                    return -1;
-                }
-            }
-        };
-
-
-        Collections.sort(mediaList, compare);
-
-        return mediaList;
+        return playList;
     }
 
     public ArrayList<MusicDto> sort(ArrayList<MusicDto> mediaList, int SORT)

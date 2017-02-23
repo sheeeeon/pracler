@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class PlayList
 {
     private String playListName = "이름 없는 재생목록";
-    private ArrayList<String> list = new ArrayList<>(); // list saves local song uid
+    private ArrayList<String> list = new ArrayList<>();
 
     public PlayList()
     {

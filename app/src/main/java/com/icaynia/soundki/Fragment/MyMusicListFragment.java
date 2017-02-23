@@ -45,7 +45,7 @@ public class MyMusicListFragment extends Fragment
 
     private ListView listView;
     private MusicFileManager mMusicManager;
-    private ArrayList<MusicDto> list;
+    private PlayList list;
 
     private MusicListAdapter musicListAdapter;
 
