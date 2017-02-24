@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.icaynia.soundki.Data.MusicFileManager;
 import com.icaynia.soundki.Global;
 import com.icaynia.soundki.Model.MusicDto;
+import com.icaynia.soundki.Model.MusicList;
 import com.icaynia.soundki.Model.PlayList;
 import com.icaynia.soundki.R;
 
@@ -30,9 +31,9 @@ public class MusicListAdapter extends BaseAdapter
     private Global global;
     private Context context;
     private LayoutInflater inflater;
-    public PlayList list;
+    public MusicList list;
 
-    public MusicListAdapter(Context context, PlayList list)
+    public MusicListAdapter(Context context, MusicList list)
     {
         this.context = context;
         Log.e("test", context.getPackageName());
@@ -50,7 +51,7 @@ public class MusicListAdapter extends BaseAdapter
     @Override
     public MusicDto getItem(int position)
     {
-        return list.get(position);
+        return list.getItem(position);
     }
 
     @Override
@@ -75,10 +76,10 @@ public class MusicListAdapter extends BaseAdapter
         TextView title = (TextView) convertView.findViewById(R.id.view_title);
         TextView artist = (TextView) convertView.findViewById(R.id.view_artist);
 
-        title.setText(list.get(position).title);
-        artist.setText(list.get(position).artist + " - " + list.get(position).album + " - " + global.mMusicManager.convertToTime(list.get(position).length));
+        title.setText(list.getItem(position).title);
+        artist.setText(list.getItem(position).artist + " - " + list.getItem(position).album + " - " + global.mMusicManager.convertToTime(list.getItem(position).length));
 
-        convertView.setTag(list.get(position).uid_local);
+        convertView.setTag(list.getItem(position).uid_local);
         MyAsyncTask myAsyncTask = new MyAsyncTask();
         myAsyncTask.setImgView(album);
         myAsyncTask.execute(position + "");
@@ -114,7 +115,7 @@ public class MusicListAdapter extends BaseAdapter
             for (String i : id)
             {
                 this.position = Integer.parseInt(i);
-                bitmap = mMusicFileManager.getAlbumImage(context, Integer.parseInt(list.get(position).albumid), 100);
+                bitmap = mMusicFileManager.getAlbumImage(context, Integer.parseInt(list.getItem(position).albumid), 100);
             }
             return bitmap;
         }
