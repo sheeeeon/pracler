@@ -115,7 +115,7 @@ public class MusicListAdapter extends BaseAdapter
             for (String i : id)
             {
                 this.position = Integer.parseInt(i);
-                bitmap = mMusicFileManager.getAlbumImage(context, Integer.parseInt(list.getItem(position).albumid), 100);
+                bitmap = mMusicFileManager.getAlbumImage(context, Integer.parseInt(list.getItem(position).uid_local), 100);
             }
             return bitmap;
         }

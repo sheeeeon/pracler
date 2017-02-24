@@ -25,6 +25,7 @@ import com.icaynia.soundki.Activity.MainActivity;
 import com.icaynia.soundki.Data.MusicFileManager;
 import com.icaynia.soundki.Global;
 import com.icaynia.soundki.Model.MusicDto;
+import com.icaynia.soundki.Model.MusicList;
 import com.icaynia.soundki.Model.PlayList;
 import com.icaynia.soundki.R;
 import com.icaynia.soundki.View.MusicListAdapter;
@@ -45,7 +46,7 @@ public class MyMusicListFragment extends Fragment
 
     private ListView listView;
     private MusicFileManager mMusicManager;
-    private PlayList list;
+    private MusicList list;
 
     private MusicListAdapter musicListAdapter;
 

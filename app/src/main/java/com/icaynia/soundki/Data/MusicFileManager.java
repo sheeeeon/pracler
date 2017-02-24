@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.icaynia.soundki.Model.MusicDto;
+import com.icaynia.soundki.Model.MusicList;
 import com.icaynia.soundki.Model.PlayList;
 
 import java.io.FileNotFoundException;
@@ -41,12 +42,15 @@ public class MusicFileManager
         this.context = context;
     }
 
-    public PlayList getMusicList() {
+    public MusicList getMusicList() {
 
-        PlayList playList = new PlayList();
+        MusicList playList = new MusicList();
         //가져오고 싶은 컬럼 명을 나열합니다. 음악의 아이디, 앰블럼 아이디, 제목, 아티스트 정보를 가져옵니다.
         String[] projection = {
                 MediaStore.Audio.Media._ID,
+                MediaStore.Audio.Media.ALBUM,
+                MediaStore.Audio.Media.TITLE,
+                MediaStore.Audio.Media.ARTIST
         };
 
         if (context == null) {
@@ -57,8 +61,13 @@ public class MusicFileManager
                 projection, null, null, null);
 
         while(cursor.moveToNext()){
-            String uid_local = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media._ID));
-            playList.addItem(uid_local);
+            MusicDto musicDto = new MusicDto();
+            musicDto.uid_local = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media._ID));
+            musicDto.album = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media._ID));
+            musicDto.title = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media._ID));
+            musicDto.artist = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media._ID));
+
+            playList.addItem(musicDto);
         }
         cursor.close();
 
@@ -218,7 +227,6 @@ public class MusicFileManager
         String[] projection = {
                 MediaStore.Audio.Media._ID,
                 MediaStore.Audio.Media.ALBUM,
-                MediaStore.Audio.Media.ALBUM_ID,
                 MediaStore.Audio.Media.TITLE,
                 MediaStore.Audio.Media.ARTIST
         };
@@ -235,7 +243,6 @@ public class MusicFileManager
         while(cursor.moveToNext()){
             musicDto.uid_local = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media._ID));
             musicDto.album = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM));
-            musicDto.albumid = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID));
             musicDto.title = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE));
             musicDto.artist = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST));
             Log.e("tag", musicDto.uid_local + " , " + musicDto.title);

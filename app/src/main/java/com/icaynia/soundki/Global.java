@@ -110,7 +110,7 @@ public class Global extends Application
             if (songId == 0) return;
             Log.e("global.updateController", musicService.getPlayingMusic()+"");
             MusicDto song = mMusicManager.getMusicDto(songId+"");
-            Bitmap albumArt = mMusicManager.getAlbumImage(getApplicationContext(), Integer.parseInt(song.albumid), 100);
+            Bitmap albumArt = mMusicManager.getAlbumImage(getApplicationContext(), Integer.parseInt(song.uid_local), 100);
             mainActivityMusicRemoteController.updateSongInfo(albumArt, song.artist, song.title);
         }
     }

@@ -189,7 +189,7 @@ public class PlayerActivity extends AppCompatActivity
             album.setText(playingSong.album);
             titleView.setText(playingSong.title);
 
-            tmpBitmap = global.mMusicManager.getAlbumImage(this, Integer.parseInt(playingSong.albumid), getScreenSize().y);
+            tmpBitmap = global.mMusicManager.getAlbumImage(this, Integer.parseInt(playingSong.uid_local), getScreenSize().y);
 
             /** when song have albumart */
             if (tmpBitmap != null)
