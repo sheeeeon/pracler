@@ -1,6 +1,7 @@
 package com.icaynia.soundki.Model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by icaynia on 24/02/2017.
@@ -28,5 +29,10 @@ public class MusicList
     public int size()
     {
         return list.size();
+    }
+
+    public List<MusicDto> getList()
+    {
+        return list;
     }
 }

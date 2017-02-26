@@ -95,7 +95,7 @@ public class MusicFileManager
         return playList;
     }
 
-    public ArrayList<MusicDto> sort(ArrayList<MusicDto> mediaList, int SORT)
+    public MusicList sort(MusicList mediaList, int SORT)
     {
         Comparator<MusicDto> compare;
         switch (SORT) {
@@ -217,7 +217,7 @@ public class MusicFileManager
                 return null;
         }
 
-        Collections.sort(mediaList, compare);
+        Collections.sort(mediaList.getList(), compare);
         return mediaList;
     }
 

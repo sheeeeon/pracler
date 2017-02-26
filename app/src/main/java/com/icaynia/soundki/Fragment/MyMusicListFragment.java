@@ -73,7 +73,7 @@ public class MyMusicListFragment extends Fragment
                 global.playMusic(Integer.parseInt(songId));
                 PlayList nowPlayingList = new PlayList();
 
-                for (int pos = position+1; pos < listView.getAdapter().getCount(); pos++)
+                for (int pos = position; pos < listView.getAdapter().getCount(); pos++)
                 {
                     MusicDto dto = musicListAdapter.getItem(pos);
                     nowPlayingList.addItem(dto);
@@ -96,16 +96,16 @@ public class MyMusicListFragment extends Fragment
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
             {
-//                if (position == 0)
-//                    list = mMusicManager.sort(list, global.SORT_NAME);
-//                else if (position == 1)
-//                    list = mMusicManager.sort(list, global.SORT_ALBUM);
-//                else if (position == 2)
-//                    list = mMusicManager.sort(list, global.SORT_ARTIST);
-//                else if (position == 3)
-//                    list = mMusicManager.sort(list, global.SORT_LENGTH);
-//                else if (position == 4)
-//                    list = mMusicManager.sort(list, global.SORT_LENGTH);
+                if (position == 0)
+                    list = mMusicManager.sort(list, global.SORT_NAME);
+                else if (position == 1)
+                    list = mMusicManager.sort(list, global.SORT_ALBUM);
+                else if (position == 2)
+                    list = mMusicManager.sort(list, global.SORT_ARTIST);
+                else if (position == 3)
+                    list = mMusicManager.sort(list, global.SORT_LENGTH);
+                else if (position == 4)
+                    list = mMusicManager.sort(list, global.SORT_LENGTH);
 
                 listView.setAdapter(new MusicListAdapter(getContext(), list));
             }

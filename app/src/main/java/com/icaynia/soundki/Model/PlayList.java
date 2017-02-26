@@ -12,10 +12,21 @@ public class PlayList
 {
     private String playListName = "이름 없는 재생목록";
     private ArrayList<String> list = new ArrayList<>();
+    private int position = 0;
 
     public PlayList()
     {
 
+    }
+
+    public int getPosition()
+    {
+        return position;
+    }
+
+    public void setPosition(int position)
+    {
+        this.position = position;
     }
 
     public void addItem(MusicDto dto)
