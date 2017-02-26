@@ -29,6 +29,12 @@ public class PlayList
         this.position = position;
     }
 
+    public void addPositionCount()
+    {
+        this.position = this.position + 1;
+    }
+
+
     public void addItem(MusicDto dto)
     {
         list.add(dto.uid_local);

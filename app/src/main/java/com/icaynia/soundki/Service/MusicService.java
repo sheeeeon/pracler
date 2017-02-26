@@ -30,7 +30,6 @@ public class MusicService extends Service
      *  when it stopped = false.
      */
     public boolean playing = false;
-    public int position;
 
     private String songId;
 
@@ -65,12 +64,12 @@ public class MusicService extends Service
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
+                global.nowPlayingList.addPositionCount();
                 playing = false;
-                String nextmusic_uid = global.nowPlayingList.get(0);
+                String nextmusic_uid = global.nowPlayingList.get(global.nowPlayingList.getPosition());
                 if (nextmusic_uid != null)
                 {
                     playMusic(nextmusic_uid);
-                    global.nowPlayingList.remove(0);
                 }
                 global.updatePlayerActivity();
                 global.updateController();
