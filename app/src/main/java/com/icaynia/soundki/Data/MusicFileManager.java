@@ -16,12 +16,15 @@ import android.view.View;
 import com.icaynia.soundki.Model.MusicDto;
 import com.icaynia.soundki.Model.MusicList;
 import com.icaynia.soundki.Model.PlayList;
+import com.icaynia.soundki.Service.MusicService;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by icaynia on 2017. 2. 8..
@@ -52,6 +55,7 @@ public class MusicFileManager
                 MediaStore.Audio.Media.ALBUM_ID,
                 MediaStore.Audio.Media.TITLE,
                 MediaStore.Audio.Media.ARTIST
+
         };
 
         if (context == null) {
@@ -68,6 +72,21 @@ public class MusicFileManager
             musicDto.album_id = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID));
             musicDto.title = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE));
             musicDto.artist = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST));
+
+            MediaPlayer mediaPlayer = new MediaPlayer();
+            try
+            {
+                Uri musicURI = Uri.withAppendedPath(
+                        MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, musicDto.uid_local);
+                mediaPlayer.reset();
+                mediaPlayer.setDataSource(getApplicationContext(), musicURI);
+                mediaPlayer.prepare();
+                musicDto.length = mediaPlayer.getDuration();
+            }
+            catch (Exception e)
+            {
+
+            }
 
             playList.addItem(musicDto);
         }
