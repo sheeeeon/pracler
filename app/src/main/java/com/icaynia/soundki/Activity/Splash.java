@@ -22,17 +22,27 @@ public class Splash extends AppCompatActivity
         setContentView(R.layout.activity_splash);
         facebookLoginButton = (LinearLayout) findViewById(R.id.facebook_login_button);
 
-        new Handler().postDelayed(new Runnable() {
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
             @Override
             public void run()
             {
                 facebookLoginButton.setVisibility(LinearLayout.VISIBLE);
+                //onMainActivity();
             }
-        }, 1000);
+        }, 3000);
     }
 
     public void onFacebookLoginButton()
     {
 
+    }
+
+
+    public void onMainActivity()
+    {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }

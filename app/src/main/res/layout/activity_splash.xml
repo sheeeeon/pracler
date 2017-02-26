@@ -11,25 +11,28 @@
         android:gravity="center_horizontal|center_vertical">
 
         <LinearLayout
-            android:layout_width="200dp"
-            android:layout_height="100dp"
+            android:layout_width="150dp"
+            android:layout_height="75dp"
             android:background="@drawable/soundki_beta_2_1">
 
         </LinearLayout>
 
     </LinearLayout>
 
+
+
     <LinearLayout
         android:id="@+id/facebook_login_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="6dp"
-        android:background="#58f"
         android:layout_alignParentBottom="true"
         android:gravity="center_horizontal|center_vertical"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
         android:visibility="gone">
+
+
 
         <com.facebook.login.widget.LoginButton
             android:id="@+id/login_button"
@@ -37,7 +40,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="30dp"
-            android:layout_marginBottom="30dp" />
+            android:layout_marginBottom="30dp"
+            android:layout_alignParentBottom="true"/>
+
 
     </LinearLayout>
 </RelativeLayout>
