@@ -93,6 +93,15 @@ public class PlayerActivity extends AppCompatActivity
         update();
 
 
+        global.setOnCompleteListener(new Global.OnCompleteListener() {
+            @Override
+            public void onComplete()
+            {
+                update();
+            }
+        });
+
+
     }
 
     @Override
@@ -189,7 +198,7 @@ public class PlayerActivity extends AppCompatActivity
             album.setText(playingSong.album);
             titleView.setText(playingSong.title);
 
-            tmpBitmap = global.mMusicManager.getAlbumImage(this, Integer.parseInt(playingSong.uid_local), getScreenSize().y);
+            tmpBitmap = global.mMusicManager.getAlbumImage(this, Integer.parseInt(playingSong.album_id), getScreenSize().y);
 
             /** when song have albumart */
             if (tmpBitmap != null)

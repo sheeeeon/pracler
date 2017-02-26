@@ -61,21 +61,6 @@ public class MusicService extends Service
     public void onCreate() {
         super.onCreate();
         global = (Global) getApplicationContext();
-        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                global.nowPlayingList.addPositionCount();
-                playing = false;
-                String nextmusic_uid = global.nowPlayingList.get(global.nowPlayingList.getPosition());
-                if (nextmusic_uid != null)
-                {
-                    playMusic(nextmusic_uid);
-                }
-                global.updatePlayerActivity();
-                global.updateController();
-            }
-        });
-
     }
 
     @Override
@@ -153,4 +138,5 @@ public class MusicService extends Service
     {
         return mediaPlayer.getCurrentPosition();
     }
+
 }

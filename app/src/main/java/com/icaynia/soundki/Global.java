@@ -7,12 +7,14 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.media.MediaPlayer;
 import android.os.IBinder;
 import android.util.Log;
 
 import com.facebook.FacebookSdk;
 import com.icaynia.soundki.Activity.LoginActivity;
 import com.icaynia.soundki.Activity.MainActivity;
+import com.icaynia.soundki.Activity.PlayListActivity;
 import com.icaynia.soundki.Activity.PlayerActivity;
 import com.icaynia.soundki.Data.LocalDatabaseManager;
 import com.icaynia.soundki.Data.MusicFileManager;
@@ -41,9 +43,12 @@ public class Global extends Application
     public MusicFileManager mMusicManager;
 
     public MusicRemoteController mainActivityMusicRemoteController;
+
     public PlayListManager playListManager;
 
     public PlayList nowPlayingList = new PlayList();
+
+    public OnCompleteListener completeListener = null;
 
     private ServiceConnection musicServiceConnection = new ServiceConnection() {
         @Override
@@ -52,6 +57,21 @@ public class Global extends Application
             MusicService.MusicBinder binder = (MusicService.MusicBinder) service;
             musicService = binder.getService();
             musicService.getPlayingMusic();
+
+            musicService.mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    nowPlayingList.addPositionCount();
+                    musicService.playing = false;
+                    String nextmusic_uid = nowPlayingList.get(nowPlayingList.getPosition());
+                    if (nextmusic_uid != null)
+                    {
+                        musicService.playMusic(nextmusic_uid);
+                    }
+                    completeListener.onComplete();
+
+                }
+            });
 
             updateController();
         }
@@ -97,9 +117,9 @@ public class Global extends Application
         updateController();
     }
 
-    public void updatePlayerActivity()
+    public void playNextMusic()
     {
-        Log.e("u", "updatePlayerActivity");
+
     }
 
     public void updateController()
@@ -110,9 +130,19 @@ public class Global extends Application
             if (songId == 0) return;
             Log.e("global.updateController", musicService.getPlayingMusic()+"");
             MusicDto song = mMusicManager.getMusicDto(songId+"");
-            Bitmap albumArt = mMusicManager.getAlbumImage(getApplicationContext(), Integer.parseInt(song.uid_local), 100);
+            Bitmap albumArt = mMusicManager.getAlbumImage(getApplicationContext(), Integer.parseInt(song.album_id), 100);
             mainActivityMusicRemoteController.updateSongInfo(albumArt, song.artist, song.title);
         }
+    }
+
+    public void setOnCompleteListener(OnCompleteListener listener)
+    {
+        this.completeListener = listener;
+    }
+
+    public interface OnCompleteListener
+    {
+        void onComplete();
     }
 
 }
