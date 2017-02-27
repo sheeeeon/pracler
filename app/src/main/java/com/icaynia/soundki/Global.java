@@ -51,6 +51,9 @@ public class Global extends Application
 
     public OnCompleteListener completeListener = null;
 
+    /* Firebase */
+    public FirebaseAuth firebaseAuth;
+
     private ServiceConnection musicServiceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service)
@@ -96,6 +99,8 @@ public class Global extends Application
 
         mMusicManager = new MusicFileManager(getApplicationContext());
         playListManager = new PlayListManager(this);
+
+        firebaseAuth = FirebaseAuth.getInstance();
     }
     @Override
     public void onConfigurationChanged(Configuration newConfig) {

@@ -8,12 +8,15 @@
         android:layout_height="50dp"
         android:background="#aaaaaa"
         android:id="@+id/view_album"
-        android:layout_margin="2dp"/>
+        android:layout_margin="5dp"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="50dp"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:layout_margin="5dp">
 
         <TextView
             android:layout_width="wrap_content"
