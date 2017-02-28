@@ -23,6 +23,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -138,7 +139,7 @@ public class PlayerActivity extends AppCompatActivity
         BUTTON_PLAY.setOnClickListener(onClickPlayButton);
         BUTTON_NEXT = (LinearLayout) findViewById(R.id.button_next);
         BUTTON_MENU = (LinearLayout) findViewById(R.id.button_more);
-        BUTTON_MENU.setOnClickListener(onClickMenuButton);
+        registerForContextMenu(BUTTON_MENU);
         musicTimeBar = (MusicSeekBar) findViewById(R.id.musicTimeBar);
         musicTimeBar.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -278,6 +279,53 @@ public class PlayerActivity extends AppCompatActivity
         return true;
     }
 
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+
+        if(v.getId() == R.id.button_more) {
+
+            getMenuInflater().inflate(R.menu.menu_player, menu);
+
+        } else {
+
+            menu.setHeaderIcon(android.R.drawable.btn_star);
+            menu.setHeaderTitle("공지사항");
+            menu.add(Menu.NONE, 1, Menu.NONE, "사과");
+            menu.add(Menu.NONE, 2, Menu.NONE, "배");
+            menu.add(Menu.NONE, 3, Menu.NONE, "감");
+            menu.add(Menu.NONE, 4, Menu.NONE, "바나나");
+            menu.add(Menu.NONE, 5, Menu.NONE, "키위");
+            menu.add(Menu.NONE, 6, Menu.NONE, "귤");
+            menu.add(Menu.NONE, 7, Menu.NONE, "오렌지");
+
+            // Menu에 SubMenu 추가
+            SubMenu subMenu = menu.addSubMenu("하우스과일");
+
+            subMenu.add(1, 6, Menu.NONE, "방울토마토");
+            subMenu.add(1, 7, Menu.NONE, "하우스딸기");
+            subMenu.add(1, 8, Menu.NONE, "애호박");
+
+        }
+
+        super.onCreateContextMenu(menu, v, menuInfo);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case 1:
+
+                break;
+
+            default:
+                break;
+        }
+
+        return super.onContextItemSelected(item);
+    }
+
     public void onGroupItemClick (MenuItem item) {
         if (item.isChecked()) {
             item.setChecked(false);
@@ -299,20 +347,6 @@ public class PlayerActivity extends AppCompatActivity
     }
 
     //android Context Menu---
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View view,
-                                    ContextMenu.ContextMenuInfo menuInfo)
-    {
-        getMenuInflater().inflate(R.menu.menu_player, menu);
-    }
-
-    @Override
-    public boolean onContextItemSelected(MenuItem item)
-    {
-        Toast.makeText(this, item.getTitle(), Toast.LENGTH_LONG).show();
-        return true;
-    }
-
     /** IMAGE PROCESSING FUNCTION */
     public Point getScreenSize()
     {

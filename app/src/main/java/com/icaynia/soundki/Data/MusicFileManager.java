@@ -54,7 +54,8 @@ public class MusicFileManager
                 MediaStore.Audio.Media.ALBUM,
                 MediaStore.Audio.Media.ALBUM_ID,
                 MediaStore.Audio.Media.TITLE,
-                MediaStore.Audio.Media.ARTIST
+                MediaStore.Audio.Media.ARTIST,
+                MediaStore.Audio.Media.DURATION
 
         };
 
@@ -65,6 +66,8 @@ public class MusicFileManager
         Cursor cursor = context.getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
                 projection, null, null, null);
 
+        MediaPlayer mediaPlayer = new MediaPlayer();
+
         while(cursor.moveToNext()){
             MusicDto musicDto = new MusicDto();
             musicDto.uid_local = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media._ID));
@@ -72,21 +75,8 @@ public class MusicFileManager
             musicDto.album_id = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID));
             musicDto.title = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE));
             musicDto.artist = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST));
+            musicDto.length = Integer.parseInt(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DURATION)));
 
-            MediaPlayer mediaPlayer = new MediaPlayer();
-            try
-            {
-                Uri musicURI = Uri.withAppendedPath(
-                        MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, musicDto.uid_local);
-                mediaPlayer.reset();
-                mediaPlayer.setDataSource(getApplicationContext(), musicURI);
-                mediaPlayer.prepare();
-                musicDto.length = mediaPlayer.getDuration();
-            }
-            catch (Exception e)
-            {
-
-            }
 
             playList.addItem(musicDto);
         }

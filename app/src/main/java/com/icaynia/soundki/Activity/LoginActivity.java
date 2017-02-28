@@ -21,10 +21,4 @@ public class LoginActivity extends AppCompatActivity
 
 
     }
-
-    public void onMainActivity()
-    {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
 }

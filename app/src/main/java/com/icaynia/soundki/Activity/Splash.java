@@ -72,7 +72,7 @@ public class Splash extends AppCompatActivity
             @Override
             public void run()
             {
-                if (mAuth.getCurrentUser().getUid() != null)
+                if (mAuth.getCurrentUser() != null)
                 {
                     onMainActivity();
                 }
@@ -110,11 +110,13 @@ public class Splash extends AppCompatActivity
                         // ...
                     }
                 });
+
     }
 
     public void onMainActivity()
     {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 }

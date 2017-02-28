@@ -8,11 +8,22 @@ import android.content.ServiceConnection;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.media.MediaPlayer;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.SubMenu;
+import android.view.View;
 
+import com.facebook.AccessToken;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.icaynia.soundki.Activity.LoginActivity;
 import com.icaynia.soundki.Activity.MainActivity;
 import com.icaynia.soundki.Activity.PlayListActivity;
@@ -24,6 +35,9 @@ import com.icaynia.soundki.Model.MusicDto;
 import com.icaynia.soundki.Model.PlayList;
 import com.icaynia.soundki.Service.MusicService;
 import com.icaynia.soundki.View.MusicRemoteController;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -51,8 +65,10 @@ public class Global extends Application
 
     public OnCompleteListener completeListener = null;
 
+
     /* Firebase */
     public FirebaseAuth firebaseAuth;
+    public FirebaseUser loginUser;
 
     private ServiceConnection musicServiceConnection = new ServiceConnection() {
         @Override
@@ -72,12 +88,17 @@ public class Global extends Application
                     {
                         musicService.playMusic(nextmusic_uid);
                     }
-                    completeListener.onComplete();
+                    if (completeListener != null)
+                    {
+                        completeListener.onComplete();
+                    }
 
                 }
             });
 
             updateController();
+
+
         }
 
         @Override
@@ -101,7 +122,32 @@ public class Global extends Application
         playListManager = new PlayListManager(this);
 
         firebaseAuth = FirebaseAuth.getInstance();
+        loginUser = firebaseAuth.getCurrentUser();
+
+        postOnWall("msg");
     }
+
+    public void postOnWall(String msg) {
+
+        GraphRequest request = GraphRequest.newMeRequest(
+                AccessToken.getCurrentAccessToken(),
+                new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(
+                            JSONObject object,
+                            GraphResponse response) {
+
+
+                    }
+                });
+        Bundle parameters = new Bundle();
+        parameters.putString("message", msg);
+        request.setParameters(parameters);
+        request.executeAsync();
+    }
+
+
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
