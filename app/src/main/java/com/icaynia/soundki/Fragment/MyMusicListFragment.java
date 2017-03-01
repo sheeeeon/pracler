@@ -73,12 +73,13 @@ public class MyMusicListFragment extends Fragment
                 global.playMusic(Integer.parseInt(songId));
                 PlayList nowPlayingList = new PlayList();
 
-                for (int pos = position; pos < listView.getAdapter().getCount(); pos++)
+                for (int pos = 0; pos < listView.getAdapter().getCount(); pos++)
                 {
                     MusicDto dto = musicListAdapter.getItem(pos);
                     nowPlayingList.addItem(dto);
                 }
 
+                nowPlayingList.setPosition(position);
                 global.nowPlayingList = nowPlayingList;
             }
         });

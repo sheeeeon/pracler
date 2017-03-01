@@ -138,7 +138,7 @@ public class Global extends Application
 
     public void playPrevMusic()
     {
-        if (musicService.getPlayingMusicCurrentPosition() < 1000)
+        if (musicService.getPlayingMusicCurrentPosition() < 3000)
         {
             nowPlayingList.delPositionCount();
         }
