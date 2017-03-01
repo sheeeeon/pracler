@@ -141,6 +141,13 @@ public class PlayerActivity extends AppCompatActivity
         BUTTON_NEXT = (LinearLayout) findViewById(R.id.button_next);
         BUTTON_MENU = (LinearLayout) findViewById(R.id.button_more);
         registerForContextMenu(BUTTON_MENU);
+        BUTTON_MENU.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                openContextMenu(v);
+            }
+        });
         musicTimeBar = (MusicSeekBar) findViewById(R.id.musicTimeBar);
         musicTimeBar.setOnTouchListener(new View.OnTouchListener() {
             @Override

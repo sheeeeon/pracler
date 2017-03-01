@@ -92,6 +92,7 @@ public class Global extends Application
                     {
                         completeListener.onComplete();
                     }
+                    updateController();
 
                 }
             });
