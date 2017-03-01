@@ -81,19 +81,7 @@ public class Global extends Application
             musicService.mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
-                    nowPlayingList.addPositionCount();
-                    musicService.playing = false;
-                    String nextmusic_uid = nowPlayingList.get(nowPlayingList.getPosition());
-                    if (nextmusic_uid != null)
-                    {
-                        musicService.playMusic(nextmusic_uid);
-                    }
-                    if (completeListener != null)
-                    {
-                        completeListener.onComplete();
-                    }
-                    updateController();
-
+                    playNextMusic();
                 }
             });
 
@@ -125,29 +113,7 @@ public class Global extends Application
         firebaseAuth = FirebaseAuth.getInstance();
         loginUser = firebaseAuth.getCurrentUser();
 
-        postOnWall("msg");
     }
-
-    public void postOnWall(String msg) {
-
-        GraphRequest request = GraphRequest.newMeRequest(
-                AccessToken.getCurrentAccessToken(),
-                new GraphRequest.GraphJSONObjectCallback() {
-                    @Override
-                    public void onCompleted(
-                            JSONObject object,
-                            GraphResponse response) {
-
-
-                    }
-                });
-        Bundle parameters = new Bundle();
-        parameters.putString("message", msg);
-        request.setParameters(parameters);
-        request.executeAsync();
-    }
-
-
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
@@ -170,10 +136,44 @@ public class Global extends Application
         updateController();
     }
 
+    public void playPrevMusic()
+    {
+        if (musicService.getPlayingMusicCurrentPosition() < 1000)
+        {
+            nowPlayingList.delPositionCount();
+        }
+
+        musicService.playing = false;
+        String nextmusic_uid = nowPlayingList.get(nowPlayingList.getPosition());
+        if (nextmusic_uid != null)
+        {
+            musicService.playMusic(nextmusic_uid);
+        }
+
+        if (completeListener != null)
+        {
+            completeListener.onComplete();
+        }
+
+        updateController();
+    }
+
     public void playNextMusic()
     {
-
+        nowPlayingList.addPositionCount();
+        musicService.playing = false;
+        String nextmusic_uid = nowPlayingList.get(nowPlayingList.getPosition());
+        if (nextmusic_uid != null)
+        {
+            musicService.playMusic(nextmusic_uid);
+        }
+        if (completeListener != null)
+        {
+            completeListener.onComplete();
+        }
+        updateController();
     }
+
 
     public void updateController()
     {

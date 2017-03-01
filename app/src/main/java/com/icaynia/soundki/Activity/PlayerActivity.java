@@ -135,10 +135,12 @@ public class PlayerActivity extends AppCompatActivity
         albumViewContainer = (LinearLayout) findViewById(R.id.albumViewContainer);
         BUTTON_FAVORITE = (LinearLayout) findViewById(R.id.button_favorite);
         BUTTON_PREVIOUS = (LinearLayout) findViewById(R.id.button_previous);
+        BUTTON_PREVIOUS.setOnClickListener(onClickPrevButton);
         BUTTON_PLAY = (LinearLayout) findViewById(R.id.button_play);
         IMAGE_PLAY = (ImageView) findViewById(R.id.button_play_icon);
         BUTTON_PLAY.setOnClickListener(onClickPlayButton);
         BUTTON_NEXT = (LinearLayout) findViewById(R.id.button_next);
+        BUTTON_NEXT.setOnClickListener(onClickNextButton);
         BUTTON_MENU = (LinearLayout) findViewById(R.id.button_more);
         registerForContextMenu(BUTTON_MENU);
         BUTTON_MENU.setOnClickListener(new View.OnClickListener() {
@@ -278,6 +280,22 @@ public class PlayerActivity extends AppCompatActivity
                 icon = getResources().getDrawable(R.drawable.ic_pause_white);
             }
             IMAGE_PLAY.setImageDrawable(icon);
+        }
+    };
+
+    public View.OnClickListener onClickPrevButton = new View.OnClickListener() {
+        @Override
+        public void onClick(View v)
+        {
+            global.playPrevMusic();
+        }
+    };
+
+    public View.OnClickListener onClickNextButton = new View.OnClickListener() {
+        @Override
+        public void onClick(View v)
+        {
+            global.playNextMusic();
         }
     };
 

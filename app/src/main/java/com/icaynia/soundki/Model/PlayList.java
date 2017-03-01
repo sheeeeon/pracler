@@ -34,6 +34,10 @@ public class PlayList
         this.position = this.position + 1;
     }
 
+    public void delPositionCount()
+    {
+        this.position = this.position - 1;
+    }
 
     public void addItem(MusicDto dto)
     {

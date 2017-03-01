@@ -66,8 +66,6 @@ public class MusicFileManager
         Cursor cursor = context.getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
                 projection, null, null, null);
 
-        MediaPlayer mediaPlayer = new MediaPlayer();
-
         while(cursor.moveToNext()){
             MusicDto musicDto = new MusicDto();
             musicDto.uid_local = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media._ID));
@@ -76,8 +74,6 @@ public class MusicFileManager
             musicDto.title = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE));
             musicDto.artist = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST));
             musicDto.length = Integer.parseInt(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DURATION)));
-
-
             playList.addItem(musicDto);
         }
         cursor.close();
