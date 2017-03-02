@@ -9,11 +9,14 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.ActionMode;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
@@ -29,10 +32,10 @@ import com.icaynia.soundki.Model.MusicList;
 import com.icaynia.soundki.Model.PlayList;
 import com.icaynia.soundki.R;
 import com.icaynia.soundki.View.MusicListAdapter;
+import com.icaynia.soundki.View.PlayListAdapter;
 
 import java.util.ArrayList;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 
 /**
@@ -83,7 +86,7 @@ public class MyMusicListFragment extends Fragment
                 global.nowPlayingList = nowPlayingList;
             }
         });
-        registerForContextMenu(listView);
+        //registerForContextMenu(listView);
 
         Spinner spinner = (Spinner) v.findViewById(R.id.spin1);
         String[] platforms = getResources().
@@ -118,62 +121,49 @@ public class MyMusicListFragment extends Fragment
             }
         });
 
+
+        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+        listView.setMultiChoiceModeListener(modeChangeListener);
+
         return v;
     }
 
-    //Context Menu-------------------------------------
-
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v,
-                                    ContextMenu.ContextMenuInfo menuInfo) {
-        // TODO Auto-generated method stub
-
-        menu.setHeaderTitle("메뉴");
-        menu.add(0, v.getId(), 0, "다음 재생");
-        menu.add(0, v.getId(), 0, "재생목록에 추가");
-
-        super.onCreateContextMenu(menu, v, menuInfo);
-    }
-
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        // TODO Auto-generated method stub
-        if (item.getTitle() == "재생목록에 추가") {
-            onPlayListChooser(global.playListManager.getPlayListList());
-
-        }
-        else if (item.getTitle() == "다음 재생")
+    private AbsListView.MultiChoiceModeListener modeChangeListener = new AbsListView.MultiChoiceModeListener() {
+        @Override
+        public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked)
         {
 
+        }
+
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu)
+        {
+            Log.e("log", "choicemode");
+            //listView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
+            MusicListAdapter adapter = (MusicListAdapter) listView.getAdapter();
+            adapter.setChoiceMode(true);
+            adapter.notifyDataSetChanged();
+            return false;
+        }
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu)
+        {
+            return false;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item)
+        {
+            return false;
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode mode)
+        {
 
         }
-        return false;
-    }
-
-    public void onPlayListChooser(ArrayList<String> listItems) {
-        final CharSequence[] items = listItems.toArray(new CharSequence[listItems.size()]);
-        listItems.toArray(new CharSequence[listItems.size()]);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int item) {
-                // TODO Auto-generated method stub
-                if (item == 0) { // 연결할 장치를 선택하지 않고 '취소' 를 누른 경우.
-                    Toast.makeText(getApplicationContext(), "연결할 장치를 선택하지 않았습니다.", Toast.LENGTH_LONG).show();
-                } else { // 연결할 장치를 선택한 경우, 선택한 장치와 연결을 시도함.
-                    items[item].toString();
-                }
-            }
-
-        });
-
-        //buider.setCancelable(false);  // 뒤로 가기 버튼 사용 금지.
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
-
+    };
 
 
 }

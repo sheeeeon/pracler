@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -32,6 +33,8 @@ public class MusicListAdapter extends BaseAdapter
     private Context context;
     private LayoutInflater inflater;
     public MusicList list;
+
+    private boolean CHOICEMODE = false;
 
     public MusicListAdapter(Context context, MusicList list)
     {
@@ -71,6 +74,20 @@ public class MusicListAdapter extends BaseAdapter
         }
 
 
+        CheckBox checkBox = (CheckBox) convertView.findViewById(R.id.checkbox);
+        if (CHOICEMODE)
+        {
+            checkBox.setVisibility(View.VISIBLE);
+            Log.e("F", "!!!");
+        }
+        else
+        {
+            checkBox.setVisibility(View.GONE);
+            Log.e("F", "..!!!");
+        }
+
+
+
         ImageView album = (ImageView) convertView.findViewById(R.id.view_album);
         album.setImageDrawable(context.getResources().getDrawable(android.R.drawable.ic_menu_report_image));
         TextView title = (TextView) convertView.findViewById(R.id.view_title);
@@ -85,6 +102,17 @@ public class MusicListAdapter extends BaseAdapter
         myAsyncTask.execute(position + "");
 
         return convertView;
+    }
+
+
+    public boolean isChoiceMode()
+    {
+        return CHOICEMODE;
+    }
+
+    public void setChoiceMode(boolean state)
+    {
+        this.CHOICEMODE = state;
     }
 
     public class MyAsyncTask extends AsyncTask<String, Void, Bitmap>

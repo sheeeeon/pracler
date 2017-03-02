@@ -3,6 +3,13 @@
               android:orientation="horizontal" android:layout_width="match_parent"
               android:layout_height="match_parent">
 
+    <CheckBox
+        android:id="@+id/checkbox"
+        android:layout_width="25dp"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:layout_margin="8dp"/>
+
     <ImageView
         android:layout_width="50dp"
         android:layout_height="50dp"

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -63,7 +64,7 @@ public class PlayListAdapter extends BaseAdapter
     {
         if (convertView == null)
         {
-            convertView = inflater.inflate(R.layout.view_list_musicrows, parent, false);
+            convertView = inflater.inflate(R.layout.view_list_playlistrows, parent, false);
             ListView.LayoutParams layoutParams = new ListView.LayoutParams(ListView.LayoutParams.MATCH_PARENT, ListView.LayoutParams.MATCH_PARENT);
             convertView.setLayoutParams(layoutParams);
         }
@@ -86,6 +87,7 @@ public class PlayListAdapter extends BaseAdapter
 
         return convertView;
     }
+
 
     public class MyAsyncTask extends AsyncTask<String, Void, Bitmap>
     {
