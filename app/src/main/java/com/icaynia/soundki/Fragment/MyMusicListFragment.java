@@ -129,6 +129,7 @@ public class MyMusicListFragment extends Fragment
         // TODO Auto-generated method stub
 
         menu.setHeaderTitle("메뉴");
+        menu.add(0, v.getId(), 0, "다음 재생");
         menu.add(0, v.getId(), 0, "재생목록에 추가");
 
         super.onCreateContextMenu(menu, v, menuInfo);
@@ -139,6 +140,11 @@ public class MyMusicListFragment extends Fragment
         // TODO Auto-generated method stub
         if (item.getTitle() == "재생목록에 추가") {
             onPlayListChooser(global.playListManager.getPlayListList());
+
+        }
+        else if (item.getTitle() == "다음 재생")
+        {
+
 
         }
         return false;

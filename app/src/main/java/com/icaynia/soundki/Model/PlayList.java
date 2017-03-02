@@ -49,6 +49,11 @@ public class PlayList
         list.add(uid+"");
     }
 
+    public void addItem(int uid, int position)
+    {
+        list.add(position, uid+"");
+    }
+
     public void addItem(String uid)
     {
         list.add(uid);

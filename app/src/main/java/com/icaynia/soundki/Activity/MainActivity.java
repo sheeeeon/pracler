@@ -1,6 +1,5 @@
 package com.icaynia.soundki.Activity;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -13,17 +12,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 
-import com.icaynia.soundki.Data.RemoteDatabaseManager;
 import com.icaynia.soundki.Fragment.HomeFragment;
 import com.icaynia.soundki.Fragment.MyMusicListFragment;
-import com.icaynia.soundki.Fragment.ProfileFragment;
+import com.icaynia.soundki.Fragment.ProfileMenuFragment;
 import com.icaynia.soundki.Global;
 import com.icaynia.soundki.R;
 import com.icaynia.soundki.View.MusicRemoteController;
@@ -197,7 +192,7 @@ public class MainActivity extends AppCompatActivity
                 case 1:
                     return new MyMusicListFragment();
                 case 2:
-                    return new ProfileFragment();
+                    return new ProfileMenuFragment();
                 default:
                     return null;
             }
