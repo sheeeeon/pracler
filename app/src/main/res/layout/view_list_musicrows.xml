@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/lv"
               android:orientation="horizontal" android:layout_width="match_parent"
               android:layout_height="match_parent">
-
-    <CheckBox
-        android:id="@+id/checkbox"
-        android:layout_width="25dp"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        android:layout_margin="8dp"/>
 
     <ImageView
         android:layout_width="50dp"
@@ -23,7 +17,11 @@
         android:layout_height="50dp"
         android:orientation="vertical"
         android:gravity="center_vertical"
-        android:layout_margin="5dp">
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_toEndOf="@+id/view_album">
 
         <TextView
             android:layout_width="wrap_content"
@@ -38,5 +36,14 @@
 
     </LinearLayout>
 
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/select_icon"
+        android:layout_margin="5dp"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/ic_check"
+        />
 
-</LinearLayout>
+
+</RelativeLayout>

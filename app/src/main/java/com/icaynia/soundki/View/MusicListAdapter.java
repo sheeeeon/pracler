@@ -3,15 +3,18 @@ package com.icaynia.soundki.View;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.icaynia.soundki.Data.MusicFileManager;
@@ -47,7 +50,9 @@ public class MusicListAdapter extends BaseAdapter
         global = (Global) context.getApplicationContext();
         for (int i = 0; i < list.size(); i++)
         {
-            checkState.add(false);
+            checkState.add(i, false);
+            Log.e("tg", "호출");
+
         }
     }
 
@@ -72,35 +77,47 @@ public class MusicListAdapter extends BaseAdapter
     @Override
     public View getView(final int position, View convertView, ViewGroup parent)
     {
+
         if (convertView == null)
         {
             convertView = inflater.inflate(R.layout.view_list_musicrows, parent, false);
             ListView.LayoutParams layoutParams = new ListView.LayoutParams(ListView.LayoutParams.MATCH_PARENT, ListView.LayoutParams.MATCH_PARENT);
             convertView.setLayoutParams(layoutParams);
         }
+        final ImageView check = (ImageView) convertView.findViewById(R.id.select_icon);
 
 
-        CheckBox checkBox = (CheckBox) convertView.findViewById(R.id.checkbox);
-        if (CHOICEMODE)
+        if (isChoiceMode())
         {
-            checkBox.setVisibility(View.VISIBLE);
-            checkBox.setChecked(checkState.get(position));
-            Log.e("F", "!!!");
+            RelativeLayout lv=  (RelativeLayout) convertView.findViewById(R.id.lv);
+            lv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v)
+                {
+                    setCheckState(position, !getCheckState(position));
+                    if (getCheckState(position))
+                    {
+                        check.setVisibility(View.VISIBLE);
+                    }
+                    else
+                    {
+                        check.setVisibility(View.GONE);
+                    }
+                }
+            });
+
         }
         else
         {
-            checkBox.setVisibility(View.GONE);
-            Log.e("F", "..!!!");
+            check.setVisibility(View.GONE);
         }
-
-
 
         ImageView album = (ImageView) convertView.findViewById(R.id.view_album);
         album.setImageDrawable(context.getResources().getDrawable(android.R.drawable.ic_menu_report_image));
         TextView title = (TextView) convertView.findViewById(R.id.view_title);
         TextView artist = (TextView) convertView.findViewById(R.id.view_artist);
 
-        title.setText(list.getItem(position).title);
+        title.setText(list.getItem(position).title + " - " + position + " - " + checkState.get(position));
         artist.setText(list.getItem(position).artist + " - " + list.getItem(position).album + " - " + global.mMusicManager.convertToTime(list.getItem(position).length));
 
         convertView.setTag(list.getItem(position).uid_local);
@@ -122,8 +139,14 @@ public class MusicListAdapter extends BaseAdapter
         this.CHOICEMODE = state;
     }
 
+    public boolean getCheckState(int position)
+    {
+        return checkState.get(position);
+    }
+
     public void setCheckState(int position, boolean state)
     {
+        //ok
         checkState.set(position, state);
     }
 

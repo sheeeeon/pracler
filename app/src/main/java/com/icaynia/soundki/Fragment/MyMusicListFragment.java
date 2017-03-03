@@ -140,7 +140,7 @@ public class MyMusicListFragment extends Fragment
         public boolean onCreateActionMode(ActionMode mode, Menu menu)
         {
             Log.e("log", "choicemode");
-            //listView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
+            listView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
             MusicListAdapter adapter = (MusicListAdapter) listView.getAdapter();
             adapter.setChoiceMode(true);
             adapter.notifyDataSetChanged();
@@ -170,7 +170,6 @@ public class MyMusicListFragment extends Fragment
 
     public void setActionBarState(boolean state)
     {
-
         if (state)
         {
             ((MainActivity)getActivity()).getSupportActionBar().setTitle("선택");
