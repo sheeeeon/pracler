@@ -51,8 +51,6 @@ public class MusicListAdapter extends BaseAdapter
         for (int i = 0; i < list.size(); i++)
         {
             checkState.add(i, false);
-            Log.e("tg", "호출");
-
         }
     }
 
@@ -125,7 +123,7 @@ public class MusicListAdapter extends BaseAdapter
         TextView title = (TextView) convertView.findViewById(R.id.view_title);
         TextView artist = (TextView) convertView.findViewById(R.id.view_artist);
 
-        title.setText(list.getItem(position).title + " - " + position + " - " + checkState.get(position));
+        title.setText(list.getItem(position).title);
         artist.setText(list.getItem(position).artist + " - " + list.getItem(position).album + " - " + global.mMusicManager.convertToTime(list.getItem(position).length));
 
         convertView.setTag(list.getItem(position).uid_local);
