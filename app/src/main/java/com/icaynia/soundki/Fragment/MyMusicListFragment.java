@@ -129,6 +129,8 @@ public class MyMusicListFragment extends Fragment
         return v;
     }
 
+
+
     private AbsListView.MultiChoiceModeListener modeChangeListener = new AbsListView.MultiChoiceModeListener() {
         @Override
         public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked)

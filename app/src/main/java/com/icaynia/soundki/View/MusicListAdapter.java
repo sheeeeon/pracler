@@ -105,6 +105,14 @@ public class MusicListAdapter extends BaseAdapter
                     }
                 }
             });
+            if (getCheckState(position))
+            {
+                check.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                check.setVisibility(View.GONE);
+            }
 
         }
         else
