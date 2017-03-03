@@ -1,5 +1,6 @@
 package com.icaynia.soundki.Fragment;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -143,6 +144,8 @@ public class MyMusicListFragment extends Fragment
             MusicListAdapter adapter = (MusicListAdapter) listView.getAdapter();
             adapter.setChoiceMode(true);
             adapter.notifyDataSetChanged();
+            setActionBarState(true);
+
             return false;
         }
 
@@ -164,6 +167,19 @@ public class MyMusicListFragment extends Fragment
 
         }
     };
+
+    public void setActionBarState(boolean state)
+    {
+
+        if (state)
+        {
+            ((MainActivity)getActivity()).getSupportActionBar().setTitle("선택");
+        }
+        else
+        {
+            ((MainActivity)getActivity()).getSupportActionBar().setTitle("취소");
+        }
+    }
 
 
 }

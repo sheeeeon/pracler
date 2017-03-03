@@ -21,6 +21,7 @@ import com.icaynia.soundki.Model.MusicList;
 import com.icaynia.soundki.Model.PlayList;
 import com.icaynia.soundki.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,6 +36,7 @@ public class MusicListAdapter extends BaseAdapter
     public MusicList list;
 
     private boolean CHOICEMODE = false;
+    private ArrayList<Boolean> checkState = new ArrayList<>();
 
     public MusicListAdapter(Context context, MusicList list)
     {
@@ -43,6 +45,10 @@ public class MusicListAdapter extends BaseAdapter
         this.list = list;
         inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
         global = (Global) context.getApplicationContext();
+        for (int i = 0; i < list.size(); i++)
+        {
+            checkState.add(false);
+        }
     }
 
     @Override
@@ -78,6 +84,7 @@ public class MusicListAdapter extends BaseAdapter
         if (CHOICEMODE)
         {
             checkBox.setVisibility(View.VISIBLE);
+            checkBox.setChecked(checkState.get(position));
             Log.e("F", "!!!");
         }
         else
@@ -113,6 +120,11 @@ public class MusicListAdapter extends BaseAdapter
     public void setChoiceMode(boolean state)
     {
         this.CHOICEMODE = state;
+    }
+
+    public void setCheckState(int position, boolean state)
+    {
+        checkState.set(position, state);
     }
 
     public class MyAsyncTask extends AsyncTask<String, Void, Bitmap>
