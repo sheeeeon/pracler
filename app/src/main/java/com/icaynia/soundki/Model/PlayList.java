@@ -30,6 +30,11 @@ public class PlayList implements Serializable
         this.position = position;
     }
 
+    public void setName(String name)
+    {
+        this.playListName = name;
+    }
+
     public void addPositionCount()
     {
         this.position = this.position + 1;

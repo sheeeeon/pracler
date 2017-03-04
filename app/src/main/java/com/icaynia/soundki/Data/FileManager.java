@@ -29,6 +29,7 @@ public class FileManager
 
     public FileManager(Context context)
     {
+        this.context = context;
         init();
     }
 

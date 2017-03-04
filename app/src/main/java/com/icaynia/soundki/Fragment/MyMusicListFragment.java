@@ -46,6 +46,7 @@ import java.util.ArrayList;
 
 public class MyMusicListFragment extends Fragment
 {
+    private String TAG = "MyMusicListFragment";
     private View v;
     private Global global;
 
@@ -131,6 +132,19 @@ public class MyMusicListFragment extends Fragment
 
         FileManager fileManager = new FileManager(getContext());
 
+        PlayList playlist = new PlayList();
+        playlist.setName("testname");
+        playlist.addItem("testuid1");
+        playlist.addItem("testuid2");
+        playlist.addItem("testuid3");
+
+        fileManager.savePlaylist(playlist);
+
+        PlayList anotherlist = fileManager.loadPlayList("testname");
+        Log.e(TAG, anotherlist.get(0));
+        Log.e(TAG, anotherlist.get(1));
+        Log.e(TAG, anotherlist.get(2));
+        Log.e(TAG, anotherlist.get(3));
         return v;
     }
 
