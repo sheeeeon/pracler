@@ -43,6 +43,17 @@ public class FileManager
 
     public void savePlaylist(PlayList playlist)
     {
+        String filename = playlist.getName();
+        if (isFileAvailable(filename))
+        {
+            Log.e(TAG, "File is already created");
+            return;
+        }
+        if (playlist.getName().equals(""))
+        {
+            Log.e(TAG, "Playlist name isn't set.");
+        }
+
         try
         {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("dg.ser"));
@@ -54,5 +65,15 @@ public class FileManager
             e.printStackTrace();
         }
     }
+
+    public boolean isFileAvailable(String file)
+    {
+        File tmpFile = new File(file);
+        if( tmpFile.exists() ) {
+            return true;
+        }
+        return false;
+    }
 }
+
 
