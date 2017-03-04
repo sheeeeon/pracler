@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.icaynia.soundki.Activity.MainActivity;
 import com.icaynia.soundki.Data.FileManager;
 import com.icaynia.soundki.Data.MusicFileManager;
+import com.icaynia.soundki.Data.PlayListManager;
 import com.icaynia.soundki.Global;
 import com.icaynia.soundki.Model.MusicDto;
 import com.icaynia.soundki.Model.MusicList;
@@ -130,21 +131,18 @@ public class MyMusicListFragment extends Fragment
 
         // for develop
 
-        FileManager fileManager = new FileManager(getContext());
+        PlayListManager plm = new PlayListManager(getContext());
+        PlayList playList = new PlayList();
 
-        PlayList playlist = new PlayList();
-        playlist.setName("testname");
-        playlist.addItem("testuid1");
-        playlist.addItem("testuid2");
-        playlist.addItem("testuid3");
+        playList.setName("testing!");
+        playList.addItem("uid test test test trest");
 
-        fileManager.savePlaylist(playlist);
+        plm.savePlayList(playList);
 
-        PlayList anotherlist = fileManager.loadPlayList("testname");
-        Log.e(TAG, anotherlist.get(0));
-        Log.e(TAG, anotherlist.get(1));
-        Log.e(TAG, anotherlist.get(2));
-        Log.e(TAG, anotherlist.get(3));
+
+        PlayList loaded = plm.getPlayList("testing!");
+        Log.e(TAG, loaded.get(0));
+
         return v;
     }
 

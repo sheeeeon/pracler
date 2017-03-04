@@ -50,19 +50,20 @@ public class FileManager
     {
         if (playlist.getName().equals(""))
         {
-            Log.e(TAG, "Playlist name isn't set.");
+            Log.d(TAG, "Playlist name isn't set.");
             return;
         }
 
         String filename = dirPath+"/playlist/"+playlist.getName()+".soundki";
         if (isFileAvailable(filename))
         {
-            Log.e(TAG, "File is already created : " + filename);
+            Log.d(TAG, "File is already created : " + filename);
             return;
         }
 
         try
         {
+            Log.e(TAG, "Save PlayList : "+filename);
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename));
             oos.writeObject(playlist);
             oos.close();
@@ -84,6 +85,7 @@ public class FileManager
         String filename = dirPath+"/playlist/"+playlistName+".soundki";
         try
         {
+            Log.e(TAG, "Load PlayList : "+filename);
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename));
             playlist = (PlayList) ois.readObject();
             ois.close();
