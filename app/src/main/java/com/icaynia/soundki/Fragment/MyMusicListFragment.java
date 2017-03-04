@@ -26,6 +26,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.icaynia.soundki.Activity.MainActivity;
+import com.icaynia.soundki.Data.FileManager;
 import com.icaynia.soundki.Data.MusicFileManager;
 import com.icaynia.soundki.Global;
 import com.icaynia.soundki.Model.MusicDto;
@@ -125,6 +126,10 @@ public class MyMusicListFragment extends Fragment
 
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
         listView.setMultiChoiceModeListener(modeChangeListener);
+
+        // for develop
+
+        FileManager fileManager = new FileManager(getContext());
 
         return v;
     }

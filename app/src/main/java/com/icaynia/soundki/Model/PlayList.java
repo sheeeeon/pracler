@@ -1,5 +1,6 @@
 package com.icaynia.soundki.Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -8,7 +9,7 @@ import java.util.ArrayList;
  *
  */
 
-public class PlayList
+public class PlayList implements Serializable
 {
     private String playListName = "이름 없는 재생목록";
     private ArrayList<String> list = new ArrayList<>();
