@@ -1,15 +1,19 @@
 package com.icaynia.soundki.Fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.icaynia.soundki.Activity.ProfileActivity;
 import com.icaynia.soundki.Global;
 import com.icaynia.soundki.R;
 import com.icaynia.soundki.View.ProfileMenuAdapter;
@@ -55,9 +59,30 @@ public class ProfileMenuFragment extends Fragment
         menuString.add("menu 3");
 
         ProfileMenuAdapter profileMenuAdapter = new ProfileMenuAdapter(getContext(), menuString);
+
         listView.setAdapter(profileMenuAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                Log.e("F", "fff"+position);
+                if (position == 1) // profile
+                {
+                    Log.e("F", "fff");
+                    onProfileActivity();
+                }
+            }
+        });
 
 
         return v;
     }
+
+    private void onProfileActivity()
+    {
+        Intent intent = new Intent(getContext(), ProfileActivity.class);
+        startActivity(intent);
+    }
+
 }
