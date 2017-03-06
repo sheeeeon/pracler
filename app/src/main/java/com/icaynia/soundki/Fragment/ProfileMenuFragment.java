@@ -66,10 +66,8 @@ public class ProfileMenuFragment extends Fragment
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                Log.e("F", "fff"+position);
                 if (position == 1) // profile
                 {
-                    Log.e("F", "fff");
                     onProfileActivity();
                 }
             }
