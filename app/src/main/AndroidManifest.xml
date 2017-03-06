@@ -39,7 +39,7 @@
         <activity
             android:name=".Activity.ProfileActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.DayNight">
+            android:theme="@style/ProfileActivity">
 
         </activity>
         <activity
