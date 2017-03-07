@@ -32,7 +32,6 @@ public class RemoteDatabaseManager
     public DatabaseReference getSongsReference()
     {
         DatabaseReference userRef = database.getReference("Songs");
-        userRef.child("artist").child("album").child("title").setValue("Object");
         return userRef;
     }
 }

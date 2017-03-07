@@ -14,6 +14,7 @@ import android.widget.ListView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.icaynia.soundki.Activity.ProfileActivity;
+import com.icaynia.soundki.Data.RemoteDatabaseManager;
 import com.icaynia.soundki.Global;
 import com.icaynia.soundki.R;
 import com.icaynia.soundki.View.ProfileMenuAdapter;
@@ -72,7 +73,6 @@ public class ProfileMenuFragment extends Fragment
                 }
             }
         });
-
 
         return v;
     }

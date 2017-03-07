@@ -31,6 +31,7 @@ import com.icaynia.soundki.Activity.PlayerActivity;
 import com.icaynia.soundki.Data.LocalDatabaseManager;
 import com.icaynia.soundki.Data.MusicFileManager;
 import com.icaynia.soundki.Data.PlayListManager;
+import com.icaynia.soundki.Data.RemoteDatabaseManager;
 import com.icaynia.soundki.Model.MusicDto;
 import com.icaynia.soundki.Model.PlayList;
 import com.icaynia.soundki.Service.MusicService;
@@ -81,7 +82,13 @@ public class Global extends Application
             musicService.mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
+                    int songid = musicService.getPlayingMusic();
                     playNextMusic();
+
+                    MusicDto musicDto = mMusicManager.getMusicDto(songid+"");
+                    RemoteDatabaseManager rdm = new RemoteDatabaseManager();
+                    rdm.getSongsReference().child(musicDto.artist).child(musicDto.album).child(musicDto.title).setValue("Object");
+
                 }
             });
 
