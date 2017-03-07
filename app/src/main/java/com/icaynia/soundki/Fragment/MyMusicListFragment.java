@@ -76,7 +76,7 @@ public class MyMusicListFragment extends Fragment
                 MusicDto song = mMusicManager.getMusicDto(songId);
                 ((MainActivity)getContext()).onSnackbarController();
 
-                Log.e("MyMusicListFragment", "Song : " + song.title + " Artist : " + song.artist);
+                Log.e("MyMusicListFragment", "Song : " + song.getTitle() + " Artist : " + song.getArtist());
                 global.playMusic(Integer.parseInt(songId));
                 PlayList nowPlayingList = new PlayList();
 

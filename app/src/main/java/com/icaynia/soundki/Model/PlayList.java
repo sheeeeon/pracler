@@ -47,7 +47,7 @@ public class PlayList implements Serializable
 
     public void addItem(MusicDto dto)
     {
-        list.add(dto.uid_local);
+        list.add(dto.getUid_local());
     }
 
     public void addItem(int uid)

@@ -76,10 +76,10 @@ public class PlayListAdapter extends BaseAdapter
         TextView title = (TextView) convertView.findViewById(R.id.view_title);
         TextView artist = (TextView) convertView.findViewById(R.id.view_artist);
 
-        title.setText(music.title);
-        artist.setText(music.title + " - " + music.album + " - " + global.mMusicManager.convertToTime(music.length));
+        title.setText(music.getTitle());
+        artist.setText(music.getTitle() + " - " + music.getAlbum() + " - " + global.mMusicManager.convertToTime(music.getLength()));
 
-        convertView.setTag(music.uid_local);
+        convertView.setTag(music.getUid_local());
         MyAsyncTask myAsyncTask = new MyAsyncTask();
         myAsyncTask.setImgView(album);
         myAsyncTask.execute(position + "");

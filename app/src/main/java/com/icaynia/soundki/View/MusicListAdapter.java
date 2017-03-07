@@ -123,10 +123,10 @@ public class MusicListAdapter extends BaseAdapter
         TextView title = (TextView) convertView.findViewById(R.id.view_title);
         TextView artist = (TextView) convertView.findViewById(R.id.view_artist);
 
-        title.setText(list.getItem(position).title);
-        artist.setText(list.getItem(position).artist + " - " + list.getItem(position).album + " - " + global.mMusicManager.convertToTime(list.getItem(position).length));
+        title.setText(list.getItem(position).getTitle());
+        artist.setText(list.getItem(position).getArtist() + " - " + list.getItem(position).getAlbum() + " - " + global.mMusicManager.convertToTime(list.getItem(position).getLength()));
 
-        convertView.setTag(list.getItem(position).uid_local);
+        convertView.setTag(list.getItem(position).getUid_local());
         MyAsyncTask myAsyncTask = new MyAsyncTask();
         myAsyncTask.setImgView(album);
         myAsyncTask.execute(position + "");
@@ -184,7 +184,7 @@ public class MusicListAdapter extends BaseAdapter
             for (String i : id)
             {
                 this.position = Integer.parseInt(i);
-                int ir = Integer.parseInt(list.getItem(position).album_id);
+                int ir = Integer.parseInt(list.getItem(position).getAlbumId());
                 bitmap = mMusicFileManager.getAlbumImage(context, ir, 100);
             }
             return bitmap;

@@ -87,7 +87,7 @@ public class Global extends Application
 
                     MusicDto musicDto = mMusicManager.getMusicDto(songid+"");
                     RemoteDatabaseManager rdm = new RemoteDatabaseManager();
-                    rdm.getSongsReference().child(musicDto.artist).child(musicDto.album).child(musicDto.title).setValue("Object");
+                    rdm.getSongsReference().child(musicDto.getArtist()).child(musicDto.getAlbum()).child(musicDto.getTitle()).setValue("Object");
 
                 }
             });
@@ -190,8 +190,8 @@ public class Global extends Application
             if (songId == 0) return;
             Log.e("global.updateController", musicService.getPlayingMusic()+"");
             MusicDto song = mMusicManager.getMusicDto(songId+"");
-            Bitmap albumArt = mMusicManager.getAlbumImage(getApplicationContext(), Integer.parseInt(song.album_id), 100);
-            mainActivityMusicRemoteController.updateSongInfo(albumArt, song.artist, song.title);
+            Bitmap albumArt = mMusicManager.getAlbumImage(getApplicationContext(), Integer.parseInt(song.getAlbumId()), 100);
+            mainActivityMusicRemoteController.updateSongInfo(albumArt, song.getArtist(), song.getTitle());
         }
     }
 

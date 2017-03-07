@@ -205,11 +205,11 @@ public class PlayerActivity extends AppCompatActivity
         if (songId != 0)
         {
             MusicDto playingSong = global.mMusicManager.getMusicDto(songId+"");
-            artistView.setText(playingSong.artist);
-            album.setText(playingSong.album);
-            titleView.setText(playingSong.title);
+            artistView.setText(playingSong.getArtist());
+            album.setText(playingSong.getAlbum());
+            titleView.setText(playingSong.getTitle());
 
-            tmpBitmap = global.mMusicManager.getAlbumImage(this, Integer.parseInt(playingSong.album_id), getScreenSize().y);
+            tmpBitmap = global.mMusicManager.getAlbumImage(this, Integer.parseInt(playingSong.getAlbumId()), getScreenSize().y);
 
             /** when song have albumart */
             if (tmpBitmap != null)

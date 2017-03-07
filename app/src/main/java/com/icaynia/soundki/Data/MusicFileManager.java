@@ -68,12 +68,12 @@ public class MusicFileManager
 
         while(cursor.moveToNext()){
             MusicDto musicDto = new MusicDto();
-            musicDto.uid_local = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media._ID));
-            musicDto.album = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM));
-            musicDto.album_id = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID));
-            musicDto.title = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE));
-            musicDto.artist = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST));
-            musicDto.length = Integer.parseInt(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DURATION)));
+            musicDto.setUid_local(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media._ID)));
+            musicDto.setAlbum(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM)));
+            musicDto.setAlbumId(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID)));
+            musicDto.setTitle(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE)));
+            musicDto.setArtist(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST)));
+            musicDto.setLength(Integer.parseInt(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DURATION))));
             playList.addItem(musicDto);
         }
         cursor.close();
@@ -91,8 +91,8 @@ public class MusicFileManager
                 @Override
                 public int compare(MusicDto lhs, MusicDto rhs)
                 {
-                    char lhsVal = lhs.title.charAt(0); /** for example : 'f' */
-                    char rhsVal = rhs.title.charAt(0); /** for example : 'a' */
+                    char lhsVal = lhs.getTitle().charAt(0); /** for example : 'f' */
+                    char rhsVal = rhs.getTitle().charAt(0); /** for example : 'a' */
 
                     if (lhsVal > rhsVal) /** true */
                     {
@@ -115,24 +115,24 @@ public class MusicFileManager
                     @Override
                     public int compare(MusicDto lhs, MusicDto rhs)
                     {
-                        Log.e("compare", "t : "+lhs.album);
+                        Log.e("compare", "t : "+lhs.getAlbum());
 
                         char lhsVal, rhsVal;
-                        if (lhs.album == null)
+                        if (lhs.getAlbum() == null)
                         {
                             lhsVal = '0';
                         }
                         else
                         {
-                            lhsVal = lhs.album.charAt(0);
+                            lhsVal = lhs.getAlbum().charAt(0);
                         }
-                        if (rhs.album == null)
+                        if (rhs.getAlbum() == null)
                         {
                             rhsVal = '0';
                         }
                         else
                         {
-                            rhsVal = rhs.album.charAt(0);
+                            rhsVal = rhs.getAlbum().charAt(0);
                         }
 
 
@@ -157,8 +157,8 @@ public class MusicFileManager
                     @Override
                     public int compare(MusicDto lhs, MusicDto rhs)
                     {
-                        char lhsVal = lhs.artist.charAt(0); /** for example : 'f' */
-                        char rhsVal = rhs.artist.charAt(0); /** for example : 'a' */
+                        char lhsVal = lhs.getArtist().charAt(0); /** for example : 'f' */
+                        char rhsVal = rhs.getArtist().charAt(0); /** for example : 'a' */
 
                         if (lhsVal > rhsVal) /** true */
                         {
@@ -181,8 +181,8 @@ public class MusicFileManager
                     @Override
                     public int compare(MusicDto lhs, MusicDto rhs)
                     {
-                        char lhsVal = lhs.artist.charAt(0); /** for example : 'f' */
-                        char rhsVal = rhs.artist.charAt(0); /** for example : 'a' */
+                        char lhsVal = lhs.getArtist().charAt(0); /** for example : 'f' */
+                        char rhsVal = rhs.getArtist().charAt(0); /** for example : 'a' */
 
                         if (lhsVal > rhsVal) /** true */
                         {
@@ -244,17 +244,16 @@ public class MusicFileManager
             return null;
         }
         Uri singleUri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,Integer.parseInt(id));
-        Cursor cursor = context.getContentResolver().query(singleUri,
-                projection, null, null, null);
+        Cursor cursor = context.getContentResolver().query(singleUri,projection, null, null, null);
 
         MusicDto musicDto = new MusicDto();
-        while(cursor.moveToNext()){
-            musicDto.uid_local = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media._ID));
-            musicDto.album = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM));
-            musicDto.album_id = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID));
-            musicDto.title = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE));
-            musicDto.artist = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST));
-            Log.e("tag", musicDto.uid_local + " , " + musicDto.title);
+        while (cursor.moveToNext())
+        {
+            musicDto.setUid_local(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media._ID)));
+            musicDto.setAlbum(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM)));
+            musicDto.setAlbumId(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID)));
+            musicDto.setTitle(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE)));
+            musicDto.setArtist(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST)));
         }
 
         return musicDto;
