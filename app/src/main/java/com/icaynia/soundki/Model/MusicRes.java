@@ -1,12 +1,13 @@
 package com.icaynia.soundki.Model;
 
+import com.google.firebase.database.DatabaseReference;
+
 /**
  * Created by icaynia on 2017. 2. 9..
  */
 
 public class MusicRes
 {
-    public String album_uid;
-    public String album_title;
-    public String album_imgUrl;
+    public int track = 1;
+    public boolean isVertify = false;
 }

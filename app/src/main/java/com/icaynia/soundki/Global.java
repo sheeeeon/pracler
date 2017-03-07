@@ -24,6 +24,7 @@ import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.icaynia.soundki.Activity.LoginActivity;
 import com.icaynia.soundki.Activity.MainActivity;
 import com.icaynia.soundki.Activity.PlayListActivity;
@@ -33,6 +34,7 @@ import com.icaynia.soundki.Data.MusicFileManager;
 import com.icaynia.soundki.Data.PlayListManager;
 import com.icaynia.soundki.Data.RemoteDatabaseManager;
 import com.icaynia.soundki.Model.MusicDto;
+import com.icaynia.soundki.Model.MusicRes;
 import com.icaynia.soundki.Model.PlayList;
 import com.icaynia.soundki.Service.MusicService;
 import com.icaynia.soundki.View.MusicRemoteController;
@@ -40,7 +42,7 @@ import com.icaynia.soundki.View.MusicRemoteController;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
+import java.util.ArrayList;4
 
 /**
  * Created by icaynia on 2017. 2. 8..
@@ -86,18 +88,23 @@ public class Global extends Application
                     playNextMusic();
 
                     MusicDto musicDto = mMusicManager.getMusicDto(songid+"");
+                    MusicRes info = new MusicRes();
                     RemoteDatabaseManager rdm = new RemoteDatabaseManager();
-                    rdm.getSongsReference()
+
+                    DatabaseReference dr = rdm.getSongsReference()
                             .child(MusicDto.replaceForInput(musicDto.getArtist()))
                             .child(MusicDto.replaceForInput(musicDto.getAlbum()))
-                            .child(MusicDto.replaceForInput(musicDto.getTitle()))
-                            .setValue("Object");
+                            .child(MusicDto.replaceForInput(musicDto.getTitle()));
+
+                    dr.child("info").setValue(info);
+                    dr.child("play").push().setValue("icaynia");
+
+                    // love
+                    //dr.child("loves").push().setValue("icaynia");
 
                 }
             });
-
             updateController();
-
 
         }
 

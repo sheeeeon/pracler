@@ -139,9 +139,8 @@ public class MyMusicListFragment extends Fragment
 
         plm.savePlayList(playList);
 
-
         PlayList loaded = plm.getPlayList("testing!");
-        Log.e(TAG, loaded.get(0));
+        Log.e(TAG, loaded.get(0)+"-");
 
         return v;
     }
