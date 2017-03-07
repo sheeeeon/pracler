@@ -34,4 +34,10 @@ public class RemoteDatabaseManager
         DatabaseReference userRef = database.getReference("Songs");
         return userRef;
     }
+
+    public DatabaseReference getArtistReference()
+    {
+        DatabaseReference userRef = database.getReference("Artists");
+        return userRef;
+    }
 }

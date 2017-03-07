@@ -33,6 +33,8 @@ import com.icaynia.soundki.Data.LocalDatabaseManager;
 import com.icaynia.soundki.Data.MusicFileManager;
 import com.icaynia.soundki.Data.PlayListManager;
 import com.icaynia.soundki.Data.RemoteDatabaseManager;
+import com.icaynia.soundki.Model.AlbumRes;
+import com.icaynia.soundki.Model.ArtistRes;
 import com.icaynia.soundki.Model.MusicDto;
 import com.icaynia.soundki.Model.MusicRes;
 import com.icaynia.soundki.Model.PlayList;
@@ -42,7 +44,7 @@ import com.icaynia.soundki.View.MusicRemoteController;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;4
+import java.util.ArrayList;
 
 /**
  * Created by icaynia on 2017. 2. 8..
@@ -89,6 +91,9 @@ public class Global extends Application
 
                     MusicDto musicDto = mMusicManager.getMusicDto(songid+"");
                     MusicRes info = new MusicRes();
+                    ArtistRes arres = new ArtistRes();
+                    AlbumRes albumRes = new AlbumRes();
+
                     RemoteDatabaseManager rdm = new RemoteDatabaseManager();
 
                     DatabaseReference dr = rdm.getSongsReference()
@@ -96,8 +101,19 @@ public class Global extends Application
                             .child(MusicDto.replaceForInput(musicDto.getAlbum()))
                             .child(MusicDto.replaceForInput(musicDto.getTitle()));
 
-                    dr.child("info").setValue(info);
-                    dr.child("play").push().setValue("icaynia");
+                    DatabaseReference ar = rdm.getSongsReference()
+                            .child(MusicDto.replaceForInput(musicDto.getArtist()));
+
+                    DatabaseReference br = rdm.getSongsReference()
+                            .child(MusicDto.replaceForInput(musicDto.getArtist()))
+                            .child(MusicDto.replaceForInput(musicDto.getAlbum()));
+
+                    dr.child("&info").setValue(info);
+                    dr.child("&play").push().setValue("icaynia");
+
+                    ar.child("&info").setValue(arres);
+
+                    br.child("&info").setValue(albumRes);
 
                     // love
                     //dr.child("loves").push().setValue("icaynia");
