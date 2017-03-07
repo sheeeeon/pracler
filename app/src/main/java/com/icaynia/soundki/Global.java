@@ -87,7 +87,11 @@ public class Global extends Application
 
                     MusicDto musicDto = mMusicManager.getMusicDto(songid+"");
                     RemoteDatabaseManager rdm = new RemoteDatabaseManager();
-                    rdm.getSongsReference().child(musicDto.getArtist()).child(musicDto.getAlbum()).child(musicDto.getTitle()).setValue("Object");
+                    rdm.getSongsReference()
+                            .child(MusicDto.replaceForInput(musicDto.getArtist()))
+                            .child(MusicDto.replaceForInput(musicDto.getAlbum()))
+                            .child(MusicDto.replaceForInput(musicDto.getTitle()))
+                            .setValue("Object");
 
                 }
             });

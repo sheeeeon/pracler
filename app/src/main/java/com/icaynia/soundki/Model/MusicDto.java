@@ -1,6 +1,7 @@
 package com.icaynia.soundki.Model;
 
 import android.content.Intent;
+import android.util.Log;
 
 /**
  * Created by icaynia on 2017. 2. 8..
@@ -25,27 +26,27 @@ public class MusicDto
 
     public void setUid_remote(String uid_remote)
     {
-        this.uid_remote = uid_remote;
+        this.uid_remote = (uid_remote);
     }
 
     public void setAlbum(String albumText)
     {
-        this.album = albumText;
+        this.album = (albumText);
     }
 
     public void setAlbumId(String album_id)
     {
-        this.album_id = album_id;
+        this.album_id = (album_id);
     }
 
     public void setTitle(String titleText)
     {
-        this.title = titleText;
+        this.title = (titleText);
     }
 
     public void setArtist(String artistText)
     {
-        this.artist = artistText;
+        this.artist = (artistText);
     }
 
     public void setLength(int length)
@@ -60,17 +61,17 @@ public class MusicDto
 
     public String getUid_remote()
     {
-        return this.uid_remote;
+        return (this.uid_remote);
     }
 
     public String getAlbum()
     {
-        return this.album;
+        return (this.album);
     }
 
     public String getAlbumId()
     {
-        return this.album_id;
+        return (this.album_id);
     }
 
     public String getTitle()
@@ -86,6 +87,32 @@ public class MusicDto
     public int getLength()
     {
         return this.length;
+    }
+
+    public static String replaceForInput(String string)
+    {
+        String str = string.replace(".", "&DT");
+        str = str.replace("#", "&SH");
+        str = str.replace("$", "&DO");
+        str = str.replace("[", "&BL");
+        str = str.replace("]", "&BR");
+
+        Log.e("MusicDto", str);
+
+        return str;
+    }
+
+    public static String replaceForOutput(String string)
+    {
+        String str = string.replace("&DT", ".");
+        str = str.replace("&SH", "#" );
+        str = str.replace("&DO", "$" );
+        str = str.replace("&BL", "[" );
+        str = str.replace("&BR", "]" );
+
+        Log.e("MusicDto", str);
+
+        return str;
     }
 
 
