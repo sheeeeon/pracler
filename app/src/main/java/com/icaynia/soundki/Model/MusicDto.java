@@ -96,6 +96,7 @@ public class MusicDto
         str = str.replace("$", "&DO");
         str = str.replace("[", "&BL");
         str = str.replace("]", "&BR");
+        str = str.replace("/", "&SL");
 
         Log.e("MusicDto", str);
 
@@ -109,6 +110,7 @@ public class MusicDto
         str = str.replace("&DO", "$" );
         str = str.replace("&BL", "[" );
         str = str.replace("&BR", "]" );
+        str = str.replace("&SL", "/");
 
         Log.e("MusicDto", str);
 
