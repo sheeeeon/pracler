@@ -77,7 +77,11 @@ public class PlayList implements Serializable
 
     public String get(int position)
     {
-        return list.get(position);
+        if (position >= list.size()) {
+            return null;
+        }
+        String uid = list.get(position);
+        return uid;
     }
 
     public void remove(int index)
