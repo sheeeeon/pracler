@@ -34,26 +34,21 @@
             android:name=".Activity.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
-
         </activity>
         <activity
             android:name=".Activity.ProfileActivity"
             android:screenOrientation="portrait"
             android:theme="@style/ProfileActivity">
-
         </activity>
         <activity
             android:name=".Activity.Splash"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
-
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-
         </activity>
 
         <service
@@ -68,6 +63,11 @@
             android:name=".Activity.PlayListActivity"
             android:label="@string/title_activity_play_list"
             android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".Activity.SongDetailsActivity"
+            android:label="@string/title_activity_song_details"
+            android:theme="@style/AppTheme">
         </activity>
     </application>
 
