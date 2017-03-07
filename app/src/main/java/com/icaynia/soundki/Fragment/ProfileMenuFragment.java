@@ -61,14 +61,14 @@ public class ProfileMenuFragment extends Fragment
         ProfileMenuAdapter profileMenuAdapter = new ProfileMenuAdapter(getContext(), menuString);
 
         listView.setAdapter(profileMenuAdapter);
-
+        final String uid = firebaseUser.getUid();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
                 if (position == 1) // profile
                 {
-                    onProfileActivity();
+                    onProfileActivity(uid);
                 }
             }
         });
@@ -77,9 +77,10 @@ public class ProfileMenuFragment extends Fragment
         return v;
     }
 
-    private void onProfileActivity()
+    private void onProfileActivity(String uid)
     {
         Intent intent = new Intent(getContext(), ProfileActivity.class);
+        intent.putExtra("targetUid", uid);
         startActivity(intent);
     }
 

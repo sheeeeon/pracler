@@ -9,27 +9,30 @@ import com.icaynia.soundki.Model.User;
  * Created by icaynia on 2017. 2. 8..
  *
  * 파이어베이스와 연동하는 부분
- * 파이어베이스에 추가시키거나 가져와서 리스너에 연결시키는 부분을 여기서 다 한다.
  */
 
 public class RemoteDatabaseManager
 {
+
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
+
     public RemoteDatabaseManager()
     {
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference();
     }
 
-    public void addUser(User newUser)
+    public DatabaseReference getUserReference()
     {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("User");
-
-        myRef.child(newUser.user_id).setValue(newUser);
+        DatabaseReference userRef = database.getReference("User");
+        return userRef;
     }
 
-    public void addPlayLog(String userId, PlayLog playLog)
+    public DatabaseReference getSongsReference()
     {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("User").child(userId).child("Log");
-
+        DatabaseReference userRef = database.getReference("Songs");
+        userRef.child("artist").child("album").child("title").setValue("Object");
+        return userRef;
     }
 }
