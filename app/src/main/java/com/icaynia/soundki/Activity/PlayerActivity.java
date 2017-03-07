@@ -341,23 +341,12 @@ public class PlayerActivity extends AppCompatActivity
     public boolean onContextItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-            case 1:
-
-                break;
-
-            default:
+            case R.id.action_onnowplaying:
+                onNowPlayingActivity();
                 break;
         }
 
         return super.onContextItemSelected(item);
-    }
-
-    public void onGroupItemClick (MenuItem item) {
-        if (item.isChecked()) {
-            item.setChecked(false);
-        } else {
-            item.setChecked(true);
-        }
     }
 
     @Override

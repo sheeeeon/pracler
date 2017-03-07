@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by icaynia on 2017. 2. 8..

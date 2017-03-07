@@ -68,7 +68,7 @@ public class PlayListAdapter extends BaseAdapter
             ListView.LayoutParams layoutParams = new ListView.LayoutParams(ListView.LayoutParams.MATCH_PARENT, ListView.LayoutParams.MATCH_PARENT);
             convertView.setLayoutParams(layoutParams);
         }
-
+        global.mMusicManager.getMusicDto(list.get(position));
         MusicDto music = global.mMusicManager.getMusicDto(list.get(position));
 
         ImageView album = (ImageView) convertView.findViewById(R.id.view_album);
@@ -107,7 +107,6 @@ public class PlayListAdapter extends BaseAdapter
             super.onPreExecute();
             Log.i(TAG, "PreExecute");
             mMusicFileManager = new MusicFileManager(context);
-
         }
 
         @Override
@@ -117,7 +116,10 @@ public class PlayListAdapter extends BaseAdapter
             for (String i : id)
             {
                 this.position = Integer.parseInt(i);
-                bitmap = mMusicFileManager.getAlbumImage(context, Integer.parseInt(list.get(position)), 100);
+
+                MusicDto music = global.mMusicManager.getMusicDto(list.get(position));
+
+                bitmap = mMusicFileManager.getAlbumImage(context, Integer.parseInt(music.getAlbumId()), 100);
             }
             return bitmap;
         }

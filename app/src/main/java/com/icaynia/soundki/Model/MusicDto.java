@@ -41,7 +41,7 @@ public class MusicDto
 
     public void setTitle(String titleText)
     {
-        this.title = (titleText);
+        this.title = titleText;
     }
 
     public void setArtist(String artistText)
