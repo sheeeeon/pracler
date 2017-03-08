@@ -68,7 +68,6 @@ public class MyMusicListFragment extends Fragment
         listView.setAdapter(musicListAdapter);
         global = (Global) getContext().getApplicationContext();
 
-        listView.setOnItemClickListener(defaultClick);
         //registerForContextMenu(listView);
 
         Spinner spinner = (Spinner) v.findViewById(R.id.spin1);
@@ -104,10 +103,13 @@ public class MyMusicListFragment extends Fragment
             }
         });
 
+
+        listView.setOnItemClickListener(defaultClick);
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
             {
+                listView.setOnItemClickListener(null);
                 MusicListAdapter adapter = (MusicListAdapter)listView.getAdapter();
                 adapter.setChoiceMode(true);
                 adapter.notifyDataSetChanged();
@@ -116,7 +118,6 @@ public class MyMusicListFragment extends Fragment
                 return false;
             }
         });
-
 
 
         // for develop
