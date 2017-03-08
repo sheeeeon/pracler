@@ -251,8 +251,10 @@ public class MyMusicListFragment extends Fragment
             int count = 0;
             for (int i = 0; i < state.size(); i++)
             {
+                Log.e(i+"f", state.get(i)+"");
                 if (state.get(i) == true)
                 {
+
                     count++;
                 }
             }
@@ -279,15 +281,7 @@ public class MyMusicListFragment extends Fragment
             ListView listViewt = (ListView) view.findViewById(R.id.listview);
             listViewt.setAdapter(mla);
 
-            listViewt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-                {
-                    
-                }
-            });
-
-            return new AlertDialog.Builder(getActivity())
+            final AlertDialog.Builder builder  = new AlertDialog.Builder(getActivity())
                     .setIcon(R.mipmap.ic_launcher)
                     .setTitle(count+"개 선택한 항목을 ..")
                     .setView(view)
@@ -297,8 +291,22 @@ public class MyMusicListFragment extends Fragment
                                     Toast.makeText(getActivity(), "OK", Toast.LENGTH_LONG).show();
                                 }
                             }
-                    )
-                    .create();
+                    );
+
+            final AlertDialog dialog = builder.create();
+
+            listViewt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+                {
+                    Log.e("tag", position + " ");
+                    dialog.dismiss();
+                }
+            });
+
+
+
+            return dialog;
         }
 
     }

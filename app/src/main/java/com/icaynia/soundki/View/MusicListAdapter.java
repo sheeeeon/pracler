@@ -49,6 +49,7 @@ public class MusicListAdapter extends BaseAdapter
         this.list = list;
         inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
         global = (Global) context.getApplicationContext();
+        checkState = new ArrayList<>();
         for (int i = 0; i < list.size(); i++)
         {
             checkState.add(i, false);
@@ -144,6 +145,7 @@ public class MusicListAdapter extends BaseAdapter
 
     public void setChoiceMode(boolean state)
     {
+        checkState = new ArrayList<>();
         for (int i = 0; i < list.size(); i++)
         {
             checkState.add(i, false);
