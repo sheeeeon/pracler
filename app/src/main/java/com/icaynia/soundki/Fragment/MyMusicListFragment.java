@@ -23,6 +23,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.icaynia.soundki.Activity.MainActivity;
@@ -109,13 +110,7 @@ public class MyMusicListFragment extends Fragment
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
             {
-                listView.setOnItemClickListener(null);
-                MusicListAdapter adapter = (MusicListAdapter)listView.getAdapter();
-                adapter.setChoiceMode(true);
-                adapter.notifyDataSetChanged();
-                adapter.setCheckState(position, true);
-                setActionBarState(true);
-                setBackbutton();
+                openChooseMode(position);
                 return false;
             }
         });
@@ -166,28 +161,59 @@ public class MyMusicListFragment extends Fragment
             @Override
             public void onBackPressed()
             {
-                MusicListAdapter adapter = (MusicListAdapter)listView.getAdapter();
-                adapter.setChoiceMode(false);
-                adapter.notifyDataSetChanged();
-                setActionBarState(false);
-                listView.setOnItemClickListener(defaultClick);
-
-                ((MainActivity)getActivity()).setOnBackPressedListener(null);
+                hideChooseMode();
             }
         });
     }
 
+    public void openChooseMode(int clickedPosition)
+    {
+        listView.setOnItemClickListener(null);
+        MusicListAdapter adapter = (MusicListAdapter)listView.getAdapter();
+        adapter.setChoiceMode(true);
+        adapter.notifyDataSetChanged();
+        adapter.setCheckState(clickedPosition, true);
+        setActionBarState(true);
+        setBackbutton();
+        ((MainActivity)getActivity()).openActionBarButton();
+    }
 
+    public void hideChooseMode()
+    {
+        MusicListAdapter adapter = (MusicListAdapter)listView.getAdapter();
+        adapter.setChoiceMode(false);
+        adapter.notifyDataSetChanged();
+        setActionBarState(false);
+        listView.setOnItemClickListener(defaultClick);
+
+        ((MainActivity)getActivity()).setOnBackPressedListener(null);
+        ((MainActivity)getActivity()).hideActionBarButton();
+    }
 
     public void setActionBarState(boolean state)
     {
         if (state)
         {
             ((MainActivity)getActivity()).getSupportActionBar().setTitle("선택");
+            ((MainActivity)getActivity()).setActionBarPositiveButton("추가", new View.OnClickListener() {
+                @Override
+                public void onClick(View v)
+                {
+                    hideChooseMode();
+                }
+            });
+            ((MainActivity)getActivity()).setActionBarNegativeButton("취소", new View.OnClickListener() {
+                @Override
+                public void onClick(View v)
+                {
+                    hideChooseMode();
+                }
+            });
         }
         else
         {
             ((MainActivity)getActivity()).getSupportActionBar().setTitle("SoundKi");
+
         }
     }
 

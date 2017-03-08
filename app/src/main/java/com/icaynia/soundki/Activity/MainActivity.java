@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.icaynia.soundki.Fragment.HomeFragment;
 import com.icaynia.soundki.Fragment.MyMusicListFragment;
@@ -22,6 +23,8 @@ import com.icaynia.soundki.Fragment.ProfileMenuFragment;
 import com.icaynia.soundki.Global;
 import com.icaynia.soundki.R;
 import com.icaynia.soundki.View.MusicRemoteController;
+
+import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -145,6 +148,38 @@ public class MainActivity extends AppCompatActivity
     public void setOnBackPressedListener(OnBackPressedListener listener)
     {
         backPressedListener = listener;
+    }
+
+    public void setActionBarPositiveButton(String str, View.OnClickListener listener)
+    {
+        TextView textView = (TextView) findViewById(R.id.action_positive);
+        textView.setText(str);
+        textView.setOnClickListener(listener);
+        textView.setVisibility(View.VISIBLE);
+    }
+
+    public void setActionBarNegativeButton(String str, View.OnClickListener listener)
+    {
+        TextView textView = (TextView) findViewById(R.id.action_negative);
+        textView.setText(str);
+        textView.setOnClickListener(listener);
+        textView.setVisibility(View.VISIBLE);
+    }
+
+    public void hideActionBarButton()
+    {
+        TextView positive = (TextView) findViewById(R.id.action_positive);
+        positive.setVisibility(View.GONE);
+        TextView negative = (TextView) findViewById(R.id.action_negative);
+        negative.setVisibility(View.GONE);
+    }
+
+    public void openActionBarButton()
+    {
+        TextView positive = (TextView) findViewById(R.id.action_positive);
+        positive.setVisibility(View.VISIBLE);
+        TextView negative = (TextView) findViewById(R.id.action_negative);
+        negative.setVisibility(View.VISIBLE);
     }
 
     @Override
