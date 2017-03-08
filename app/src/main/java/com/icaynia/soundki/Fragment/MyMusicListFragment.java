@@ -113,6 +113,7 @@ public class MyMusicListFragment extends Fragment
                 MusicListAdapter adapter = (MusicListAdapter)listView.getAdapter();
                 adapter.setChoiceMode(true);
                 adapter.notifyDataSetChanged();
+                adapter.setCheckState(position, true);
                 setActionBarState(true);
                 setBackbutton();
                 return false;
