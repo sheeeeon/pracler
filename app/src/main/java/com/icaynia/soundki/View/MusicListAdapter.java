@@ -42,8 +42,6 @@ public class MusicListAdapter extends BaseAdapter
     private boolean CHOICEMODE = false;
     private ArrayList<Boolean> checkState = new ArrayList<>();
 
-    private AdapterView.OnItemClickListener listener;
-
     public MusicListAdapter(Context context, MusicList list)
     {
         this.context = context;
@@ -146,7 +144,16 @@ public class MusicListAdapter extends BaseAdapter
 
     public void setChoiceMode(boolean state)
     {
+        for (int i = 0; i < list.size(); i++)
+        {
+            checkState.add(i, false);
+        }
         this.CHOICEMODE = state;
+    }
+
+    public ArrayList<Boolean> getState()
+    {
+        return checkState;
     }
 
     public boolean getCheckState(int position)

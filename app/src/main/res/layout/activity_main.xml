@@ -50,8 +50,6 @@
                 android:textSize="12dp"
                 android:visibility="gone"/>
 
-
-
             <TextView
                 android:id="@+id/action_negative"
                 android:layout_gravity="right"

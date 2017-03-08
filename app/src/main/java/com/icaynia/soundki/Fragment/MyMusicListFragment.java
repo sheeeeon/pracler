@@ -1,14 +1,20 @@
 package com.icaynia.soundki.Fragment;
 
+import android.accounts.Account;
 import android.app.ActionBar;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.DataSetObserver;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.text.Layout;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.ContextMenu;
@@ -35,6 +41,7 @@ import com.icaynia.soundki.Model.MusicDto;
 import com.icaynia.soundki.Model.MusicList;
 import com.icaynia.soundki.Model.PlayList;
 import com.icaynia.soundki.R;
+import com.icaynia.soundki.View.MenuListAdapter;
 import com.icaynia.soundki.View.MusicListAdapter;
 import com.icaynia.soundki.View.PlayListAdapter;
 
@@ -114,7 +121,6 @@ public class MyMusicListFragment extends Fragment
                 return false;
             }
         });
-
 
         // for develop
 
@@ -199,6 +205,9 @@ public class MyMusicListFragment extends Fragment
                 @Override
                 public void onClick(View v)
                 {
+
+                    MusicListAdapter adapter = (MusicListAdapter)listView.getAdapter();
+                    showDialog(adapter.getState());
                     hideChooseMode();
                 }
             });
@@ -218,4 +227,82 @@ public class MyMusicListFragment extends Fragment
     }
 
 
+    void showDialog(ArrayList<Boolean> state) {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+
+        //String inputText = inputTextField.getText().toString();
+
+        DialogFragment newFragment = MyDialogFragment.newInstance(state);
+        newFragment.show(ft, "dialog");
+
+    }
+
+    public static class MyDialogFragment extends DialogFragment
+    {
+
+        static MyDialogFragment newInstance(ArrayList<Boolean> state) {
+            MyDialogFragment f = new MyDialogFragment();
+
+            int count = 0;
+            for (int i = 0; i < state.size(); i++)
+            {
+                if (state.get(i) == true)
+                {
+                    count++;
+                }
+            }
+            Bundle bundle = new Bundle();
+            bundle.putInt("count", count);
+            f.setArguments(bundle);
+
+            if (count == 0) return null;
+            return f;
+        }
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+
+            LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View view = inflater.inflate(R.layout.dialog_checkmenu, null, false);
+            int count = getArguments().getInt("count");
+
+            ArrayList<String> str = new ArrayList<>();
+            str.add("다음 재생");
+            str.add("재생목록에 추가");
+
+            MenuListAdapter mla = new MenuListAdapter(getContext(), str);
+            ListView listViewt = (ListView) view.findViewById(R.id.listview);
+            listViewt.setAdapter(mla);
+
+            listViewt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+                {
+                    
+                }
+            });
+
+            return new AlertDialog.Builder(getActivity())
+                    .setIcon(R.mipmap.ic_launcher)
+                    .setTitle(count+"개 선택한 항목을 ..")
+                    .setView(view)
+                    .setPositiveButton("OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    Toast.makeText(getActivity(), "OK", Toast.LENGTH_LONG).show();
+                                }
+                            }
+                    )
+                    .create();
+        }
+
+    }
+
+
 }
+
