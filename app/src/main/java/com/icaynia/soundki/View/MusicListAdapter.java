@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -40,6 +41,8 @@ public class MusicListAdapter extends BaseAdapter
 
     private boolean CHOICEMODE = false;
     private ArrayList<Boolean> checkState = new ArrayList<>();
+
+    private AdapterView.OnItemClickListener listener;
 
     public MusicListAdapter(Context context, MusicList list)
     {
@@ -84,10 +87,11 @@ public class MusicListAdapter extends BaseAdapter
         }
         final ImageView check = (ImageView) convertView.findViewById(R.id.select_icon);
 
+        RelativeLayout lv=  (RelativeLayout) convertView.findViewById(R.id.lv);
 
         if (isChoiceMode())
         {
-            RelativeLayout lv=  (RelativeLayout) convertView.findViewById(R.id.lv);
+            Log.e("MusicListAdapter", "Choicemode");
             lv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v)
@@ -111,11 +115,12 @@ public class MusicListAdapter extends BaseAdapter
             {
                 check.setVisibility(View.GONE);
             }
-
         }
         else
         {
+            Log.e("MusicListAdapter", "defaultMode");
             check.setVisibility(View.GONE);
+            lv.setClickable(false);
         }
 
         ImageView album = (ImageView) convertView.findViewById(R.id.view_album);
@@ -134,10 +139,9 @@ public class MusicListAdapter extends BaseAdapter
         return convertView;
     }
 
-
     public boolean isChoiceMode()
     {
-        return CHOICEMODE;
+        return this.CHOICEMODE;
     }
 
     public void setChoiceMode(boolean state)
@@ -152,7 +156,6 @@ public class MusicListAdapter extends BaseAdapter
 
     public void setCheckState(int position, boolean state)
     {
-        //ok
         checkState.set(position, state);
     }
 

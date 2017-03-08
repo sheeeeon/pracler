@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity
 
     private boolean snackbarState = false;
 
+    private OnBackPressedListener backPressedListener = null;
+
     private Snackbar.SnackbarLayout layout;
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -140,6 +142,24 @@ public class MainActivity extends AppCompatActivity
         snackbarState = false;
     }
 
+    public void setOnBackPressedListener(OnBackPressedListener listener)
+    {
+        backPressedListener = listener;
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        if (backPressedListener != null)
+        {
+            backPressedListener.onBackPressed();
+        }
+        else
+        {
+            super.onBackPressed();
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -219,5 +239,10 @@ public class MainActivity extends AppCompatActivity
             }
             return null;
         }
+    }
+
+    public interface OnBackPressedListener
+    {
+        void onBackPressed();
     }
 }

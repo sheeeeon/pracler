@@ -68,28 +68,7 @@ public class MyMusicListFragment extends Fragment
         listView.setAdapter(musicListAdapter);
         global = (Global) getContext().getApplicationContext();
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
-                String songId = view.getTag().toString();
-                MusicDto song = mMusicManager.getMusicDto(songId);
-                ((MainActivity)getContext()).onSnackbarController();
-
-                Log.e("MyMusicListFragment", "Song : " + song.getTitle() + " Artist : " + song.getArtist());
-                global.playMusic(Integer.parseInt(songId));
-                PlayList nowPlayingList = new PlayList();
-
-                for (int pos = 0; pos < listView.getAdapter().getCount(); pos++)
-                {
-                    MusicDto dto = musicListAdapter.getItem(pos);
-                    nowPlayingList.addItem(dto);
-                }
-
-                nowPlayingList.setPosition(position);
-                global.nowPlayingList = nowPlayingList;
-            }
-        });
+        listView.setOnItemClickListener(defaultClick);
         //registerForContextMenu(listView);
 
         Spinner spinner = (Spinner) v.findViewById(R.id.spin1);
@@ -125,9 +104,20 @@ public class MyMusicListFragment extends Fragment
             }
         });
 
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                MusicListAdapter adapter = (MusicListAdapter)listView.getAdapter();
+                adapter.setChoiceMode(true);
+                adapter.notifyDataSetChanged();
+                setActionBarState(true);
+                setBackbutton();
+                return false;
+            }
+        });
 
-        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-        listView.setMultiChoiceModeListener(modeChangeListener);
+
 
         // for develop
 
@@ -145,46 +135,47 @@ public class MyMusicListFragment extends Fragment
         return v;
     }
 
-
-
-    private AbsListView.MultiChoiceModeListener modeChangeListener = new AbsListView.MultiChoiceModeListener() {
+    public AdapterView.OnItemClickListener defaultClick = new AdapterView.OnItemClickListener() {
         @Override
-        public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked)
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id)
         {
+            String songId = view.getTag().toString();
+            MusicDto song = mMusicManager.getMusicDto(songId);
+            ((MainActivity)getContext()).onSnackbarController();
 
-        }
+            Log.e("MyMusicListFragment", "Song : " + song.getTitle() + " Artist : " + song.getArtist());
+            global.playMusic(Integer.parseInt(songId));
+            PlayList nowPlayingList = new PlayList();
 
-        @Override
-        public boolean onCreateActionMode(ActionMode mode, Menu menu)
-        {
-            Log.e("log", "choicemode");
-            listView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
-            MusicListAdapter adapter = (MusicListAdapter) listView.getAdapter();
-            adapter.setChoiceMode(true);
-            adapter.notifyDataSetChanged();
-            setActionBarState(true);
+            for (int pos = 0; pos < listView.getAdapter().getCount(); pos++)
+            {
+                MusicDto dto = musicListAdapter.getItem(pos);
+                nowPlayingList.addItem(dto);
+            }
 
-            return false;
-        }
-
-        @Override
-        public boolean onPrepareActionMode(ActionMode mode, Menu menu)
-        {
-            return false;
-        }
-
-        @Override
-        public boolean onActionItemClicked(ActionMode mode, MenuItem item)
-        {
-            return false;
-        }
-
-        @Override
-        public void onDestroyActionMode(ActionMode mode)
-        {
-
+            nowPlayingList.setPosition(position);
+            global.nowPlayingList = nowPlayingList;
         }
     };
+
+    public void setBackbutton()
+    {
+        ((MainActivity)getContext()).setOnBackPressedListener(new MainActivity.OnBackPressedListener() {
+            @Override
+            public void onBackPressed()
+            {
+                MusicListAdapter adapter = (MusicListAdapter)listView.getAdapter();
+                adapter.setChoiceMode(false);
+                adapter.notifyDataSetChanged();
+                setActionBarState(false);
+                listView.setOnItemClickListener(defaultClick);
+
+                ((MainActivity)getActivity()).setOnBackPressedListener(null);
+            }
+        });
+    }
+
+
 
     public void setActionBarState(boolean state)
     {
@@ -194,7 +185,7 @@ public class MyMusicListFragment extends Fragment
         }
         else
         {
-            ((MainActivity)getActivity()).getSupportActionBar().setTitle("취소");
+            ((MainActivity)getActivity()).getSupportActionBar().setTitle("SoundKi");
         }
     }
 
