@@ -45,6 +45,7 @@ import com.icaynia.soundki.View.MenuListAdapter;
 import com.icaynia.soundki.View.MusicListAdapter;
 import com.icaynia.soundki.View.PlayListAdapter;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
@@ -237,7 +238,7 @@ public class MyMusicListFragment extends Fragment
 
         //String inputText = inputTextField.getText().toString();
 
-        DialogFragment newFragment = MyDialogFragment.newInstance(state);
+        DialogFragment newFragment = MyDialogFragment.newInstance(state, list);
         newFragment.show(ft, "dialog");
 
     }
@@ -245,21 +246,21 @@ public class MyMusicListFragment extends Fragment
     public static class MyDialogFragment extends DialogFragment
     {
 
-        static MyDialogFragment newInstance(ArrayList<Boolean> state) {
+        static MyDialogFragment newInstance(ArrayList<Boolean> state, MusicList list) {
             MyDialogFragment f = new MyDialogFragment();
 
             int count = 0;
             for (int i = 0; i < state.size(); i++)
             {
-                Log.e(i+"f", state.get(i)+"");
                 if (state.get(i) == true)
                 {
-
                     count++;
                 }
             }
             Bundle bundle = new Bundle();
             bundle.putInt("count", count);
+            bundle.putSerializable("statelist", state);
+            bundle.putSerializable("musiclist", list);
             f.setArguments(bundle);
 
             if (count == 0) return null;
@@ -268,13 +269,20 @@ public class MyMusicListFragment extends Fragment
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-
+            final Global global = (Global) getActivity().getApplicationContext();
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View view = inflater.inflate(R.layout.dialog_checkmenu, null, false);
             int count = getArguments().getInt("count");
+            final MusicList musiclist = (MusicList) getArguments().getSerializable("musiclist");
+            final ArrayList<Boolean> state = (ArrayList<Boolean>) getArguments().getSerializable("statelist");
 
+            for (int i = 0; i < state.size(); i++)
+            {
+                Log.e(i+"f", state.get(i)+"");
+            }
             ArrayList<String> str = new ArrayList<>();
             str.add("다음 재생");
+            str.add("현재 재생목록에 추가");
             str.add("재생목록에 추가");
 
             MenuListAdapter mla = new MenuListAdapter(getContext(), str);
@@ -295,10 +303,42 @@ public class MyMusicListFragment extends Fragment
 
             final AlertDialog dialog = builder.create();
 
-            listViewt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            listViewt.setOnItemClickListener(new AdapterView.OnItemClickListener()
+            {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id)
                 {
+                    switch (position)
+                    {
+                        // TODO add to next play
+                        case 0:
+                            for (int i = 0; i < state.size(); i++)
+                            {
+                                if (state.get(i) == true)
+                                {
+                                    String songId = musiclist.getItem(i).getUid_local();
+                                    global.nowPlayingList.addItem(Integer.parseInt(songId), global.nowPlayingList.getPosition()+1);
+                                }
+                            }
+                            break;
+
+                        // TODO add to nowplaylist
+                        case 1:
+                            for (int i = 0; i < state.size(); i++)
+                            {
+                                if (state.get(i) == true)
+                                {
+                                    String songId = musiclist.getItem(position).getUid_local();
+                                    global.nowPlayingList.addItem(songId);
+                                }
+                            }
+                            break;
+
+                        // TODO add to local playlist
+                        case 2:
+                            break;
+
+                    }
                     Log.e("tag", position + " ");
                     dialog.dismiss();
                 }

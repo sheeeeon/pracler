@@ -1,5 +1,6 @@
 package com.icaynia.soundki.Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import java.util.List;
  * Created by icaynia on 24/02/2017.
  */
 
-public class MusicList
+public class MusicList implements Serializable
 {
     private ArrayList<MusicDto> list = new ArrayList<>();
 
