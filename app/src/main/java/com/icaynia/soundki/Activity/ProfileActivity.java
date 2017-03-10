@@ -12,6 +12,8 @@ import com.icaynia.soundki.Data.UserManager;
 import com.icaynia.soundki.Model.User;
 import com.icaynia.soundki.R;
 
+import org.w3c.dom.Text;
+
 /**
  * Created by icaynia on 06/03/2017.
  */
@@ -24,6 +26,7 @@ public class ProfileActivity extends AppCompatActivity
 
     /** VIEW */
     private TextView text_name;
+    private TextView text_description;
 
     private UserManager userManager;
     private User data_user;
@@ -47,6 +50,7 @@ public class ProfileActivity extends AppCompatActivity
     {
         getSupportActionBar().setTitle("");
         text_name = (TextView) findViewById(R.id.text_name);
+        text_description = (TextView) findViewById(R.id.text_description);
 
     }
 
@@ -60,6 +64,7 @@ public class ProfileActivity extends AppCompatActivity
                 data_user = user;
                 getSupportActionBar().setTitle(data_user.name);
                 text_name.setText(data_user.name);
+                text_description.setText(data_user.user_description);
             }
         });
     }

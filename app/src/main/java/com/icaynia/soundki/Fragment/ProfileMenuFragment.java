@@ -70,16 +70,6 @@ public class ProfileMenuFragment extends Fragment
         });
         listInitialize();
 
-        RemoteDatabaseManager rdm = new RemoteDatabaseManager();
-        DatabaseReference dr = rdm.getUsersReference();
-        User user = new User();
-        user.name = firebaseUser.getDisplayName();
-        user.picture = firebaseUser.getPhotoUrl().toString();
-        user.email = firebaseUser.getEmail();
-
-
-        dr.child(firebaseUser.getUid()).child("profile").setValue(user);
-
 
 
         return v;
