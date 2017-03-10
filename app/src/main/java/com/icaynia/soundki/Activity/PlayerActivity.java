@@ -315,23 +315,6 @@ public class PlayerActivity extends AppCompatActivity
 
         } else {
 
-            menu.setHeaderIcon(android.R.drawable.btn_star);
-            menu.setHeaderTitle("공지사항");
-            menu.add(Menu.NONE, 1, Menu.NONE, "사과");
-            menu.add(Menu.NONE, 2, Menu.NONE, "배");
-            menu.add(Menu.NONE, 3, Menu.NONE, "감");
-            menu.add(Menu.NONE, 4, Menu.NONE, "바나나");
-            menu.add(Menu.NONE, 5, Menu.NONE, "키위");
-            menu.add(Menu.NONE, 6, Menu.NONE, "귤");
-            menu.add(Menu.NONE, 7, Menu.NONE, "오렌지");
-
-            // Menu에 SubMenu 추가
-            SubMenu subMenu = menu.addSubMenu("하우스과일");
-
-            subMenu.add(1, 6, Menu.NONE, "방울토마토");
-            subMenu.add(1, 7, Menu.NONE, "하우스딸기");
-            subMenu.add(1, 8, Menu.NONE, "애호박");
-
         }
 
         super.onCreateContextMenu(menu, v, menuInfo);
@@ -377,6 +360,8 @@ public class PlayerActivity extends AppCompatActivity
         size.y = 1280;
         return size;
     }
+
+    
 
     public static Bitmap cropBitmap(Point screensize, Bitmap original) {
         int startX = original.getWidth() / 2 - screensize.x / 2;
