@@ -3,10 +3,13 @@ package com.icaynia.soundki.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.icaynia.soundki.Data.UserManager;
+import com.icaynia.soundki.Model.User;
 import com.icaynia.soundki.R;
 
 /**
@@ -22,11 +25,16 @@ public class ProfileActivity extends AppCompatActivity
     /** VIEW */
     private TextView text_name;
 
+    private UserManager userManager;
+    private User data_user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         targetUid = getIntent().getStringExtra("targetUid");
 
@@ -37,13 +45,23 @@ public class ProfileActivity extends AppCompatActivity
 
     private void initializeView()
     {
+        getSupportActionBar().setTitle("");
         text_name = (TextView) findViewById(R.id.text_name);
 
     }
 
     private void setData(String uid)
     {
-
+        userManager = new UserManager();
+        userManager.getUser(uid, new UserManager.OnCompleteGetUserListener() {
+            @Override
+            public void onComplete(User user)
+            {
+                data_user = user;
+                getSupportActionBar().setTitle(data_user.name);
+                text_name.setText(data_user.name);
+            }
+        });
     }
 
 
