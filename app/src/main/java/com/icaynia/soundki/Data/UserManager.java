@@ -1,7 +1,11 @@
 package com.icaynia.soundki.Data;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Handler;
 import android.util.Log;
+import android.widget.ImageView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -11,6 +15,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.icaynia.soundki.Model.User;
+
+import java.io.InputStream;
+import java.net.URL;
 
 /**
  * Created by icaynia on 07/03/2017.
@@ -77,6 +84,36 @@ public class UserManager
         void onComplete(User user);
     }
 
+    public interface OnCompleteGetUserImageListener
+    {
+        void onComplete(Bitmap UserImage);
+    }
+
+    public void getImage(final String Url, final OnCompleteGetUserImageListener listener)
+    {
+        Thread t = new Thread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                try
+                {
+                    URL url = new URL(Url);
+                    InputStream is = url.openStream();
+                    Bitmap bm = BitmapFactory.decodeStream(is);
+                    listener.onComplete(bm);
+
+                }
+                catch(Exception e)
+                {
+
+                }
+
+            }
+        });
+
+        t.start();
+    }
 
 
 }

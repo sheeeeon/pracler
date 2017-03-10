@@ -1,9 +1,11 @@
 package com.icaynia.soundki.Activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,6 +29,7 @@ public class ProfileActivity extends AppCompatActivity
     /** VIEW */
     private TextView text_name;
     private TextView text_description;
+    private ImageView image_profile;
 
     private UserManager userManager;
     private User data_user;
@@ -51,6 +54,7 @@ public class ProfileActivity extends AppCompatActivity
         getSupportActionBar().setTitle("");
         text_name = (TextView) findViewById(R.id.text_name);
         text_description = (TextView) findViewById(R.id.text_description);
+        image_profile = (ImageView) findViewById(R.id.image_profile);
 
     }
 
@@ -65,8 +69,18 @@ public class ProfileActivity extends AppCompatActivity
                 getSupportActionBar().setTitle(data_user.name);
                 text_name.setText(data_user.name);
                 text_description.setText(data_user.user_description);
+
+                userManager.getImage(data_user.picture, new UserManager.OnCompleteGetUserImageListener() {
+                    @Override
+                    public void onComplete(Bitmap UserImage)
+                    {
+                        image_profile.setImageBitmap(UserImage);
+                    }
+                });
             }
         });
+
+
     }
 
 
