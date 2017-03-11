@@ -49,7 +49,7 @@ public class UserManager
                     User user = dataSnapshot.getValue(User.class);
                     Log.e(TAG, "getUser:complete, " + user.email);
                     listener.onComplete(user);
-
+                    setLike();
                     // ...
                 }
 
@@ -62,7 +62,10 @@ public class UserManager
 
     public void setLike()
     {
+        RemoteDatabaseManager rdm = new RemoteDatabaseManager();
+        DatabaseReference dr = rdm.getUsersReference();
 
+        dr.child(loginUser.getUid()).child("like").push().setValue("123/123/123");
     }
 
     public void addNewUser()
