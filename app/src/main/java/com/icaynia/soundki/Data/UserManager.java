@@ -14,6 +14,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.icaynia.soundki.Model.MusicDto;
 import com.icaynia.soundki.Model.User;
 
 import java.io.InputStream;
@@ -49,7 +50,6 @@ public class UserManager
                     User user = dataSnapshot.getValue(User.class);
                     Log.e(TAG, "getUser:complete, " + user.email);
                     listener.onComplete(user);
-                    setLike();
                     // ...
                 }
 
@@ -60,12 +60,18 @@ public class UserManager
             });
     }
 
-    public void setLike()
+    public void setLike(String artist, String album, String title)
     {
         RemoteDatabaseManager rdm = new RemoteDatabaseManager();
         DatabaseReference dr = rdm.getUsersReference();
+        DatabaseReference songRef = rdm.getSongsReference();
 
-        dr.child(loginUser.getUid()).child("like").push().setValue("123/123/123");
+        artist = MusicDto.replaceForInput(artist);
+        album = MusicDto.replaceForInput(album);
+        title = MusicDto.replaceForInput(title);
+
+        dr.child(loginUser.getUid()).child("like").child(artist)
+                .child(album).child(title).setValue("true");
     }
 
     public void addNewUser()
@@ -77,8 +83,19 @@ public class UserManager
         user.picture = loginUser.getPhotoUrl().toString();
         user.email = loginUser.getEmail();
 
-
         dr.child(loginUser.getUid()).child("profile").setValue(user);
+    }
+
+    public void setNowlistening(String artist, String album, String title)
+    {
+        RemoteDatabaseManager rdm = new RemoteDatabaseManager();
+        DatabaseReference dr = rdm.getUsersReference();
+
+        artist = MusicDto.replaceForInput(artist);
+        album = MusicDto.replaceForInput(album);
+        title = MusicDto.replaceForInput(title);
+
+        dr.child(loginUser.getUid()).child("now").setValue(artist+"/"+album+"/"+title);
     }
 
 

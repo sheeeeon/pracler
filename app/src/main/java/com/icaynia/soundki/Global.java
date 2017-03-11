@@ -33,6 +33,7 @@ import com.icaynia.soundki.Data.LocalDatabaseManager;
 import com.icaynia.soundki.Data.MusicFileManager;
 import com.icaynia.soundki.Data.PlayListManager;
 import com.icaynia.soundki.Data.RemoteDatabaseManager;
+import com.icaynia.soundki.Data.UserManager;
 import com.icaynia.soundki.Model.AlbumRes;
 import com.icaynia.soundki.Model.ArtistRes;
 import com.icaynia.soundki.Model.MusicDto;
@@ -115,6 +116,11 @@ public class Global extends Application
 
                     br.child("&info").setValue(albumRes);
 
+                    // TODO ??????????????????
+
+
+
+
                     // love
                     //dr.child("loves").push().setValue("icaynia");
 
@@ -166,6 +172,12 @@ public class Global extends Application
 
     public void playMusic(int songId)
     {
+        MusicDto musicDto = mMusicManager.getMusicDto(songId+"");
+
+        UserManager userManager = new UserManager();
+        userManager.setNowlistening(musicDto.getArtist(), musicDto.getAlbum(), musicDto.getTitle());
+
+
         musicService.playMusic(songId+"");
         updateController();
     }

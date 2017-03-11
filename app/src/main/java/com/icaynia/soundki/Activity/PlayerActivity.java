@@ -34,6 +34,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.icaynia.soundki.Data.UserManager;
 import com.icaynia.soundki.Global;
 import com.icaynia.soundki.Model.MusicDto;
 import com.icaynia.soundki.R;
@@ -134,6 +135,7 @@ public class PlayerActivity extends AppCompatActivity
         albumImageBackgroundView = (ImageView) findViewById(R.id.albumView_blur);
         albumViewContainer = (LinearLayout) findViewById(R.id.albumViewContainer);
         BUTTON_FAVORITE = (LinearLayout) findViewById(R.id.button_favorite);
+        BUTTON_FAVORITE.setOnClickListener(onClickLoveButton);
         BUTTON_PREVIOUS = (LinearLayout) findViewById(R.id.button_previous);
         BUTTON_PREVIOUS.setOnClickListener(onClickPrevButton);
         BUTTON_PLAY = (LinearLayout) findViewById(R.id.button_play);
@@ -296,6 +298,18 @@ public class PlayerActivity extends AppCompatActivity
         public void onClick(View v)
         {
             global.playNextMusic();
+        }
+    };
+
+    public View.OnClickListener onClickLoveButton = new View.OnClickListener() {
+        @Override
+        public void onClick(View v)
+        {
+            int songId = global.musicService.getPlayingMusic();
+            MusicDto musicDto = global.mMusicManager.getMusicDto(songId+"");
+
+            UserManager userManager = new UserManager();
+            userManager.setLike(musicDto.getArtist(), musicDto.getAlbum(), musicDto.getTitle());
         }
     };
 

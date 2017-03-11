@@ -17,10 +17,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.icaynia.soundki.Data.UserManager;
 import com.icaynia.soundki.Fragment.HomeFragment;
 import com.icaynia.soundki.Fragment.MyMusicListFragment;
 import com.icaynia.soundki.Fragment.ProfileMenuFragment;
 import com.icaynia.soundki.Global;
+import com.icaynia.soundki.Model.User;
 import com.icaynia.soundki.R;
 import com.icaynia.soundki.View.MusicRemoteController;
 
@@ -52,6 +54,8 @@ public class MainActivity extends AppCompatActivity
     private OnBackPressedListener backPressedListener = null;
 
     private Snackbar.SnackbarLayout layout;
+
+    private UserManager userManager;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -59,6 +63,9 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -97,6 +104,19 @@ public class MainActivity extends AppCompatActivity
         global = (Global) getApplication();
         global.mainActivityMusicRemoteController = musicRemoteController;
         global.updateController();
+
+        // TODO 처음 로그인 시 initialize
+        userManager = new UserManager();
+        userManager.getUser(global.loginUser.getUid(), new UserManager.OnCompleteGetUserListener() {
+            @Override
+            public void onComplete(User user)
+            {
+                if (user == null)
+                {
+                    userManager.addNewUser();
+                }
+            }
+        });
 
 
     }
