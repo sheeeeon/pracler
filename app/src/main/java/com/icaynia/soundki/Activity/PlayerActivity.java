@@ -135,6 +135,7 @@ public class PlayerActivity extends AppCompatActivity
         albumImageBackgroundView = (ImageView) findViewById(R.id.albumView_blur);
         albumViewContainer = (LinearLayout) findViewById(R.id.albumViewContainer);
         BUTTON_FAVORITE = (LinearLayout) findViewById(R.id.button_favorite);
+        IMAGE_FAVORITE = (ImageView) findViewById(R.id.button_favorite_icon);
         BUTTON_FAVORITE.setOnClickListener(onClickLoveButton);
         BUTTON_PREVIOUS = (LinearLayout) findViewById(R.id.button_previous);
         BUTTON_PREVIOUS.setOnClickListener(onClickPrevButton);
@@ -202,11 +203,26 @@ public class PlayerActivity extends AppCompatActivity
 
     public void update()
     {
+
         int songId = global.musicService.getPlayingMusic();
+        MusicDto playingSong = global.mMusicManager.getMusicDto(songId+"");
+        /**음악 활성화와 관련 없음 */
+        UserManager userManager = new UserManager() ;
+        userManager.isLove(global.loginUser.getUid(), playingSong.getArtist(), playingSong.getAlbum(), playingSong.getTitle(), new UserManager.OnCompleteGetLikeState() {
+            @Override
+            public void onComplete(boolean likeState)
+            {
+                if (likeState)
+                    IMAGE_FAVORITE.setImageDrawable(getResources().getDrawable(R.drawable.ic_favorite));
+                else
+                    IMAGE_FAVORITE.setImageDrawable(getResources().getDrawable(R.drawable.ic_favorite_border_white));
+
+            }
+        });
+
         /** 음악이 활성화되어있을 때 */
         if (songId != 0)
         {
-            MusicDto playingSong = global.mMusicManager.getMusicDto(songId+"");
             artistView.setText(playingSong.getArtist());
             album.setText(playingSong.getAlbum());
             titleView.setText(playingSong.getTitle());

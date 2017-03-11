@@ -70,8 +70,10 @@ public class UserManager
         album = MusicDto.replaceForInput(album);
         title = MusicDto.replaceForInput(title);
 
+        boolean state = true;
+
         dr.child(loginUser.getUid()).child("like").child(artist)
-                .child(album).child(title).setValue("true");
+                .child(album).child(title).setValue(state);
     }
 
     public void addNewUser()
@@ -96,6 +98,35 @@ public class UserManager
         title = MusicDto.replaceForInput(title);
 
         dr.child(loginUser.getUid()).child("now").setValue(artist+"/"+album+"/"+title);
+    }
+
+    public void isLove(String userId, String artist, String album, String title, final OnCompleteGetLikeState listener)
+    {
+        RemoteDatabaseManager rdm = new RemoteDatabaseManager();
+
+        artist = MusicDto.replaceForInput(artist);
+        album = MusicDto.replaceForInput(album);
+        title = MusicDto.replaceForInput(title);
+
+        rdm.getUsersReference().child(userId).child("like").child(artist).child(album).child(title).addListenerForSingleValueEvent(
+                new ValueEventListener()
+                {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot)
+                    {
+                        // Get user value
+                        boolean state = dataSnapshot.getValue(boolean.class);
+                        Log.e(TAG, "getLikeState:complete, " + state);
+                        listener.onComplete(state);
+                        // ...
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError)
+                    {
+                        Log.e(TAG, "getUser:onCancelled", databaseError.toException());
+                    }
+                });
     }
 
 
@@ -133,6 +164,11 @@ public class UserManager
         });
 
         t.start();
+    }
+
+    public interface OnCompleteGetLikeState
+    {
+        void onComplete(boolean likeState);
     }
 
 
