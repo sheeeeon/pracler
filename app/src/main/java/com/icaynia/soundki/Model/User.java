@@ -7,10 +7,15 @@ package com.icaynia.soundki.Model;
 public class User
 {
     public String uid;
-    public String user_id;
-    public String user_name;
-    public String user_email;
+    public String id = "";
+    public String name = "";
+    public String email = "";
+    public String picture = "";
+    public String background = "";
 
-    public String music_nowlistening;
+    public String colorcode = "#FFFFFF";
 
+    public String user_description = "";
+
+    public String music_nowlistening = "";
 }

@@ -23,21 +23,15 @@ public class RemoteDatabaseManager
         myRef = database.getReference();
     }
 
-    public DatabaseReference getUserReference()
+    public DatabaseReference getUsersReference()
     {
-        DatabaseReference userRef = database.getReference("User");
+        DatabaseReference userRef = database.getReference("Users");
         return userRef;
     }
 
     public DatabaseReference getSongsReference()
     {
         DatabaseReference userRef = database.getReference("Songs");
-        return userRef;
-    }
-
-    public DatabaseReference getArtistReference()
-    {
-        DatabaseReference userRef = database.getReference("Artists");
         return userRef;
     }
 }

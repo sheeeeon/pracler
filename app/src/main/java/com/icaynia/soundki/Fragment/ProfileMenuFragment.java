@@ -16,8 +16,12 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.icaynia.soundki.Activity.ProfileActivity;
+import com.icaynia.soundki.Data.RemoteDatabaseManager;
+import com.icaynia.soundki.Data.UserManager;
 import com.icaynia.soundki.Global;
+import com.icaynia.soundki.Model.User;
 import com.icaynia.soundki.R;
 import com.icaynia.soundki.View.ProfileMenuHeader;
 import com.icaynia.soundki.View.ProfileRow;
@@ -57,7 +61,16 @@ public class ProfileMenuFragment extends Fragment
         userPhotoUrl = firebaseUser.getPhotoUrl().toString();
 
         container1 = (LinearLayout) v.findViewById(R.id.container);
+        container1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                onProfileActivity(firebaseUser.getUid());
+            }
+        });
         listInitialize();
+
+
 
         return v;
     }
