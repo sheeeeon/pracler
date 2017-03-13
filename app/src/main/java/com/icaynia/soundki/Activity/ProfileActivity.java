@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,10 +13,15 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.icaynia.soundki.Data.UserManager;
+import com.icaynia.soundki.Model.MusicDto;
 import com.icaynia.soundki.Model.User;
 import com.icaynia.soundki.R;
+import com.icaynia.soundki.View.PlayLogListAdapter;
 
 import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by icaynia on 06/03/2017.
@@ -30,6 +37,8 @@ public class ProfileActivity extends AppCompatActivity
     private TextView text_name;
     private TextView text_description;
     private ImageView image_profile;
+
+    private RecyclerView recyclerView;
 
     private UserManager userManager;
     private User data_user;
@@ -55,7 +64,7 @@ public class ProfileActivity extends AppCompatActivity
         text_name = (TextView) findViewById(R.id.text_name);
         text_description = (TextView) findViewById(R.id.text_description);
         image_profile = (ImageView) findViewById(R.id.image_profile);
-
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
     }
 
     private void setData(String uid)
@@ -79,5 +88,18 @@ public class ProfileActivity extends AppCompatActivity
                 });
             }
         });
+
+        ArrayList<MusicDto> musicDto = new ArrayList<MusicDto>();
+        for (int i = 0; i < 25; i++)
+        {
+            MusicDto dto = new MusicDto();
+            dto.setTitle("0000-00-00 - name "+i);
+            musicDto.add(dto);
+        }
+
+
+        recyclerView.addView();
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new PlayLogListAdapter(musicDto));
     }
 }
