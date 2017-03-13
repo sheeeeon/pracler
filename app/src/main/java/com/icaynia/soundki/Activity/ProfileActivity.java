@@ -68,13 +68,10 @@ public class ProfileActivity extends AppCompatActivity
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.view_profile_header, null);
-
         getSupportActionBar().setTitle("");
-        text_name = (TextView) view.findViewById(R.id.text_name);
-        text_description = (TextView) view.findViewById(R.id.text_description);
-        image_profile = (ImageView) view.findViewById(R.id.image_profile);
+        text_name = (TextView) findViewById(R.id.text_name);
+        text_description = (TextView) findViewById(R.id.text_description);
+        image_profile = (ImageView) findViewById(R.id.image_profile);
     }
 
     private void setData(String uid)

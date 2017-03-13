@@ -39,6 +39,7 @@ import com.icaynia.soundki.Model.ArtistRes;
 import com.icaynia.soundki.Model.MusicDto;
 import com.icaynia.soundki.Model.MusicRes;
 import com.icaynia.soundki.Model.PlayList;
+import com.icaynia.soundki.Model.PlayLog;
 import com.icaynia.soundki.Service.MusicService;
 import com.icaynia.soundki.View.MusicRemoteController;
 
@@ -71,6 +72,8 @@ public class Global extends Application
 
     public OnCompleteListener completeListener = null;
 
+    public UserManager userManager;
+
 
     /* Firebase */
     public FirebaseAuth firebaseAuth;
@@ -78,7 +81,7 @@ public class Global extends Application
 
     private ServiceConnection musicServiceConnection = new ServiceConnection() {
         @Override
-        public void onServiceConnected(ComponentName name, IBinder service)
+        public void onServiceConnected(final ComponentName name, IBinder service)
         {
             MusicService.MusicBinder binder = (MusicService.MusicBinder) service;
             musicService = binder.getService();
@@ -90,35 +93,15 @@ public class Global extends Application
                     int songid = musicService.getPlayingMusic();
                     playNextMusic();
 
-                    MusicDto musicDto = mMusicManager.getMusicDto(songid+"");
-                    MusicRes info = new MusicRes();
-                    ArtistRes arres = new ArtistRes();
-                    AlbumRes albumRes = new AlbumRes();
-
-                    RemoteDatabaseManager rdm = new RemoteDatabaseManager();
-
-                    DatabaseReference dr = rdm.getSongsReference()
-                            .child(MusicDto.replaceForInput(musicDto.getArtist()))
-                            .child(MusicDto.replaceForInput(musicDto.getAlbum()))
-                            .child(MusicDto.replaceForInput(musicDto.getTitle()));
-
-                    DatabaseReference ar = rdm.getSongsReference()
-                            .child(MusicDto.replaceForInput(musicDto.getArtist()));
-
-                    DatabaseReference br = rdm.getSongsReference()
-                            .child(MusicDto.replaceForInput(musicDto.getArtist()))
-                            .child(MusicDto.replaceForInput(musicDto.getAlbum()));
-
-                    dr.child("&info").setValue(info);
-                    dr.child("&play").push().setValue("icaynia");
-
-                    ar.child("&info").setValue(arres);
-
-                    br.child("&info").setValue(albumRes);
-
                     // TODO ??????????????????
 
+                    MusicDto musicDto = mMusicManager.getMusicDto(songid+"");
+                    PlayLog playLog = new PlayLog();
+                    playLog.artist = MusicDto.replaceForInput(musicDto.getArtist());
+                    playLog.album = MusicDto.replaceForInput(musicDto.getAlbum());
+                    playLog.title = MusicDto.replaceForInput(musicDto.getTitle());
 
+                    userManager.addLog(playLog);
 
 
                     // love
@@ -153,6 +136,8 @@ public class Global extends Application
         firebaseAuth = FirebaseAuth.getInstance();
         loginUser = firebaseAuth.getCurrentUser();
 
+        userManager = new UserManager();
+
     }
 
     @Override
@@ -180,6 +165,32 @@ public class Global extends Application
 
         musicService.playMusic(songId+"");
         updateController();
+
+
+        MusicRes info = new MusicRes();
+        ArtistRes arres = new ArtistRes();
+        AlbumRes albumRes = new AlbumRes();
+
+        RemoteDatabaseManager rdm = new RemoteDatabaseManager();
+
+        DatabaseReference dr = rdm.getSongsReference()
+                .child(MusicDto.replaceForInput(musicDto.getArtist()))
+                .child(MusicDto.replaceForInput(musicDto.getAlbum()))
+                .child(MusicDto.replaceForInput(musicDto.getTitle()));
+
+        DatabaseReference ar = rdm.getSongsReference()
+                .child(MusicDto.replaceForInput(musicDto.getArtist()));
+
+        DatabaseReference br = rdm.getSongsReference()
+                .child(MusicDto.replaceForInput(musicDto.getArtist()))
+                .child(MusicDto.replaceForInput(musicDto.getAlbum()));
+
+        dr.child("&info").setValue(info);
+        dr.child("&play").push().setValue("icaynia");
+
+        ar.child("&info").setValue(arres);
+
+        br.child("&info").setValue(albumRes);
     }
 
     public void playPrevMusic()
