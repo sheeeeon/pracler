@@ -59,10 +59,10 @@ public class PlayListSelecter
         }
         ft.addToBackStack(null);
 
-        //String inputText = inputTextField.getText().toString();
         ArrayList<String> list = (ArrayList<String>) bundle.get("adduid");
         MyDialogFragment newFragment = MyDialogFragment.newInstance(bundle);
         newFragment.setContext(context);
+        newFragment.setListener(listener);
         newFragment.show(ft, "dialog2");
 
     }
@@ -75,10 +75,17 @@ public class PlayListSelecter
     public static class MyDialogFragment extends DialogFragment
     {
         private Context mContext;
+        private AdapterView.OnItemClickListener listener;
         public void setContext(Context context)
         {
             mContext = context;
         }
+
+        public void setListener(AdapterView.OnItemClickListener listener)
+        {
+            this.listener = listener;
+        }
+
         static MyDialogFragment newInstance(Bundle bundle) {
             MyDialogFragment f = new MyDialogFragment();
             f.setArguments(bundle);
@@ -96,6 +103,8 @@ public class PlayListSelecter
 
             PlayListManager plm = new PlayListManager(mContext);
             ArrayList<String> playlists = plm.getPlayListList();
+
+            //str.add("새로운 플레이리스트에 저장 ...");
             for (int i = 0; i < playlists.size(); i++)
             {
                 str.add(playlists.get(i));
@@ -106,46 +115,26 @@ public class PlayListSelecter
             ListView listViewt = (ListView) view.findViewById(R.id.listview);
             listViewt.setAdapter(mla);
 
-            final AlertDialog.Builder builder  = new AlertDialog.Builder(getActivity())
-                    .setIcon(R.mipmap.ic_launcher)
-                    .setTitle("선택한 항목을 ..")
-                    .setView(view)
-                    .setPositiveButton("OK",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int whichButton) {
-                                    Toast.makeText(getActivity(), "OK", Toast.LENGTH_LONG).show();
-                                }
-                            }
-                    );
-
-            final AlertDialog dialog = builder.create();
-
-            listViewt.setOnItemClickListener(new AdapterView.OnItemClickListener()
-            {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-                {
-                    switch (position)
-                    {
-                        // TODO add to next play
-                        case 0:
-                            break;
-
-                        // TODO add to playlist
-                        case 1:
-                            break;
-
-                        // TODO add to local playlist
-                        case 2:
-                            break;
-
-                    }
-                    Log.e("tag", position + " ");
-                    dialog.dismiss();
+            final AlertDialog.Builder builder  = new AlertDialog.Builder(getActivity());
+            builder.setIcon(R.mipmap.ic_launcher);
+            builder.setTitle("선택한 항목을 ..");
+            builder.setView(view);
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    Toast.makeText(getActivity(), "OK", Toast.LENGTH_LONG).show();
                 }
             });
 
+            final AlertDialog dialog = builder.create();
 
+            listViewt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+                {
+                    // for customizing.
+                    listener.onItemClick(parent, view, position, id);
+                }
+            });
 
             return dialog;
         }

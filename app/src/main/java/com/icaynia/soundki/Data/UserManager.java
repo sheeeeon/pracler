@@ -3,11 +3,8 @@ package com.icaynia.soundki.Data;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Handler;
 import android.util.Log;
-import android.widget.ImageView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -15,7 +12,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.icaynia.soundki.Model.MusicDto;
-import com.icaynia.soundki.Model.PlayLog;
+import com.icaynia.soundki.Model.PlayHistory;
 import com.icaynia.soundki.Model.User;
 
 import java.io.InputStream;
@@ -61,17 +58,17 @@ public class UserManager
             });
     }
 
-    public void addLog(PlayLog playLog)
+    public void addHistory(PlayHistory playHistory)
     {
         RemoteDatabaseManager rdm = new RemoteDatabaseManager();
         DatabaseReference dr = rdm.getUsersReference();
 
-        playLog.artist = MusicDto.replaceForInput("20170313101010");
-        playLog.artist = MusicDto.replaceForInput(playLog.artist);
-        playLog.album = MusicDto.replaceForInput(playLog.album);
-        playLog.title = MusicDto.replaceForInput(playLog.title);
+        playHistory.artist = MusicDto.replaceForInput("20170313101010");
+        playHistory.artist = MusicDto.replaceForInput(playHistory.artist);
+        playHistory.album = MusicDto.replaceForInput(playHistory.album);
+        playHistory.title = MusicDto.replaceForInput(playHistory.title);
 
-        dr.child(loginUser.getUid()).child("log").child(playLog.Regdate).setValue(playLog);
+        dr.child(loginUser.getUid()).child("log").child(playHistory.Regdate).setValue(playHistory);
     }
 
     public void setLike(String artist, String album, String title)

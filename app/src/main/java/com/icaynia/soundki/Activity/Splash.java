@@ -81,7 +81,7 @@ public class Splash extends AppCompatActivity
                     facebookLoginButton.setVisibility(LinearLayout.VISIBLE);
                 }
             }
-        }, 3000);
+        }, 1500);
     }
 
     @Override

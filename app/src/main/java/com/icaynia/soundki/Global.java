@@ -8,14 +8,8 @@ import android.content.ServiceConnection;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.media.MediaPlayer;
-import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
-import android.view.ContextMenu;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.SubMenu;
-import android.view.View;
 
 import com.facebook.AccessToken;
 import com.facebook.FacebookSdk;
@@ -25,11 +19,6 @@ import com.facebook.login.LoginResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
-import com.icaynia.soundki.Activity.LoginActivity;
-import com.icaynia.soundki.Activity.MainActivity;
-import com.icaynia.soundki.Activity.PlayListActivity;
-import com.icaynia.soundki.Activity.PlayerActivity;
-import com.icaynia.soundki.Data.LocalDatabaseManager;
 import com.icaynia.soundki.Data.MusicFileManager;
 import com.icaynia.soundki.Data.PlayListManager;
 import com.icaynia.soundki.Data.RemoteDatabaseManager;
@@ -39,14 +28,9 @@ import com.icaynia.soundki.Model.ArtistRes;
 import com.icaynia.soundki.Model.MusicDto;
 import com.icaynia.soundki.Model.MusicRes;
 import com.icaynia.soundki.Model.PlayList;
-import com.icaynia.soundki.Model.PlayLog;
+import com.icaynia.soundki.Model.PlayHistory;
 import com.icaynia.soundki.Service.MusicService;
 import com.icaynia.soundki.View.MusicRemoteController;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 /**
  * Created by icaynia on 2017. 2. 8..
@@ -96,12 +80,12 @@ public class Global extends Application
                     // TODO ??????????????????
 
                     MusicDto musicDto = mMusicManager.getMusicDto(songid+"");
-                    PlayLog playLog = new PlayLog();
-                    playLog.artist = MusicDto.replaceForInput(musicDto.getArtist());
-                    playLog.album = MusicDto.replaceForInput(musicDto.getAlbum());
-                    playLog.title = MusicDto.replaceForInput(musicDto.getTitle());
+                    PlayHistory playHistory = new PlayHistory();
+                    playHistory.artist = MusicDto.replaceForInput(musicDto.getArtist());
+                    playHistory.album = MusicDto.replaceForInput(musicDto.getAlbum());
+                    playHistory.title = MusicDto.replaceForInput(musicDto.getTitle());
 
-                    userManager.addLog(playLog);
+                    userManager.addHistory(playHistory);
 
 
                     // love

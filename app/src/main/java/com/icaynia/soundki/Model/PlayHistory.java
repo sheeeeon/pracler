@@ -4,7 +4,7 @@ package com.icaynia.soundki.Model;
  * Created by icaynia on 13/02/2017.
  */
 
-public class PlayLog
+public class PlayHistory
 {
     public String artist;
     public String album;
