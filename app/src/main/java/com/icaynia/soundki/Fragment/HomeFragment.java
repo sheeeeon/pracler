@@ -12,6 +12,7 @@ import android.widget.ListView;
 import com.icaynia.soundki.Activity.PlayListActivity;
 import com.icaynia.soundki.Data.PlayListManager;
 import com.icaynia.soundki.R;
+import com.icaynia.soundki.View.MenuSelecter;
 import com.icaynia.soundki.View.PlayListsAdapter;
 
 import java.util.ArrayList;
@@ -53,6 +54,7 @@ public class HomeFragment extends Fragment
         playListView.setAdapter(playListsAdapter);
 
         playListView.setOnItemClickListener(itemclick);
+        playListView.setOnItemLongClickListener(itemLongClick);
     }
 
     private AdapterView.OnItemClickListener itemclick = new AdapterView.OnItemClickListener()
@@ -61,6 +63,31 @@ public class HomeFragment extends Fragment
         public void onItemClick(AdapterView<?> parent, View view, int position, long id)
         {
             onPlayListActivity(arrayList.get(position));
+        }
+    };
+
+    private AdapterView.OnItemLongClickListener itemLongClick = new AdapterView.OnItemLongClickListener() {
+        @Override
+        public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
+        {
+            ArrayList<String> menu = new ArrayList<>();
+            menu.add("이 재생목록을 삭제");
+            Bundle bundle = new Bundle();
+            bundle.putStringArrayList("menu", menu);
+            MenuSelecter menuSelecter = new MenuSelecter(getContext());
+            menuSelecter.setBundle(bundle);
+            menuSelecter.show();
+            menuSelecter.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+                {
+                    if (position == 0)
+                    {
+                        
+                    }
+                }
+            });
+            return false;
         }
     };
 
