@@ -45,6 +45,7 @@ public class FileManager
         if( !file.exists() ) {
             file.mkdirs();
         }
+
     }
 
     public void savePlaylist(PlayList playlist)
@@ -59,7 +60,7 @@ public class FileManager
         if (isFileAvailable(filename))
         {
             Log.d(TAG, "File is already created : " + filename);
-            return;
+            //return;
         }
 
         try

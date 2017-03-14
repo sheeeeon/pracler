@@ -102,7 +102,7 @@ public class PlayListSelecter
             ArrayList<String> str = new ArrayList<>();
 
             PlayListManager plm = new PlayListManager(mContext);
-            ArrayList<String> playlists = plm.getPlayListList();
+            final ArrayList<String> playlists = plm.getPlayListList();
 
             //str.add("새로운 플레이리스트에 저장 ...");
             for (int i = 0; i < playlists.size(); i++)
@@ -119,9 +119,11 @@ public class PlayListSelecter
             builder.setIcon(R.mipmap.ic_launcher);
             builder.setTitle("선택한 항목을 ..");
             builder.setView(view);
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                    Toast.makeText(getActivity(), "OK", Toast.LENGTH_LONG).show();
+            builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which)
+                {
+                    dialog.dismiss();
                 }
             });
 
@@ -132,7 +134,9 @@ public class PlayListSelecter
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id)
                 {
                     // for customizing.
+                    view.setTag(playlists.get(position));
                     listener.onItemClick(parent, view, position, id);
+                    dialog.dismiss();
                 }
             });
 
