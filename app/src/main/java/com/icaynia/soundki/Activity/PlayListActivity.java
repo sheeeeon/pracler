@@ -15,7 +15,9 @@ import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import com.icaynia.soundki.Data.PlayListManager;
 import com.icaynia.soundki.Global;
+import com.icaynia.soundki.Model.PlayList;
 import com.icaynia.soundki.R;
 import com.icaynia.soundki.View.MusicListAdapter;
 import com.icaynia.soundki.View.PlayListAdapter;
@@ -51,8 +53,8 @@ public class PlayListActivity extends AppCompatActivity
         global = (Global) this.getApplicationContext();
 
         Intent intent = getIntent();
-        String listuid = intent.getStringExtra("list");
-        onList(listuid);
+        String listname = intent.getStringExtra("list");
+        onList(listname);
     }
 
     public void viewInitialize()
@@ -70,10 +72,10 @@ public class PlayListActivity extends AppCompatActivity
 
     }
 
-    public void onList(String listuid)
+    public void onList(String listname)
     {
-        // when 'listuid' value is 0, it means show now playlist.
-        if (listuid.equals("0"))
+        // when 'listname' value is 0, it means show now playlist.
+        if (listname.equals("0"))
         {
             this.getSupportActionBar().setTitle("현재 재생중 ー " + global.nowPlayingList.size() + "곡");
 
@@ -81,6 +83,14 @@ public class PlayListActivity extends AppCompatActivity
 
             mainListView.setAdapter(adapter);
 
+        }
+        else
+        {
+            PlayListManager plm = new PlayListManager(this);
+            PlayList playList = plm.getPlayList(listname);
+
+            PlayListAdapter pla = new PlayListAdapter(this, playList);
+            mainListView.setAdapter(pla);
         }
     }
 

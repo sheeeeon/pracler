@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.icaynia.soundki.Model.MusicDto;
+import com.icaynia.soundki.Model.PlayLog;
 import com.icaynia.soundki.Model.User;
 
 import java.io.InputStream;
@@ -60,11 +61,23 @@ public class UserManager
             });
     }
 
+    public void addLog(PlayLog playLog)
+    {
+        RemoteDatabaseManager rdm = new RemoteDatabaseManager();
+        DatabaseReference dr = rdm.getUsersReference();
+
+        playLog.artist = MusicDto.replaceForInput("20170313101010");
+        playLog.artist = MusicDto.replaceForInput(playLog.artist);
+        playLog.album = MusicDto.replaceForInput(playLog.album);
+        playLog.title = MusicDto.replaceForInput(playLog.title);
+
+        dr.child(loginUser.getUid()).child("log").child(playLog.Regdate).setValue(playLog);
+    }
+
     public void setLike(String artist, String album, String title)
     {
         RemoteDatabaseManager rdm = new RemoteDatabaseManager();
         DatabaseReference dr = rdm.getUsersReference();
-        DatabaseReference songRef = rdm.getSongsReference();
 
         artist = MusicDto.replaceForInput(artist);
         album = MusicDto.replaceForInput(album);
@@ -97,7 +110,7 @@ public class UserManager
         album = MusicDto.replaceForInput(album);
         title = MusicDto.replaceForInput(title);
 
-        dr.child(loginUser.getUid()).child("now").setValue(artist+"/"+album+"/"+title);
+        dr.child(loginUser.getUid()).child("now").setValue(artist+"&DL"+album+"&DL"+title);
     }
 
     public void isLove(String userId, String artist, String album, String title, final OnCompleteGetLikeState listener)
@@ -114,7 +127,7 @@ public class UserManager
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot)
                     {
-                        // Get user value
+                        if (dataSnapshot.getValue(boolean.class) == null) return;
                         boolean state = dataSnapshot.getValue(boolean.class);
                         Log.e(TAG, "getLikeState:complete, " + state);
                         listener.onComplete(state);

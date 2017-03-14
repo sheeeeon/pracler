@@ -12,6 +12,7 @@ import java.util.ArrayList;
  * 플레이 리스트를 관리하는 곳.
  */
 
+
 public class PlayListManager
 {
     private Context context;
@@ -25,6 +26,7 @@ public class PlayListManager
         init();
     }
 
+
     // TODO Initialize object.
     public void init()
     {
@@ -33,10 +35,10 @@ public class PlayListManager
 
     public ArrayList<String> getPlayListList()
     {
-        ArrayList<String> playListList = new ArrayList<String>();
-        playListList.add("TEST_playlist");
+        ArrayList<String> playListList = fileManager.getPlayLists();
         return playListList;
     }
+    // TODO Get PlayLists list from loc
 
     // TODO Get playlist from local
     public PlayList getPlayList(String playlistName)

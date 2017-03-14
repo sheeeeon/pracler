@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 /**
  * Created by icaynia on 01/03/2017.
@@ -92,11 +93,28 @@ public class FileManager
         }
         catch (Exception e)
         {
-            Log.e(TAG, "Something was wrong!");
+            Log.e(TAG, "Something was wrong! 호출하는 파일이 없을 수도 있음 : " + filename);
             e.printStackTrace();
         }
 
         return playlist;
+    }
+
+    public ArrayList<String> getPlayLists()
+    {
+        ArrayList<String> fileList = new ArrayList<>();
+
+        String path = dirPath+"/playlist";
+        File directory = new File(path);
+        File[] files = directory.listFiles();
+
+        for (int i = 0; i < files.length; i++)
+        {
+            PlayList playList = loadPlayList(files[i].getName().replace(".soundki", ""));
+            fileList.add(playList.getName());
+        }
+
+        return fileList;
     }
 
     public boolean isFileAvailable(String file)
