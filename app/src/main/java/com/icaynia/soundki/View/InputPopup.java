@@ -57,6 +57,7 @@ public class InputPopup
 
         MyDialogFragment newFragment = MyDialogFragment.newInstance(bundle);
         newFragment.setContext(context);
+        newFragment.setListener(listener);
         newFragment.show(ft, "dialog2");
 
     }
@@ -106,8 +107,8 @@ public class InputPopup
             builder.setView(view);
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {
-                    listener.onComplete(editText.getText().toString());
-                    Toast.makeText(getActivity(), "OK", Toast.LENGTH_LONG).show();
+                    if (listener != null)
+                        listener.onComplete(editText.getText().toString());
                 }
             });
 
