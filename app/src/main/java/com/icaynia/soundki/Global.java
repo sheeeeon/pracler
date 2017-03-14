@@ -80,12 +80,12 @@ public class Global extends Application
                     // TODO ??????????????????
 
                     MusicDto musicDto = mMusicManager.getMusicDto(songid+"");
-                    PlayHistory playLog = new PlayHistory();
-                    playLog.artist = MusicDto.replaceForInput(musicDto.getArtist());
-                    playLog.album = MusicDto.replaceForInput(musicDto.getAlbum());
-                    playLog.title = MusicDto.replaceForInput(musicDto.getTitle());
+                    PlayHistory playHistory = new PlayHistory();
+                    playHistory.artist = MusicDto.replaceForInput(musicDto.getArtist());
+                    playHistory.album = MusicDto.replaceForInput(musicDto.getAlbum());
+                    playHistory.title = MusicDto.replaceForInput(musicDto.getTitle());
 
-                    userManager.addLog(playLog);
+                    userManager.addHistory(playHistory);
 
 
                     // love
