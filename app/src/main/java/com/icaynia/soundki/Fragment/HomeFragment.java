@@ -71,6 +71,7 @@ public class HomeFragment extends Fragment
         public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
         {
             ArrayList<String> menu = new ArrayList<>();
+            // TODO Menu list
             menu.add("이 재생목록을 삭제");
             Bundle bundle = new Bundle();
             bundle.putStringArrayList("menu", menu);
@@ -83,7 +84,7 @@ public class HomeFragment extends Fragment
                 {
                     if (position == 0)
                     {
-                        
+
                     }
                 }
             });

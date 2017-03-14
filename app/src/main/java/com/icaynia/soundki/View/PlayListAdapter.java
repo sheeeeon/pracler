@@ -69,7 +69,7 @@ public class PlayListAdapter extends BaseAdapter
             convertView.setLayoutParams(layoutParams);
         }
 
-        MusicDto music = global.mMusicManager.getMusicDto(list.get(position));
+        MusicDto music = global.mMusicManager.getMusicDto(list.get(position)+"");
 
         ImageView album = (ImageView) convertView.findViewById(R.id.view_album);
         album.setImageDrawable(context.getResources().getDrawable(android.R.drawable.ic_menu_report_image));
