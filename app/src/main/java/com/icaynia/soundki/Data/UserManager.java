@@ -78,7 +78,6 @@ public class UserManager
     {
         RemoteDatabaseManager rdm = new RemoteDatabaseManager();
         DatabaseReference dr = rdm.getUsersReference();
-        DatabaseReference songRef = rdm.getSongsReference();
 
         artist = MusicDto.replaceForInput(artist);
         album = MusicDto.replaceForInput(album);
@@ -128,7 +127,6 @@ public class UserManager
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot)
                     {
-                        // Get user value
                         if (dataSnapshot.getValue(boolean.class) == null) return;
                         boolean state = dataSnapshot.getValue(boolean.class);
                         Log.e(TAG, "getLikeState:complete, " + state);
