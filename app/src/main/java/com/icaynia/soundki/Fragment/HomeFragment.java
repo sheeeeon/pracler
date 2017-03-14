@@ -69,7 +69,6 @@ public class HomeFragment extends Fragment
         Intent intent = new Intent(this.getContext(), PlayListActivity.class);
         intent.putExtra("list", extra);
         startActivity(intent);
-
     }
 }
 

@@ -68,7 +68,7 @@ public class PlayListAdapter extends BaseAdapter
             ListView.LayoutParams layoutParams = new ListView.LayoutParams(ListView.LayoutParams.MATCH_PARENT, ListView.LayoutParams.MATCH_PARENT);
             convertView.setLayoutParams(layoutParams);
         }
-        global.mMusicManager.getMusicDto(list.get(position));
+
         MusicDto music = global.mMusicManager.getMusicDto(list.get(position));
 
         ImageView album = (ImageView) convertView.findViewById(R.id.view_album);

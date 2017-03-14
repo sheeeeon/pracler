@@ -44,6 +44,7 @@ import com.icaynia.soundki.R;
 import com.icaynia.soundki.View.MenuListAdapter;
 import com.icaynia.soundki.View.MusicListAdapter;
 import com.icaynia.soundki.View.PlayListAdapter;
+import com.icaynia.soundki.View.PlayListSelecter;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -228,7 +229,7 @@ public class MyMusicListFragment extends Fragment
     }
 
 
-    void showDialog(ArrayList<Boolean> state) {
+    public void showDialog(ArrayList<Boolean> state) {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         Fragment prev = getFragmentManager().findFragmentByTag("dialog");
         if (prev != null) {
@@ -263,7 +264,7 @@ public class MyMusicListFragment extends Fragment
             bundle.putSerializable("musiclist", list);
             f.setArguments(bundle);
 
-            if (count == 0) return null;
+            if (count == 0) return  null;
             return f;
         }
 
@@ -322,16 +323,30 @@ public class MyMusicListFragment extends Fragment
                             }
                             break;
 
-                        // TODO add to nowplaylist
+                        // TODO add to playlist
                         case 1:
+                            ArrayList<String> adduid = new ArrayList<String>();
                             for (int i = 0; i < state.size(); i++)
                             {
                                 if (state.get(i) == true)
                                 {
-                                    String songId = musiclist.getItem(position).getUid_local();
-                                    global.nowPlayingList.addItem(songId);
+                                    String songId = musiclist.getItem(i).getUid_local();
+                                    adduid.add(songId);
                                 }
                             }
+
+                            PlayListSelecter selecter = new PlayListSelecter(getContext());
+                            Bundle bundle = new Bundle();
+                            bundle.putStringArrayList("adduid", adduid);
+                            selecter.setBundle(bundle);
+                            selecter.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+                                {
+
+                                }
+                            });
+                            selecter.show();
                             break;
 
                         // TODO add to local playlist
