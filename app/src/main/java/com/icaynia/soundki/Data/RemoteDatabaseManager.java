@@ -2,8 +2,6 @@ package com.icaynia.soundki.Data;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.icaynia.soundki.Model.PlayLog;
-import com.icaynia.soundki.Model.User;
 
 /**
  * Created by icaynia on 2017. 2. 8..

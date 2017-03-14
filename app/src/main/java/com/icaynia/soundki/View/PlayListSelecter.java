@@ -136,8 +136,6 @@ public class PlayListSelecter
                 }
             });
 
-
-
             return dialog;
         }
 

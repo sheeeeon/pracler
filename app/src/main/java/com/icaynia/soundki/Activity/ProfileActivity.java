@@ -64,7 +64,6 @@ public class ProfileActivity extends AppCompatActivity
 
     private void initializeView()
     {
-
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -95,8 +94,10 @@ public class ProfileActivity extends AppCompatActivity
                 });
             }
         });
-
+        // history
         ArrayList<MusicDto> musicDto = new ArrayList<MusicDto>();
+
+
         for (int i = 0; i < 35; i++)
         {
             MusicDto dto = new MusicDto();
