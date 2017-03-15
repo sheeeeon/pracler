@@ -252,7 +252,7 @@ public class PlayerActivity extends AppCompatActivity
             }
         }
 
-        /** 음악 정지중일때 */
+        /** 음악이 없을 때 */
         else if (songId == 0)
         {
             IMAGE_PLAY.setImageDrawable(getResources().getDrawable(R.drawable.ic_play_white));

@@ -50,11 +50,10 @@ public class LocalDatabaseManager
             Log.e("LocalDatabaseManager", "데이터베이스를 얻어올 수 없음");
         }
 
-        getPlayListArray();
 
     }
 
-    /** playlist */
+    /** NO USE !!! playlist
     public void addPlayList(PlayList playList)
     {
         Gson gson = new Gson();
@@ -71,5 +70,5 @@ public class LocalDatabaseManager
         }
         return null;
     }
-
+    */
 }
