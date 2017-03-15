@@ -325,7 +325,7 @@ public class MyMusicListFragment extends Fragment
 
                         // TODO add to playlist
                         case 1:
-                            ArrayList<String> adduid = new ArrayList<String>();
+                            final ArrayList<String> adduid = new ArrayList<String>();
                             for (int i = 0; i < state.size(); i++)
                             {
                                 if (state.get(i) == true)
@@ -343,7 +343,14 @@ public class MyMusicListFragment extends Fragment
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id)
                                 {
-
+                                    String playlistname = (String) view.getTag();
+                                    PlayListManager plm = global.playListManager;
+                                    PlayList playList = plm.getPlayList(playlistname);
+                                    for (int i = 0; i < adduid.size(); i++)
+                                    {
+                                        playList.addItem(adduid.get(i));
+                                    }
+                                    plm.savePlayList(playList);
                                 }
                             });
                             selecter.show();

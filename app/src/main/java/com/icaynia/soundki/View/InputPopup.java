@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 ;
@@ -29,20 +30,15 @@ import java.util.ArrayList;
  * Created by icaynia on 14/03/2017.
  */
 
-public class PlayListSelecter
+public class InputPopup
 {
     private Context context;
-    private AdapterView.OnItemClickListener listener;
     private Bundle bundle;
+    private OnCompleteInputValue listener;
 
-    public PlayListSelecter(Context context)
+    public InputPopup(Context context)
     {
         this.context = context;
-    }
-
-    public void setOnItemClickListener(AdapterView.OnItemClickListener listener)
-    {
-        this.listener = listener;
     }
 
     public void show()
@@ -59,13 +55,18 @@ public class PlayListSelecter
         }
         ft.addToBackStack(null);
 
-        ArrayList<String> list = (ArrayList<String>) bundle.get("adduid");
         MyDialogFragment newFragment = MyDialogFragment.newInstance(bundle);
         newFragment.setContext(context);
         newFragment.setListener(listener);
         newFragment.show(ft, "dialog2");
 
     }
+
+    public void setListener(OnCompleteInputValue listener)
+    {
+        this.listener = listener;
+    }
+
 
     public void setBundle(Bundle bundle)
     {
@@ -75,13 +76,13 @@ public class PlayListSelecter
     public static class MyDialogFragment extends DialogFragment
     {
         private Context mContext;
-        private AdapterView.OnItemClickListener listener;
+        private OnCompleteInputValue listener;
         public void setContext(Context context)
         {
             mContext = context;
         }
 
-        public void setListener(AdapterView.OnItemClickListener listener)
+        public void setListener(OnCompleteInputValue listener)
         {
             this.listener = listener;
         }
@@ -96,54 +97,30 @@ public class PlayListSelecter
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             final Global global = (Global) getActivity().getApplicationContext();
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View view = inflater.inflate(R.layout.dialog_checkmenu, null, false);
-            final ArrayList<String> adduid = (ArrayList<String>) getArguments().getStringArrayList("adduid");
+            View view = inflater.inflate(R.layout.view_popup_input_text, null, false);
 
-            ArrayList<String> str = new ArrayList<>();
-
-            PlayListManager plm = new PlayListManager(mContext);
-            final ArrayList<String> playlists = plm.getPlayListList();
-
-            //str.add("새로운 플레이리스트에 저장 ...");
-            for (int i = 0; i < playlists.size(); i++)
-            {
-                str.add(playlists.get(i));
-            }
-
-
-            MenuListAdapter mla = new MenuListAdapter(mContext, str);
-            ListView listViewt = (ListView) view.findViewById(R.id.listview);
-            listViewt.setAdapter(mla);
+            final EditText editText = (EditText) view.findViewById(R.id.view_editText);
 
             final AlertDialog.Builder builder  = new AlertDialog.Builder(getActivity());
             builder.setIcon(R.mipmap.ic_launcher);
-            builder.setTitle("선택한 항목을 ..");
+            builder.setTitle("새로운 이름");
             builder.setView(view);
-            builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which)
-                {
-                    dialog.dismiss();
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    if (listener != null)
+                        listener.onComplete(editText.getText().toString());
                 }
             });
 
             final AlertDialog dialog = builder.create();
-
-            listViewt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-                {
-                    // for customizing.
-                    view.setTag(playlists.get(position));
-                    listener.onItemClick(parent, view, position, id);
-                    dialog.dismiss();
-                }
-            });
-
             return dialog;
         }
 
     }
 
+    public interface OnCompleteInputValue
+    {
+        void onComplete(String str);
+    }
 
 }

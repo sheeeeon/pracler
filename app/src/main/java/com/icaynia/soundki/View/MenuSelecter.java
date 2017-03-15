@@ -29,13 +29,13 @@ import java.util.ArrayList;
  * Created by icaynia on 14/03/2017.
  */
 
-public class PlayListSelecter
+public class MenuSelecter
 {
     private Context context;
     private AdapterView.OnItemClickListener listener;
     private Bundle bundle;
 
-    public PlayListSelecter(Context context)
+    public MenuSelecter(Context context)
     {
         this.context = context;
     }
@@ -97,33 +97,19 @@ public class PlayListSelecter
             final Global global = (Global) getActivity().getApplicationContext();
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View view = inflater.inflate(R.layout.dialog_checkmenu, null, false);
-            final ArrayList<String> adduid = (ArrayList<String>) getArguments().getStringArrayList("adduid");
+            final ArrayList<String> menu = (ArrayList<String>) getArguments().getStringArrayList("menu");
 
-            ArrayList<String> str = new ArrayList<>();
-
-            PlayListManager plm = new PlayListManager(mContext);
-            final ArrayList<String> playlists = plm.getPlayListList();
-
-            //str.add("새로운 플레이리스트에 저장 ...");
-            for (int i = 0; i < playlists.size(); i++)
-            {
-                str.add(playlists.get(i));
-            }
-
-
-            MenuListAdapter mla = new MenuListAdapter(mContext, str);
+            MenuListAdapter mla = new MenuListAdapter(mContext, menu);
             ListView listViewt = (ListView) view.findViewById(R.id.listview);
             listViewt.setAdapter(mla);
 
             final AlertDialog.Builder builder  = new AlertDialog.Builder(getActivity());
             builder.setIcon(R.mipmap.ic_launcher);
-            builder.setTitle("선택한 항목을 ..");
+            builder.setTitle("선택한 재생목록을 ..");
             builder.setView(view);
-            builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which)
-                {
-                    dialog.dismiss();
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    Toast.makeText(getActivity(), "OK", Toast.LENGTH_LONG).show();
                 }
             });
 
@@ -134,8 +120,9 @@ public class PlayListSelecter
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id)
                 {
                     // for customizing.
-                    view.setTag(playlists.get(position));
-                    listener.onItemClick(parent, view, position, id);
+                    if (listener != null)
+                        listener.onItemClick(parent, view, position, id);
+
                     dialog.dismiss();
                 }
             });

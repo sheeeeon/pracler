@@ -12,18 +12,22 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.icaynia.soundki.Data.PlayListManager;
 import com.icaynia.soundki.Data.UserManager;
 import com.icaynia.soundki.Fragment.HomeFragment;
 import com.icaynia.soundki.Fragment.MyMusicListFragment;
 import com.icaynia.soundki.Fragment.ProfileMenuFragment;
 import com.icaynia.soundki.Global;
+import com.icaynia.soundki.Model.PlayList;
 import com.icaynia.soundki.Model.User;
 import com.icaynia.soundki.R;
+import com.icaynia.soundki.View.InputPopup;
 import com.icaynia.soundki.View.MusicRemoteController;
 
 import org.w3c.dom.Text;
@@ -224,8 +228,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
+    public boolean onOptionsItemSelected(MenuItem item) {
+
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
@@ -237,10 +241,29 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
             return true;
-        } else if (id == R.id.action_nowplaying)
+        }
+        else if (id == R.id.action_nowplaying)
         {
             onPlayerActivity();
+            return true;
         }
+        else if (id == R.id.action_newplaylist)
+        {
+            InputPopup inputPopup = new InputPopup(this);
+            inputPopup.setListener(new InputPopup.OnCompleteInputValue() {
+                @Override
+                public void onComplete(String str)
+                {
+                    PlayList playList = new PlayList();
+                    playList.setName(str);
+                    PlayListManager playListManager = new PlayListManager(getBaseContext());
+                    playListManager.savePlayList(playList);
+                }
+            });
+            inputPopup.show();
+            return true;
+        }
+        Log.e("tes", "test");
 
         return super.onOptionsItemSelected(item);
     }

@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.icaynia.soundki.Data.PlayListManager;
 import com.icaynia.soundki.Global;
@@ -91,6 +93,11 @@ public class PlayListActivity extends AppCompatActivity
 
             PlayListAdapter pla = new PlayListAdapter(this, playList);
             mainListView.setAdapter(pla);
+
+            if (playList.size() == 0)
+            {
+                Toast.makeText(this, "플레이리스트가 비어있습니다.", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
