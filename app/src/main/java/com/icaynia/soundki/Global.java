@@ -1,14 +1,20 @@
 package com.icaynia.soundki;
 
 import android.app.Application;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.os.IBinder;
+import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
 import com.facebook.AccessToken;
@@ -19,6 +25,8 @@ import com.facebook.login.LoginResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
+import com.icaynia.soundki.Activity.MainActivity;
+import com.icaynia.soundki.Activity.PlayerActivity;
 import com.icaynia.soundki.Data.MusicFileManager;
 import com.icaynia.soundki.Data.PlayListManager;
 import com.icaynia.soundki.Data.RemoteDatabaseManager;
@@ -174,6 +182,8 @@ public class Global extends Application
         ar.child("&info").setValue(arres);
 
         br.child("&info").setValue(albumRes);
+
+        setMusicNotification();
     }
 
     public void playPrevMusic()
@@ -227,6 +237,42 @@ public class Global extends Application
             mainActivityMusicRemoteController.updateSongInfo(albumArt, song.getArtist(), song.getTitle());
         }
     }
+
+    public void setMusicNotification()
+    {
+        Resources res = getResources();
+
+        Intent notificationIntent = new Intent(this, PlayerActivity.class);
+        notificationIntent.putExtra("notificationId", 9999); //전달할 값
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        int songId = musicService.getPlayingMusic();
+        MusicDto musicDto = mMusicManager.getMusicDto(songId+"");
+        Bitmap albumArt = mMusicManager.getAlbumImage(getApplicationContext(), Integer.parseInt(musicDto.getAlbumId()), 100);
+
+        builder.setContentTitle("현재 노래")
+                .setContentText(musicDto.getArtist() + " - " + musicDto.getTitle())
+                .setTicker("상태바 한줄 메시지")
+                .setSmallIcon(R.drawable.ic_headset_white)
+                .setLargeIcon(albumArt)
+                .setContentIntent(contentIntent)
+                .setAutoCancel(false)
+                .setWhen(System.currentTimeMillis())
+                .setDefaults(Notification.DEFAULT_LIGHTS);
+
+
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            builder.setCategory(Notification.CATEGORY_MESSAGE)
+                    .setPriority(Notification.PRIORITY_HIGH)
+                    .setVisibility(Notification.VISIBILITY_PUBLIC);
+        }
+
+        NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        nm.notify(1234, builder.build());
+    }
+
 
     public void setOnChangeListener(OnChangeListener listener)
     {
