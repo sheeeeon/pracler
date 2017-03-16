@@ -112,6 +112,28 @@ public class UserManager
         dr.child(loginUser.getUid()).child("now").setValue(artist+"&DL"+album+"&DL"+title);
     }
 
+    public void getNowListening(String uid, final OnCompleteGetNowListening listener)
+    {
+        rdm.getUsersReference().child(uid).child("now").addListenerForSingleValueEvent(
+                new ValueEventListener()
+                {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot)
+                    {
+                        String state = dataSnapshot.getValue(String.class);
+                        if (state == null) return;
+                        Log.e(TAG, "getNowListening:complete, " + state);
+                        listener.onComplete(state);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError)
+                    {
+                        Log.e(TAG, "getUser:onCancelled", databaseError.toException());
+                    }
+                });
+    }
+
     public void isLove(String userId, String artist, String album, String title, final OnCompleteGetLikeState listener)
     {
         RemoteDatabaseManager rdm = new RemoteDatabaseManager();
@@ -150,6 +172,11 @@ public class UserManager
     public interface OnCompleteGetUserImageListener
     {
         void onComplete(Bitmap UserImage);
+    }
+
+    public interface OnCompleteGetNowListening
+    {
+        void onComplete(String str);
     }
 
     public void getImage(final String Url, final OnCompleteGetUserImageListener listener)

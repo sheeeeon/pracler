@@ -34,14 +34,12 @@ import java.util.zip.Inflater;
 public class ProfileActivity extends AppCompatActivity
 {
     private String targetUid;
-
     private FirebaseUser firebaseUser;
-
     /** VIEW */
     private TextView text_name;
     private TextView text_description;
+    private TextView text_nowlistening;
     private ImageView image_profile;
-
     private RecyclerView recyclerView;
 
     private UserManager userManager;
@@ -58,9 +56,8 @@ public class ProfileActivity extends AppCompatActivity
         targetUid = getIntent().getStringExtra("targetUid");
 
         initializeView();
-        setData(targetUid);
+        updateData(targetUid);
     }
-
 
     private void initializeView()
     {
@@ -71,9 +68,10 @@ public class ProfileActivity extends AppCompatActivity
         text_name = (TextView) findViewById(R.id.text_name);
         text_description = (TextView) findViewById(R.id.text_description);
         image_profile = (ImageView) findViewById(R.id.image_profile);
+        text_nowlistening = (TextView) findViewById(R.id.content_now_listening_text);
     }
 
-    private void setData(String uid)
+    private void updateData(final String uid)
     {
         userManager = new UserManager();
         userManager.getUser(uid, new UserManager.OnCompleteGetUserListener() {
@@ -92,11 +90,19 @@ public class ProfileActivity extends AppCompatActivity
                         image_profile.setImageBitmap(UserImage);
                     }
                 });
+
+                userManager.getNowListening(uid, new UserManager.OnCompleteGetNowListening() {
+                    @Override
+                    public void onComplete(String str) {
+                        text_nowlistening.setText("현재 재생중 : " + str.replace("&DL", " - "));
+                    }
+                });
             }
         });
+
+
         // history
         ArrayList<MusicDto> musicDto = new ArrayList<MusicDto>();
-
 
         for (int i = 0; i < 35; i++)
         {
