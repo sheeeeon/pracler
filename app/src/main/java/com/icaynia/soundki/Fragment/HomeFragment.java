@@ -12,6 +12,7 @@ import android.widget.ListView;
 import com.icaynia.soundki.Activity.PlayListActivity;
 import com.icaynia.soundki.Data.PlayListManager;
 import com.icaynia.soundki.Global;
+import com.icaynia.soundki.Layout.RecommandSongView;
 import com.icaynia.soundki.R;
 import com.icaynia.soundki.View.CardView;
 import com.icaynia.soundki.View.MenuSelecter;
@@ -63,11 +64,15 @@ public class HomeFragment extends Fragment
 
         // TODO Recommend for you block.
         Random rand = new Random();
-        int randSongId = rand.nextInt(global.mMusicManager.getMusicList().size());
+        int randint = rand.nextInt(global.mMusicManager.getMusicList().size());
 
         CardView cv = (CardView) v.findViewById(R.id.card_recommand);
         cv.setTitleText("이 곡도 들어 보세요");
-        cv.setTheme(CardView.THEME_2);
+        cv.setTheme(CardView.THEME_5);
+        RecommandSongView rsv = new RecommandSongView(getContext());
+        rsv.setRecommandSong(global.mMusicManager.getMusicList().getItem(randint));
+
+        cv.addContent(rsv);
         cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,6 +83,10 @@ public class HomeFragment extends Fragment
         cv = (CardView) v.findViewById(R.id.card_yourfriends);
         cv.setTitleText("친구가 듣고 있는 것");
         cv.setTheme(CardView.THEME_3);
+
+        cv = (CardView) v.findViewById(R.id.card_yourstate);
+        cv.setTitleText("나의 상태");
+        cv.setTheme(CardView.THEME_4);
 
     }
 

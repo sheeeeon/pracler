@@ -20,6 +20,7 @@ public class CardView extends LinearLayout
     private LayoutInflater inflater;
 
     private LinearLayout layout;
+    private LinearLayout contentBox;
     private TextView titleText;
 
     public static String THEME_1 = "THEME_1";
@@ -45,10 +46,11 @@ public class CardView extends LinearLayout
     {
         inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         view = inflater.inflate(R.layout.view_card, null);
-        addView(view);
+        this.addView(view);
 
         layout = (LinearLayout) view.findViewById(R.id.layout);
         titleText = (TextView) view.findViewById(R.id.titleText);
+        contentBox = (LinearLayout) view.findViewById(R.id.contentBox);
     }
 
     public void setTitleText(String str)
@@ -70,5 +72,11 @@ public class CardView extends LinearLayout
         if (THEME == THEME_4) layout.setBackground(res.getDrawable(R.drawable.view_card_theme_4));
         if (THEME == THEME_5) layout.setBackground(res.getDrawable(R.drawable.view_card_theme_5));
     }
+
+    public void addContent(View v)
+    {
+        contentBox.addView(v);
+    }
+
 
 }
