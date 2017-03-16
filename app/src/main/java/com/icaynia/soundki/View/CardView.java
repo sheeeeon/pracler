@@ -41,7 +41,7 @@ public class CardView extends LinearLayout
     }
 
 
-    public void initialize()
+    private void initialize()
     {
         inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         view = inflater.inflate(R.layout.view_card, null);
