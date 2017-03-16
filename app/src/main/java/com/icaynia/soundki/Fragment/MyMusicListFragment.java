@@ -269,7 +269,6 @@ public class MyMusicListFragment extends Fragment
             }
             ArrayList<String> str = new ArrayList<>();
             str.add("다음 재생");
-            str.add("현재 재생목록에 추가");
             str.add("재생목록에 추가");
 
             MenuListAdapter mla = new MenuListAdapter(getContext(), str);
@@ -279,14 +278,7 @@ public class MyMusicListFragment extends Fragment
             final AlertDialog.Builder builder  = new AlertDialog.Builder(getActivity())
                     .setIcon(R.mipmap.ic_launcher)
                     .setTitle(count+"개 선택한 항목을 ..")
-                    .setView(view)
-                    .setPositiveButton("OK",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int whichButton) {
-                                    Toast.makeText(getActivity(), "OK", Toast.LENGTH_LONG).show();
-                                }
-                            }
-                    );
+                    .setView(view);
 
             final AlertDialog dialog = builder.create();
 
@@ -342,9 +334,6 @@ public class MyMusicListFragment extends Fragment
                             selecter.show();
                             break;
 
-                        // TODO add to local playlist
-                        case 2:
-                            break;
 
                     }
                     Log.e("tag", position + " ");
