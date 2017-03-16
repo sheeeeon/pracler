@@ -80,7 +80,7 @@ public class PlayerActivity extends AppCompatActivity
 
     private MusicSeekBar musicTimeBar;
 
-    private Boolean likestate;
+    private Boolean likestate = false;
 
     private Bitmap tmpBitmap;
 
@@ -97,15 +97,20 @@ public class PlayerActivity extends AppCompatActivity
         update();
 
 
-        global.setOnCompleteListener(new Global.OnCompleteListener() {
+        global.setOnChangeListener(new Global.OnChangeListener() {
             @Override
-            public void onComplete()
+            public void onChange()
             {
                 update();
             }
         });
+    }
 
-
+    @Override
+    public void onResume()
+    {
+        update();
+        super.onResume();
     }
 
     @Override
@@ -113,7 +118,7 @@ public class PlayerActivity extends AppCompatActivity
     {
         albumImageView = null;
         albumImageBackgroundView = null;
-        global.setOnCompleteListener(null);
+        global.setOnChangeListener(null);
         global = null;
         Log.e("finish", "fin");
         threadController = false;
@@ -205,6 +210,7 @@ public class PlayerActivity extends AppCompatActivity
 
     public void update()
     {
+
 
         int songId = global.musicService.getPlayingMusic();
         MusicDto playingSong = global.mMusicManager.getMusicDto(songId+"");

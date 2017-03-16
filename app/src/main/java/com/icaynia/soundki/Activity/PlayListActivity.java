@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -32,6 +33,8 @@ public class PlayListActivity extends AppCompatActivity
     public ListView mainListView;
     public PlayListAdapter adapter;
     private NestedScrollView scrollview;
+    private PlayList playList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -63,6 +66,13 @@ public class PlayListActivity extends AppCompatActivity
     {
         mainListView = (ListView) findViewById(R.id.listview);
         scrollview = (NestedScrollView) findViewById(R.id.scrollview);
+        mainListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.e("PlayListActivity", i+"/"+l);
+                global.playMusic(Integer.parseInt(playList.get(i)));
+            }
+        });
         mainListView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event)
@@ -80,16 +90,14 @@ public class PlayListActivity extends AppCompatActivity
         if (listname.equals("0"))
         {
             this.getSupportActionBar().setTitle("현재 재생중 ー " + global.nowPlayingList.size() + "곡");
-
-            adapter = new PlayListAdapter(this, global.nowPlayingList);
-
+            this.playList = global.nowPlayingList;
+            adapter = new PlayListAdapter(this, playList);
             mainListView.setAdapter(adapter);
-
         }
         else
         {
             PlayListManager plm = new PlayListManager(this);
-            PlayList playList = plm.getPlayList(listname);
+            this.playList = plm.getPlayList(listname);
 
             PlayListAdapter pla = new PlayListAdapter(this, playList);
             mainListView.setAdapter(pla);

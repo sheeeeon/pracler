@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class PlayList implements Serializable
 {
     private String playListName = "이름 없는 재생목록";
-    private ArrayList<String> list = new ArrayList<>();
+    private ArrayList<String> list = new ArrayList<>(); // 곡의 uid가 들어감.
     private int position = 0;
 
     public PlayList()
