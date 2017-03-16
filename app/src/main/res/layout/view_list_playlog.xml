@@ -7,27 +7,19 @@
     <RelativeLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
-
-
-        <ImageView
-            android:id="@+id/albumImage"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_margin="5dp"/>
+        android:layout_height="30dp">
 
         <TextView
             android:id="@+id/songText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="224124"
-            android:textSize="15dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_alignParentEnd="true"
-            android:layout_toEndOf="@+id/albumImage"/>
+            android:text="0000-00-00 - name "
+            android:textSize="15dp"/>
 
     </RelativeLayout>
 

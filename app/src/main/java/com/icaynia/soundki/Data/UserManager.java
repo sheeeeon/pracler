@@ -25,8 +25,6 @@ import java.net.URL;
 
 public class UserManager
 {
-    private Context context;
-
     private String TAG = "UserManager";
     private FirebaseAuth firebaseAuth;
     private FirebaseUser loginUser;
@@ -129,7 +127,7 @@ public class UserManager
                     @Override
                     public void onCancelled(DatabaseError databaseError)
                     {
-                        Log.e(TAG, "getUser:onCancelled", databaseError.toException());
+                        Log.e(TAG, "getNowListening:onCancelled", databaseError.toException());
                     }
                 });
     }
@@ -152,13 +150,12 @@ public class UserManager
                         if (state == null) return;
                         Log.e(TAG, "getLikeState:complete, " + state.getState());
                         listener.onComplete(state.getState());
-                        // ...
                     }
 
                     @Override
                     public void onCancelled(DatabaseError databaseError)
                     {
-                        Log.e(TAG, "getUser:onCancelled", databaseError.toException());
+                        Log.e(TAG, "getLikeState:onCancelled", databaseError.toException());
                     }
                 });
     }
