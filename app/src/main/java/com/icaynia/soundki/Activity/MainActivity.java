@@ -127,8 +127,11 @@ public class MainActivity extends AppCompatActivity
 
     public void onPlayerActivity()
     {
-        Intent intent = new Intent(this, PlayerActivity.class);
-        startActivity(intent);
+        if (global.musicService.getPlayingMusic() != 0)
+        {
+            Intent intent = new Intent(this, PlayerActivity.class);
+            startActivity(intent);
+        }
     }
 
     public void makeSnackbarController(final View view)
@@ -154,17 +157,14 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
-    public MusicRemoteController getMusicRemoteController()
+    public void onSnackbarController()
     {
-        return musicRemoteController;
-    }
-
-    public void onSnackbarController() {
         playRemoteController.show();
         snackbarState = true;
     }
 
-    public void hideSnackbarController() {
+    public void hideSnackbarController()
+    {
         playRemoteController.dismiss();
         snackbarState = false;
     }

@@ -13,6 +13,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.icaynia.soundki.Model.MusicDto;
 import com.icaynia.soundki.Model.PlayHistory;
+import com.icaynia.soundki.Model.State;
 import com.icaynia.soundki.Model.User;
 
 import java.io.InputStream;
@@ -63,7 +64,7 @@ public class UserManager
         RemoteDatabaseManager rdm = new RemoteDatabaseManager();
         DatabaseReference dr = rdm.getUsersReference();
 
-        playHistory.artist = MusicDto.replaceForInput("20170313101010");
+        playHistory.Regdate = MusicDto.replaceForInput("20170313101010");
         playHistory.artist = MusicDto.replaceForInput(playHistory.artist);
         playHistory.album = MusicDto.replaceForInput(playHistory.album);
         playHistory.title = MusicDto.replaceForInput(playHistory.title);
@@ -71,7 +72,7 @@ public class UserManager
         dr.child(loginUser.getUid()).child("log").child(playHistory.Regdate).setValue(playHistory);
     }
 
-    public void setLike(String artist, String album, String title)
+    public void setLike(String artist, String album, String title, boolean state, final OnCompleteGetLikeState listener)
     {
         RemoteDatabaseManager rdm = new RemoteDatabaseManager();
         DatabaseReference dr = rdm.getUsersReference();
@@ -80,10 +81,11 @@ public class UserManager
         album = MusicDto.replaceForInput(album);
         title = MusicDto.replaceForInput(title);
 
-        boolean state = true;
+        State mstate = new State();
+        mstate.setState(state);
 
-        dr.child(loginUser.getUid()).child("like").child(artist)
-                .child(album).child(title).setValue(state);
+        dr.child(loginUser.getUid()).child("like").child(artist+"/"+album+"/"+title).setValue(mstate);
+        listener.onComplete(state);
     }
 
     public void addNewUser()
@@ -110,6 +112,28 @@ public class UserManager
         dr.child(loginUser.getUid()).child("now").setValue(artist+"&DL"+album+"&DL"+title);
     }
 
+    public void getNowListening(String uid, final OnCompleteGetNowListening listener)
+    {
+        rdm.getUsersReference().child(uid).child("now").addListenerForSingleValueEvent(
+                new ValueEventListener()
+                {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot)
+                    {
+                        String state = dataSnapshot.getValue(String.class);
+                        if (state == null) return;
+                        Log.e(TAG, "getNowListening:complete, " + state);
+                        listener.onComplete(state);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError)
+                    {
+                        Log.e(TAG, "getUser:onCancelled", databaseError.toException());
+                    }
+                });
+    }
+
     public void isLove(String userId, String artist, String album, String title, final OnCompleteGetLikeState listener)
     {
         RemoteDatabaseManager rdm = new RemoteDatabaseManager();
@@ -118,16 +142,16 @@ public class UserManager
         album = MusicDto.replaceForInput(album);
         title = MusicDto.replaceForInput(title);
 
-        rdm.getUsersReference().child(userId).child("like").child(artist).child(album).child(title).addListenerForSingleValueEvent(
+        rdm.getUsersReference().child(userId).child("like").child(artist+"/"+album+"/"+title).addListenerForSingleValueEvent(
                 new ValueEventListener()
                 {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot)
                     {
-                        if (dataSnapshot.getValue(boolean.class) == null) return;
-                        boolean state = dataSnapshot.getValue(boolean.class);
-                        Log.e(TAG, "getLikeState:complete, " + state);
-                        listener.onComplete(state);
+                        State state = dataSnapshot.getValue(State.class);
+                        if (state == null) return;
+                        Log.e(TAG, "getLikeState:complete, " + state.getState());
+                        listener.onComplete(state.getState());
                         // ...
                     }
 
@@ -148,6 +172,11 @@ public class UserManager
     public interface OnCompleteGetUserImageListener
     {
         void onComplete(Bitmap UserImage);
+    }
+
+    public interface OnCompleteGetNowListening
+    {
+        void onComplete(String str);
     }
 
     public void getImage(final String Url, final OnCompleteGetUserImageListener listener)

@@ -113,7 +113,6 @@ public class MyMusicListFragment extends Fragment
             }
         });
 
-
         listView.setOnItemClickListener(defaultClick);
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -123,19 +122,6 @@ public class MyMusicListFragment extends Fragment
                 return false;
             }
         });
-
-        // for develop
-
-        PlayListManager plm = new PlayListManager(getContext());
-        PlayList playList = new PlayList();
-
-        playList.setName("testing!");
-        playList.addItem("uid test test test trest");
-
-        plm.savePlayList(playList);
-
-        PlayList loaded = plm.getPlayList("testing!");
-        Log.e(TAG, loaded.get(0)+"-");
 
         return v;
     }

@@ -80,6 +80,8 @@ public class PlayerActivity extends AppCompatActivity
 
     private MusicSeekBar musicTimeBar;
 
+    private Boolean likestate = false;
+
     private Bitmap tmpBitmap;
 
     Thread myThread;
@@ -95,15 +97,20 @@ public class PlayerActivity extends AppCompatActivity
         update();
 
 
-        global.setOnCompleteListener(new Global.OnCompleteListener() {
+        global.setOnChangeListener(new Global.OnChangeListener() {
             @Override
-            public void onComplete()
+            public void onChange()
             {
                 update();
             }
         });
+    }
 
-
+    @Override
+    public void onResume()
+    {
+        update();
+        super.onResume();
     }
 
     @Override
@@ -111,7 +118,7 @@ public class PlayerActivity extends AppCompatActivity
     {
         albumImageView = null;
         albumImageBackgroundView = null;
-        global.setOnCompleteListener(null);
+        global.setOnChangeListener(null);
         global = null;
         Log.e("finish", "fin");
         threadController = false;
@@ -204,6 +211,7 @@ public class PlayerActivity extends AppCompatActivity
     public void update()
     {
 
+
         int songId = global.musicService.getPlayingMusic();
         MusicDto playingSong = global.mMusicManager.getMusicDto(songId+"");
         /**음악 활성화와 관련 없음 */
@@ -212,6 +220,7 @@ public class PlayerActivity extends AppCompatActivity
             @Override
             public void onComplete(boolean likeState)
             {
+                likestate = likeState;
                 if (likeState)
                     IMAGE_FAVORITE.setImageDrawable(getResources().getDrawable(R.drawable.ic_favorite));
                 else
@@ -252,7 +261,7 @@ public class PlayerActivity extends AppCompatActivity
             }
         }
 
-        /** 음악 정지중일때 */
+        /** 음악이 없을 때 */
         else if (songId == 0)
         {
             IMAGE_PLAY.setImageDrawable(getResources().getDrawable(R.drawable.ic_play_white));
@@ -323,9 +332,19 @@ public class PlayerActivity extends AppCompatActivity
         {
             int songId = global.musicService.getPlayingMusic();
             MusicDto musicDto = global.mMusicManager.getMusicDto(songId+"");
-
+            if (likestate == true) likestate = false;
+            else likestate = true;
             UserManager userManager = new UserManager();
-            userManager.setLike(musicDto.getArtist(), musicDto.getAlbum(), musicDto.getTitle());
+            userManager.setLike(musicDto.getArtist(), musicDto.getAlbum(), musicDto.getTitle(), likestate, new UserManager.OnCompleteGetLikeState() {
+                @Override
+                public void onComplete(boolean likeState) {
+                    if (likeState)
+                        IMAGE_FAVORITE.setImageDrawable(getResources().getDrawable(R.drawable.ic_favorite));
+                    else
+                        IMAGE_FAVORITE.setImageDrawable(getResources().getDrawable(R.drawable.ic_favorite_border_white));
+
+                }
+            });
         }
     };
 

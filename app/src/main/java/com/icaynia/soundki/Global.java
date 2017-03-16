@@ -54,7 +54,7 @@ public class Global extends Application
 
     public PlayList nowPlayingList = new PlayList();
 
-    public OnCompleteListener completeListener = null;
+    public OnChangeListener onChangeListener = null;
 
     public UserManager userManager;
 
@@ -146,7 +146,6 @@ public class Global extends Application
         UserManager userManager = new UserManager();
         userManager.setNowlistening(musicDto.getArtist(), musicDto.getAlbum(), musicDto.getTitle());
 
-
         musicService.playMusic(songId+"");
         updateController();
 
@@ -191,9 +190,9 @@ public class Global extends Application
             musicService.playMusic(nextmusic_uid);
         }
 
-        if (completeListener != null)
+        if (onChangeListener != null)
         {
-            completeListener.onComplete();
+            onChangeListener.onChange();
         }
 
         updateController();
@@ -208,9 +207,9 @@ public class Global extends Application
         {
             musicService.playMusic(nextmusic_uid);
         }
-        if (completeListener != null)
+        if (onChangeListener != null)
         {
-            completeListener.onComplete();
+            onChangeListener.onChange();
         }
         updateController();
     }
@@ -229,14 +228,14 @@ public class Global extends Application
         }
     }
 
-    public void setOnCompleteListener(OnCompleteListener listener)
+    public void setOnChangeListener(OnChangeListener listener)
     {
-        this.completeListener = listener;
+        this.onChangeListener = listener;
     }
 
-    public interface OnCompleteListener
+    public interface OnChangeListener
     {
-        void onComplete();
+        void onChange();
     }
 
 }
