@@ -11,11 +11,14 @@ import android.widget.ListView;
 
 import com.icaynia.soundki.Activity.PlayListActivity;
 import com.icaynia.soundki.Data.PlayListManager;
+import com.icaynia.soundki.Global;
 import com.icaynia.soundki.R;
+import com.icaynia.soundki.View.CardView;
 import com.icaynia.soundki.View.MenuSelecter;
 import com.icaynia.soundki.View.PlayListsAdapter;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by icaynia on 2017. 2. 8..
@@ -23,6 +26,7 @@ import java.util.ArrayList;
 
 public class HomeFragment extends Fragment
 {
+    private Global global;
     private View v;
 
     private ListView playListView;
@@ -31,6 +35,7 @@ public class HomeFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
+        global = (Global) getContext().getApplicationContext();
         v = inflater.inflate(R.layout.fragment_home, container, false);
         setHasOptionsMenu(true);
         viewInitialize();
@@ -55,6 +60,25 @@ public class HomeFragment extends Fragment
 
         playListView.setOnItemClickListener(itemclick);
         playListView.setOnItemLongClickListener(itemLongClick);
+
+        // TODO Recommend for you block.
+        Random rand = new Random();
+        int randSongId = rand.nextInt(global.mMusicManager.getMusicList().size());
+
+        CardView cv = (CardView) v.findViewById(R.id.card_recommand);
+        cv.setTitleText("이 곡도 들어 보세요");
+        cv.setTheme(CardView.THEME_2);
+        cv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        cv = (CardView) v.findViewById(R.id.card_yourfriends);
+        cv.setTitleText("친구가 듣고 있는 것");
+        cv.setTheme(CardView.THEME_3);
+
     }
 
     private AdapterView.OnItemClickListener itemclick = new AdapterView.OnItemClickListener()

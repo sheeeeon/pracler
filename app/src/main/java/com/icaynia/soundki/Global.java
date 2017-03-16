@@ -197,7 +197,7 @@ public class Global extends Application
         String nextmusic_uid = nowPlayingList.get(nowPlayingList.getPosition());
         if (nextmusic_uid != null)
         {
-            musicService.playMusic(nextmusic_uid);
+            playMusic(Integer.parseInt(nextmusic_uid));
         }
 
         if (onChangeListener != null)
@@ -215,7 +215,7 @@ public class Global extends Application
         String nextmusic_uid = nowPlayingList.get(nowPlayingList.getPosition());
         if (nextmusic_uid != null)
         {
-            musicService.playMusic(nextmusic_uid);
+            playMusic(Integer.parseInt(nextmusic_uid));
         }
         if (onChangeListener != null)
         {
@@ -251,9 +251,9 @@ public class Global extends Application
         MusicDto musicDto = mMusicManager.getMusicDto(songId+"");
         Bitmap albumArt = mMusicManager.getAlbumImage(getApplicationContext(), Integer.parseInt(musicDto.getAlbumId()), 100);
 
-        builder.setContentTitle("현재 노래")
-                .setContentText(musicDto.getArtist() + " - " + musicDto.getTitle())
-                .setTicker("상태바 한줄 메시지")
+        builder.setContentTitle("현재 Commit 중")
+                .setContentText(musicDto.getArtist() + " - " + musicDto.getTitle() + " ")
+                .setTicker(musicDto.getArtist() + " - " + musicDto.getTitle())
                 .setSmallIcon(R.drawable.ic_headset_white)
                 .setLargeIcon(albumArt)
                 .setContentIntent(contentIntent)
