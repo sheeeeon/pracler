@@ -18,6 +18,9 @@ import com.icaynia.soundki.Model.User;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by icaynia on 07/03/2017.
@@ -62,7 +65,10 @@ public class UserManager
         RemoteDatabaseManager rdm = new RemoteDatabaseManager();
         DatabaseReference dr = rdm.getUsersReference();
 
-        playHistory.Regdate = MusicDto.replaceForInput("20170313101010");
+        String format = new String("yyyyMMddHHmmss");
+        SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.KOREA);
+
+        playHistory.Regdate = MusicDto.replaceForInput(sdf.format(new Date()));
         playHistory.artist = MusicDto.replaceForInput(playHistory.artist);
         playHistory.album = MusicDto.replaceForInput(playHistory.album);
         playHistory.title = MusicDto.replaceForInput(playHistory.title);

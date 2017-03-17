@@ -215,8 +215,7 @@ public class PlayerActivity extends AppCompatActivity
         int songId = global.musicService.getPlayingMusic();
         MusicDto playingSong = global.mMusicManager.getMusicDto(songId+"");
         /**음악 활성화와 관련 없음 */
-        UserManager userManager = new UserManager() ;
-        userManager.isLove(global.loginUser.getUid(), playingSong.getArtist(), playingSong.getAlbum(), playingSong.getTitle(), new UserManager.OnCompleteGetLikeState() {
+        global.userManager.isLove(global.loginUser.getUid(), playingSong.getArtist(), playingSong.getAlbum(), playingSong.getTitle(), new UserManager.OnCompleteGetLikeState() {
             @Override
             public void onComplete(boolean likeState)
             {
@@ -268,10 +267,11 @@ public class PlayerActivity extends AppCompatActivity
         }
 
         /** 타임바 설정 */
+        updateTimeBar();
+
+
         durationTimeView.setText(global.mMusicManager.convertToTime(global.musicService.getPlayingMusicDuration()));
 
-        musicTimeBar.setMaxValue(global.musicService.getPlayingMusicDuration());
-        musicTimeBar.setProgress(global.musicService.getPlayingMusicCurrentPosition());
         threadController = false;
         threadController = true;
         myThread = new Thread(new Runnable() {
@@ -287,6 +287,12 @@ public class PlayerActivity extends AppCompatActivity
             }
         });
         myThread.start();
+    }
+
+    public void updateTimeBar()
+    {
+        musicTimeBar.setMaxValue(global.musicService.getPlayingMusicDuration());
+        musicTimeBar.setProgress(global.musicService.getPlayingMusicCurrentPosition());
     }
 
     /** BUTTON CLICK LISTENER REGION */

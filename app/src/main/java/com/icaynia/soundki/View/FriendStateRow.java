@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.icaynia.soundki.Data.UserManager;
 import com.icaynia.soundki.Global;
+import com.icaynia.soundki.Model.User;
 import com.icaynia.soundki.R;
 
 /**
@@ -22,6 +23,7 @@ public class FriendStateRow extends RelativeLayout
     private Global global;
 
     private String uid;
+    private User thisUser;
 
     public FriendStateRow(Context context)
     {
@@ -47,6 +49,13 @@ public class FriendStateRow extends RelativeLayout
     public void setUid(String uid)
     {
         this.uid = uid;
+        global.userManager.getUser(uid, new UserManager.OnCompleteGetUserListener() {
+            @Override
+            public void onComplete(User user) {
+                thisUser = user;
+            }
+        });
+
     }
 
     public void update()
@@ -55,7 +64,7 @@ public class FriendStateRow extends RelativeLayout
             @Override
             public void onComplete(String str) {
                 TextView title = (TextView) mainView.findViewById(R.id.view_title);
-                title.setText("얍" + uid);
+                title.setText(str);
             }
         });
     }
