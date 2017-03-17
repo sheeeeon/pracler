@@ -67,8 +67,4 @@ public class RecommandSongView extends LinearLayout
         Artist.setText(musicDto.getArtist());
     }
 
-
-
-
-
 }
