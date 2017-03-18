@@ -59,8 +59,8 @@ public class FriendStateView extends LinearLayout
 
         addView(mainView);
 
-        addUserList(global.firebaseAuth.getCurrentUser().getUid());
-        addUserList(global.firebaseAuth.getCurrentUser().getUid());
+        addUserList("bodOteabRPU9K01qTTgRr75LlHw2");
+        addUserList("9MR5nzIWaKQMRPYri8KvJBCF9wB2");
         addUserList(global.firebaseAuth.getCurrentUser().getUid());
     }
 

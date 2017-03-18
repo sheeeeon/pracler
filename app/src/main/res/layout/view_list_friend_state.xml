@@ -8,7 +8,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:background="#aaaaaa"
-        android:id="@+id/view_album"
+        android:id="@+id/view_userPic"
         android:layout_margin="5dp"
         />
 
@@ -21,18 +21,18 @@
         android:layout_marginRight="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
-        android:layout_toEndOf="@+id/view_album">
+        android:layout_toEndOf="@+id/view_userPic">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/view_userName"
+            android:textSize="10dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/view_title"
             android:textSize="14dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/view_artist"
-            android:textSize="10dp"/>
 
     </LinearLayout>
 
