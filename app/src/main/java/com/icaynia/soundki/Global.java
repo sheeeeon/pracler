@@ -188,12 +188,12 @@ public class Global extends Application
 
     public void playPrevMusic()
     {
+        musicService.pause();
         if (musicService.getPlayingMusicCurrentPosition() < 3000)
         {
             nowPlayingList.delPositionCount();
         }
 
-        musicService.playing = false;
         String nextmusic_uid = nowPlayingList.get(nowPlayingList.getPosition());
         if (nextmusic_uid != null)
         {
@@ -210,8 +210,8 @@ public class Global extends Application
 
     public void playNextMusic()
     {
+        musicService.stop();
         nowPlayingList.addPositionCount();
-        musicService.playing = false;
         String nextmusic_uid = nowPlayingList.get(nowPlayingList.getPosition());
         if (nextmusic_uid != null)
         {

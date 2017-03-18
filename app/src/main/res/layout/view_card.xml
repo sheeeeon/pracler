@@ -27,8 +27,6 @@
         android:padding="8dp"
         android:orientation="vertical">
 
-
-
     </LinearLayout>
 
 </LinearLayout>
