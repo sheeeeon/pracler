@@ -33,6 +33,8 @@ public class UserManager
     private FirebaseUser loginUser;
     private RemoteDatabaseManager rdm;
 
+    private OnCompleteGetNowListening nowListeningListener;
+
     public UserManager()
     {
         firebaseAuth = FirebaseAuth.getInstance();
@@ -123,7 +125,7 @@ public class UserManager
 
     public void getNowListening(String uid, final OnCompleteGetNowListening listener)
     {
-        rdm.getUsersReference().child(uid).child("now").addListenerForSingleValueEvent(
+        rdm.getUsersReference().child(uid).child("now").addValueEventListener(
                 new ValueEventListener()
                 {
                     @Override

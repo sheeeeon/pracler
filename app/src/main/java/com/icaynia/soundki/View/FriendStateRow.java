@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.icaynia.soundki.Data.UserManager;
 import com.icaynia.soundki.Global;
+import com.icaynia.soundki.Model.MusicDto;
 import com.icaynia.soundki.Model.User;
 import com.icaynia.soundki.R;
 
@@ -73,24 +74,30 @@ public class FriendStateRow extends RelativeLayout
                 });
             }
         });
-
+        update();
     }
+
+    public UserManager.OnCompleteGetNowListening listener = new UserManager.OnCompleteGetNowListening() {
+        @Override
+        public void onComplete(String str) {
+            String nows = MusicDto.replaceForOutput(str);
+            String[] r = nows.split("&DL");
+            String Artist = r[0];
+            //String Album = r[1];
+            String Name = r[2];
+
+
+            //album = MusicDto.replaceForInput(album);
+            Name = MusicDto.replaceForInput(Name);
+
+
+            title.setText(Artist + " - " + Name);
+        }
+    };
 
     public void update()
     {
-
-        global.userManager.getNowListening(uid, new UserManager.OnCompleteGetNowListening() {
-            @Override
-            public void onComplete(String str) {
-                String[] r = str.split("&DL");
-                String Artist = r[0];
-                String Album = r[1];
-                String Name = r[2];
-
-                title.setText(Artist + " - " + Name);
-            }
-        });
-
-
+        UserManager userManager = new UserManager();
+        userManager.getNowListening(uid, listener);
     }
 }

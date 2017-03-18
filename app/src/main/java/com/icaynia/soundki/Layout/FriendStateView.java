@@ -68,7 +68,6 @@ public class FriendStateView extends LinearLayout
     {
         FriendStateRow fsr = new FriendStateRow(getContext());
         fsr.setUid(uid);
-        fsr.update();
         contentBox.addView(fsr);
     }
 
