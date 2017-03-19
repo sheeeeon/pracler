@@ -35,6 +35,8 @@ public class PlayListActivity extends AppCompatActivity
     private NestedScrollView scrollview;
     private PlayList playList;
 
+    private String listname;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -44,6 +46,7 @@ public class PlayListActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        /*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener()
         {
@@ -53,13 +56,14 @@ public class PlayListActivity extends AppCompatActivity
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
+        */
 
         viewInitialize();
         global = (Global) this.getApplicationContext();
 
         Intent intent = getIntent();
-        String listname = intent.getStringExtra("list");
-        onList(listname);
+        listname = intent.getStringExtra("list");
+        onList();
     }
 
     public void viewInitialize()
@@ -84,7 +88,7 @@ public class PlayListActivity extends AppCompatActivity
 
     }
 
-    public void onList(String listname)
+    public void onList()
     {
         // when 'listname' value is 0, it means show now playlist.
         if (listname.equals("0"))
@@ -98,6 +102,7 @@ public class PlayListActivity extends AppCompatActivity
         {
             PlayListManager plm = new PlayListManager(this);
             this.playList = plm.getPlayList(listname);
+            this.getSupportActionBar().setTitle(playList.getName() +"" + global.nowPlayingList.size() + "곡");
 
             PlayListAdapter pla = new PlayListAdapter(this, playList);
             mainListView.setAdapter(pla);

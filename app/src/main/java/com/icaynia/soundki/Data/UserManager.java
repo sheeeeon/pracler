@@ -33,6 +33,8 @@ public class UserManager
     private FirebaseUser loginUser;
     private RemoteDatabaseManager rdm;
 
+    private OnCompleteGetNowListening nowListeningListener;
+
     public UserManager()
     {
         firebaseAuth = FirebaseAuth.getInstance();
@@ -48,7 +50,11 @@ public class UserManager
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     // Get user value
                     User user = dataSnapshot.getValue(User.class);
-                    Log.e(TAG, "getUser:complete, " + user.email);
+                    if (user == null)
+                    {
+                        addNewUser();
+                    }
+                    //Log.e(TAG, "getUser:complete, " + user.email);
                     listener.onComplete(user);
                     // ...
                 }
@@ -94,6 +100,7 @@ public class UserManager
 
     public void addNewUser()
     {
+        /** 현재 로그인되어있는 계정 기준으로 새로 만들어짐 */
         RemoteDatabaseManager rdm = new RemoteDatabaseManager();
         DatabaseReference dr = rdm.getUsersReference();
         User user = new User();
@@ -118,7 +125,7 @@ public class UserManager
 
     public void getNowListening(String uid, final OnCompleteGetNowListening listener)
     {
-        rdm.getUsersReference().child(uid).child("now").addListenerForSingleValueEvent(
+        rdm.getUsersReference().child(uid).child("now").addValueEventListener(
                 new ValueEventListener()
                 {
                     @Override

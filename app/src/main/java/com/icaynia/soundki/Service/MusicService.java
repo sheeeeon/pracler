@@ -29,7 +29,7 @@ public class MusicService extends Service
      *  when it paused = false.
      *  when it stopped = false.
      */
-    public boolean playing = false;
+    private boolean playing = false;
 
     private String songId;
 
@@ -119,6 +119,19 @@ public class MusicService extends Service
         mediaPlayer.pause();
         playing = false;
     }
+
+    public void stop()
+    {
+        mediaPlayer.stop();
+        playing = false;
+    }
+
+
+    public boolean isPlaying()
+    {
+        return this.playing;
+    }
+
 
     public int getPlayingMusic()
     {

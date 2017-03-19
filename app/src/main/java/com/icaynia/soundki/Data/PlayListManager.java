@@ -28,7 +28,7 @@ public class PlayListManager
 
 
     // TODO Initialize object.
-    public void init()
+    private void init()
     {
         fileManager = new FileManager(context);
     }

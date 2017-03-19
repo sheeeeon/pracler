@@ -210,8 +210,7 @@ public class PlayerActivity extends AppCompatActivity
 
     public void update()
     {
-
-
+        musicTimeBar.setProgress(0);
         int songId = global.musicService.getPlayingMusic();
         MusicDto playingSong = global.mMusicManager.getMusicDto(songId+"");
         /**음악 활성화와 관련 없음 */
@@ -249,7 +248,7 @@ public class PlayerActivity extends AppCompatActivity
                 tmpBitmap = null;
             }
             /** 음악이 일시정지되어 있을 때 */
-            if (!global.musicService.playing)
+            if (!global.musicService.isPlaying())
             {
                 IMAGE_PLAY.setImageDrawable(getResources().getDrawable(R.drawable.ic_play_white));
             }
@@ -282,6 +281,7 @@ public class PlayerActivity extends AppCompatActivity
                         Thread.sleep(300);
                         currentTimeView.setText(global.mMusicManager.convertToTime(global.musicService.getPlayingMusicCurrentPosition()));
                     } catch (Throwable t) {
+
                     }
                 }
             }
@@ -300,7 +300,7 @@ public class PlayerActivity extends AppCompatActivity
         @Override
         public void onClick(View v)
         {
-            boolean playState = global.musicService.playing;
+            boolean playState = global.musicService.isPlaying();
             Drawable icon;
             if (playState)
             {
@@ -320,6 +320,7 @@ public class PlayerActivity extends AppCompatActivity
         @Override
         public void onClick(View v)
         {
+            musicTimeBar.setProgress(0);
             global.playPrevMusic();
         }
     };
@@ -328,6 +329,7 @@ public class PlayerActivity extends AppCompatActivity
         @Override
         public void onClick(View v)
         {
+            musicTimeBar.setProgress(0);
             global.playNextMusic();
         }
     };
