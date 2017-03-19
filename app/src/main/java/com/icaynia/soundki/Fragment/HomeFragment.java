@@ -13,6 +13,7 @@ import com.icaynia.soundki.Activity.PlayListActivity;
 import com.icaynia.soundki.Data.PlayListManager;
 import com.icaynia.soundki.Global;
 import com.icaynia.soundki.Layout.FriendStateView;
+import com.icaynia.soundki.Layout.MyStateView;
 import com.icaynia.soundki.Layout.RecommandSongView;
 import com.icaynia.soundki.R;
 import com.icaynia.soundki.View.CardView;
@@ -86,10 +87,13 @@ public class HomeFragment extends Fragment
         cv.setTheme(CardView.THEME_3);
         FriendStateView fsv = new FriendStateView(getContext());
         cv.addContent(fsv);
+
+
         cv = (CardView) v.findViewById(R.id.card_yourstate);
         cv.setTitleText("나의 상태");
         cv.setTheme(CardView.THEME_4);
-
+        MyStateView msv = new MyStateView(getContext());
+        cv.addContent(msv);
     }
 
     private AdapterView.OnItemClickListener itemclick = new AdapterView.OnItemClickListener()
