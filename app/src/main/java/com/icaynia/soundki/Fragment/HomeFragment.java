@@ -10,10 +10,12 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.icaynia.soundki.Activity.PlayListActivity;
+import com.icaynia.soundki.CardLayout.ButtonView;
 import com.icaynia.soundki.Data.PlayListManager;
 import com.icaynia.soundki.Global;
-import com.icaynia.soundki.Layout.FriendStateView;
-import com.icaynia.soundki.Layout.RecommandSongView;
+import com.icaynia.soundki.CardLayout.FriendStateView;
+import com.icaynia.soundki.CardLayout.MyStateView;
+import com.icaynia.soundki.CardLayout.RecommandSongView;
 import com.icaynia.soundki.R;
 import com.icaynia.soundki.View.CardView;
 import com.icaynia.soundki.View.MenuSelecter;
@@ -86,9 +88,19 @@ public class HomeFragment extends Fragment
         cv.setTheme(CardView.THEME_3);
         FriendStateView fsv = new FriendStateView(getContext());
         cv.addContent(fsv);
+
+
         cv = (CardView) v.findViewById(R.id.card_yourstate);
         cv.setTitleText("나의 상태");
         cv.setTheme(CardView.THEME_4);
+        MyStateView msv = new MyStateView(getContext());
+        cv.addContent(msv);
+
+        cv = (CardView) v.findViewById(R.id.card_playlist);
+        cv.setTitleText("");
+        cv.setTheme(CardView.THEME_1);
+        ButtonView bv = new ButtonView(getContext());
+        cv.addContent(bv);
 
     }
 

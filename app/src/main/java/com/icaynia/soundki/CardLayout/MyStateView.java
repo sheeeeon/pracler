@@ -1,20 +1,15 @@
-package com.icaynia.soundki.Layout;
+package com.icaynia.soundki.CardLayout;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.icaynia.soundki.Data.UserManager;
 import com.icaynia.soundki.Global;
 import com.icaynia.soundki.R;
-import com.icaynia.soundki.View.FriendStateRow;
-
-import java.util.ArrayList;
 
 /**
  * Created by icaynia on 16/03/2017.
@@ -24,7 +19,7 @@ import java.util.ArrayList;
  * 데이터는 global에서 가져옵니다.
  */
 
-public class FriendStateView extends LinearLayout
+public class MyStateView extends LinearLayout
 {
     private View mainView;
     private LinearLayout contentBox;
@@ -35,13 +30,13 @@ public class FriendStateView extends LinearLayout
     private TextView Artist;
     private TextView Title;
 
-    public FriendStateView(Context context)
+    public MyStateView(Context context)
     {
         super(context);
         viewInitialize();
     }
 
-    public FriendStateView(Context context, AttributeSet attrs)
+    public MyStateView(Context context, AttributeSet attrs)
     {
         super(context, attrs);
         viewInitialize();
@@ -50,27 +45,12 @@ public class FriendStateView extends LinearLayout
     private void viewInitialize()
     {
         inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mainView = inflater.inflate(R.layout.view_main_friend_state, null);
+        mainView = inflater.inflate(R.layout.view_mystate, null);
 
         global = (Global) getContext().getApplicationContext();
-        contentBox = (LinearLayout) mainView.findViewById(R.id.contentBox);
-
-        listRow = (RelativeLayout) inflater.inflate(R.layout.view_list_friend_state, null);
 
         addView(mainView);
-
-        addUserList("bodOteabRPU9K01qTTgRr75LlHw2");
-        addUserList("9MR5nzIWaKQMRPYri8KvJBCF9wB2");
-        addUserList(global.firebaseAuth.getCurrentUser().getUid());
     }
-
-    private void addUserList(final String uid)
-    {
-        FriendStateRow fsr = new FriendStateRow(getContext());
-        fsr.setUid(uid);
-        contentBox.addView(fsr);
-    }
-
 
 
 

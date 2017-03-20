@@ -1,4 +1,4 @@
-package com.icaynia.soundki.Layout;
+package com.icaynia.soundki.CardLayout;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -9,12 +9,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.icaynia.soundki.Data.MusicFileManager;
 import com.icaynia.soundki.Global;
 import com.icaynia.soundki.Model.MusicDto;
 import com.icaynia.soundki.R;
-
-import org.w3c.dom.Text;
 
 /**
  * Created by icaynia on 16/03/2017.

@@ -6,9 +6,12 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.icaynia.soundki.R;
+
+import org.w3c.dom.Text;
 
 /**
  * Created by icaynia on 16/03/2017.
@@ -77,6 +80,5 @@ public class CardView extends LinearLayout
     {
         contentBox.addView(v);
     }
-
 
 }
