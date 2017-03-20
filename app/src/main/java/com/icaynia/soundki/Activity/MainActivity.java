@@ -28,30 +28,15 @@ import com.icaynia.soundki.Model.PlayList;
 import com.icaynia.soundki.Model.User;
 import com.icaynia.soundki.R;
 import com.icaynia.soundki.View.InputPopup;
-import com.icaynia.soundki.View.MusicRemoteController;
-
-import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity
 {
     private Global global;
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
     private SectionsPagerAdapter mSectionsPagerAdapter;
-
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
     private ViewPager mViewPager;
-    public  Snackbar playRemoteController;
 
-    private MusicRemoteController musicRemoteController;
+    public Snackbar playRemoteController;
+
 
     private boolean snackbarState = false;
 
@@ -65,13 +50,11 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        global = (Global) getApplication();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
@@ -81,14 +64,7 @@ public class MainActivity extends AppCompatActivity
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-        musicRemoteController = new MusicRemoteController(this);
-        musicRemoteController.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
-                onPlayerActivity();
-            }
-        });
+
 
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener()
@@ -96,18 +72,9 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                if (snackbarState)
-                    hideSnackbarController();
-                else
-                    onSnackbarController();
+
             }
         });
-
-        makeSnackbarController(fab);
-
-        global = (Global) getApplication();
-        global.mainActivityMusicRemoteController = musicRemoteController;
-        global.updateController();
 
         // TODO 처음 로그인 시 initialize
         userManager = new UserManager();
@@ -121,9 +88,20 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         });
-
-
     }
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+    }
+
+
+    @Override
+    public void onPostResume()
+    {
+        super.onPostResume();
+    }
+
 
     public void onPlayerActivity()
     {
@@ -132,41 +110,6 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this, PlayerActivity.class);
             startActivity(intent);
         }
-    }
-
-    public void makeSnackbarController(final View view)
-    {
-        playRemoteController = Snackbar.make(view, "", Snackbar.LENGTH_INDEFINITE);
-        layout = (Snackbar.SnackbarLayout) playRemoteController.getView();
-        layout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
-        View snackView = musicRemoteController;
-        layout.setPadding(0, 0, 0, 0);
-        layout.addView(snackView, Snackbar.SnackbarLayout.LayoutParams.MATCH_PARENT, 160);
-        playRemoteController.setCallback(new Snackbar.Callback() {
-            @Override
-            public void onDismissed(Snackbar snackbar, int event)
-            {
-                super.onDismissed(snackbar, event);
-                if (event == DISMISS_EVENT_SWIPE)
-                {
-                    ((Snackbar.SnackbarLayout) playRemoteController.getView()).removeAllViews();
-                    makeSnackbarController(view);
-                }
-                hideSnackbarController();
-            }
-        });
-    }
-
-    public void onSnackbarController()
-    {
-        playRemoteController.show();
-        snackbarState = true;
-    }
-
-    public void hideSnackbarController()
-    {
-        playRemoteController.dismiss();
-        snackbarState = false;
     }
 
     public void setOnBackPressedListener(OnBackPressedListener listener)

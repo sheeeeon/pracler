@@ -11,21 +11,15 @@ import android.content.ServiceConnection;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.os.IBinder;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
-import com.facebook.AccessToken;
 import com.facebook.FacebookSdk;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-import com.facebook.login.LoginResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
-import com.icaynia.soundki.Activity.MainActivity;
 import com.icaynia.soundki.Activity.PlayerActivity;
 import com.icaynia.soundki.Data.MusicFileManager;
 import com.icaynia.soundki.Data.PlayListManager;
@@ -38,7 +32,6 @@ import com.icaynia.soundki.Model.MusicRes;
 import com.icaynia.soundki.Model.PlayList;
 import com.icaynia.soundki.Model.PlayHistory;
 import com.icaynia.soundki.Service.MusicService;
-import com.icaynia.soundki.View.MusicRemoteController;
 
 /**
  * Created by icaynia on 2017. 2. 8..
@@ -56,7 +49,6 @@ public class Global extends Application
     public Intent musicServiceIntent;
     public MusicFileManager mMusicManager;
 
-    public MusicRemoteController mainActivityMusicRemoteController;
 
     public PlayListManager playListManager;
 
@@ -101,7 +93,8 @@ public class Global extends Application
 
                 }
             });
-            updateController();
+
+            Log.e("Global", "onServiceConnected: called");
 
         }
 
@@ -124,12 +117,11 @@ public class Global extends Application
 
         mMusicManager = new MusicFileManager(getApplicationContext());
         playListManager = new PlayListManager(this);
-
         firebaseAuth = FirebaseAuth.getInstance();
         loginUser = firebaseAuth.getCurrentUser();
-
         userManager = new UserManager();
 
+        Log.e("Global", "onCreate: called");
     }
 
     @Override
@@ -155,8 +147,6 @@ public class Global extends Application
         userManager.setNowlistening(musicDto.getArtist(), musicDto.getAlbum(), musicDto.getTitle());
 
         musicService.playMusic(songId+"");
-        updateController();
-
 
         MusicRes info = new MusicRes();
         ArtistRes arres = new ArtistRes();
@@ -205,7 +195,6 @@ public class Global extends Application
             onChangeListener.onChange();
         }
 
-        updateController();
     }
 
     public void playNextMusic()
@@ -220,21 +209,6 @@ public class Global extends Application
         if (onChangeListener != null)
         {
             onChangeListener.onChange();
-        }
-        updateController();
-    }
-
-
-    public void updateController()
-    {
-        if (mainActivityMusicRemoteController != null && musicService != null)
-        {
-            int songId = musicService.getPlayingMusic();
-            if (songId == 0) return;
-            Log.e("global.updateController", musicService.getPlayingMusic()+"");
-            MusicDto song = mMusicManager.getMusicDto(songId+"");
-            Bitmap albumArt = mMusicManager.getAlbumImage(getApplicationContext(), Integer.parseInt(song.getAlbumId()), 100);
-            mainActivityMusicRemoteController.updateSongInfo(albumArt, song.getArtist(), song.getTitle());
         }
     }
 

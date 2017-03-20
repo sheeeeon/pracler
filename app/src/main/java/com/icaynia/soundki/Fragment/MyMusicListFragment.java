@@ -41,6 +41,7 @@ import com.icaynia.soundki.Model.MusicDto;
 import com.icaynia.soundki.Model.MusicList;
 import com.icaynia.soundki.Model.PlayList;
 import com.icaynia.soundki.R;
+import com.icaynia.soundki.View.Card;
 import com.icaynia.soundki.View.MenuListAdapter;
 import com.icaynia.soundki.View.MusicListAdapter;
 import com.icaynia.soundki.View.PlayListAdapter;
@@ -68,17 +69,53 @@ public class MyMusicListFragment extends Fragment
     private MusicListAdapter musicListAdapter;
 
     @Override
+    public void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+
+        global = (Global) getContext().getApplicationContext();
+        mMusicManager = global.mMusicManager;
+        list = mMusicManager.getMusicList();
+        musicListAdapter = new MusicListAdapter(getContext(), list);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_mymusic, container, false);
         setHasOptionsMenu(true);
-        mMusicManager = new MusicFileManager(getContext());
-        list = mMusicManager.getMusicList();
-        listView = (ListView) v.findViewById(R.id.listview);
-        musicListAdapter = new MusicListAdapter(getContext(), list);
-        listView.setAdapter(musicListAdapter);
-        global = (Global) getContext().getApplicationContext();
 
-        //registerForContextMenu(listView);
+        Card today_recommand_20 = (Card) v.findViewById(R.id.today_recommand_20);
+        today_recommand_20.setButtonImageDrawable(getResources().getDrawable(R.drawable.ic_grade));
+        today_recommand_20.setButtonTitleText("오늘의 추천 20곡");
+
+        Card top_20 = (Card) v.findViewById(R.id.top_20);
+        top_20.setButtonImageDrawable(getResources().getDrawable(R.drawable.ic_thumb_up));
+        top_20.setButtonTitleText("가장 많이 들은 곡 20곡");
+
+        Card playlist = (Card) v.findViewById(R.id.playlist);
+        playlist.setButtonImageDrawable(getResources().getDrawable(R.drawable.ic_playlist_play_black));
+        playlist.setButtonTitleText("내 플레이리스트");
+
+        Card album = (Card) v.findViewById(R.id.album);
+        album.setButtonImageDrawable(getResources().getDrawable(R.drawable.ic_album));
+        album.setButtonTitleText("내 앨범");
+
+        Card artist = (Card) v.findViewById(R.id.artist);
+        artist.setButtonImageDrawable(getResources().getDrawable(R.drawable.ic_recent_actors));
+        artist.setButtonTitleText("내 아티스트");
+
+        listView = (ListView) v.findViewById(R.id.listview);
+        listView.setAdapter(musicListAdapter);
+
+        listView.setOnItemClickListener(defaultClick);
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                openChooseMode(position);
+                return false;
+            }
+        });
 
         Spinner spinner = (Spinner) v.findViewById(R.id.spin1);
         String[] platforms = getResources().
@@ -112,17 +149,6 @@ public class MyMusicListFragment extends Fragment
 
             }
         });
-
-        listView.setOnItemClickListener(defaultClick);
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
-            {
-                openChooseMode(position);
-                return false;
-            }
-        });
-
         return v;
     }
 
@@ -130,10 +156,9 @@ public class MyMusicListFragment extends Fragment
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id)
         {
+            ((MainActivity)getActivity()).onPause();
             String songId = view.getTag().toString();
             MusicDto song = mMusicManager.getMusicDto(songId);
-            ((MainActivity)getContext()).onSnackbarController();
-
             Log.e("MyMusicListFragment", "Song : " + song.getTitle() + " Artist : " + song.getArtist());
             global.playMusic(Integer.parseInt(songId));
             PlayList nowPlayingList = new PlayList();
@@ -148,6 +173,7 @@ public class MyMusicListFragment extends Fragment
             global.nowPlayingList = nowPlayingList;
         }
     };
+
 
     public void setBackbutton()
     {
