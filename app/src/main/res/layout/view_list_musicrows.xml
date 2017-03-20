@@ -7,9 +7,12 @@
     <ImageView
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:background="#aaaaaa"
+        android:background="#2f2a36"
         android:id="@+id/view_album"
-        android:layout_margin="5dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="7dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
         />
 
     <LinearLayout
@@ -17,10 +20,10 @@
         android:layout_height="50dp"
         android:orientation="vertical"
         android:gravity="center_vertical"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
         android:layout_toEndOf="@+id/view_album">
 
         <TextView

@@ -2,7 +2,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#262626"
+                android:background="@color/colorFragmentBackground"
                 tools:context="com.icaynia.soundki.Activity.MainActivity">
 
     <ListView
