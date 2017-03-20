@@ -50,7 +50,12 @@ public class Card extends RelativeLayout
         RelativeLayout contentBox = (RelativeLayout) mainView.findViewById(R.id.contentBox);
         titleText = (TextView) mainView.findViewById(R.id.titleText);
         buttonTitleText = (TextView) mainView.findViewById(R.id.buttonTitleText);
+        contentBox.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+            }
+        });
     }
 
     public void setTitleText(String titleString)

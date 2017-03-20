@@ -89,19 +89,19 @@ public class MyMusicListFragment extends Fragment
         today_recommand_20.setButtonTitleText("오늘의 추천 20곡");
 
         Card top_20 = (Card) v.findViewById(R.id.top_20);
-        top_20.setButtonImageDrawable(getResources().getDrawable(R.drawable.ic_grade));
+        top_20.setButtonImageDrawable(getResources().getDrawable(R.drawable.ic_thumb_up));
         top_20.setButtonTitleText("가장 많이 들은 곡 20곡");
 
         Card playlist = (Card) v.findViewById(R.id.playlist);
-        playlist.setButtonImageDrawable(getResources().getDrawable(R.drawable.ic_grade));
+        playlist.setButtonImageDrawable(getResources().getDrawable(R.drawable.ic_playlist_play_black));
         playlist.setButtonTitleText("내 플레이리스트");
 
         Card album = (Card) v.findViewById(R.id.album);
-        album.setButtonImageDrawable(getResources().getDrawable(R.drawable.ic_grade));
+        album.setButtonImageDrawable(getResources().getDrawable(R.drawable.ic_album));
         album.setButtonTitleText("내 앨범");
 
         Card artist = (Card) v.findViewById(R.id.artist);
-        artist.setButtonImageDrawable(getResources().getDrawable(R.drawable.ic_grade));
+        artist.setButtonImageDrawable(getResources().getDrawable(R.drawable.ic_recent_actors));
         artist.setButtonTitleText("내 아티스트");
 
         listView = (ListView) v.findViewById(R.id.listview);
