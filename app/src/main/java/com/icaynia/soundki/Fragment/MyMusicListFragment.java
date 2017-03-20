@@ -68,17 +68,33 @@ public class MyMusicListFragment extends Fragment
     private MusicListAdapter musicListAdapter;
 
     @Override
+    public void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+
+        global = (Global) getContext().getApplicationContext();
+        mMusicManager = global.mMusicManager;
+        list = mMusicManager.getMusicList();
+        musicListAdapter = new MusicListAdapter(getContext(), list);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_mymusic, container, false);
         setHasOptionsMenu(true);
-        mMusicManager = new MusicFileManager(getContext());
-        list = mMusicManager.getMusicList();
-        listView = (ListView) v.findViewById(R.id.listview);
-        musicListAdapter = new MusicListAdapter(getContext(), list);
-        listView.setAdapter(musicListAdapter);
-        global = (Global) getContext().getApplicationContext();
 
-        //registerForContextMenu(listView);
+        listView = (ListView) v.findViewById(R.id.listview);
+        listView.setAdapter(musicListAdapter);
+
+        listView.setOnItemClickListener(defaultClick);
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                openChooseMode(position);
+                return false;
+            }
+        });
 
         Spinner spinner = (Spinner) v.findViewById(R.id.spin1);
         String[] platforms = getResources().
@@ -112,17 +128,6 @@ public class MyMusicListFragment extends Fragment
 
             }
         });
-
-        listView.setOnItemClickListener(defaultClick);
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
-            {
-                openChooseMode(position);
-                return false;
-            }
-        });
-
         return v;
     }
 
@@ -130,10 +135,9 @@ public class MyMusicListFragment extends Fragment
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id)
         {
+            ((MainActivity)getActivity()).onPause();
             String songId = view.getTag().toString();
             MusicDto song = mMusicManager.getMusicDto(songId);
-            ((MainActivity)getContext()).onSnackbarController();
-
             Log.e("MyMusicListFragment", "Song : " + song.getTitle() + " Artist : " + song.getArtist());
             global.playMusic(Integer.parseInt(songId));
             PlayList nowPlayingList = new PlayList();
@@ -148,6 +152,7 @@ public class MyMusicListFragment extends Fragment
             global.nowPlayingList = nowPlayingList;
         }
     };
+
 
     public void setBackbutton()
     {

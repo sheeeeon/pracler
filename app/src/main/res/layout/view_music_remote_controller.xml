@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="80dp"
-              android:background="#cc402b3e">
+              android:layout_height="60dp"
+              android:background="#cc914d10">
 
     <RelativeLayout
         android:id="@+id/container"
@@ -17,13 +17,9 @@
 
             <LinearLayout
                 android:id="@+id/imageBox"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:background="#80402b3e"
+                android:background="#808e4b0f"
                 android:orientation="horizontal">
 
                 <ImageView
