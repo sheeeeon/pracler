@@ -6,12 +6,9 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.icaynia.soundki.R;
-
-import org.w3c.dom.Text;
 
 /**
  * Created by icaynia on 16/03/2017.
@@ -48,7 +45,7 @@ public class CardView extends LinearLayout
     private void initialize()
     {
         inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view = inflater.inflate(R.layout.view_card, null);
+        view = inflater.inflate(R.layout.view_cardv, null);
         this.addView(view);
 
         layout = (LinearLayout) view.findViewById(R.id.layout);

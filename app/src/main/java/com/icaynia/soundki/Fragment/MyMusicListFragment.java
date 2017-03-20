@@ -41,6 +41,7 @@ import com.icaynia.soundki.Model.MusicDto;
 import com.icaynia.soundki.Model.MusicList;
 import com.icaynia.soundki.Model.PlayList;
 import com.icaynia.soundki.R;
+import com.icaynia.soundki.View.Card;
 import com.icaynia.soundki.View.MenuListAdapter;
 import com.icaynia.soundki.View.MusicListAdapter;
 import com.icaynia.soundki.View.PlayListAdapter;
@@ -82,6 +83,26 @@ public class MyMusicListFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_mymusic, container, false);
         setHasOptionsMenu(true);
+
+        Card today_recommand_20 = (Card) v.findViewById(R.id.today_recommand_20);
+        today_recommand_20.setButtonImageDrawable(getResources().getDrawable(R.drawable.ic_grade));
+        today_recommand_20.setButtonTitleText("오늘의 추천 20곡");
+
+        Card top_20 = (Card) v.findViewById(R.id.top_20);
+        top_20.setButtonImageDrawable(getResources().getDrawable(R.drawable.ic_grade));
+        top_20.setButtonTitleText("가장 많이 들은 곡 20곡");
+
+        Card playlist = (Card) v.findViewById(R.id.playlist);
+        playlist.setButtonImageDrawable(getResources().getDrawable(R.drawable.ic_grade));
+        playlist.setButtonTitleText("내 플레이리스트");
+
+        Card album = (Card) v.findViewById(R.id.album);
+        album.setButtonImageDrawable(getResources().getDrawable(R.drawable.ic_grade));
+        album.setButtonTitleText("내 앨범");
+
+        Card artist = (Card) v.findViewById(R.id.artist);
+        artist.setButtonImageDrawable(getResources().getDrawable(R.drawable.ic_grade));
+        artist.setButtonTitleText("내 아티스트");
 
         listView = (ListView) v.findViewById(R.id.listview);
         listView.setAdapter(musicListAdapter);
