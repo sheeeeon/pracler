@@ -3,7 +3,7 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="60dp"
-              android:background="#cc914d10">
+              android:background="#e01e1a16">
 
     <RelativeLayout
         android:id="@+id/container"
@@ -32,7 +32,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="0dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"

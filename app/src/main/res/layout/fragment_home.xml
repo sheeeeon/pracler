@@ -2,6 +2,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="#262626"
                 tools:context="com.icaynia.soundki.Activity.MainActivity">
 
     <ListView
@@ -24,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_margin="8dp">
+            android:layout_margin="4dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
