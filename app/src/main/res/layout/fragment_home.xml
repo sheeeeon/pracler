@@ -18,22 +18,24 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true">
 
+
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_margin="8dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="horizontal">
 
 
                 <com.icaynia.soundki.View.CardView
-                    android:id="@+id/card_eee"
+                    android:id="@+id/card_playlist"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="vertical"
                     android:layout_margin="8dp">
@@ -41,9 +43,26 @@
                 </com.icaynia.soundki.View.CardView>
 
                 <com.icaynia.soundki.View.CardView
+                    android:id="@+id/card_g"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_margin="8dp">
+
+                </com.icaynia.soundki.View.CardView>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+
+                <com.icaynia.soundki.View.CardView
                     android:id="@+id/card_yourstate"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="vertical"
                     android:layout_margin="8dp">

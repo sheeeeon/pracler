@@ -4,12 +4,12 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:background="@drawable/view_card_theme_1"
-              android:orientation="vertical">
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/titleBox"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/titleText"
@@ -23,9 +23,11 @@
     <LinearLayout
         android:id="@+id/contentBox"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:padding="8dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
 
     </LinearLayout>
 

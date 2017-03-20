@@ -1,20 +1,15 @@
-package com.icaynia.soundki.Layout;
+package com.icaynia.soundki.CardLayout;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.icaynia.soundki.Data.UserManager;
 import com.icaynia.soundki.Global;
 import com.icaynia.soundki.R;
-import com.icaynia.soundki.View.FriendStateRow;
-
-import java.util.ArrayList;
 
 /**
  * Created by icaynia on 16/03/2017.
