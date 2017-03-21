@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 
 import com.icaynia.soundki.Global;
@@ -16,18 +17,17 @@ import com.icaynia.soundki.View.MusicListAdapter;
  * Created by icaynia on 16/03/2017.
  */
 
-public class MyArtistFragment extends Fragment
+public class RootFragmentPos1 extends Fragment
 {
-    private Global global;
     private View v;
-
+    private FrameLayout framelayout;
     // TODO VIEW
     private ListView listView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        v = inflater.inflate(R.layout.fragment_myartist, container, false);
+        v = inflater.inflate(R.layout.fragment_root_pos_1, container, false);
         setHasOptionsMenu(true);
         viewInitialize();
         prepare();
@@ -36,19 +36,13 @@ public class MyArtistFragment extends Fragment
 
     public void viewInitialize()
     {
-        listView = (ListView) v.findViewById(R.id.listview);
-
+        framelayout = (FrameLayout) v.findViewById(R.id.framelayout);
     }
 
     public void prepare()
     {
-        global = (Global) getContext().getApplicationContext();
-
-        MusicList musicList = global.mMusicManager.getMusicList();
-
-        MusicListAdapter adapter = new MusicListAdapter(getContext(), musicList);
-
-        listView.setAdapter(adapter);
+        getFragmentManager().beginTransaction()
+                .add(R.id.framelayout, new MyMusicListFragment()).commit();
     }
 
 

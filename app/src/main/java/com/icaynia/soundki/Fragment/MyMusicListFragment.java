@@ -136,7 +136,9 @@ public class MyMusicListFragment extends Fragment
             @Override
             public void onClick(View view)
             {
-                listener.changeNewFragment(new MyArtistFragment());
+                getFragmentManager().beginTransaction()
+                        .add(R.id.framelayout, new MyArtistFragment())
+                        .addToBackStack(null).commit();
             }
         });
 

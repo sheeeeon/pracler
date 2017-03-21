@@ -26,6 +26,7 @@ import com.icaynia.soundki.Fragment.HomeFragment;
 import com.icaynia.soundki.Fragment.MyMusicListFragment;
 import com.icaynia.soundki.Fragment.PlayListsFragment;
 import com.icaynia.soundki.Fragment.ProfileMenuFragment;
+import com.icaynia.soundki.Fragment.RootFragmentPos1;
 import com.icaynia.soundki.Global;
 import com.icaynia.soundki.Model.PlayList;
 import com.icaynia.soundki.Model.User;
@@ -220,19 +221,22 @@ public class MainActivity extends AppCompatActivity
                 case 0:
                     return new HomeFragment();
                 case 1:
+                    return new RootFragmentPos1();
+                    /*
                     if (mFragmentAtPos1 == null)
                     {
                         Log.e("MainActivity", "first");
                         MyMusicListFragment fragment = new MyMusicListFragment();
                         fragment.setAddNewFragmentEventListener(new MyMusicListFragment.NewFragmentEvent() {
                             @Override
-                            public void changeNewFragment(Fragment fragment) {
+                            public void changeNewFragment(Fragment fragment)
+                            {
                                 getSupportFragmentManager().beginTransaction()
-                                        .remove(mFragmentAtPos1)
-                                        .addToBackStack(mFragmentAtPos1.getTag())
-                                        .commit();
+                                        .hide(mFragmentAtPos1).commit();
+
                                 mFragmentAtPos1 = fragment;
                                 notifyDataSetChanged();
+
                             }
                         });
                         mFragmentAtPos1 = fragment;
@@ -241,8 +245,7 @@ public class MainActivity extends AppCompatActivity
                     else
                     {
                         Log.e("MainActivity", "click");
-                        return mFragmentAtPos1;
-                    }
+                    }*/
                 case 2:
                     return new ProfileMenuFragment();
                 default:
