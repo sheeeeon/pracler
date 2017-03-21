@@ -37,7 +37,7 @@ public class LocalDatabaseManager
 
         helper = new MusicSQLiteOpenHelper(
                 context,
-                "playlist",
+                "playhistory",
                 null,
                 dbVersion
         );
@@ -52,7 +52,10 @@ public class LocalDatabaseManager
 
 
     }
-
+    public void addPlayHistory(int uid, String playTime, int playLength)
+    {
+        db.execSQL("insert into playhistory values(null, "+uid+", "+playTime+", "+playLength+");");
+    }
     /** NO USE !!! playlist
     public void addPlayList(PlayList playList)
     {

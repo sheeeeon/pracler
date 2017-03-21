@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.icaynia.soundki.Global;
@@ -44,12 +45,17 @@ public class MyAlbumFragment extends Fragment
     {
         global = (Global) getContext().getApplicationContext();
 
-        MusicList musicList = global.mMusicManager.getMusicList();
-
-        musicList = global.mMusicManager.sort(musicList, 1); // 1 means sort by album name;
+        final MusicList musicList = global.mMusicManager.sort(global.mMusicManager.getMusicList(), 1); // 1 means sort by album name.
 
         MusicListAdapter adapter = new MusicListAdapter(getContext(), musicList);
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                global.playMusic(Integer.parseInt(musicList.getItem(i).getUid_local()));
+            }
+        });
     }
 
 

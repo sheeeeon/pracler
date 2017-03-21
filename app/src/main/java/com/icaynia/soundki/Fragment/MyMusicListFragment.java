@@ -138,9 +138,9 @@ public class MyMusicListFragment extends Fragment
             public void onClick(View view)
             {
                 getFragmentManager().beginTransaction()
-                        .add(R.id.framelayout, new MyAlbumFragment())
+                        .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
+                        .replace(R.id.framelayout, new MyAlbumFragment())
                         .addToBackStack(null)
-                        .setTransition(FragmentTransaction.TRANSIT_ENTER_MASK)
                         .commit();
             }
         });

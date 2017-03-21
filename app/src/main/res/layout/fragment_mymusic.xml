@@ -30,63 +30,69 @@
 
     </ListView>
 
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="6dp"
-        android:orientation="vertical">
-
-        <com.icaynia.soundki.View.Card
-            android:id="@+id/today_recommand_20"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-
-        </com.icaynia.soundki.View.Card>
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:paddingBottom="65dp"
+            android:orientation="vertical">
 
             <com.icaynia.soundki.View.Card
-                android:id="@+id/top_20"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:id="@+id/today_recommand_20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <com.icaynia.soundki.View.Card
-                android:id="@+id/playlist"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
 
             </com.icaynia.soundki.View.Card>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.icaynia.soundki.View.Card
+                    android:id="@+id/top_20"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+
+                <com.icaynia.soundki.View.Card
+                    android:id="@+id/playlist"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                </com.icaynia.soundki.View.Card>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.icaynia.soundki.View.Card
+                    android:id="@+id/album"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                </com.icaynia.soundki.View.Card>
+
+                <com.icaynia.soundki.View.Card
+                    android:id="@+id/artist"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                </com.icaynia.soundki.View.Card>
+
+            </LinearLayout>
 
         </LinearLayout>
+    </ScrollView>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.icaynia.soundki.View.Card
-                android:id="@+id/album"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-
-            </com.icaynia.soundki.View.Card>
-
-            <com.icaynia.soundki.View.Card
-                android:id="@+id/artist"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-
-            </com.icaynia.soundki.View.Card>
-
-        </LinearLayout>
-
-    </LinearLayout>
 
 </LinearLayout>
