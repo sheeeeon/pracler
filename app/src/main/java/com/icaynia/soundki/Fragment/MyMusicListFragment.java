@@ -93,9 +93,9 @@ public class MyMusicListFragment extends Fragment
             public void onClick(View view)
             {
                 getFragmentManager().beginTransaction()
+                        .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
                         .add(R.id.framelayout, new Today20Fragment())
                         .addToBackStack(null)
-                        .setTransition(FragmentTransaction.TRANSIT_ENTER_MASK)
                         .commit();
             }
         });
@@ -108,9 +108,9 @@ public class MyMusicListFragment extends Fragment
             public void onClick(View view)
             {
                 getFragmentManager().beginTransaction()
+                        .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
                         .add(R.id.framelayout, new MyTop20Fragment())
                         .addToBackStack(null)
-                        .setTransition(FragmentTransaction.TRANSIT_ENTER_MASK)
                         .commit();
             }
         });
@@ -123,9 +123,9 @@ public class MyMusicListFragment extends Fragment
             public void onClick(View view)
             {
                 getFragmentManager().beginTransaction()
+                        .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
                         .add(R.id.framelayout, new PlayListsFragment())
                         .addToBackStack(null)
-                        .setTransition(FragmentTransaction.TRANSIT_ENTER_MASK)
                         .commit();
             }
         });
@@ -139,7 +139,7 @@ public class MyMusicListFragment extends Fragment
             {
                 getFragmentManager().beginTransaction()
                         .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
-                        .replace(R.id.framelayout, new MyAlbumFragment())
+                        .add(R.id.framelayout, new MyAlbumFragment())
                         .addToBackStack(null)
                         .commit();
             }
@@ -153,6 +153,7 @@ public class MyMusicListFragment extends Fragment
             public void onClick(View view)
             {
                 getFragmentManager().beginTransaction()
+                        .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
                         .add(R.id.framelayout, new MyArtistFragment())
                         .addToBackStack(null)
                         .setTransition(FragmentTransaction.TRANSIT_ENTER_MASK)
