@@ -92,7 +92,11 @@ public class MyMusicListFragment extends Fragment
             @Override
             public void onClick(View view)
             {
-                listener.changeNewFragment(new MyTop20Fragment());
+                getFragmentManager().beginTransaction()
+                        .add(R.id.framelayout, new MyTop20Fragment())
+                        .addToBackStack(null)
+                        .setTransition(FragmentTransaction.TRANSIT_ENTER_MASK)
+                        .commit();
             }
         });
 
@@ -103,7 +107,11 @@ public class MyMusicListFragment extends Fragment
             @Override
             public void onClick(View view)
             {
-                listener.changeNewFragment(new MyTop20Fragment());
+                getFragmentManager().beginTransaction()
+                        .add(R.id.framelayout, new MyTop20Fragment())
+                        .addToBackStack(null)
+                        .setTransition(FragmentTransaction.TRANSIT_ENTER_MASK)
+                        .commit();
             }
         });
 
@@ -114,7 +122,11 @@ public class MyMusicListFragment extends Fragment
             @Override
             public void onClick(View view)
             {
-                listener.changeNewFragment(new PlayListsFragment());
+                getFragmentManager().beginTransaction()
+                        .add(R.id.framelayout, new PlayListsFragment())
+                        .addToBackStack(null)
+                        .setTransition(FragmentTransaction.TRANSIT_ENTER_MASK)
+                        .commit();
             }
         });
 
@@ -125,7 +137,11 @@ public class MyMusicListFragment extends Fragment
             @Override
             public void onClick(View view)
             {
-                listener.changeNewFragment(new PlayListsFragment());
+                getFragmentManager().beginTransaction()
+                        .add(R.id.framelayout, new MyAlbumFragment())
+                        .addToBackStack(null)
+                        .setTransition(FragmentTransaction.TRANSIT_ENTER_MASK)
+                        .commit();
             }
         });
 
@@ -138,7 +154,9 @@ public class MyMusicListFragment extends Fragment
             {
                 getFragmentManager().beginTransaction()
                         .add(R.id.framelayout, new MyArtistFragment())
-                        .addToBackStack(null).commit();
+                        .addToBackStack(null)
+                        .setTransition(FragmentTransaction.TRANSIT_ENTER_MASK)
+                        .commit();
             }
         });
 
