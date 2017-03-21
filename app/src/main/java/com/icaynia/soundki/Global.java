@@ -33,6 +33,8 @@ import com.icaynia.soundki.Model.PlayList;
 import com.icaynia.soundki.Model.PlayHistory;
 import com.icaynia.soundki.Service.MusicService;
 
+import io.realm.Realm;
+
 /**
  * Created by icaynia on 2017. 2. 8..
  */
@@ -107,6 +109,8 @@ public class Global extends Application
     @Override
     public void onCreate() {
         super.onCreate();
+
+        Realm.init(getApplicationContext());
         FacebookSdk.sdkInitialize(getApplicationContext());
         if (musicServiceIntent == null) {
             musicServiceIntent = new Intent(this, MusicService.class);

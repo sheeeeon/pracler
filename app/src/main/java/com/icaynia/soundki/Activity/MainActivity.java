@@ -23,8 +23,6 @@ import android.widget.TextView;
 import com.icaynia.soundki.Data.PlayListManager;
 import com.icaynia.soundki.Data.UserManager;
 import com.icaynia.soundki.Fragment.HomeFragment;
-import com.icaynia.soundki.Fragment.MyMusicListFragment;
-import com.icaynia.soundki.Fragment.PlayListsFragment;
 import com.icaynia.soundki.Fragment.ProfileMenuFragment;
 import com.icaynia.soundki.Fragment.RootFragmentPos1;
 import com.icaynia.soundki.Global;
@@ -103,6 +101,8 @@ public class MainActivity extends AppCompatActivity
                 updateController();
             }
         });
+
+
     }
 
     @Override
