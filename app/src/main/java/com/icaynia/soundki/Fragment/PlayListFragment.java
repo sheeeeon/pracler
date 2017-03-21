@@ -43,6 +43,8 @@ public class PlayListFragment extends Fragment
         v = inflater.inflate(R.layout.fragment_playlist, container, false);
         setHasOptionsMenu(true);
         viewInitialize();
+
+        prepare();
         return v;
     }
 

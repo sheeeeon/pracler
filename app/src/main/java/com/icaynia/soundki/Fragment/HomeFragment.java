@@ -67,7 +67,8 @@ public class HomeFragment extends Fragment
 
         // TODO Recommend for you block.
         Random rand = new Random();
-        int randint = rand.nextInt(global.mMusicManager.getMusicList().size());
+        int size = global.mMusicManager.getMusicList().size();
+        int randint = rand.nextInt(size);
 
         CardView cv = (CardView) v.findViewById(R.id.card_recommand);
         cv.setTitleText("이 곡도 들어 보세요");

@@ -230,7 +230,7 @@ public class Global extends Application
         MusicDto musicDto = mMusicManager.getMusicDto(songId+"");
         Bitmap albumArt = mMusicManager.getAlbumImage(getApplicationContext(), Integer.parseInt(musicDto.getAlbumId()), 100);
 
-        builder.setContentTitle("현재 Commit 중")
+        builder.setContentTitle("현재 기록 중")
                 .setContentText(musicDto.getArtist() + " - " + musicDto.getTitle() + " ")
                 .setTicker(musicDto.getArtist() + " - " + musicDto.getTitle())
                 .setSmallIcon(R.drawable.ic_headset_white)

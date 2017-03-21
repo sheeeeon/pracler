@@ -1,5 +1,6 @@
 package com.icaynia.soundki.View;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
@@ -37,6 +38,11 @@ public class Card extends RelativeLayout
         onCreate();
     }
 
+    @TargetApi(21)
+    public Card(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+        onCreate();
+    }
     public void onCreate()
     {
         initializeView();
