@@ -87,7 +87,7 @@ public class ProfileMenuFragment extends Fragment
         for (int i = 0; i < 1; i++)
         {
             ProfileRow profileRow = new ProfileRow(getContext());
-            getImage(profileRow.imageView, userPhotoUrl);
+            //getImage(profileRow.imageView, userPhotoUrl);
             profileRow.setText(firebaseUser.getDisplayName());
             container1.addView(profileRow);
         }

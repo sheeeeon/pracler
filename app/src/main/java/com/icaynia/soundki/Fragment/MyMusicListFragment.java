@@ -92,12 +92,20 @@ public class MyMusicListFragment extends Fragment
             @Override
             public void onClick(View view)
             {
+                listener.changeNewFragment(new MyTop20Fragment());
             }
         });
 
         Card top_20 = (Card) v.findViewById(R.id.top_20);
         top_20.setButtonImageDrawable(getResources().getDrawable(R.drawable.ic_thumb_up));
         top_20.setButtonTitleText("가장 많이 들은 곡 20곡");
+        top_20.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                listener.changeNewFragment(new MyTop20Fragment());
+            }
+        });
 
         Card playlist = (Card) v.findViewById(R.id.playlist);
         playlist.setButtonImageDrawable(getResources().getDrawable(R.drawable.ic_playlist_play_black));
@@ -113,10 +121,24 @@ public class MyMusicListFragment extends Fragment
         Card album = (Card) v.findViewById(R.id.album);
         album.setButtonImageDrawable(getResources().getDrawable(R.drawable.ic_album));
         album.setButtonTitleText("내 앨범");
+        album.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                listener.changeNewFragment(new PlayListsFragment());
+            }
+        });
 
         Card artist = (Card) v.findViewById(R.id.artist);
         artist.setButtonImageDrawable(getResources().getDrawable(R.drawable.ic_recent_actors));
         artist.setButtonTitleText("내 아티스트");
+        artist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                listener.changeNewFragment(new MyArtistFragment());
+            }
+        });
 
         listView = (ListView) v.findViewById(R.id.listview);
         listView.setAdapter(musicListAdapter);

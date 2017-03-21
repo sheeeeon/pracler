@@ -229,6 +229,7 @@ public class MainActivity extends AppCompatActivity
                             public void changeNewFragment(Fragment fragment) {
                                 getSupportFragmentManager().beginTransaction()
                                         .remove(mFragmentAtPos1)
+                                        .addToBackStack(mFragmentAtPos1.getTag())
                                         .commit();
                                 mFragmentAtPos1 = fragment;
                                 notifyDataSetChanged();
