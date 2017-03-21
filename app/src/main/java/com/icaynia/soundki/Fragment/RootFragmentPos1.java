@@ -42,7 +42,9 @@ public class RootFragmentPos1 extends Fragment
     public void prepare()
     {
         getFragmentManager().beginTransaction()
-                .add(R.id.framelayout, new MyMusicListFragment()).commit();
+                .add(R.id.framelayout, new MyMusicListFragment())
+                .commit();
+
     }
 
 

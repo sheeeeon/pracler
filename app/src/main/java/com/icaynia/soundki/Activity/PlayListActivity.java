@@ -73,7 +73,7 @@ public class PlayListActivity extends AppCompatActivity
         mainListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.e("PlayListActivity", i+"/"+l);
+                Log.e("PlayListFragment", i+"/"+l);
                 global.playMusic(Integer.parseInt(playList.get(i)));
             }
         });

@@ -28,10 +28,12 @@ import com.icaynia.soundki.Fragment.PlayListsFragment;
 import com.icaynia.soundki.Fragment.ProfileMenuFragment;
 import com.icaynia.soundki.Fragment.RootFragmentPos1;
 import com.icaynia.soundki.Global;
+import com.icaynia.soundki.Model.MusicDto;
 import com.icaynia.soundki.Model.PlayList;
 import com.icaynia.soundki.Model.User;
 import com.icaynia.soundki.R;
 import com.icaynia.soundki.View.InputPopup;
+import com.icaynia.soundki.View.MusicController;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -50,8 +52,10 @@ public class MainActivity extends AppCompatActivity
 
     private UserManager userManager;
 
-
     private Fragment mFragmentAtPos1;
+
+
+    private MusicController musicController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -64,7 +68,13 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
+        musicController = (MusicController) findViewById(R.id.controller);
+        musicController.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onPlayerActivity();
+            }
+        });
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
@@ -85,6 +95,37 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         });
+
+        global.setOnChangeListener(new Global.OnChangeListener() {
+            @Override
+            public void onChange()
+            {
+                updateController();
+            }
+        });
+    }
+
+    @Override
+    public void onResume()
+    {
+        global.setOnChangeListener(new Global.OnChangeListener() {
+            @Override
+            public void onChange()
+            {
+                updateController();
+            }
+        });
+        super.onResume();
+    }
+
+    public void updateController()
+    {
+        int songid = global.musicService.getPlayingMusic();
+        MusicDto musicDto = global.mMusicManager.getMusicDto(songid+"");
+        musicController.setSongTitleTextView(musicDto.getTitle());
+        musicController.setSongInformationTextView(musicDto.getArtist()+" - "+musicDto.getAlbum());
+        musicController.setSongAlbumImageView(global.mMusicManager.getAlbumImage
+                (getApplicationContext(),Integer.parseInt(musicDto.getAlbumId()), 100));
     }
 
     public void onPlayerActivity()

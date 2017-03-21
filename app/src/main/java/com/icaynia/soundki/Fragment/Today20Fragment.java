@@ -13,14 +13,14 @@ import com.icaynia.soundki.R;
  * Created by icaynia on 16/03/2017.
  */
 
-public class MyTop20Fragment extends Fragment
+public class Today20Fragment extends Fragment
 {
     private View v;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        v = inflater.inflate(R.layout.fragment_top20, container, false);
+        v = inflater.inflate(R.layout.fragment_today20, container, false);
         setHasOptionsMenu(true);
         viewInitialize();
         return v;

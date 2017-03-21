@@ -46,24 +46,25 @@ public class MusicController extends RelativeLayout
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mainView = inflater.inflate(R.layout.view_music_controller, null);
 
-        songAlbumImageView = (ImageView) findViewById(R.id.view_album);
-        songTitleTextView = (TextView) findViewById(R.id.view_title);
-        songInformationTextView = (TextView) findViewById(R.id.view_artist);
+        addView(mainView);
+        songAlbumImageView = (ImageView) mainView.findViewById(R.id.imageView);
+        songTitleTextView = (TextView)  mainView.findViewById(R.id.titleview);
+        songInformationTextView = (TextView)  mainView.findViewById(R.id.nameView);
     }
 
-    private void setSongTitleTextView(String str)
+    public void setSongTitleTextView(String str)
     {
-
+        songTitleTextView.setText(str);
     }
 
-    private void setSongAlbumImageView(Bitmap bitmap)
+    public void setSongAlbumImageView(Bitmap bitmap)
     {
-
+        songAlbumImageView.setImageBitmap(bitmap);
     }
 
-    private void setSongInformationTextView(String str)
+    public void setSongInformationTextView(String str)
     {
-
+        songInformationTextView.setText(str);
     }
 
 }

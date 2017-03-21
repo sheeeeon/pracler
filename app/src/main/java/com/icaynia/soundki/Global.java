@@ -49,7 +49,6 @@ public class Global extends Application
     public Intent musicServiceIntent;
     public MusicFileManager mMusicManager;
 
-
     public PlayListManager playListManager;
 
     public PlayList nowPlayingList = new PlayList();
@@ -124,6 +123,8 @@ public class Global extends Application
         Log.e("Global", "onCreate: called");
     }
 
+
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -174,6 +175,10 @@ public class Global extends Application
         br.child("&info").setValue(albumRes);
 
         setMusicNotification();
+        if (onChangeListener != null)
+        {
+            onChangeListener.onChange();
+        }
     }
 
     public void playPrevMusic()
