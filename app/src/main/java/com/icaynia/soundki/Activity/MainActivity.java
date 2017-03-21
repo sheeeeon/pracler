@@ -69,6 +69,12 @@ public class MainActivity extends AppCompatActivity
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         musicController = (MusicController) findViewById(R.id.controller);
+        musicController.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onPlayerActivity();
+            }
+        });
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
@@ -102,7 +108,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onResume()
     {
-        super.onResume();
         global.setOnChangeListener(new Global.OnChangeListener() {
             @Override
             public void onChange()
@@ -110,6 +115,7 @@ public class MainActivity extends AppCompatActivity
                 updateController();
             }
         });
+        super.onResume();
     }
 
     public void updateController()

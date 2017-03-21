@@ -118,7 +118,6 @@ public class PlayerActivity extends AppCompatActivity
     {
         albumImageView = null;
         albumImageBackgroundView = null;
-        global.setOnChangeListener(null);
         global = null;
         Log.e("finish", "fin");
         threadController = false;
