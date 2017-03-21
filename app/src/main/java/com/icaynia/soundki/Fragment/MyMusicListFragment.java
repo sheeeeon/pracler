@@ -93,7 +93,7 @@ public class MyMusicListFragment extends Fragment
             public void onClick(View view)
             {
                 getFragmentManager().beginTransaction()
-                        .add(R.id.framelayout, new MyTop20Fragment())
+                        .add(R.id.framelayout, new Today20Fragment())
                         .addToBackStack(null)
                         .setTransition(FragmentTransaction.TRANSIT_ENTER_MASK)
                         .commit();
