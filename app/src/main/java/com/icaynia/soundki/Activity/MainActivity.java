@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -22,6 +24,7 @@ import com.icaynia.soundki.Data.PlayListManager;
 import com.icaynia.soundki.Data.UserManager;
 import com.icaynia.soundki.Fragment.HomeFragment;
 import com.icaynia.soundki.Fragment.MyMusicListFragment;
+import com.icaynia.soundki.Fragment.PlayListsFragment;
 import com.icaynia.soundki.Fragment.ProfileMenuFragment;
 import com.icaynia.soundki.Global;
 import com.icaynia.soundki.Model.PlayList;
@@ -45,6 +48,10 @@ public class MainActivity extends AppCompatActivity
     private Snackbar.SnackbarLayout layout;
 
     private UserManager userManager;
+
+
+    private Fragment mFragmentAtPos1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -65,17 +72,6 @@ public class MainActivity extends AppCompatActivity
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-
-        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-
-            }
-        });
-
         // TODO 처음 로그인 시 initialize
         userManager = new UserManager();
         userManager.getUser(global.loginUser.getUid(), new UserManager.OnCompleteGetUserListener() {
@@ -89,19 +85,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
     }
-    @Override
-    public void onPause()
-    {
-        super.onPause();
-    }
-
-
-    @Override
-    public void onPostResume()
-    {
-        super.onPostResume();
-    }
-
 
     public void onPlayerActivity()
     {
@@ -215,12 +198,18 @@ public class MainActivity extends AppCompatActivity
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter
+    public class SectionsPagerAdapter extends FragmentStatePagerAdapter
     {
-
         public SectionsPagerAdapter(FragmentManager fm)
         {
             super(fm);
+        }
+
+        @Override
+        public int getItemPosition(Object object) {
+            // Causes adapter to reload all Fragments when
+            // notifyDataSetChanged is called
+            return POSITION_NONE;
         }
 
         @Override
@@ -231,7 +220,28 @@ public class MainActivity extends AppCompatActivity
                 case 0:
                     return new HomeFragment();
                 case 1:
-                    return new MyMusicListFragment();
+                    if (mFragmentAtPos1 == null)
+                    {
+                        Log.e("MainActivity", "first");
+                        MyMusicListFragment fragment = new MyMusicListFragment();
+                        fragment.setAddNewFragmentEventListener(new MyMusicListFragment.NewFragmentEvent() {
+                            @Override
+                            public void changeNewFragment(Fragment fragment) {
+                                getSupportFragmentManager().beginTransaction()
+                                        .remove(mFragmentAtPos1)
+                                        .commit();
+                                mFragmentAtPos1 = fragment;
+                                notifyDataSetChanged();
+                            }
+                        });
+                        mFragmentAtPos1 = fragment;
+                        return fragment;
+                    }
+                    else
+                    {
+                        Log.e("MainActivity", "click");
+                        return mFragmentAtPos1;
+                    }
                 case 2:
                     return new ProfileMenuFragment();
                 default:

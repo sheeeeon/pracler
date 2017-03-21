@@ -16,11 +16,11 @@ import com.icaynia.soundki.R;
 public class PlayListsFragment extends Fragment
 {
     private View v;
-    private ListView playlist;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        v = inflater.inflate(R.layout.fragment_home, container, false);
+        v = inflater.inflate(R.layout.fragment_myplaylist, container, false);
         setHasOptionsMenu(true);
         viewInitialize();
         return v;

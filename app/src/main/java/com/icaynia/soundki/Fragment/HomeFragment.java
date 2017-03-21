@@ -78,16 +78,17 @@ public class HomeFragment extends Fragment
         cv.addContent(rsv);
         cv.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
 
             }
         });
 
-        cv = (CardView) v.findViewById(R.id.card_yourfriends);
-        cv.setTitleText("친구가 듣고 있는 것");
-        cv.setTheme(CardView.THEME_3);
-        FriendStateView fsv = new FriendStateView(getContext());
-        cv.addContent(fsv);
+        //cv = (CardView) v.findViewById(R.id.card_yourfriends);
+        //cv.setTitleText("친구가 듣고 있는 것");
+        //cv.setTheme(CardView.THEME_3);
+        //FriendStateView fsv = new FriendStateView(getContext());
+        //cv.addContent(fsv);
 
 
         cv = (CardView) v.findViewById(R.id.card_yourstate);

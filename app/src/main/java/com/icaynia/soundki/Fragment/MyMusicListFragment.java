@@ -68,6 +68,8 @@ public class MyMusicListFragment extends Fragment
 
     private MusicListAdapter musicListAdapter;
 
+    private NewFragmentEvent listener;
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -82,11 +84,16 @@ public class MyMusicListFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_mymusic, container, false);
-        setHasOptionsMenu(true);
 
         Card today_recommand_20 = (Card) v.findViewById(R.id.today_recommand_20);
         today_recommand_20.setButtonImageDrawable(getResources().getDrawable(R.drawable.ic_grade));
         today_recommand_20.setButtonTitleText("오늘의 추천 20곡");
+        today_recommand_20.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+            }
+        });
 
         Card top_20 = (Card) v.findViewById(R.id.top_20);
         top_20.setButtonImageDrawable(getResources().getDrawable(R.drawable.ic_thumb_up));
@@ -95,6 +102,13 @@ public class MyMusicListFragment extends Fragment
         Card playlist = (Card) v.findViewById(R.id.playlist);
         playlist.setButtonImageDrawable(getResources().getDrawable(R.drawable.ic_playlist_play_black));
         playlist.setButtonTitleText("내 플레이리스트");
+        playlist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                listener.changeNewFragment(new PlayListsFragment());
+            }
+        });
 
         Card album = (Card) v.findViewById(R.id.album);
         album.setButtonImageDrawable(getResources().getDrawable(R.drawable.ic_album));
@@ -151,12 +165,10 @@ public class MyMusicListFragment extends Fragment
         });
         return v;
     }
-
     public AdapterView.OnItemClickListener defaultClick = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id)
         {
-            ((MainActivity)getActivity()).onPause();
             String songId = view.getTag().toString();
             MusicDto song = mMusicManager.getMusicDto(songId);
             Log.e("MyMusicListFragment", "Song : " + song.getTitle() + " Artist : " + song.getArtist());
@@ -173,6 +185,11 @@ public class MyMusicListFragment extends Fragment
             global.nowPlayingList = nowPlayingList;
         }
     };
+
+    public void setAddNewFragmentEventListener(NewFragmentEvent listener)
+    {
+        this.listener = listener;
+    }
 
 
     public void setBackbutton()
@@ -372,6 +389,11 @@ public class MyMusicListFragment extends Fragment
             return dialog;
         }
 
+    }
+
+    public interface NewFragmentEvent
+    {
+        void changeNewFragment(Fragment fragment);
     }
 
 
