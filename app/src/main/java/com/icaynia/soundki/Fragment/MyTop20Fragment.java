@@ -13,7 +13,7 @@ import com.icaynia.soundki.R;
  * Created by icaynia on 16/03/2017.
  */
 
-public class PlayListsFragment extends Fragment
+public class MyTop20Fragment extends Fragment
 {
     private View v;
 

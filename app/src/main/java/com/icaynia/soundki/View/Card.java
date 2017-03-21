@@ -24,7 +24,7 @@ public class Card extends RelativeLayout
     private View mainView;
     private TextView titleText;
     private TextView buttonTitleText;
-
+    private RelativeLayout contentBox;
     public Card(Context context)
     {
         super(context);
@@ -47,7 +47,7 @@ public class Card extends RelativeLayout
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mainView = inflater.inflate(R.layout.view_card, this, false);
         addView(mainView);
-        RelativeLayout contentBox = (RelativeLayout) mainView.findViewById(R.id.contentBox);
+        contentBox = (RelativeLayout) mainView.findViewById(R.id.contentBox);
         titleText = (TextView) mainView.findViewById(R.id.titleText);
         buttonTitleText = (TextView) mainView.findViewById(R.id.buttonTitleText);
         contentBox.setOnClickListener(new OnClickListener() {
@@ -56,6 +56,11 @@ public class Card extends RelativeLayout
 
             }
         });
+    }
+
+    public void setOnClickListener(OnClickListener listener)
+    {
+        contentBox.setOnClickListener(listener);
     }
 
     public void setTitleText(String titleString)
