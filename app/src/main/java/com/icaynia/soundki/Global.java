@@ -66,6 +66,9 @@ public class Global extends Application
 
     public UserManager userManager;
 
+    public OnMusicFinishListener finishListener;
+    private PlayStateChangeListener playStateChangeListener;
+
 
     /* Firebase */
     public FirebaseAuth firebaseAuth;
@@ -82,6 +85,8 @@ public class Global extends Application
             musicService.mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
+                    nowPlayingList.addPositionCount();
+                    String nextmusic_uid = nowPlayingList.get(nowPlayingList.getPosition());
                     int songid = musicService.getPlayingMusic();
                     playNextMusic();
                     addHistory(songid);
@@ -130,7 +135,8 @@ public class Global extends Application
 
         Realm.init(getApplicationContext());
         FacebookSdk.sdkInitialize(getApplicationContext());
-        if (musicServiceIntent == null) {
+        if (musicServiceIntent == null)
+        {
             musicServiceIntent = new Intent(this, MusicService.class);
             bindService(musicServiceIntent, musicServiceConnection, Context.BIND_AUTO_CREATE);
             startService(musicServiceIntent);
@@ -206,8 +212,7 @@ public class Global extends Application
         this.setNowListening(musicDto);
         this.addNewSongInfoToRemote(musicDto);
         this.setMusicNotification();
-
-        this.generatePlayerChangeEvent();
+        generatePlayStateChangeEvent(true);
     }
 
     /** 주로 재생 곡이 바뀔 때 뷰 업데이트를 위해 사용 */
@@ -219,6 +224,23 @@ public class Global extends Application
         }
     }
 
+    public void generateMusicFinishedEvent(String nextuid)
+    {
+        if (finishListener != null)
+        {
+            finishListener.onFinish(nextuid);
+        }
+    }
+
+    public void generatePlayStateChangeEvent(boolean state)
+    {
+        if (playStateChangeListener != null)
+        {
+            playStateChangeListener.onChange(state);
+        }
+    }
+
+
     public void playPrevMusic()
     {
         musicService.pause();
@@ -228,22 +250,16 @@ public class Global extends Application
         }
 
         String nextmusic_uid = nowPlayingList.get(nowPlayingList.getPosition());
+        this.generateMusicFinishedEvent(nextmusic_uid);
         if (nextmusic_uid != null)
         {
             playMusic(Integer.parseInt(nextmusic_uid));
         }
-
-        if (onChangeListener != null)
-        {
-            onChangeListener.onChange();
-        }
-
     }
 
     public void playNextMusic()
     {
         musicService.stop();
-        nowPlayingList.addPositionCount();
         String nextmusic_uid = nowPlayingList.get(nowPlayingList.getPosition());
         if (nextmusic_uid != null)
         {
@@ -253,6 +269,11 @@ public class Global extends Application
         {
             onChangeListener.onChange();
         }
+    }
+
+    public void setPlayStateChangeListener(PlayStateChangeListener listener)
+    {
+        playStateChangeListener = listener;
     }
 
     public void setMusicNotification()
@@ -297,6 +318,16 @@ public class Global extends Application
     public interface OnChangeListener
     {
         void onChange();
+    }
+
+    public interface OnMusicFinishListener
+    {
+        void onFinish(String next_uid);
+    }
+
+    public interface PlayStateChangeListener
+    {
+        void onChange(boolean state);
     }
 
 }

@@ -25,15 +25,23 @@
         android:layout_toEndOf="@+id/view_album">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/view_title"
-            android:textSize="16dp"/>
+            android:textSize="16dp"
+            android:textColor="#efffff"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:marqueeRepeatLimit="marquee_forever"/>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/view_artist"
-            android:textSize="12dp"/>
+            android:textSize="12dp"
+            android:textColor="#bbb"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:marqueeRepeatLimit="marquee_forever"/>
 
     </LinearLayout>
 

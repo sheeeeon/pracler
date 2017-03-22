@@ -5,10 +5,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.icaynia.soundki.Global;
 import com.icaynia.soundki.Model.MusicList;
+import com.icaynia.soundki.Model.PlayList;
 import com.icaynia.soundki.R;
 import com.icaynia.soundki.View.MusicListAdapter;
 
@@ -44,11 +46,28 @@ public class MyArtistFragment extends Fragment
     {
         global = (Global) getContext().getApplicationContext();
 
-        MusicList musicList = global.mMusicManager.getMusicList();
+        final MusicList musicList = global.mMusicManager.getMusicList();
 
         MusicListAdapter adapter = new MusicListAdapter(getContext(), musicList);
 
         listView.setAdapter(adapter);
+
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                global.playMusic(Integer.parseInt(musicList.getItem(i).getUid_local()));
+
+                PlayList newNowPlayingList = new PlayList();
+                for (int t = 0; t < musicList.size(); t++)
+                {
+                    newNowPlayingList.addItem(musicList.getItem(t).getUid_local());
+                }
+
+                newNowPlayingList.setPosition(i);
+                global.nowPlayingList = newNowPlayingList;
+            }
+        });
     }
 
 
