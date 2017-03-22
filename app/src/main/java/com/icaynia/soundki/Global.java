@@ -84,28 +84,7 @@ public class Global extends Application
                 public void onCompletion(MediaPlayer mp) {
                     int songid = musicService.getPlayingMusic();
                     playNextMusic();
-
-                    // TODO ??????????????????
-
-                    String format = new String("yyyyMMddHHmmss");
-                    SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.KOREA);
-                    String Regdate = sdf.format(new Date());
-
-                    MusicDto musicDto = mMusicManager.getMusicDto(songid+"");
-                    PlayHistory playHistory = new PlayHistory();
-                    playHistory.artist = MusicDto.replaceForInput(musicDto.getArtist());
-                    playHistory.album = MusicDto.replaceForInput(musicDto.getAlbum());
-                    playHistory.title = MusicDto.replaceForInput(musicDto.getTitle());
-
-                    userManager.addHistory(playHistory);
-
-                    LocalPlayHistory localPlayHistory = new LocalPlayHistory();
-                    localPlayHistory.uid = songid;
-                    localPlayHistory.Regdate = Regdate;
-
-                    localHistoryManager.addHistory(localPlayHistory);
-                    localHistoryManager.getHistoryDesending();
-
+                    addHistory(songid);
                 }
             });
 
@@ -119,6 +98,31 @@ public class Global extends Application
 
         }
     };
+
+    public void addHistory(int songid)
+    {
+        // Regdate
+        String format = new String("yyyyMMddHHmmss");
+        SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.KOREA);
+        String Regdate = sdf.format(new Date());
+
+        // Local Save
+        LocalPlayHistory localPlayHistory = new LocalPlayHistory();
+        localPlayHistory.uid = songid;
+        localPlayHistory.Regdate = Regdate;
+
+        localHistoryManager.addHistory(localPlayHistory);
+        localHistoryManager.getHistoryDesending();
+
+        // Remote Server save
+        MusicDto musicDto = mMusicManager.getMusicDto(songid+"");
+        PlayHistory playHistory = new PlayHistory();
+        playHistory.artist = MusicDto.replaceForInput(musicDto.getArtist());
+        playHistory.album = MusicDto.replaceForInput(musicDto.getAlbum());
+        playHistory.title = MusicDto.replaceForInput(musicDto.getTitle());
+
+        userManager.addHistory(playHistory);
+    }
 
     @Override
     public void onCreate() {
@@ -159,15 +163,8 @@ public class Global extends Application
         super.onTerminate();
     }
 
-    public void playMusic(int songId)
+    public void addNewSongInfoToRemote(MusicDto musicDto)
     {
-        MusicDto musicDto = mMusicManager.getMusicDto(songId+"");
-
-        UserManager userManager = new UserManager();
-        userManager.setNowlistening(musicDto.getArtist(), musicDto.getAlbum(), musicDto.getTitle());
-
-        musicService.playMusic(songId+"");
-
         MusicRes info = new MusicRes();
         ArtistRes arres = new ArtistRes();
         AlbumRes albumRes = new AlbumRes();
@@ -192,8 +189,30 @@ public class Global extends Application
         ar.child("&info").setValue(arres);
 
         br.child("&info").setValue(albumRes);
+    }
 
-        setMusicNotification();
+    public void setNowListening(MusicDto musicDto)
+    {
+        UserManager userManager = new UserManager();
+        userManager.setNowlistening(musicDto.getArtist(), musicDto.getAlbum(), musicDto.getTitle());
+    }
+
+
+    public void playMusic(int songId)
+    {
+        MusicDto musicDto = mMusicManager.getMusicDto(songId+"");
+
+        this.musicService.playMusic(songId+"");
+        this.setNowListening(musicDto);
+        this.addNewSongInfoToRemote(musicDto);
+        this.setMusicNotification();
+
+        this.generatePlayerChangeEvent();
+    }
+
+    /** 주로 재생 곡이 바뀔 때 뷰 업데이트를 위해 사용 */
+    public void generatePlayerChangeEvent()
+    {
         if (onChangeListener != null)
         {
             onChangeListener.onChange();
@@ -238,8 +257,6 @@ public class Global extends Application
 
     public void setMusicNotification()
     {
-        Resources res = getResources();
-
         Intent notificationIntent = new Intent(this, PlayerActivity.class);
         notificationIntent.putExtra("notificationId", 9999); //전달할 값
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
