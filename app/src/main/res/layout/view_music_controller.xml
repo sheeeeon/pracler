@@ -51,7 +51,10 @@
                         android:paddingBottom="3dp"
                         android:text="재생중인 항목이 없습니다."
                         android:textSize="15dp"
-                        android:textColor="#FFF"/>
+                        android:textColor="#FFF"
+                        android:ellipsize="marquee"
+                        android:singleLine="true"
+                        android:marqueeRepeatLimit="marquee_forever"/>
 
                     <TextView
                         android:id="@+id/nameView"
@@ -59,7 +62,10 @@
                         android:layout_height="wrap_content"
                         android:text=""
                         android:textSize="12dp"
-                        android:textColor="#BBB"/>
+                        android:textColor="#BBB"
+                        android:ellipsize="marquee"
+                        android:singleLine="true"
+                        android:marqueeRepeatLimit="marquee_forever"/>
 
                 </LinearLayout>
 

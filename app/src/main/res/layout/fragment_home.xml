@@ -25,7 +25,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_margin="4dp">
+            android:layout_margin="4dp"
+            android:paddingBottom="72dp">
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -60,7 +62,7 @@
                 android:orientation="horizontal">
 
 
-                <com.icaynia.soundki.View.CardView
+                <com.icaynia.soundki.View.Card
                     android:id="@+id/card_yourstate"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -68,7 +70,7 @@
                     android:orientation="vertical"
                     android:layout_margin="8dp">
 
-                </com.icaynia.soundki.View.CardView>
+                </com.icaynia.soundki.View.Card>
 
             </LinearLayout>
             <LinearLayout
@@ -76,14 +78,14 @@
                 android:layout_height="match_parent">
 
 
-                <com.icaynia.soundki.View.CardView
+                <com.icaynia.soundki.View.Card
                     android:id="@+id/card_recommand"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_margin="8dp">
 
-                </com.icaynia.soundki.View.CardView>
+                </com.icaynia.soundki.View.Card>
 
             </LinearLayout>
 

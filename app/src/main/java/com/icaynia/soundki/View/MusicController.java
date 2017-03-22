@@ -49,6 +49,7 @@ public class MusicController extends RelativeLayout
         addView(mainView);
         songAlbumImageView = (ImageView) mainView.findViewById(R.id.imageView);
         songTitleTextView = (TextView)  mainView.findViewById(R.id.titleview);
+        songTitleTextView.setSelected(true);
         songInformationTextView = (TextView)  mainView.findViewById(R.id.nameView);
     }
 

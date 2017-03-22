@@ -96,7 +96,8 @@ public class MusicService extends Service
         }
     }
 
-    public void playMusic(MusicDto music) {
+    public void playMusic(MusicDto music)
+    {
         new Thread(task).start();
         playing = true;
     }
@@ -106,8 +107,6 @@ public class MusicService extends Service
         this.songId = songId;
         new Thread(task).start();
         playing = true;
-        /** for test */
-        getPlayingMusicCurrentPosition();
     }
 
     public void start() {

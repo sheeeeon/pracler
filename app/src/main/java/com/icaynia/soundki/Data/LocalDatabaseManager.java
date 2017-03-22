@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteException;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.icaynia.soundki.Model.PlayHistory;
 import com.icaynia.soundki.Model.PlayList;
 
 import org.json.JSONArray;
@@ -52,10 +53,23 @@ public class LocalDatabaseManager
 
 
     }
-    public void addPlayHistory(int uid, String playTime, int playLength)
+    public void addPlayHistory(int uid, String playTime, int playLength, String regdate)
     {
-        db.execSQL("insert into playhistory values(null, "+uid+", "+playTime+", "+playLength+");");
+        db.execSQL("insert into playhistory values(null, "+uid+", "+playTime+", "+playLength+", "+regdate+ ");");
     }
+
+    public PlayHistory getHistory(int uid)
+    {
+        return null;
+    }
+
+    public PlayHistory getHistory(String regdate)
+    {
+        return null;
+
+    }
+
+
     /** NO USE !!! playlist
     public void addPlayList(PlayList playList)
     {

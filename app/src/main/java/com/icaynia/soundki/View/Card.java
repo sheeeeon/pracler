@@ -1,5 +1,6 @@
 package com.icaynia.soundki.View;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
@@ -25,6 +26,7 @@ public class Card extends RelativeLayout
     private TextView titleText;
     private TextView buttonTitleText;
     private RelativeLayout contentBox;
+    private LinearLayout content;
     public Card(Context context)
     {
         super(context);
@@ -37,6 +39,11 @@ public class Card extends RelativeLayout
         onCreate();
     }
 
+    @TargetApi(21)
+    public Card(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+        onCreate();
+    }
     public void onCreate()
     {
         initializeView();
@@ -50,6 +57,7 @@ public class Card extends RelativeLayout
         contentBox = (RelativeLayout) mainView.findViewById(R.id.contentBox);
         titleText = (TextView) mainView.findViewById(R.id.titleText);
         buttonTitleText = (TextView) mainView.findViewById(R.id.buttonTitleText);
+        content = (LinearLayout) mainView.findViewById(R.id.content);
         contentBox.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,6 +69,11 @@ public class Card extends RelativeLayout
     public void setOnClickListener(OnClickListener listener)
     {
         contentBox.setOnClickListener(listener);
+    }
+
+    public void addContent(View v)
+    {
+        content.addView(v);
     }
 
     public void setTitleText(String titleString)

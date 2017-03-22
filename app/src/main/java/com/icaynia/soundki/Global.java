@@ -21,17 +21,25 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.icaynia.soundki.Activity.PlayerActivity;
+import com.icaynia.soundki.Data.LocalHistoryManager;
 import com.icaynia.soundki.Data.MusicFileManager;
 import com.icaynia.soundki.Data.PlayListManager;
 import com.icaynia.soundki.Data.RemoteDatabaseManager;
 import com.icaynia.soundki.Data.UserManager;
 import com.icaynia.soundki.Model.AlbumRes;
 import com.icaynia.soundki.Model.ArtistRes;
+import com.icaynia.soundki.Model.LocalPlayHistory;
 import com.icaynia.soundki.Model.MusicDto;
 import com.icaynia.soundki.Model.MusicRes;
 import com.icaynia.soundki.Model.PlayList;
 import com.icaynia.soundki.Model.PlayHistory;
 import com.icaynia.soundki.Service.MusicService;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import io.realm.Realm;
 
 /**
  * Created by icaynia on 2017. 2. 8..
@@ -54,8 +62,12 @@ public class Global extends Application
     public PlayList nowPlayingList = new PlayList();
 
     public OnChangeListener onChangeListener = null;
+    public LocalHistoryManager localHistoryManager;
 
     public UserManager userManager;
+
+    public OnMusicFinishListener finishListener;
+    private PlayStateChangeListener playStateChangeListener;
 
 
     /* Firebase */
@@ -73,23 +85,11 @@ public class Global extends Application
             musicService.mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
+                    nowPlayingList.addPositionCount();
+                    String nextmusic_uid = nowPlayingList.get(nowPlayingList.getPosition());
                     int songid = musicService.getPlayingMusic();
                     playNextMusic();
-
-                    // TODO ??????????????????
-
-                    MusicDto musicDto = mMusicManager.getMusicDto(songid+"");
-                    PlayHistory playHistory = new PlayHistory();
-                    playHistory.artist = MusicDto.replaceForInput(musicDto.getArtist());
-                    playHistory.album = MusicDto.replaceForInput(musicDto.getAlbum());
-                    playHistory.title = MusicDto.replaceForInput(musicDto.getTitle());
-
-                    userManager.addHistory(playHistory);
-
-
-                    // love
-                    //dr.child("loves").push().setValue("icaynia");
-
+                    addHistory(songid);
                 }
             });
 
@@ -104,11 +104,39 @@ public class Global extends Application
         }
     };
 
+    public void addHistory(int songid)
+    {
+        // Regdate
+        String format = new String("yyyyMMddHHmmss");
+        SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.KOREA);
+        String Regdate = sdf.format(new Date());
+
+        // Local Save
+        LocalPlayHistory localPlayHistory = new LocalPlayHistory();
+        localPlayHistory.uid = songid;
+        localPlayHistory.Regdate = Regdate;
+
+        localHistoryManager.addHistory(localPlayHistory);
+        localHistoryManager.getHistoryDesending();
+
+        // Remote Server save
+        MusicDto musicDto = mMusicManager.getMusicDto(songid+"");
+        PlayHistory playHistory = new PlayHistory();
+        playHistory.artist = MusicDto.replaceForInput(musicDto.getArtist());
+        playHistory.album = MusicDto.replaceForInput(musicDto.getAlbum());
+        playHistory.title = MusicDto.replaceForInput(musicDto.getTitle());
+
+        userManager.addHistory(playHistory);
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
+
+        Realm.init(getApplicationContext());
         FacebookSdk.sdkInitialize(getApplicationContext());
-        if (musicServiceIntent == null) {
+        if (musicServiceIntent == null)
+        {
             musicServiceIntent = new Intent(this, MusicService.class);
             bindService(musicServiceIntent, musicServiceConnection, Context.BIND_AUTO_CREATE);
             startService(musicServiceIntent);
@@ -119,6 +147,7 @@ public class Global extends Application
         firebaseAuth = FirebaseAuth.getInstance();
         loginUser = firebaseAuth.getCurrentUser();
         userManager = new UserManager();
+        localHistoryManager = new LocalHistoryManager(this);
 
         Log.e("Global", "onCreate: called");
     }
@@ -140,15 +169,8 @@ public class Global extends Application
         super.onTerminate();
     }
 
-    public void playMusic(int songId)
+    public void addNewSongInfoToRemote(MusicDto musicDto)
     {
-        MusicDto musicDto = mMusicManager.getMusicDto(songId+"");
-
-        UserManager userManager = new UserManager();
-        userManager.setNowlistening(musicDto.getArtist(), musicDto.getAlbum(), musicDto.getTitle());
-
-        musicService.playMusic(songId+"");
-
         MusicRes info = new MusicRes();
         ArtistRes arres = new ArtistRes();
         AlbumRes albumRes = new AlbumRes();
@@ -173,13 +195,51 @@ public class Global extends Application
         ar.child("&info").setValue(arres);
 
         br.child("&info").setValue(albumRes);
+    }
 
-        setMusicNotification();
+    public void setNowListening(MusicDto musicDto)
+    {
+        UserManager userManager = new UserManager();
+        userManager.setNowlistening(musicDto.getArtist(), musicDto.getAlbum(), musicDto.getTitle());
+    }
+
+
+    public void playMusic(int songId)
+    {
+        MusicDto musicDto = mMusicManager.getMusicDto(songId+"");
+
+        this.musicService.playMusic(songId+"");
+        this.setNowListening(musicDto);
+        this.addNewSongInfoToRemote(musicDto);
+        this.setMusicNotification();
+        generatePlayStateChangeEvent(true);
+    }
+
+    /** 주로 재생 곡이 바뀔 때 뷰 업데이트를 위해 사용 */
+    public void generatePlayerChangeEvent()
+    {
         if (onChangeListener != null)
         {
             onChangeListener.onChange();
         }
     }
+
+    public void generateMusicFinishedEvent(String nextuid)
+    {
+        if (finishListener != null)
+        {
+            finishListener.onFinish(nextuid);
+        }
+    }
+
+    public void generatePlayStateChangeEvent(boolean state)
+    {
+        if (playStateChangeListener != null)
+        {
+            playStateChangeListener.onChange(state);
+        }
+    }
+
 
     public void playPrevMusic()
     {
@@ -190,22 +250,16 @@ public class Global extends Application
         }
 
         String nextmusic_uid = nowPlayingList.get(nowPlayingList.getPosition());
+        this.generateMusicFinishedEvent(nextmusic_uid);
         if (nextmusic_uid != null)
         {
             playMusic(Integer.parseInt(nextmusic_uid));
         }
-
-        if (onChangeListener != null)
-        {
-            onChangeListener.onChange();
-        }
-
     }
 
     public void playNextMusic()
     {
         musicService.stop();
-        nowPlayingList.addPositionCount();
         String nextmusic_uid = nowPlayingList.get(nowPlayingList.getPosition());
         if (nextmusic_uid != null)
         {
@@ -217,10 +271,13 @@ public class Global extends Application
         }
     }
 
+    public void setPlayStateChangeListener(PlayStateChangeListener listener)
+    {
+        playStateChangeListener = listener;
+    }
+
     public void setMusicNotification()
     {
-        Resources res = getResources();
-
         Intent notificationIntent = new Intent(this, PlayerActivity.class);
         notificationIntent.putExtra("notificationId", 9999); //전달할 값
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -230,7 +287,7 @@ public class Global extends Application
         MusicDto musicDto = mMusicManager.getMusicDto(songId+"");
         Bitmap albumArt = mMusicManager.getAlbumImage(getApplicationContext(), Integer.parseInt(musicDto.getAlbumId()), 100);
 
-        builder.setContentTitle("현재 Commit 중")
+        builder.setContentTitle("현재 기록 중")
                 .setContentText(musicDto.getArtist() + " - " + musicDto.getTitle() + " ")
                 .setTicker(musicDto.getArtist() + " - " + musicDto.getTitle())
                 .setSmallIcon(R.drawable.ic_headset_white)
@@ -261,6 +318,16 @@ public class Global extends Application
     public interface OnChangeListener
     {
         void onChange();
+    }
+
+    public interface OnMusicFinishListener
+    {
+        void onFinish(String next_uid);
+    }
+
+    public interface PlayStateChangeListener
+    {
+        void onChange(boolean state);
     }
 
 }

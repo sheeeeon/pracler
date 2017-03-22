@@ -1,1 +1,1 @@
-include ':app', ':facebook-android-sdk-4.19.0', ':gson-2.8.0-sources'
+include ':app', ':facebook-android-sdk-4.19.0', ':gson-2.8.0-sources', ':rxJavaExample', ':encryptionExample', ':moduleExample:library', ':introExample', ':objectServerExample', ':migrationExample', ':jsonExample', ':gridViewExample', ':moduleExample:app', ':secureTokenAndroidKeyStore', ':kotlinExample', ':threadExample', ':newsreaderExample', ':unitTestExample'

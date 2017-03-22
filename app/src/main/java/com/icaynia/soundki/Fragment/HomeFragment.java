@@ -17,6 +17,7 @@ import com.icaynia.soundki.CardLayout.FriendStateView;
 import com.icaynia.soundki.CardLayout.MyStateView;
 import com.icaynia.soundki.CardLayout.RecommandSongView;
 import com.icaynia.soundki.R;
+import com.icaynia.soundki.View.Card;
 import com.icaynia.soundki.View.CardView;
 import com.icaynia.soundki.View.MenuSelecter;
 import com.icaynia.soundki.View.PlayListsAdapter;
@@ -67,20 +68,20 @@ public class HomeFragment extends Fragment
 
         // TODO Recommend for you block.
         Random rand = new Random();
-        int randint = rand.nextInt(global.mMusicManager.getMusicList().size());
+        int size = global.mMusicManager.getMusicList().size();
+        final int randint = rand.nextInt(size);
 
-        CardView cv = (CardView) v.findViewById(R.id.card_recommand);
-        cv.setTitleText("이 곡도 들어 보세요");
-        cv.setTheme(CardView.THEME_5);
         RecommandSongView rsv = new RecommandSongView(getContext());
         rsv.setRecommandSong(global.mMusicManager.getMusicList().getItem(randint));
 
-        cv.addContent(rsv);
-        cv.setOnClickListener(new View.OnClickListener() {
+        Card card = (Card) v.findViewById(R.id.card_recommand);
+        card.setTitleText("이 곡도 들어 보세요");
+        card.addContent(rsv);
+        card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
             {
-
+                global.playMusic(Integer.parseInt(global.mMusicManager.getMusicList().getItem(randint).getUid_local()));
             }
         });
 
@@ -91,17 +92,16 @@ public class HomeFragment extends Fragment
         //cv.addContent(fsv);
 
 
-        cv = (CardView) v.findViewById(R.id.card_yourstate);
-        cv.setTitleText("나의 상태");
-        cv.setTheme(CardView.THEME_4);
+        Card cv = (Card) v.findViewById(R.id.card_yourstate);
+        cv.setTitleText("내 기록");
         MyStateView msv = new MyStateView(getContext());
         cv.addContent(msv);
 
-        cv = (CardView) v.findViewById(R.id.card_playlist);
-        cv.setTitleText("");
-        cv.setTheme(CardView.THEME_1);
+        CardView cvv = (CardView) v.findViewById(R.id.card_playlist);
+        cvv.setTitleText("");
+        cvv.setTheme(CardView.THEME_1);
         ButtonView bv = new ButtonView(getContext());
-        cv.addContent(bv);
+        cvv.addContent(bv);
 
     }
 
