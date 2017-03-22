@@ -4,12 +4,15 @@ import android.content.Context;
 import android.util.Log;
 
 import com.icaynia.soundki.Model.LocalPlayHistory;
+import com.icaynia.soundki.Model.MusicList;
+import com.icaynia.soundki.Model.PlayCount;
 import com.icaynia.soundki.Model.PlayHistory;
 
 import java.util.ArrayList;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
+import io.realm.Sort;
 
 /**
  * Created by icaynia on 21/03/2017.
@@ -32,19 +35,57 @@ public class LocalHistoryManager
         return results.size();
     }
 
-    public PlayHistory getHistory(String regdate)
+    public LocalPlayHistory getHistory(String regdate)
     {
-        final RealmResults<LocalPlayHistory> results = realm.where(LocalPlayHistory.class).equalTo("Regdate", regdate).findAll();
-        Log.e("realm_test", results.size() + "");
+        final LocalPlayHistory results = realm.where(LocalPlayHistory.class).equalTo("Regdate", regdate).findFirst();
+        return results;
+    }
+
+    public ArrayList<LocalPlayHistory> getHistoryLast(int num)
+    {
+        final RealmResults<LocalPlayHistory> results = realm.where(LocalPlayHistory.class).findAllSorted("Regdate", Sort.DESCENDING).sort("Regdate", Sort.DESCENDING);
         return null;
     }
 
-    public ArrayList<PlayHistory> getHistoryLast(int num)
+    public ArrayList<PlayCount> getHistoryDesending()
     {
-        return null;
+        MusicFileManager musicFileManager = new MusicFileManager(context);
+        MusicList list = musicFileManager.getMusicList();
+
+        ArrayList<PlayCount> pcount = new ArrayList<>();
+
+        for (int i = 0; i < list.size(); i++)
+        {
+            PlayCount playCount = new PlayCount();
+            playCount.uid = Integer.parseInt(list.getItem(i).getUid_local());
+            playCount.count = this.getHistorySongCount(playCount.uid);
+            pcount.add(i, playCount);
+        }
+
+        // bubble sort
+        for (int i = 0; i < list.size() - 1; i++)
+        {
+            for (int j = i; j < list.size(); j++)
+            {
+                if (pcount.get(i).count < pcount.get(j).count)
+                {
+                    PlayCount tmp = pcount.get(i);
+                    pcount.set(i, pcount.get(j));
+                    pcount.set(j, tmp);
+                }
+            }
+
+            Log.e("getHistoryDecending", pcount.get(i).uid + " - " + pcount.get(i).count);
+        }
+        return pcount;
     }
 
-    public void setHistory(LocalPlayHistory playHistory)
+    public int getHistorySongCount(int local_uid)
+    {
+        return realm.where(LocalPlayHistory.class).equalTo("uid", local_uid).findAll().size();
+    }
+
+    public void addHistory(LocalPlayHistory playHistory)
     {
         realm.beginTransaction();
         final LocalPlayHistory manage_tmp = realm.copyToRealm(playHistory);

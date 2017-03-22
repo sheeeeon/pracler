@@ -21,17 +21,23 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.icaynia.soundki.Activity.PlayerActivity;
+import com.icaynia.soundki.Data.LocalHistoryManager;
 import com.icaynia.soundki.Data.MusicFileManager;
 import com.icaynia.soundki.Data.PlayListManager;
 import com.icaynia.soundki.Data.RemoteDatabaseManager;
 import com.icaynia.soundki.Data.UserManager;
 import com.icaynia.soundki.Model.AlbumRes;
 import com.icaynia.soundki.Model.ArtistRes;
+import com.icaynia.soundki.Model.LocalPlayHistory;
 import com.icaynia.soundki.Model.MusicDto;
 import com.icaynia.soundki.Model.MusicRes;
 import com.icaynia.soundki.Model.PlayList;
 import com.icaynia.soundki.Model.PlayHistory;
 import com.icaynia.soundki.Service.MusicService;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import io.realm.Realm;
 
@@ -56,6 +62,7 @@ public class Global extends Application
     public PlayList nowPlayingList = new PlayList();
 
     public OnChangeListener onChangeListener = null;
+    public LocalHistoryManager localHistoryManager;
 
     public UserManager userManager;
 
@@ -80,6 +87,10 @@ public class Global extends Application
 
                     // TODO ??????????????????
 
+                    String format = new String("yyyyMMddHHmmss");
+                    SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.KOREA);
+                    String Regdate = sdf.format(new Date());
+
                     MusicDto musicDto = mMusicManager.getMusicDto(songid+"");
                     PlayHistory playHistory = new PlayHistory();
                     playHistory.artist = MusicDto.replaceForInput(musicDto.getArtist());
@@ -88,9 +99,12 @@ public class Global extends Application
 
                     userManager.addHistory(playHistory);
 
+                    LocalPlayHistory localPlayHistory = new LocalPlayHistory();
+                    localPlayHistory.uid = songid;
+                    localPlayHistory.Regdate = Regdate;
 
-                    // love
-                    //dr.child("loves").push().setValue("icaynia");
+                    localHistoryManager.addHistory(localPlayHistory);
+                    localHistoryManager.getHistoryDesending();
 
                 }
             });
@@ -123,6 +137,7 @@ public class Global extends Application
         firebaseAuth = FirebaseAuth.getInstance();
         loginUser = firebaseAuth.getCurrentUser();
         userManager = new UserManager();
+        localHistoryManager = new LocalHistoryManager(this);
 
         Log.e("Global", "onCreate: called");
     }
