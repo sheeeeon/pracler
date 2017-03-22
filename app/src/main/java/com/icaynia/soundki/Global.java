@@ -85,6 +85,7 @@ public class Global extends Application
             musicService.mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
+                    generateMusicFinishedEvent();
                     nowPlayingList.addPositionCount();
                     String nextmusic_uid = nowPlayingList.get(nowPlayingList.getPosition());
                     int songid = musicService.getPlayingMusic();
@@ -212,7 +213,8 @@ public class Global extends Application
         this.setNowListening(musicDto);
         this.addNewSongInfoToRemote(musicDto);
         this.setMusicNotification();
-        generatePlayStateChangeEvent(true);
+
+        generatePlayerChangeEvent();
     }
 
     /** 주로 재생 곡이 바뀔 때 뷰 업데이트를 위해 사용 */
@@ -224,11 +226,11 @@ public class Global extends Application
         }
     }
 
-    public void generateMusicFinishedEvent(String nextuid)
+    public void generateMusicFinishedEvent()
     {
         if (finishListener != null)
         {
-            finishListener.onFinish(nextuid);
+            finishListener.onFinish();
         }
     }
 
@@ -250,11 +252,11 @@ public class Global extends Application
         }
 
         String nextmusic_uid = nowPlayingList.get(nowPlayingList.getPosition());
-        this.generateMusicFinishedEvent(nextmusic_uid);
         if (nextmusic_uid != null)
         {
             playMusic(Integer.parseInt(nextmusic_uid));
         }
+        generatePlayerChangeEvent();
     }
 
     public void playNextMusic()
@@ -265,10 +267,12 @@ public class Global extends Application
         {
             playMusic(Integer.parseInt(nextmusic_uid));
         }
-        if (onChangeListener != null)
-        {
-            onChangeListener.onChange();
-        }
+        generatePlayerChangeEvent();
+    }
+
+    public void setFinishListener(OnMusicFinishListener listener)
+    {
+        this.finishListener = listener;
     }
 
     public void setPlayStateChangeListener(PlayStateChangeListener listener)
@@ -322,7 +326,7 @@ public class Global extends Application
 
     public interface OnMusicFinishListener
     {
-        void onFinish(String next_uid);
+        void onFinish();
     }
 
     public interface PlayStateChangeListener

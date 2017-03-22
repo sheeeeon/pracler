@@ -110,6 +110,16 @@ public class PlayerActivity extends AppCompatActivity
             }
         });
 
+        global.setFinishListener(new Global.OnMusicFinishListener()
+        {
+            @Override
+            public void onFinish()
+            {
+                global.musicService.mediaPlayer.stop();
+                global.musicService.mediaPlayer.reset();
+            }
+        });
+
     }
 
     @Override
@@ -117,6 +127,7 @@ public class PlayerActivity extends AppCompatActivity
     {
         albumImageView = null;
         albumImageBackgroundView = null;
+        musicTimeBar.setOnClickListener(null);
         global = null;
         Log.e("finish", "fin");
         threadController = false;
@@ -206,8 +217,14 @@ public class PlayerActivity extends AppCompatActivity
 
     public void update()
     {
+        int songid = global.musicService.getPlayingMusic();
+        update(songid);
+    }
+
+
+    public void update(int songId)
+    {
         musicTimeBar.setProgress(0);
-        int songId = global.musicService.getPlayingMusic();
         MusicDto playingSong = global.mMusicManager.getMusicDto(songId+"");
         /**음악 활성화와 관련 없음 */
         global.userManager.isLove(global.loginUser.getUid(), playingSong.getArtist(), playingSong.getAlbum(), playingSong.getTitle(), new UserManager.OnCompleteGetLikeState() {
@@ -229,7 +246,6 @@ public class PlayerActivity extends AppCompatActivity
             artistView.setText(playingSong.getArtist());
             album.setText(playingSong.getAlbum());
             titleView.setText(playingSong.getTitle());
-
 
             updateTask = new UpdateTask();
             updateTask.setAlbumImageView(albumImageView);
@@ -271,6 +287,11 @@ public class PlayerActivity extends AppCompatActivity
 
         durationTimeView.setText(global.mMusicManager.convertToTime(global.musicService.getPlayingMusicDuration()));
 
+        startTimebarThread();
+    }
+
+    public void startTimebarThread()
+    {
         threadController = false;
         threadController = true;
         myThread = new Thread(new Runnable() {
@@ -475,7 +496,6 @@ public class PlayerActivity extends AppCompatActivity
             {
                 AlbumImageView.setImageBitmap(null);
                 BackgroundImageView.setImageBitmap(null);
-
             }
         }
 
