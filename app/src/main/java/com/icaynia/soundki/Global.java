@@ -85,12 +85,12 @@ public class Global extends Application
             musicService.mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
-                    generateMusicFinishedEvent();
-                    nowPlayingList.addPositionCount();
-                    String nextmusic_uid = nowPlayingList.get(nowPlayingList.getPosition());
                     int songid = musicService.getPlayingMusic();
-                    playNextMusic();
                     addHistory(songid);
+
+                    generateMusicFinishedEvent();
+
+                    playNextMusic();
                 }
             });
 
@@ -246,6 +246,7 @@ public class Global extends Application
     public void playPrevMusic()
     {
         musicService.pause();
+        musicService.mediaPlayer.reset();
         if (musicService.getPlayingMusicCurrentPosition() < 3000)
         {
             nowPlayingList.delPositionCount();
@@ -262,6 +263,8 @@ public class Global extends Application
     public void playNextMusic()
     {
         musicService.stop();
+        musicService.mediaPlayer.reset();
+        nowPlayingList.addPositionCount();
         String nextmusic_uid = nowPlayingList.get(nowPlayingList.getPosition());
         if (nextmusic_uid != null)
         {

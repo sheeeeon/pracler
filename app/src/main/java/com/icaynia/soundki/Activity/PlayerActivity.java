@@ -128,6 +128,7 @@ public class PlayerActivity extends AppCompatActivity
         albumImageView = null;
         albumImageBackgroundView = null;
         musicTimeBar.setOnClickListener(null);
+        global.setFinishListener(null);
         global = null;
         Log.e("finish", "fin");
         threadController = false;
@@ -341,6 +342,7 @@ public class PlayerActivity extends AppCompatActivity
         @Override
         public void onClick(View v)
         {
+            global.musicService.mediaPlayer.reset();
             musicTimeBar.setProgress(0);
             global.playPrevMusic();
         }
@@ -350,6 +352,7 @@ public class PlayerActivity extends AppCompatActivity
         @Override
         public void onClick(View v)
         {
+            global.musicService.mediaPlayer.reset();
             musicTimeBar.setProgress(0);
             global.playNextMusic();
         }
