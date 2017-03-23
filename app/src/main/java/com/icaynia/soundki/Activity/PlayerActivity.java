@@ -31,6 +31,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +42,7 @@ import com.icaynia.soundki.Global;
 import com.icaynia.soundki.Model.MusicDto;
 import com.icaynia.soundki.R;
 import com.icaynia.soundki.View.MusicSeekBar;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import org.w3c.dom.Text;
 
@@ -79,6 +81,8 @@ public class PlayerActivity extends AppCompatActivity
     private ImageView IMAGE_NEXT;
     private LinearLayout BUTTON_MENU;
     private ImageView IMAGE_MENU;
+
+    private AVLoadingIndicatorView loadingBar;
 
     private MusicSeekBar musicTimeBar;
 
@@ -140,7 +144,9 @@ public class PlayerActivity extends AppCompatActivity
 
     public void initializeView()
     {
+        loadingBar = (AVLoadingIndicatorView) findViewById(R.id.loadingBar);
 
+        loadingBar.show();
         currentTimeView = (TextView) findViewById(R.id.currentTime);
         durationTimeView = (TextView) findViewById(R.id.durationTime);
         artistView = (TextView) findViewById(R.id.artist);
@@ -494,6 +500,8 @@ public class PlayerActivity extends AppCompatActivity
                 BackgroundImageView.setImageBitmap(cropBitmap(getScreenSize(), tmpBitmap));
                 tmpBitmap.recycle();
                 tmpBitmap = null;
+
+                loadingBar.hide();
             }
             else
             {
