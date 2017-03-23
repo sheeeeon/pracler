@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.icaynia.soundki.Activity.PlayerActivity;
 import com.icaynia.soundki.Data.LocalHistoryManager;
+import com.icaynia.soundki.Data.LocalLikeManager;
 import com.icaynia.soundki.Data.MusicFileManager;
 import com.icaynia.soundki.Data.PlayListManager;
 import com.icaynia.soundki.Data.RemoteDatabaseManager;
@@ -63,6 +64,7 @@ public class Global extends Application
 
     public OnChangeListener onChangeListener = null;
     public LocalHistoryManager localHistoryManager;
+    public LocalLikeManager localLikeManager;
 
     public UserManager userManager;
 
@@ -149,6 +151,7 @@ public class Global extends Application
         loginUser = firebaseAuth.getCurrentUser();
         userManager = new UserManager();
         localHistoryManager = new LocalHistoryManager(this);
+        localLikeManager = new LocalLikeManager(this);
 
         Log.e("Global", "onCreate: called");
     }

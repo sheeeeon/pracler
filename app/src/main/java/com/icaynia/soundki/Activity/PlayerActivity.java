@@ -233,7 +233,7 @@ public class PlayerActivity extends AppCompatActivity
     {
         musicTimeBar.setProgress(0);
         MusicDto playingSong = global.mMusicManager.getMusicDto(songId+"");
-        /**음악 활성화와 관련 없음 */
+        /**음악 활성화와 관련 없음
         global.userManager.isLove(global.loginUser.getUid(), playingSong.getArtist(), playingSong.getAlbum(), playingSong.getTitle(), new UserManager.OnCompleteGetLikeState() {
             @Override
             public void onComplete(boolean likeState)
@@ -245,7 +245,14 @@ public class PlayerActivity extends AppCompatActivity
                     IMAGE_FAVORITE.setImageDrawable(getResources().getDrawable(R.drawable.ic_favorite_border_white));
 
             }
-        });
+        });*/
+
+        likestate = global.localLikeManager.isLike(songId);
+        if (likestate)
+            IMAGE_FAVORITE.setImageDrawable(getResources().getDrawable(R.drawable.ic_favorite));
+        else
+            IMAGE_FAVORITE.setImageDrawable(getResources().getDrawable(R.drawable.ic_favorite_border_white));
+
 
         /** 음악이 활성화되어있을 때 */
         if (songId != 0)
@@ -383,6 +390,8 @@ public class PlayerActivity extends AppCompatActivity
 
                 }
             });
+
+            global.localLikeManager.setLike(songId, likestate);
         }
     };
 

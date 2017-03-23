@@ -69,7 +69,8 @@ public class MainActivity extends AppCompatActivity
         musicController = (MusicController) findViewById(R.id.controller);
         musicController.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
                 onPlayerActivity();
             }
         });
