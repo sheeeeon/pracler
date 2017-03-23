@@ -5,10 +5,16 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.icaynia.soundki.Global;
+import com.icaynia.soundki.Model.MusicDto;
+import com.icaynia.soundki.Model.MusicList;
+import com.icaynia.soundki.Model.PlayList;
 import com.icaynia.soundki.R;
+import com.icaynia.soundki.View.MusicListAdapter;
+import com.icaynia.soundki.View.PlayListAdapter;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -22,6 +28,15 @@ public class Today20Fragment extends Fragment
     private Global global;
     private View v;
     private ListView mainListView;
+
+    private MusicList musicList;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        global = (Global) getContext().getApplicationContext();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -39,22 +54,46 @@ public class Today20Fragment extends Fragment
 
     public void prepare()
     {
+        musicList = global.mMusicManager.getMusicList();
+        MusicListAdapter adapter = new MusicListAdapter(getContext(), arrayShuffle(musicList));
 
+        mainListView.setAdapter(adapter);
+
+        mainListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                global.playMusic(Integer.parseInt(musicList.getItem(i).getUid_local()));
+
+                PlayList newNowPlayingList = new PlayList();
+                for (int t = 0; t < musicList.size(); t++)
+                {
+                    newNowPlayingList.addItem(musicList.getItem(t).getUid_local());
+                }
+
+                newNowPlayingList.setPosition(i);
+                global.nowPlayingList = newNowPlayingList;
+            }
+        });
     }
 
     /** 배열을 섞는 메소드 **/
-    private void arrayShuffle(String[] originalArray){
+    private MusicList arrayShuffle(MusicList originalArray){
         Random rand = new Random(System.currentTimeMillis());
         // ArrayList 타입으로 생성하고 내용 복사
-        ArrayList<String> tempArray = new ArrayList<String>();
-        for(String item : originalArray){ tempArray.add(item); }
+        ArrayList<MusicDto> tempArray = new ArrayList<MusicDto>();
+        for(MusicDto item : originalArray.getList()) { tempArray.add(item); }
+
+        MusicList musicList = new MusicList();
+
         // 랜덤으로 하나씩 뽑아서 새로 대입
         int newIndex = 0;
         while( tempArray.size() > 0 ){
             int selectRandomIndex = rand.nextInt(tempArray.size());
-            originalArray[newIndex] = tempArray.remove(selectRandomIndex);
+            musicList.getList().add(newIndex, tempArray.remove(selectRandomIndex));
             newIndex++;
         }
+        return musicList;
+
         // NOTE : originalArray는 reference가 넘어올테니 리턴하지 않아도 될듯?
     }
 

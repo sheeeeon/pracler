@@ -32,7 +32,7 @@ public class MusicList implements Serializable
         return list.size();
     }
 
-    public List<MusicDto> getList()
+    public ArrayList<MusicDto> getList()
     {
         return list;
     }
