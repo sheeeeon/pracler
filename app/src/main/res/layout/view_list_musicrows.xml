@@ -58,4 +58,13 @@
         />
 
 
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/menu_icon"
+        android:background="@drawable/ic_menu"
+        android:layout_alignParentRight="true"
+        android:layout_margin="10dp"/>
+
+
 </RelativeLayout>

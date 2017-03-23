@@ -51,4 +51,14 @@
         android:visibility="gone"/>
 
 
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/menu_icon"
+        android:background="@drawable/ic_menu"
+        android:layout_alignTop="@+id/linearLayout"
+        android:layout_alignEnd="@+id/linearLayout"
+        android:layout_margin="20dp"/>
+
+
 </RelativeLayout>
