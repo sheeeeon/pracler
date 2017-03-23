@@ -43,7 +43,8 @@ public class Today20Fragment extends Fragment
     {
         v = inflater.inflate(R.layout.fragment_today20, container, false);
         setHasOptionsMenu(true);
-        viewInitialize();
+        this.viewInitialize();
+        this.prepare();
         return v;
     }
 
@@ -54,8 +55,8 @@ public class Today20Fragment extends Fragment
 
     public void prepare()
     {
-        musicList = global.mMusicManager.getMusicList();
-        MusicListAdapter adapter = new MusicListAdapter(getContext(), arrayShuffle(musicList));
+        musicList = arrayShuffle(global.mMusicManager.getMusicList());
+        MusicListAdapter adapter = new MusicListAdapter(getContext(), musicList);
 
         mainListView.setAdapter(adapter);
 
@@ -78,7 +79,8 @@ public class Today20Fragment extends Fragment
 
     /** 배열을 섞는 메소드 **/
     private MusicList arrayShuffle(MusicList originalArray){
-        Random rand = new Random(System.currentTimeMillis());
+        Random rand = new Random(System.currentTimeMillis())
+                ;
         // ArrayList 타입으로 생성하고 내용 복사
         ArrayList<MusicDto> tempArray = new ArrayList<MusicDto>();
         for(MusicDto item : originalArray.getList()) { tempArray.add(item); }
@@ -91,6 +93,10 @@ public class Today20Fragment extends Fragment
             int selectRandomIndex = rand.nextInt(tempArray.size());
             musicList.getList().add(newIndex, tempArray.remove(selectRandomIndex));
             newIndex++;
+            if (newIndex == 10)
+            {
+                break;
+            }
         }
         return musicList;
 
