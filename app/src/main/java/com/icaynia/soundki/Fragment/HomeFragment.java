@@ -95,6 +95,8 @@ public class HomeFragment extends Fragment
         Card cv = (Card) v.findViewById(R.id.card_yourstate);
         cv.setTitleText("내 기록");
         MyStateView msv = new MyStateView(getContext());
+        msv.setPlayCount(global.localHistoryManager.getHistoryCount());
+        msv.setMylikecount(global.localLikeManager.getSongLikeCount());
         cv.addContent(msv);
 
         CardView cvv = (CardView) v.findViewById(R.id.card_playlist);

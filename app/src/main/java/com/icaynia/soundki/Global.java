@@ -107,31 +107,6 @@ public class Global extends Application
         }
     };
 
-    public void addHistory(int songid)
-    {
-        // Regdate
-        String format = new String("yyyyMMddHHmmss");
-        SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.KOREA);
-        String Regdate = sdf.format(new Date());
-
-        // Local Save
-        LocalPlayHistory localPlayHistory = new LocalPlayHistory();
-        localPlayHistory.uid = songid;
-        localPlayHistory.Regdate = Regdate;
-
-        localHistoryManager.addHistory(localPlayHistory);
-        localHistoryManager.getHistoryDesending();
-
-        // Remote Server save
-        MusicDto musicDto = mMusicManager.getMusicDto(songid+"");
-        PlayHistory playHistory = new PlayHistory();
-        playHistory.artist = MusicDto.replaceForInput(musicDto.getArtist());
-        playHistory.album = MusicDto.replaceForInput(musicDto.getAlbum());
-        playHistory.title = MusicDto.replaceForInput(musicDto.getTitle());
-
-        userManager.addHistory(playHistory);
-    }
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -207,6 +182,30 @@ public class Global extends Application
         userManager.setNowlistening(musicDto.getArtist(), musicDto.getAlbum(), musicDto.getTitle());
     }
 
+    public void addHistory(int songid)
+    {
+        // Regdate
+        String format = new String("yyyyMMddHHmmss");
+        SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.KOREA);
+        String Regdate = sdf.format(new Date());
+
+        // Local Save
+        LocalPlayHistory localPlayHistory = new LocalPlayHistory();
+        localPlayHistory.uid = songid;
+        localPlayHistory.Regdate = Regdate;
+
+        localHistoryManager.addHistory(localPlayHistory);
+        localHistoryManager.getHistoryDesending();
+
+        // Remote Server save
+        MusicDto musicDto = mMusicManager.getMusicDto(songid+"");
+        PlayHistory playHistory = new PlayHistory();
+        playHistory.artist = MusicDto.replaceForInput(musicDto.getArtist());
+        playHistory.album = MusicDto.replaceForInput(musicDto.getAlbum());
+        playHistory.title = MusicDto.replaceForInput(musicDto.getTitle());
+
+        userManager.addHistory(playHistory);
+    }
 
     public void playMusic(int songId)
     {

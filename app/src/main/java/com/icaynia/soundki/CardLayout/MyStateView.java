@@ -27,8 +27,9 @@ public class MyStateView extends LinearLayout
 
     private RelativeLayout listRow;
     private LayoutInflater inflater;
-    private TextView Artist;
-    private TextView Title;
+
+    private TextView playcount;
+    private TextView mylikecount;
 
     public MyStateView(Context context)
     {
@@ -46,12 +47,20 @@ public class MyStateView extends LinearLayout
     {
         inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mainView = inflater.inflate(R.layout.view_mystate, null);
-
         global = (Global) getContext().getApplicationContext();
-
         addView(mainView);
+        playcount = (TextView) mainView.findViewById(R.id.text_playcount);
+        mylikecount = (TextView) mainView.findViewById(R.id.text_mylikecount);
     }
 
+    public void setPlayCount(int count)
+    {
+        playcount.setText(count+"");
+    }
 
+    public void setMylikecount(int likecount)
+    {
+        mylikecount.setText(likecount+"");
+    }
 
 }

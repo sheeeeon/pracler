@@ -21,6 +21,7 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.icaynia.soundki.Global;
 import com.icaynia.soundki.R;
 
 /**
@@ -29,6 +30,7 @@ import com.icaynia.soundki.R;
 
 public class Splash extends AppCompatActivity
 {
+    private Global global;
     private LoginButton facebookLoginButton;
     private CallbackManager mCallbackManager;
     private FirebaseAuth mAuth;
@@ -38,6 +40,7 @@ public class Splash extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        global = (Global) getApplication();
         mCallbackManager = CallbackManager.Factory.create();
         mAuth = FirebaseAuth.getInstance();
 
@@ -49,6 +52,8 @@ public class Splash extends AppCompatActivity
             {
                 Log.d("facebook", "facebook:onSuccess:" + loginResult);
                 handleFacebookAccessToken(loginResult.getAccessToken());
+                global.loginUser = mAuth.getCurrentUser();
+                onMainActivity();
             }
 
             @Override
