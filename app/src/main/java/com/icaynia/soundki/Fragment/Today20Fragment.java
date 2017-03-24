@@ -13,6 +13,7 @@ import com.icaynia.soundki.Model.MusicDto;
 import com.icaynia.soundki.Model.MusicList;
 import com.icaynia.soundki.Model.PlayList;
 import com.icaynia.soundki.R;
+import com.icaynia.soundki.View.CardHeader;
 import com.icaynia.soundki.View.MusicListAdapter;
 import com.icaynia.soundki.View.PlayListAdapter;
 
@@ -59,6 +60,10 @@ public class Today20Fragment extends Fragment
         MusicListAdapter adapter = new MusicListAdapter(getContext(), musicList);
 
         mainListView.setAdapter(adapter);
+        CardHeader cardHeader = new CardHeader(getContext());
+        cardHeader.setTitleIcon(getResources().getDrawable(R.drawable.ic_grade));
+        cardHeader.setTitleText("지금 SoundKi가 추천하는 10곡");
+        mainListView.addHeaderView(cardHeader);
 
         mainListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

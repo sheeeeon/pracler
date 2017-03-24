@@ -31,6 +31,8 @@ public class MyTop20Fragment extends Fragment
     private ListView mainListView;
     private SwipeRefreshLayout swiperefresh;
 
+    private CardHeader cardHeader;
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -60,24 +62,27 @@ public class MyTop20Fragment extends Fragment
                 prepare();
             }
         });
+
+        cardHeader = new CardHeader(getContext());
+        cardHeader.setTitleIcon(getResources().getDrawable(R.drawable.ic_thumb_up));
+        cardHeader.setTitleText("가장 많이 들은 곡 20곡");
+        mainListView.addHeaderView(cardHeader);
     }
 
     public void prepare()
     {
 
         swiperefresh.setRefreshing(true);
+
         final ArrayList<PlayCount> top20list  = global.localHistoryManager.getHistoryDesending();
-        for (int i = 20; i < top20list.size(); i++)
+        for (int i = 20; i < top20list.size(); )
         {
             top20list.remove(i);
         }
+
         TopMusicAdapter adapter = new TopMusicAdapter(getContext(), top20list);
         mainListView.setAdapter(adapter);
 
-        CardHeader cardHeader = new CardHeader(getContext());
-        cardHeader.setTitleIcon(getResources().getDrawable(R.drawable.ic_album));
-        cardHeader.setTitleText("가장 많이 들은 곡 20곡");
-        mainListView.addHeaderView(cardHeader);
         mainListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -93,9 +98,7 @@ public class MyTop20Fragment extends Fragment
                 global.nowPlayingList = newNowPlayingList;
             }
         });
+
         swiperefresh.setRefreshing(false);
     }
-
-
-
 }

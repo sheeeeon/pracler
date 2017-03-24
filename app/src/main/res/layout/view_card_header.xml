@@ -25,7 +25,6 @@
                 android:id="@+id/titleIcon"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:background="@drawable/ic_album"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="7dp"
                 android:layout_centerVertical="true"
