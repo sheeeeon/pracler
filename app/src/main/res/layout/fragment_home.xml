@@ -38,33 +38,6 @@
                     android:orientation="horizontal">
 
 
-                    <com.icaynia.soundki.View.CardView
-                        android:id="@+id/card_playlist"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_margin="8dp">
-
-                    </com.icaynia.soundki.View.CardView>
-
-                    <com.icaynia.soundki.View.CardView
-                        android:id="@+id/card_g"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_margin="8dp">
-
-                    </com.icaynia.soundki.View.CardView>
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-
                     <com.icaynia.soundki.View.Card
                         android:id="@+id/card_yourstate"
                         android:layout_width="0dp"
@@ -89,48 +62,6 @@
                         android:layout_margin="8dp">
 
                     </com.icaynia.soundki.View.Card>
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-
-                    <com.icaynia.soundki.View.CardView
-                        android:id="@+id/card_yourfriends"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_margin="8dp">
-
-                    </com.icaynia.soundki.View.CardView>
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-
-                    <com.icaynia.soundki.View.CardView
-                        android:id="@+id/card_ff"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_margin="8dp">
-
-                    </com.icaynia.soundki.View.CardView>
-
-                    <com.icaynia.soundki.View.CardView
-                        android:id="@+id/card_ii"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_margin="8dp">
-
-                    </com.icaynia.soundki.View.CardView>
 
                 </LinearLayout>
             </LinearLayout>

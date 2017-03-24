@@ -267,30 +267,6 @@ public class MainActivity extends AppCompatActivity
                     return new HomeFragment();
                 case 1:
                     return new RootFragmentPos1();
-                    /*
-                    if (mFragmentAtPos1 == null)
-                    {
-                        Log.e("MainActivity", "first");
-                        MyMusicListFragment fragment = new MyMusicListFragment();
-                        fragment.setAddNewFragmentEventListener(new MyMusicListFragment.NewFragmentEvent() {
-                            @Override
-                            public void changeNewFragment(Fragment fragment)
-                            {
-                                getSupportFragmentManager().beginTransaction()
-                                        .hide(mFragmentAtPos1).commit();
-
-                                mFragmentAtPos1 = fragment;
-                                notifyDataSetChanged();
-
-                            }
-                        });
-                        mFragmentAtPos1 = fragment;
-                        return fragment;
-                    }
-                    else
-                    {
-                        Log.e("MainActivity", "click");
-                    }*/
                 case 2:
                     return new ProfileMenuFragment();
                 default:

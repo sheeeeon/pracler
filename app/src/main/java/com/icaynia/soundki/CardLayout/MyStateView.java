@@ -25,7 +25,6 @@ public class MyStateView extends LinearLayout
     private LinearLayout contentBox;
     private Global global;
 
-    private RelativeLayout listRow;
     private LayoutInflater inflater;
 
     private TextView playcount;

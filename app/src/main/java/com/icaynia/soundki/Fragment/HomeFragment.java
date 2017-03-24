@@ -70,13 +70,13 @@ public class HomeFragment extends Fragment
 
     private void prepare()
     {
+        swipeRefreshLayout.setRefreshing(true);
+
         UpdateTask updateTask = new UpdateTask();
         updateTask.execute();
-
-        swipeRefreshLayout.setRefreshing(false);
     }
 
-    public class UpdateTask extends AsyncTask<String, Void, Void>
+    public class UpdateTask extends AsyncTask<String, Void, MusicDto>
     {
         private static final String TAG = "AlbumImageTask";
         private int randint;
@@ -89,29 +89,29 @@ public class HomeFragment extends Fragment
         }
 
         @Override
-        protected Void doInBackground(String... id)
+        protected MusicDto doInBackground(String... id)
         {
             Random rand = new Random();
             int size = global.mMusicManager.getMusicList().size();
             randint = rand.nextInt(size);
+            MusicDto musicDto = global.mMusicManager.getMusicList().getItem(randint);
 
             for (String i : id)
             {
 
             }
 
-            return null;
+            return musicDto;
         }
 
         @Override
-        protected void onPostExecute(Void result)
+        protected void onPostExecute(MusicDto result)
         {
             super.onPostExecute(result);
 
-            MusicDto musicDto = global.mMusicManager.getMusicList().getItem(randint);
             RecommandSongView rsv = new RecommandSongView(getContext());
-            rsv.setRecommandSong(musicDto);
-            rsv.setImage(global.mMusicManager.getAlbumImage(getContext(), Integer.parseInt(musicDto.getAlbumId()), 100));
+            rsv.setRecommandSong(result);
+            rsv.setImage(global.mMusicManager.getAlbumImage(getContext(), Integer.parseInt(result.getAlbumId()), 100));
             Card card = (Card) v.findViewById(R.id.card_recommand);
             card.setTitleText("이 곡도 들어 보세요");
             card.deleteContent();
@@ -131,8 +131,9 @@ public class HomeFragment extends Fragment
             msv.setPlayCount(global.localHistoryManager.getHistoryCount());
             msv.setMylikecount(global.localLikeManager.getSongLikeCount());
             cv.addContent(msv);
-        }
 
+            swipeRefreshLayout.setRefreshing(false);
+        }
     }
 }
 
