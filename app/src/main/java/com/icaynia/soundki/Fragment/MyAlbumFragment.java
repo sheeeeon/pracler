@@ -12,6 +12,7 @@ import com.icaynia.soundki.Global;
 import com.icaynia.soundki.Model.MusicList;
 import com.icaynia.soundki.Model.PlayList;
 import com.icaynia.soundki.R;
+import com.icaynia.soundki.View.CardHeader;
 import com.icaynia.soundki.View.MusicListAdapter;
 
 /**
@@ -50,6 +51,9 @@ public class MyAlbumFragment extends Fragment
 
         MusicListAdapter adapter = new MusicListAdapter(getContext(), musicList);
         listView.setAdapter(adapter);
+
+        CardHeader cardHeader = new CardHeader(getContext());
+        listView.addHeaderView(cardHeader);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

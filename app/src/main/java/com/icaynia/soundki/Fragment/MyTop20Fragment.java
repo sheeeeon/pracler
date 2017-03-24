@@ -2,6 +2,7 @@ package com.icaynia.soundki.Fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,8 @@ public class MyTop20Fragment extends Fragment
 
     private View v;
     private ListView mainListView;
+    private SwipeRefreshLayout swiperefresh;
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -47,10 +50,21 @@ public class MyTop20Fragment extends Fragment
     public void viewInitialize()
     {
         mainListView = (ListView) v.findViewById(R.id.listview);
+        swiperefresh = (SwipeRefreshLayout) v.findViewById(R.id.swiperefresh);
+        swiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener()
+        {
+            @Override
+            public void onRefresh()
+            {
+                prepare();
+            }
+        });
     }
 
     public void prepare()
     {
+
+        swiperefresh.setRefreshing(true);
         final ArrayList<PlayCount> top20list  = global.localHistoryManager.getHistoryDesending();
         TopMusicAdapter adapter = new TopMusicAdapter(getContext(), top20list);
         mainListView.setAdapter(adapter);
@@ -69,6 +83,7 @@ public class MyTop20Fragment extends Fragment
                 global.nowPlayingList = newNowPlayingList;
             }
         });
+        swiperefresh.setRefreshing(false);
     }
 
 
