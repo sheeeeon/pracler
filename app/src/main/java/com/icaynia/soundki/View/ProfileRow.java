@@ -21,7 +21,7 @@ public class ProfileRow extends LinearLayout
     private View mainView;
 
     private LayoutInflater inflater;
-    private LinearLayout container;
+    private RelativeLayout container;
 
     public ImageView imageView;
 
@@ -41,7 +41,7 @@ public class ProfileRow extends LinearLayout
     {
         inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mainView = inflater.inflate(R.layout.view_list_profilemenurows, null);
-        container = (LinearLayout) mainView.findViewById(R.id.container);
+        container = (RelativeLayout) mainView.findViewById(R.id.container);
         imageView = (ImageView) mainView.findViewById(R.id.view_image);
         addView(mainView);
     }
