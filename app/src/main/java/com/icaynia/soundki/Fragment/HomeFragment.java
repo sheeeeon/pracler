@@ -1,21 +1,28 @@
 package com.icaynia.soundki.Fragment;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.icaynia.soundki.Activity.PlayListActivity;
 import com.icaynia.soundki.CardLayout.ButtonView;
+import com.icaynia.soundki.Data.MusicFileManager;
 import com.icaynia.soundki.Data.PlayListManager;
 import com.icaynia.soundki.Global;
 import com.icaynia.soundki.CardLayout.FriendStateView;
 import com.icaynia.soundki.CardLayout.MyStateView;
 import com.icaynia.soundki.CardLayout.RecommandSongView;
+import com.icaynia.soundki.Model.MusicDto;
 import com.icaynia.soundki.R;
 import com.icaynia.soundki.View.Card;
 import com.icaynia.soundki.View.CardView;
@@ -36,6 +43,7 @@ public class HomeFragment extends Fragment
 
     private ListView playListView;
     private ArrayList<String> arrayList;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -53,37 +61,31 @@ public class HomeFragment extends Fragment
     private void viewInitialize()
     {
         playListView = (ListView) v.findViewById(R.id.playlistview);
+        swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swiperefresh);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener()
+        {
+            @Override
+            public void onRefresh()
+            {
+                prepare();
+            }
+        });
     }
 
     private void prepare()
     {
-        PlayListManager plm = new PlayListManager(getContext());
+        //PlayListManager plm = new PlayListManager(getContext());
+        UpdateTask updateTask = new UpdateTask();
+        updateTask.execute();
+        //arrayList = plm.getPlayListList();
+        //PlayListsAdapter playListsAdapter = new PlayListsAdapter(getContext(), arrayList);
+        //playListView.setAdapter(playListsAdapter);
 
-        arrayList = plm.getPlayListList();
-        PlayListsAdapter playListsAdapter = new PlayListsAdapter(getContext(), arrayList);
-        playListView.setAdapter(playListsAdapter);
+        //playListView.setOnItemClickListener(itemclick);
+        //playListView.setOnItemLongClickListener(itemLongClick);
 
-        playListView.setOnItemClickListener(itemclick);
-        playListView.setOnItemLongClickListener(itemLongClick);
 
-        // TODO Recommend for you block.
-        Random rand = new Random();
-        int size = global.mMusicManager.getMusicList().size();
-        final int randint = rand.nextInt(size);
 
-        RecommandSongView rsv = new RecommandSongView(getContext());
-        rsv.setRecommandSong(global.mMusicManager.getMusicList().getItem(randint));
-
-        Card card = (Card) v.findViewById(R.id.card_recommand);
-        card.setTitleText("이 곡도 들어 보세요");
-        card.addContent(rsv);
-        card.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view)
-            {
-                global.playMusic(Integer.parseInt(global.mMusicManager.getMusicList().getItem(randint).getUid_local()));
-            }
-        });
 
         //cv = (CardView) v.findViewById(R.id.card_yourfriends);
         //cv.setTitleText("친구가 듣고 있는 것");
@@ -91,20 +93,14 @@ public class HomeFragment extends Fragment
         //FriendStateView fsv = new FriendStateView(getContext());
         //cv.addContent(fsv);
 
+//        CardView cvv = (CardView) v.findViewById(R.id.card_playlist);
+//        cvv.deleteContent();
+//        cvv.setTitleText("");
+//        cvv.setTheme(CardView.THEME_1);
+//        ButtonView bv = new ButtonView(getContext());
+//        cvv.addContent(bv);
 
-        Card cv = (Card) v.findViewById(R.id.card_yourstate);
-        cv.setTitleText("내 기록");
-        MyStateView msv = new MyStateView(getContext());
-        msv.setPlayCount(global.localHistoryManager.getHistoryCount());
-        msv.setMylikecount(global.localLikeManager.getSongLikeCount());
-        cv.addContent(msv);
-
-        CardView cvv = (CardView) v.findViewById(R.id.card_playlist);
-        cvv.setTitleText("");
-        cvv.setTheme(CardView.THEME_1);
-        ButtonView bv = new ButtonView(getContext());
-        cvv.addContent(bv);
-
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     private AdapterView.OnItemClickListener itemclick = new AdapterView.OnItemClickListener()
@@ -147,6 +143,71 @@ public class HomeFragment extends Fragment
         Intent intent = new Intent(this.getContext(), PlayListActivity.class);
         intent.putExtra("list", extra);
         startActivity(intent);
+    }
+
+    public class UpdateTask extends AsyncTask<String, Void, Void>
+    {
+        private static final String TAG = "AlbumImageTask";
+        private int randint;
+        private ImageView imgView;
+
+        public void setImgView(ImageView _imgView)
+        {
+            this.imgView = _imgView;
+        }
+
+        @Override
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+            Log.i(TAG, "PreExecute");
+        }
+
+        @Override
+        protected Void doInBackground(String... id)
+        {
+            Random rand = new Random();
+            int size = global.mMusicManager.getMusicList().size();
+            randint = rand.nextInt(size);
+
+            for (String i : id)
+            {
+
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result)
+        {
+            super.onPostExecute(result);
+
+            MusicDto musicDto = global.mMusicManager.getMusicList().getItem(randint);
+            RecommandSongView rsv = new RecommandSongView(getContext());
+            rsv.setRecommandSong(musicDto);
+            rsv.setImage(global.mMusicManager.getAlbumImage(getContext(), Integer.parseInt(musicDto.getAlbumId()), 100));
+            Card card = (Card) v.findViewById(R.id.card_recommand);
+            card.setTitleText("이 곡도 들어 보세요");
+            card.deleteContent();
+            card.addContent(rsv);
+            card.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view)
+                {
+                    global.playMusic(Integer.parseInt(global.mMusicManager.getMusicList().getItem(randint).getUid_local()));
+                }
+            });
+
+            Card cv = (Card) v.findViewById(R.id.card_yourstate);
+            cv.setTitleText("내 기록");
+            cv.deleteContent();
+            MyStateView msv = new MyStateView(getContext());
+            msv.setPlayCount(global.localHistoryManager.getHistoryCount());
+            msv.setMylikecount(global.localLikeManager.getSongLikeCount());
+            cv.addContent(msv);
+        }
+
     }
 }
 

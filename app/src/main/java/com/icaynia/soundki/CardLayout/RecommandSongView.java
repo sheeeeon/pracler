@@ -22,7 +22,6 @@ import com.icaynia.soundki.R;
 public class RecommandSongView extends LinearLayout
 {
     private View mainView;
-    private Global global;
 
     private LayoutInflater inflater;
     private ImageView imageView;
@@ -46,8 +45,6 @@ public class RecommandSongView extends LinearLayout
         inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mainView = inflater.inflate(R.layout.view_main_recommand_song, null);
 
-        global = (Global) getContext().getApplicationContext();
-
         imageView = (ImageView) mainView.findViewById(R.id.view_album);
         Artist = (TextView) mainView.findViewById(R.id.view_artist);
         Title = (TextView) mainView.findViewById(R.id.view_title);
@@ -55,11 +52,14 @@ public class RecommandSongView extends LinearLayout
         addView(mainView);
     }
 
+    public void setImage(Bitmap bitmap)
+    {
+           imageView.setImageBitmap(bitmap);
+    }
+
     public void setRecommandSong(MusicDto musicDto)
     {
-        Bitmap image = global.mMusicManager.getAlbumImage(getContext(), Integer.parseInt(musicDto.getAlbumId()), 100);
 
-        imageView.setImageBitmap(image);
         Title.setText(musicDto.getTitle());
         Artist.setText(musicDto.getArtist());
     }

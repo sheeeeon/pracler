@@ -76,6 +76,11 @@ public class Card extends RelativeLayout
         content.addView(v);
     }
 
+    public void deleteContent()
+    {
+        content.removeAllViewsInLayout();
+    }
+
     public void setTitleText(String titleString)
     {
         titleText.setText(titleString);
