@@ -40,9 +40,6 @@ public class HomeFragment extends Fragment
 {
     private Global global;
     private View v;
-
-    private ListView playListView;
-    private ArrayList<String> arrayList;
     private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
@@ -60,7 +57,6 @@ public class HomeFragment extends Fragment
 
     private void viewInitialize()
     {
-        playListView = (ListView) v.findViewById(R.id.playlistview);
         swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swiperefresh);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener()
         {
@@ -74,87 +70,16 @@ public class HomeFragment extends Fragment
 
     private void prepare()
     {
-        //PlayListManager plm = new PlayListManager(getContext());
         UpdateTask updateTask = new UpdateTask();
         updateTask.execute();
-        //arrayList = plm.getPlayListList();
-        //PlayListsAdapter playListsAdapter = new PlayListsAdapter(getContext(), arrayList);
-        //playListView.setAdapter(playListsAdapter);
-
-        //playListView.setOnItemClickListener(itemclick);
-        //playListView.setOnItemLongClickListener(itemLongClick);
-
-
-
-
-        //cv = (CardView) v.findViewById(R.id.card_yourfriends);
-        //cv.setTitleText("친구가 듣고 있는 것");
-        //cv.setTheme(CardView.THEME_3);
-        //FriendStateView fsv = new FriendStateView(getContext());
-        //cv.addContent(fsv);
-
-//        CardView cvv = (CardView) v.findViewById(R.id.card_playlist);
-//        cvv.deleteContent();
-//        cvv.setTitleText("");
-//        cvv.setTheme(CardView.THEME_1);
-//        ButtonView bv = new ButtonView(getContext());
-//        cvv.addContent(bv);
 
         swipeRefreshLayout.setRefreshing(false);
-    }
-
-    private AdapterView.OnItemClickListener itemclick = new AdapterView.OnItemClickListener()
-    {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-        {
-            onPlayListActivity(arrayList.get(position));
-        }
-    };
-
-    private AdapterView.OnItemLongClickListener itemLongClick = new AdapterView.OnItemLongClickListener() {
-        @Override
-        public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
-        {
-            ArrayList<String> menu = new ArrayList<>();
-            // TODO Menu list
-            menu.add("이 재생목록을 삭제");
-            Bundle bundle = new Bundle();
-            bundle.putStringArrayList("menu", menu);
-            MenuSelecter menuSelecter = new MenuSelecter(getContext());
-            menuSelecter.setBundle(bundle);
-            menuSelecter.show();
-            menuSelecter.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-                {
-                    if (position == 0)
-                    {
-
-                    }
-                }
-            });
-            return false;
-        }
-    };
-
-    private void onPlayListActivity(String extra)
-    {
-        Intent intent = new Intent(this.getContext(), PlayListActivity.class);
-        intent.putExtra("list", extra);
-        startActivity(intent);
     }
 
     public class UpdateTask extends AsyncTask<String, Void, Void>
     {
         private static final String TAG = "AlbumImageTask";
         private int randint;
-        private ImageView imgView;
-
-        public void setImgView(ImageView _imgView)
-        {
-            this.imgView = _imgView;
-        }
 
         @Override
         protected void onPreExecute()
