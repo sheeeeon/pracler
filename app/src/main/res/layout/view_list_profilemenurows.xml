@@ -9,14 +9,14 @@
         android:layout_height="wrap_content"
         android:id="@+id/container"
         android:background="@drawable/view_card"
-        android:layout_margin="5dp">
+        android:layout_margin="8dp">
 
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="#2f2a36"
             android:id="@+id/view_image"
-            android:layout_margin="5dp"
+            android:layout_margin="8dp"
             />
 
         <LinearLayout
@@ -24,10 +24,10 @@
             android:layout_height="40dp"
             android:orientation="vertical"
             android:gravity="center_vertical"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:layout_toEndOf="@+id/view_image">
 
             <TextView
