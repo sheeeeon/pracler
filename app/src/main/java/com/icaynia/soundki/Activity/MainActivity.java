@@ -103,6 +103,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        updateController();
 
     }
 
@@ -122,11 +123,13 @@ public class MainActivity extends AppCompatActivity
     public void updateController()
     {
         int songid = global.musicService.getPlayingMusic();
-        MusicDto musicDto = global.mMusicManager.getMusicDto(songid+"");
-        musicController.setSongTitleTextView(musicDto.getTitle());
-        musicController.setSongInformationTextView(musicDto.getArtist()+" - "+musicDto.getAlbum());
-        musicController.setSongAlbumImageView(global.mMusicManager.getAlbumImage
-                (getApplicationContext(),Integer.parseInt(musicDto.getAlbumId()), 100));
+        if (songid != 0)
+        {
+            MusicDto musicDto = global.mMusicManager.getMusicDto(songid + "");
+            musicController.setSongTitleTextView(musicDto.getTitle());
+            musicController.setSongInformationTextView(musicDto.getArtist() + " - " + musicDto.getAlbum());
+            musicController.setSongAlbumImageView(global.mMusicManager.getAlbumImage(getApplicationContext(), Integer.parseInt(musicDto.getAlbumId()), 100));
+        }
     }
 
     public void onPlayerActivity()

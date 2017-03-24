@@ -93,6 +93,7 @@ public class Global extends Application
                     generateMusicFinishedEvent();
 
                     playNextMusic();
+                    generatePlayerChangeEvent();
                 }
             });
 
@@ -215,11 +216,11 @@ public class Global extends Application
         this.setNowListening(musicDto);
         this.addNewSongInfoToRemote(musicDto);
         this.setMusicNotification();
-
         generatePlayerChangeEvent();
+
     }
 
-    /** 주로 재생 곡이 바뀔 때 뷰 업데이트를 위해 사용 */
+    /** 주로 재생 곡이 바뀔 때 컨트롤러 뷰 업데이트를 위해 사용 */
     public void generatePlayerChangeEvent()
     {
         if (onChangeListener != null)
