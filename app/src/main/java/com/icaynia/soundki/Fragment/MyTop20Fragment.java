@@ -14,6 +14,7 @@ import com.icaynia.soundki.Model.LocalPlayHistory;
 import com.icaynia.soundki.Model.PlayCount;
 import com.icaynia.soundki.Model.PlayList;
 import com.icaynia.soundki.R;
+import com.icaynia.soundki.View.CardHeader;
 import com.icaynia.soundki.View.TopMusicAdapter;
 
 import java.util.ArrayList;
@@ -66,8 +67,17 @@ public class MyTop20Fragment extends Fragment
 
         swiperefresh.setRefreshing(true);
         final ArrayList<PlayCount> top20list  = global.localHistoryManager.getHistoryDesending();
+        for (int i = 20; i < top20list.size(); i++)
+        {
+            top20list.remove(i);
+        }
         TopMusicAdapter adapter = new TopMusicAdapter(getContext(), top20list);
         mainListView.setAdapter(adapter);
+
+        CardHeader cardHeader = new CardHeader(getContext());
+        cardHeader.setTitleIcon(getResources().getDrawable(R.drawable.ic_album));
+        cardHeader.setTitleText("가장 많이 들은 곡 20곡");
+        mainListView.addHeaderView(cardHeader);
         mainListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

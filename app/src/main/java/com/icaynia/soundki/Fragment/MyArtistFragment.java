@@ -14,6 +14,7 @@ import com.icaynia.soundki.Model.MusicDto;
 import com.icaynia.soundki.Model.MusicList;
 import com.icaynia.soundki.Model.PlayList;
 import com.icaynia.soundki.R;
+import com.icaynia.soundki.View.CardHeader;
 import com.icaynia.soundki.View.MusicListAdapter;
 import com.icaynia.soundki.View.PlayListSelectPopup;
 import com.icaynia.soundki.View.SelectPopup;
@@ -58,6 +59,10 @@ public class MyArtistFragment extends Fragment
 
         listView.setAdapter(adapter);
 
+        CardHeader cardHeader = new CardHeader(getContext());
+        cardHeader.setTitleIcon(getResources().getDrawable(R.drawable.ic_recent_actors));
+        cardHeader.setTitleText("아티스트 정렬");
+        listView.addHeaderView(cardHeader);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

@@ -53,6 +53,8 @@ public class MyAlbumFragment extends Fragment
         listView.setAdapter(adapter);
 
         CardHeader cardHeader = new CardHeader(getContext());
+        cardHeader.setTitleIcon(getResources().getDrawable(R.drawable.ic_album));
+        cardHeader.setTitleText("앨범 정렬");
         listView.addHeaderView(cardHeader);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

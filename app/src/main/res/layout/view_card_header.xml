@@ -15,21 +15,38 @@
         android:padding="8dp"
         android:background="@drawable/view_card">
 
-        <TextView
-            android:id="@+id/titleText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textColor="#efffff"
-            android:textSize="17dp"
-            android:layout_marginBottom="6dp"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="2dp"
-            android:layout_marginTop="2dp"/>
+        <RelativeLayout
+            android:id="@+id/titlebox"
+            android:layout_marginLeft="6dp"
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+
+            <ImageView
+                android:id="@+id/titleIcon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/ic_album"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="7dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true"/>
+
+            <TextView
+                android:id="@+id/titleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:paddingBottom="2dp"
+                android:textColor="#efffff"
+                android:textSize="14dp"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/titleIcon"/>
+        </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/content"
-            android:layout_below="@id/titleText"
+            android:layout_below="@id/titlebox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -57,14 +74,16 @@
 
             </LinearLayout>
 
+
             <TextView
                 android:id="@+id/buttonTitleText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#efffff"
-                android:textSize="16dp"
                 android:layout_below="@id/buttonImageBox"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal"
+                android:text="vdsdvsdv"
+                android:textColor="#efffff"
+                android:textSize="16dp"/>
         </RelativeLayout>
     </RelativeLayout>
 

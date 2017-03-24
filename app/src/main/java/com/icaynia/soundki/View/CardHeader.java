@@ -29,6 +29,8 @@ public class CardHeader extends RelativeLayout
     private RelativeLayout contentBox;
     private LinearLayout content;
 
+    private ImageView titleIcon;
+
     public CardHeader(Context context)
     {
         super(context);
@@ -61,6 +63,7 @@ public class CardHeader extends RelativeLayout
         titleText = (TextView) mainView.findViewById(R.id.titleText);
         buttonTitleText = (TextView) mainView.findViewById(R.id.buttonTitleText);
         content = (LinearLayout) mainView.findViewById(R.id.content);
+        titleIcon = (ImageView) mainView.findViewById(R.id.titleIcon);
         contentBox.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,14 +77,14 @@ public class CardHeader extends RelativeLayout
         contentBox.setOnClickListener(listener);
     }
 
-    public void setIcon(Bitmap bitmap)
+    public void setTitleIcon(Bitmap bitmap)
     {
-        //추가 필요
+        titleIcon.setImageBitmap(bitmap);
     }
 
-    public void setIcon(Drawable drawable)
+    public void setTitleIcon(Drawable drawable)
     {
-        //추가 필요
+        titleIcon.setImageDrawable(drawable);
     }
 
     public void addContent(View v)
