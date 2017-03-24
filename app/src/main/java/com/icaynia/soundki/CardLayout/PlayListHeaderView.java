@@ -19,7 +19,7 @@ import com.icaynia.soundki.R;
  * 데이터는 global에서 가져옵니다.
  */
 
-public class MyStateView extends LinearLayout
+public class PlayListHeaderView extends LinearLayout
 {
     private View mainView;
     private LinearLayout contentBox;
@@ -30,13 +30,13 @@ public class MyStateView extends LinearLayout
     private TextView playcount;
     private TextView mylikecount;
 
-    public MyStateView(Context context)
+    public PlayListHeaderView(Context context)
     {
         super(context);
         viewInitialize();
     }
 
-    public MyStateView(Context context, AttributeSet attrs)
+    public PlayListHeaderView(Context context, AttributeSet attrs)
     {
         super(context, attrs);
         viewInitialize();

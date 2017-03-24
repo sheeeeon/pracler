@@ -12,15 +12,16 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="내 프로그래스"
+            android:text="내 플레이 회수"
             android:textSize="13dp"
             android:textColor="#efffff"/>
 
         <TextView
+            android:id="@+id/text_playcount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="133,410"
+            android:text="0"
             android:textSize="13dp"
             android:textColor="#efffff"/>
 
@@ -40,10 +41,11 @@
             android:textColor="#efffff"/>
 
         <TextView
+            android:id="@+id/text_mylikecount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="1,734"
+            android:text="0"
             android:textSize="13dp"
             android:textColor="#efffff"/>
 
@@ -51,6 +53,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp">
@@ -63,10 +66,11 @@
             android:textColor="#efffff"/>
 
         <TextView
+            android:id="@+id/text_myartist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="71"
+            android:text="0"
             android:textSize="13dp"
             android:textColor="#efffff"/>
 

@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.icaynia.soundki.Activity.PlayerActivity;
 import com.icaynia.soundki.Data.LocalHistoryManager;
+import com.icaynia.soundki.Data.LocalLikeManager;
 import com.icaynia.soundki.Data.MusicFileManager;
 import com.icaynia.soundki.Data.PlayListManager;
 import com.icaynia.soundki.Data.RemoteDatabaseManager;
@@ -63,6 +64,7 @@ public class Global extends Application
 
     public OnChangeListener onChangeListener = null;
     public LocalHistoryManager localHistoryManager;
+    public LocalLikeManager localLikeManager;
 
     public UserManager userManager;
 
@@ -85,11 +87,13 @@ public class Global extends Application
             musicService.mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
-                    nowPlayingList.addPositionCount();
-                    String nextmusic_uid = nowPlayingList.get(nowPlayingList.getPosition());
                     int songid = musicService.getPlayingMusic();
-                    playNextMusic();
                     addHistory(songid);
+
+                    generateMusicFinishedEvent();
+
+                    playNextMusic();
+                    generatePlayerChangeEvent();
                 }
             });
 
@@ -103,31 +107,6 @@ public class Global extends Application
 
         }
     };
-
-    public void addHistory(int songid)
-    {
-        // Regdate
-        String format = new String("yyyyMMddHHmmss");
-        SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.KOREA);
-        String Regdate = sdf.format(new Date());
-
-        // Local Save
-        LocalPlayHistory localPlayHistory = new LocalPlayHistory();
-        localPlayHistory.uid = songid;
-        localPlayHistory.Regdate = Regdate;
-
-        localHistoryManager.addHistory(localPlayHistory);
-        localHistoryManager.getHistoryDesending();
-
-        // Remote Server save
-        MusicDto musicDto = mMusicManager.getMusicDto(songid+"");
-        PlayHistory playHistory = new PlayHistory();
-        playHistory.artist = MusicDto.replaceForInput(musicDto.getArtist());
-        playHistory.album = MusicDto.replaceForInput(musicDto.getAlbum());
-        playHistory.title = MusicDto.replaceForInput(musicDto.getTitle());
-
-        userManager.addHistory(playHistory);
-    }
 
     @Override
     public void onCreate() {
@@ -148,6 +127,7 @@ public class Global extends Application
         loginUser = firebaseAuth.getCurrentUser();
         userManager = new UserManager();
         localHistoryManager = new LocalHistoryManager(this);
+        localLikeManager = new LocalLikeManager(this);
 
         Log.e("Global", "onCreate: called");
     }
@@ -203,6 +183,30 @@ public class Global extends Application
         userManager.setNowlistening(musicDto.getArtist(), musicDto.getAlbum(), musicDto.getTitle());
     }
 
+    public void addHistory(int songid)
+    {
+        // Regdate
+        String format = new String("yyyyMMddHHmmss");
+        SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.KOREA);
+        String Regdate = sdf.format(new Date());
+
+        // Local Save
+        LocalPlayHistory localPlayHistory = new LocalPlayHistory();
+        localPlayHistory.uid = songid;
+        localPlayHistory.Regdate = Regdate;
+
+        localHistoryManager.addHistory(localPlayHistory);
+        localHistoryManager.getHistoryDesending();
+
+        // Remote Server save
+        MusicDto musicDto = mMusicManager.getMusicDto(songid+"");
+        PlayHistory playHistory = new PlayHistory();
+        playHistory.artist = MusicDto.replaceForInput(musicDto.getArtist());
+        playHistory.album = MusicDto.replaceForInput(musicDto.getAlbum());
+        playHistory.title = MusicDto.replaceForInput(musicDto.getTitle());
+
+        userManager.addHistory(playHistory);
+    }
 
     public void playMusic(int songId)
     {
@@ -212,10 +216,11 @@ public class Global extends Application
         this.setNowListening(musicDto);
         this.addNewSongInfoToRemote(musicDto);
         this.setMusicNotification();
-        generatePlayStateChangeEvent(true);
+        generatePlayerChangeEvent();
+
     }
 
-    /** 주로 재생 곡이 바뀔 때 뷰 업데이트를 위해 사용 */
+    /** 주로 재생 곡이 바뀔 때 컨트롤러 뷰 업데이트를 위해 사용 */
     public void generatePlayerChangeEvent()
     {
         if (onChangeListener != null)
@@ -224,11 +229,11 @@ public class Global extends Application
         }
     }
 
-    public void generateMusicFinishedEvent(String nextuid)
+    public void generateMusicFinishedEvent()
     {
         if (finishListener != null)
         {
-            finishListener.onFinish(nextuid);
+            finishListener.onFinish();
         }
     }
 
@@ -244,31 +249,36 @@ public class Global extends Application
     public void playPrevMusic()
     {
         musicService.pause();
+        musicService.mediaPlayer.reset();
         if (musicService.getPlayingMusicCurrentPosition() < 3000)
         {
             nowPlayingList.delPositionCount();
         }
 
         String nextmusic_uid = nowPlayingList.get(nowPlayingList.getPosition());
-        this.generateMusicFinishedEvent(nextmusic_uid);
         if (nextmusic_uid != null)
         {
             playMusic(Integer.parseInt(nextmusic_uid));
         }
+        generatePlayerChangeEvent();
     }
 
     public void playNextMusic()
     {
         musicService.stop();
+        musicService.mediaPlayer.reset();
+        nowPlayingList.addPositionCount();
         String nextmusic_uid = nowPlayingList.get(nowPlayingList.getPosition());
         if (nextmusic_uid != null)
         {
             playMusic(Integer.parseInt(nextmusic_uid));
         }
-        if (onChangeListener != null)
-        {
-            onChangeListener.onChange();
-        }
+        generatePlayerChangeEvent();
+    }
+
+    public void setFinishListener(OnMusicFinishListener listener)
+    {
+        this.finishListener = listener;
     }
 
     public void setPlayStateChangeListener(PlayStateChangeListener listener)
@@ -322,7 +332,7 @@ public class Global extends Application
 
     public interface OnMusicFinishListener
     {
-        void onFinish(String next_uid);
+        void onFinish();
     }
 
     public interface PlayStateChangeListener

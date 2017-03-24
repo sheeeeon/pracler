@@ -31,6 +31,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +42,7 @@ import com.icaynia.soundki.Global;
 import com.icaynia.soundki.Model.MusicDto;
 import com.icaynia.soundki.R;
 import com.icaynia.soundki.View.MusicSeekBar;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import org.w3c.dom.Text;
 
@@ -80,6 +82,8 @@ public class PlayerActivity extends AppCompatActivity
     private LinearLayout BUTTON_MENU;
     private ImageView IMAGE_MENU;
 
+    private AVLoadingIndicatorView loadingBar;
+
     private MusicSeekBar musicTimeBar;
 
     private Boolean likestate = false;
@@ -110,6 +114,16 @@ public class PlayerActivity extends AppCompatActivity
             }
         });
 
+        global.setFinishListener(new Global.OnMusicFinishListener()
+        {
+            @Override
+            public void onFinish()
+            {
+                global.musicService.mediaPlayer.stop();
+                global.musicService.mediaPlayer.reset();
+            }
+        });
+
     }
 
     @Override
@@ -117,6 +131,8 @@ public class PlayerActivity extends AppCompatActivity
     {
         albumImageView = null;
         albumImageBackgroundView = null;
+        musicTimeBar.setOnClickListener(null);
+        global.setFinishListener(null);
         global = null;
         Log.e("finish", "fin");
         threadController = false;
@@ -128,7 +144,9 @@ public class PlayerActivity extends AppCompatActivity
 
     public void initializeView()
     {
+        loadingBar = (AVLoadingIndicatorView) findViewById(R.id.loadingBar);
 
+        loadingBar.show();
         currentTimeView = (TextView) findViewById(R.id.currentTime);
         durationTimeView = (TextView) findViewById(R.id.durationTime);
         artistView = (TextView) findViewById(R.id.artist);
@@ -206,10 +224,16 @@ public class PlayerActivity extends AppCompatActivity
 
     public void update()
     {
+        int songid = global.musicService.getPlayingMusic();
+        update(songid);
+    }
+
+
+    public void update(int songId)
+    {
         musicTimeBar.setProgress(0);
-        int songId = global.musicService.getPlayingMusic();
         MusicDto playingSong = global.mMusicManager.getMusicDto(songId+"");
-        /**음악 활성화와 관련 없음 */
+        /**음악 활성화와 관련 없음
         global.userManager.isLove(global.loginUser.getUid(), playingSong.getArtist(), playingSong.getAlbum(), playingSong.getTitle(), new UserManager.OnCompleteGetLikeState() {
             @Override
             public void onComplete(boolean likeState)
@@ -221,7 +245,14 @@ public class PlayerActivity extends AppCompatActivity
                     IMAGE_FAVORITE.setImageDrawable(getResources().getDrawable(R.drawable.ic_favorite_border_white));
 
             }
-        });
+        });*/
+
+        likestate = global.localLikeManager.isLike(songId);
+        if (likestate)
+            IMAGE_FAVORITE.setImageDrawable(getResources().getDrawable(R.drawable.ic_favorite));
+        else
+            IMAGE_FAVORITE.setImageDrawable(getResources().getDrawable(R.drawable.ic_favorite_border_white));
+
 
         /** 음악이 활성화되어있을 때 */
         if (songId != 0)
@@ -229,7 +260,6 @@ public class PlayerActivity extends AppCompatActivity
             artistView.setText(playingSong.getArtist());
             album.setText(playingSong.getAlbum());
             titleView.setText(playingSong.getTitle());
-
 
             updateTask = new UpdateTask();
             updateTask.setAlbumImageView(albumImageView);
@@ -271,6 +301,11 @@ public class PlayerActivity extends AppCompatActivity
 
         durationTimeView.setText(global.mMusicManager.convertToTime(global.musicService.getPlayingMusicDuration()));
 
+        startTimebarThread();
+    }
+
+    public void startTimebarThread()
+    {
         threadController = false;
         threadController = true;
         myThread = new Thread(new Runnable() {
@@ -320,6 +355,7 @@ public class PlayerActivity extends AppCompatActivity
         @Override
         public void onClick(View v)
         {
+            global.musicService.mediaPlayer.reset();
             musicTimeBar.setProgress(0);
             global.playPrevMusic();
         }
@@ -329,6 +365,7 @@ public class PlayerActivity extends AppCompatActivity
         @Override
         public void onClick(View v)
         {
+            global.musicService.mediaPlayer.reset();
             musicTimeBar.setProgress(0);
             global.playNextMusic();
         }
@@ -353,6 +390,8 @@ public class PlayerActivity extends AppCompatActivity
 
                 }
             });
+
+            global.localLikeManager.setLike(songId, likestate);
         }
     };
 
@@ -470,12 +509,13 @@ public class PlayerActivity extends AppCompatActivity
                 BackgroundImageView.setImageBitmap(cropBitmap(getScreenSize(), tmpBitmap));
                 tmpBitmap.recycle();
                 tmpBitmap = null;
+
+                loadingBar.hide();
             }
             else
             {
                 AlbumImageView.setImageBitmap(null);
                 BackgroundImageView.setImageBitmap(null);
-
             }
         }
 

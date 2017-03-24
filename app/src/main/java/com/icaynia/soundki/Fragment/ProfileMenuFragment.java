@@ -3,6 +3,7 @@ package com.icaynia.soundki.Fragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -90,41 +91,61 @@ public class ProfileMenuFragment extends Fragment
             //getImage(profileRow.imageView, userPhotoUrl);
             profileRow.setText(firebaseUser.getDisplayName());
             container1.addView(profileRow);
+
+            UpdateView updateView = new UpdateView();
+            updateView.setImageView(profileRow.imageView);
+            updateView.execute(userPhotoUrl);
         }
     }
 
-    private void getImage(final ImageView imageView, final String ul)
+
+
+    public class UpdateView extends AsyncTask<String, Void, Bitmap>
     {
-        Thread t = new Thread(new Runnable()
+        public ImageView imageView;
+
+        public void setImageView(ImageView imageView)
         {
-            @Override
-            public void run()
+            this.imageView = imageView;
+        }
+        @Override
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Bitmap doInBackground(String... url)
+        {
+            for (String i : url)
             {
-                try
-                {
-                    URL url = new URL(ul);
-                    InputStream is = url.openStream();
-                    final Bitmap bm = BitmapFactory.decodeStream(is);
-                    handler.post(new Runnable()
-                    {
-                        @Override
-                        public void run()
-                        {  // 화면에 그려줄 작업
-                            imageView.setImageBitmap(bm);
-                        }
-                    });
-                    imageView.setImageBitmap(bm); //비트맵 객체로 보여주기
-                }
-                catch(Exception e)
-                {
-
-                }
-
+                return getImage(i);
             }
-        });
+            return null;
+        }
 
-        t.start();
+        @Override
+        protected void onPostExecute(Bitmap bitmap)
+        {
+            super.onPostExecute(bitmap);
+            imageView.setImageBitmap(bitmap);
+        }
+
+        private Bitmap getImage(final String ul)
+        {
+            try
+            {
+                URL url = new URL(ul);
+                InputStream is = url.openStream();
+                final Bitmap bm = BitmapFactory.decodeStream(is); //비트맵 객체로 보여주기
+
+                return bm;
+            }
+            catch(Exception e)
+            {
+                return null;
+            }
+        }
     }
-
 
 }

@@ -2,6 +2,7 @@ package com.icaynia.soundki.View;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -20,30 +21,34 @@ import com.icaynia.soundki.R;
  *
  */
 
-public class Card extends RelativeLayout
+public class CardHeader extends RelativeLayout
 {
     private View mainView;
     private TextView titleText;
     private TextView buttonTitleText;
     private RelativeLayout contentBox;
     private LinearLayout content;
-    public Card(Context context)
+
+    private ImageView titleIcon;
+
+    public CardHeader(Context context)
     {
         super(context);
         onCreate();
     }
 
-    public Card(Context context, AttributeSet attrs)
+    public CardHeader(Context context, AttributeSet attrs)
     {
         super(context, attrs);
         onCreate();
     }
 
     @TargetApi(21)
-    public Card(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public CardHeader(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         onCreate();
     }
+
     public void onCreate()
     {
         initializeView();
@@ -52,12 +57,13 @@ public class Card extends RelativeLayout
     public void initializeView()
     {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mainView = inflater.inflate(R.layout.view_card, this, false);
+        mainView = inflater.inflate(R.layout.view_card_header, this, false);
         addView(mainView);
         contentBox = (RelativeLayout) mainView.findViewById(R.id.contentBox);
         titleText = (TextView) mainView.findViewById(R.id.titleText);
         buttonTitleText = (TextView) mainView.findViewById(R.id.buttonTitleText);
         content = (LinearLayout) mainView.findViewById(R.id.content);
+        titleIcon = (ImageView) mainView.findViewById(R.id.titleIcon);
         contentBox.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,6 +75,16 @@ public class Card extends RelativeLayout
     public void setOnClickListener(OnClickListener listener)
     {
         contentBox.setOnClickListener(listener);
+    }
+
+    public void setTitleIcon(Bitmap bitmap)
+    {
+        titleIcon.setImageBitmap(bitmap);
+    }
+
+    public void setTitleIcon(Drawable drawable)
+    {
+        titleIcon.setImageDrawable(drawable);
     }
 
     public void addContent(View v)
