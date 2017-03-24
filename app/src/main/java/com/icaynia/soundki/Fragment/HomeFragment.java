@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
@@ -132,7 +133,16 @@ public class HomeFragment extends Fragment
             msv.setMylikecount(global.localLikeManager.getSongLikeCount());
             cv.addContent(msv);
 
-            swipeRefreshLayout.setRefreshing(false);
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+
+                    swipeRefreshLayout.setRefreshing(false);
+                }
+            }, 1000);
         }
     }
 }
