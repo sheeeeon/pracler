@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -80,12 +81,12 @@ public class ProfileMenuFragment extends Fragment
 
     private void prepare()
     {
-        list = new ArrayList<>();
         global.userManager.getFollowingList(firebaseUser.getUid(), new UserManager.OnCompleteGetUserFollowingListener()
         {
             @Override
             public void onComplete(final ArrayList<String> followingList)
             {
+                list = followingList;
                 final ArrayList<User> userlist = new ArrayList<User>();
                 for (i = 0; i < followingList.size(); i++)
                 {
@@ -103,6 +104,15 @@ public class ProfileMenuFragment extends Fragment
                         }
                     });
                 }
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
+            {
+                onProfileActivity(list.get(i));
             }
         });
     }
