@@ -55,25 +55,6 @@
                 android:marqueeRepeatLimit="marquee_forever"/>
 
         </LinearLayout>
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:id="@+id/select_icon"
-            android:layout_margin="10dp"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/ic_check"
-            />
-
-
-        <ImageView
-            android:visibility="gone"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:id="@+id/menu_icon"
-            android:background="@drawable/ic_menu"
-            android:layout_alignParentRight="true"
-            android:layout_margin="16dp"/>
     </RelativeLayout>
 
 
