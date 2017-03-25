@@ -4,12 +4,15 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.icaynia.soundki.Model.MusicDto;
 import com.icaynia.soundki.Model.PlayHistory;
@@ -19,6 +22,7 @@ import com.icaynia.soundki.Model.User;
 import java.io.InputStream;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
@@ -173,6 +177,40 @@ public class UserManager
                 });
     }
 
+    public void getFollowingList(String userId, final OnCompleteGetUserFollowingListener listener)
+    {
+        RemoteDatabaseManager rdm = new RemoteDatabaseManager();
+
+        Query recentPostsQuery = rdm.getUsersReference().child(userId).child("following")
+                .limitToFirst(100);
+        rdm.getUsersReference().child(userId).child("following").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<String> arrayList = new ArrayList<String>();
+
+                for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
+                    String name = (String) messageSnapshot.getValue();
+                    Log.e("UserManager", "Name : "+ name);
+                    arrayList.add(name);
+                }
+
+                listener.onComplete(arrayList);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
+        });
+    }
+
+    public void setFollowing(String userId, String followingUserId, boolean State)
+    {
+        RemoteDatabaseManager rdm = new RemoteDatabaseManager();
+        if (!State)
+        {
+            rdm.getUsersReference().child(userId).child("following").child(followingUserId).setValue(null);
+        }
+        rdm.getUsersReference().child(userId).child("following").child(followingUserId).setValue(State);
+    }
 
     public interface OnCompleteGetUserListener
     {
@@ -218,6 +256,11 @@ public class UserManager
     public interface OnCompleteGetLikeState
     {
         void onComplete(boolean likeState);
+    }
+
+    public interface OnCompleteGetUserFollowingListener
+    {
+        void onComplete(ArrayList<String> followingList);
     }
 
 

@@ -5,18 +5,13 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <ScrollView
+    <ListView
+        android:id="@+id/listview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:paddingBottom="61dp"
+        android:dividerHeight="0dp">
 
-        <LinearLayout
-            android:id="@+id/container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-        </LinearLayout>
-
-    </ScrollView>
+    </ListView>
 
 </LinearLayout>

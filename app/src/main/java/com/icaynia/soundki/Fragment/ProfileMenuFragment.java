@@ -24,11 +24,13 @@ import com.icaynia.soundki.Data.UserManager;
 import com.icaynia.soundki.Global;
 import com.icaynia.soundki.Model.User;
 import com.icaynia.soundki.R;
+import com.icaynia.soundki.View.ProfileMenuAdapter;
 import com.icaynia.soundki.View.ProfileMenuHeader;
 import com.icaynia.soundki.View.ProfileRow;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
 
 /**
  * Created by icaynia on 2017. 2. 8..
@@ -38,13 +40,17 @@ public class ProfileMenuFragment extends Fragment
 {
     private Global global;
     private View v;
-    private LinearLayout container1;
+    private ListView listView;
 
     private Handler handler = new Handler();
 
     private String userPhotoUrl;
 
     private FirebaseUser firebaseUser;
+
+    private ArrayList<String> list;
+
+    private int i = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -59,20 +65,9 @@ public class ProfileMenuFragment extends Fragment
         Log.e("looog", firebaseUser.getPhotoUrl().toString());
         Log.e("looog", firebaseUser.getEmail());
         Log.e("looog", firebaseUser.getProviders().toString());
-        userPhotoUrl = firebaseUser.getPhotoUrl().toString();
 
-        container1 = (LinearLayout) v.findViewById(R.id.container);
-        container1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
-                onProfileActivity(firebaseUser.getUid());
-            }
-        });
-        listInitialize();
-
-
-
+        listView = (ListView) v.findViewById(R.id.listview);
+        prepare();
         return v;
     }
 
@@ -83,69 +78,17 @@ public class ProfileMenuFragment extends Fragment
         startActivity(intent);
     }
 
-    private void listInitialize()
+    private void prepare()
     {
-        for (int i = 0; i < 1; i++)
+        list = new ArrayList<>();
+        global.userManager.getFollowingList(firebaseUser.getUid(), new UserManager.OnCompleteGetUserFollowingListener()
         {
-            ProfileRow profileRow = new ProfileRow(getContext());
-            //getImage(profileRow.imageView, userPhotoUrl);
-            profileRow.setText(firebaseUser.getDisplayName());
-            container1.addView(profileRow);
-
-            UpdateView updateView = new UpdateView();
-            updateView.setImageView(profileRow.imageView);
-            updateView.execute(userPhotoUrl);
-        }
+            @Override
+            public void onComplete(ArrayList<String> followingList)
+            {
+                ProfileMenuAdapter profileMenuAdapter = new ProfileMenuAdapter(getContext(), followingList);
+                listView.setAdapter(profileMenuAdapter);
+            }
+        });
     }
-
-
-
-    public class UpdateView extends AsyncTask<String, Void, Bitmap>
-    {
-        public ImageView imageView;
-
-        public void setImageView(ImageView imageView)
-        {
-            this.imageView = imageView;
-        }
-        @Override
-        protected void onPreExecute()
-        {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Bitmap doInBackground(String... url)
-        {
-            for (String i : url)
-            {
-                return getImage(i);
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap bitmap)
-        {
-            super.onPostExecute(bitmap);
-            imageView.setImageBitmap(bitmap);
-        }
-
-        private Bitmap getImage(final String ul)
-        {
-            try
-            {
-                URL url = new URL(ul);
-                InputStream is = url.openStream();
-                final Bitmap bm = BitmapFactory.decodeStream(is); //비트맵 객체로 보여주기
-
-                return bm;
-            }
-            catch(Exception e)
-            {
-                return null;
-            }
-        }
-    }
-
 }
