@@ -57,7 +57,8 @@
             android:id="@+id/content_now_listening_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="현재 재생중 : "/>
+            android:text="현재 재생중 : "
+            android:textColor="#efffff"/>
 
     </LinearLayout>
 </LinearLayout>

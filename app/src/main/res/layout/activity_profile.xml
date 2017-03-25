@@ -35,7 +35,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="66dp"
+        android:layout_marginTop="56dp"
+        android:background="@color/colorFragmentBackground"
         android:orientation="vertical">
 
         <include layout="@layout/view_profile_header"/>
