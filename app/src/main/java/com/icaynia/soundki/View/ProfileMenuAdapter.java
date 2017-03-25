@@ -83,7 +83,9 @@ public class ProfileMenuAdapter extends BaseAdapter
             }
         });
 
-        return v;
+        convertView = v;
+
+        return convertView;
     }
 
     public class UpdateView extends AsyncTask<String, Void, Bitmap>
