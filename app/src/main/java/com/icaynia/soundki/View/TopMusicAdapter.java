@@ -81,9 +81,7 @@ public class TopMusicAdapter extends BaseAdapter
             convertView.setLayoutParams(layoutParams);
         }
 
-        final ImageView check = (ImageView) convertView.findViewById(R.id.select_icon);
-        check.setVisibility(View.GONE);
-        RelativeLayout lv=  (RelativeLayout) convertView.findViewById(R.id.lv);
+        RelativeLayout lv =  (RelativeLayout) convertView.findViewById(R.id.lv);
         ImageView album = (ImageView) convertView.findViewById(R.id.view_album);
         album.setImageDrawable(context.getResources().getDrawable(android.R.drawable.ic_menu_report_image));
         TextView title = (TextView) convertView.findViewById(R.id.view_title);

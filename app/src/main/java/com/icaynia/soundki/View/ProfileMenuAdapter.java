@@ -38,7 +38,6 @@ public class ProfileMenuAdapter extends BaseAdapter
         this.followingList = followingList;
         this.global = (Global) context.getApplicationContext();
         inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-
     }
 
     @Override

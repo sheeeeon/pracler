@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/container"
         android:background="@drawable/view_card"
-        android:layout_margin="8dp">
+        android:layout_margin="4dp">
 
         <ImageView
             android:layout_width="40dp"

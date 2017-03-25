@@ -25,6 +25,7 @@ import com.icaynia.soundki.Data.UserManager;
 import com.icaynia.soundki.Global;
 import com.icaynia.soundki.Model.User;
 import com.icaynia.soundki.R;
+import com.icaynia.soundki.View.Card;
 import com.icaynia.soundki.View.ProfileMenuAdapter;
 import com.icaynia.soundki.View.ProfileMenuHeader;
 import com.icaynia.soundki.View.ProfileRow;
@@ -86,7 +87,7 @@ public class ProfileMenuFragment extends Fragment
             @Override
             public void onComplete(final ArrayList<String> followingList)
             {
-                list = followingList;
+                followingList.add(0, firebaseUser.getUid());
                 final ArrayList<User> userlist = new ArrayList<User>();
                 for (i = 0; i < followingList.size(); i++)
                 {
@@ -104,6 +105,7 @@ public class ProfileMenuFragment extends Fragment
                         }
                     });
                 }
+                list = followingList;
             }
         });
 
@@ -115,5 +117,17 @@ public class ProfileMenuFragment extends Fragment
                 onProfileActivity(list.get(i));
             }
         });
+
+        Card card = new Card(getContext());
+        card.setTitleText("친구 찾기");
+        card.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Log.e("onClick", "findFriends");
+            }
+        });
+        listView.addFooterView(card);
     }
 }
