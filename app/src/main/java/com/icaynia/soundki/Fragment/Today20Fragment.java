@@ -68,6 +68,7 @@ public class Today20Fragment extends Fragment
         mainListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                i -= 1;
                 global.playMusic(Integer.parseInt(musicList.getItem(i).getUid_local()));
 
                 PlayList newNowPlayingList = new PlayList();

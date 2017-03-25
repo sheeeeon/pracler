@@ -86,6 +86,7 @@ public class MyTop20Fragment extends Fragment
         mainListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                i -= 1;
                 global.playMusic(Integer.parseInt(top20list.get(i).uid+""));
 
                 PlayList newNowPlayingList = new PlayList();

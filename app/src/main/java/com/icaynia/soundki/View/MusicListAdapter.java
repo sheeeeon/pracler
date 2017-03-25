@@ -77,50 +77,12 @@ public class MusicListAdapter extends BaseAdapter
     @Override
     public View getView(final int position, View convertView, ViewGroup parent)
     {
-
         if (convertView == null)
         {
             convertView = inflater.inflate(R.layout.view_list_musicrows, parent, false);
             ListView.LayoutParams layoutParams = new ListView.LayoutParams(ListView.LayoutParams.MATCH_PARENT, ListView.LayoutParams.MATCH_PARENT);
             convertView.setLayoutParams(layoutParams);
-        }
-        final ImageView check = (ImageView) convertView.findViewById(R.id.select_icon);
-
-        RelativeLayout lv=  (RelativeLayout) convertView.findViewById(R.id.lv);
-
-        if (isChoiceMode())
-        {
-            Log.e("MusicListAdapter", "Choicemode");
-            lv.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v)
-                {
-                    setCheckState(position, !getCheckState(position));
-                    if (getCheckState(position))
-                    {
-                        check.setVisibility(View.VISIBLE);
-                    }
-                    else
-                    {
-                        check.setVisibility(View.GONE);
-                    }
-                }
-            });
-            if (getCheckState(position))
-            {
-                check.setVisibility(View.VISIBLE);
-            }
-            else
-            {
-                check.setVisibility(View.GONE);
-            }
-        }
-        else
-        {
-            Log.e("MusicListAdapter", "defaultMode");
-            check.setVisibility(View.GONE);
-            lv.setClickable(false);
-        }
+        };
 
         ImageView album = (ImageView) convertView.findViewById(R.id.view_album);
         album.setImageDrawable(context.getResources().getDrawable(android.R.drawable.ic_menu_report_image));
