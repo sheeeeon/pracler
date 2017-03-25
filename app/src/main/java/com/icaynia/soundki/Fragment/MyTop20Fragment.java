@@ -71,7 +71,6 @@ public class MyTop20Fragment extends Fragment
 
     public void prepare()
     {
-
         swiperefresh.setRefreshing(true);
 
         final ArrayList<PlayCount> top20list  = global.localHistoryManager.getHistoryDesending();

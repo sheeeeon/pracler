@@ -29,10 +29,10 @@ public class ProfileMenuAdapter extends BaseAdapter
 {
     private Context context;
     public Global global;
-    private ArrayList<String> followingList;
+    private ArrayList<User> followingList;
     private LayoutInflater inflater;
 
-    public ProfileMenuAdapter(Context context, ArrayList<String> followingList)
+    public ProfileMenuAdapter(Context context, ArrayList<User> followingList)
     {
         this.context = context;
         this.followingList = followingList;
@@ -48,7 +48,7 @@ public class ProfileMenuAdapter extends BaseAdapter
     }
 
     @Override
-    public String getItem(int position)
+    public User getItem(int position)
     {
         return followingList.get(position);
     }
@@ -71,17 +71,10 @@ public class ProfileMenuAdapter extends BaseAdapter
 
         final ProfileRow v = (ProfileRow) convertView;
 
-        global.userManager.getUser(followingList.get(position), new UserManager.OnCompleteGetUserListener()
-        {
-            @Override
-            public void onComplete(User user)
-            {
-                v.setText(user.name);
-                UpdateView updateView = new UpdateView();
-                updateView.setImageView(v.imageView);
-                updateView.execute(user.picture);
-            }
-        });
+        v.setText(followingList.get(position).name);
+        UpdateView updateView = new UpdateView();
+        updateView.setImageView(v.imageView);
+        updateView.execute(followingList.get(position).picture);
 
         convertView = v;
 

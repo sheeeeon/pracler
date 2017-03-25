@@ -84,10 +84,25 @@ public class ProfileMenuFragment extends Fragment
         global.userManager.getFollowingList(firebaseUser.getUid(), new UserManager.OnCompleteGetUserFollowingListener()
         {
             @Override
-            public void onComplete(ArrayList<String> followingList)
+            public void onComplete(final ArrayList<String> followingList)
             {
-                ProfileMenuAdapter profileMenuAdapter = new ProfileMenuAdapter(getContext(), followingList);
-                listView.setAdapter(profileMenuAdapter);
+                final ArrayList<User> userlist = new ArrayList<User>();
+                for (i = 0; i < followingList.size(); i++)
+                {
+                    global.userManager.getUser(followingList.get(i), new UserManager.OnCompleteGetUserListener()
+                    {
+                        @Override
+                        public void onComplete(User user)
+                        {
+                            userlist.add(user);
+                            if (userlist.size() == followingList.size())
+                            {
+                                ProfileMenuAdapter profileMenuAdapter = new ProfileMenuAdapter(getContext(), userlist);
+                                listView.setAdapter(profileMenuAdapter);
+                            }
+                        }
+                    });
+                }
             }
         });
     }
