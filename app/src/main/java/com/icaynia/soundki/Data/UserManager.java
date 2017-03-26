@@ -188,12 +188,13 @@ public class UserManager
             @Override
             public void onDataChange(DataSnapshot dataSnapshot)
             {
-                ArrayList<String> arrayList = new ArrayList<String>();
+                ArrayList<User> arrayList = new ArrayList<>();
 
                 for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
-                    String name = (String) messageSnapshot.getValue();
-                    Log.e("UserManager", "Name : "+ name);
-                    arrayList.add(name);
+                    User user = new User();
+                    user.name = (String) messageSnapshot.getValue();
+
+                    arrayList.add(user);
                 }
 
                 listener.onComplete(arrayList);
@@ -295,7 +296,7 @@ public class UserManager
 
     public interface OnCompleteGetUserListListener
     {
-        void onComplete(ArrayList<String> UserList);
+        void onComplete(ArrayList<User> UserList);
     }
 
 

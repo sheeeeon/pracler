@@ -74,11 +74,6 @@ public class FindUserAdapter extends BaseAdapter
         TextView viewTitle = (TextView) convertView.findViewById(R.id.view_title);
 
         viewTitle.setText(followingList.get(position).name);
-        //UpdateView updateView = new UpdateView();
-        //updateView.setImageView(v.imageView);
-        //updateView.execute(followingList.get(position).picture);
-
-        //convertView = v;
 
         return convertView;
     }
