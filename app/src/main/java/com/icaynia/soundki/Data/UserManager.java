@@ -177,13 +177,43 @@ public class UserManager
                 });
     }
 
+    public void getUserList(String findname, int limit, final OnCompleteGetUserListListener listener)
+    {
+        RemoteDatabaseManager rdm = new RemoteDatabaseManager();
+        // 여기서 검색이 잘 동작하는지 모르겠음.
+        Query get = rdm.getUsersReference().startAt(findname).limitToFirst(limit);
+
+        get.addListenerForSingleValueEvent(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot)
+            {
+                ArrayList<String> arrayList = new ArrayList<String>();
+
+                for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
+                    String name = (String) messageSnapshot.getValue();
+                    Log.e("UserManager", "Name : "+ name);
+                    arrayList.add(name);
+                }
+
+                listener.onComplete(arrayList);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError)
+            {
+                
+            }
+        });
+    }
+
     public void getFollowingList(String userId, final OnCompleteGetUserFollowingListener listener)
     {
         RemoteDatabaseManager rdm = new RemoteDatabaseManager();
 
         Query recentPostsQuery = rdm.getUsersReference().child(userId).child("following")
-                .limitToFirst(100);
-        rdm.getUsersReference().child(userId).child("following").addListenerForSingleValueEvent(new ValueEventListener() {
+                .limitToFirst(3000);
+        recentPostsQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ArrayList<String> arrayList = new ArrayList<String>();
@@ -261,6 +291,11 @@ public class UserManager
     public interface OnCompleteGetUserFollowingListener
     {
         void onComplete(ArrayList<String> followingList);
+    }
+
+    public interface OnCompleteGetUserListListener
+    {
+        void onComplete(ArrayList<String> UserList);
     }
 
 
