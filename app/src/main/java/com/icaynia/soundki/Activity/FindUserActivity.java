@@ -36,6 +36,7 @@ public class FindUserActivity extends AppCompatActivity
     private Global global;
 
     private ArrayList<User> nowList;
+    private ArrayList<String> followingList;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -56,6 +57,14 @@ public class FindUserActivity extends AppCompatActivity
 
     private void prepare()
     {
+        global.userManager.getFollowingList(global.loginUid, new UserManager.OnCompleteGetUserFollowingListener()
+        {
+            @Override
+            public void onComplete(ArrayList<String> list)
+            {
+                followingList = list;
+            }
+        });
         button.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -70,6 +79,7 @@ public class FindUserActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
             {
+
             }
         });
     }
@@ -87,6 +97,7 @@ public class FindUserActivity extends AppCompatActivity
                 Log.e("username", username);
                 FindUserAdapter adapter = new FindUserAdapter(getBaseContext(), UserList);
                 listView.setAdapter(adapter);
+                adapter.setFollowList(followingList);
                 adapter.setOnClickListener(new FindUserAdapter.OnClickListener()
                 {
                     @Override
@@ -96,9 +107,13 @@ public class FindUserActivity extends AppCompatActivity
                         {
                             onProfileActivity(nowList.get(position).uid);
                         }
-                        else if (str.equals("follow"))
+                        else if (str.equals("follow-enable"))
                         {
-
+                            global.userManager.setFollowing(global.firebaseAuth.getCurrentUser().getUid(),
+                                    nowList.get(position).uid, false);
+                        }
+                        else if (str.equals("follow-disable"))
+                        {
                             global.userManager.setFollowing(global.firebaseAuth.getCurrentUser().getUid(),
                                     nowList.get(position).uid, true);
                         }
