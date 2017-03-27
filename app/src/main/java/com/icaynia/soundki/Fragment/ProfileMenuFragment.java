@@ -89,6 +89,18 @@ public class ProfileMenuFragment extends Fragment
 
     private void prepare()
     {
+        Card card = new Card(getContext());
+        card.setTitleText("친구 찾기");
+        card.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Log.e("onClick", "findFriends");
+                onFindUserActivity();
+            }
+        });
+        listView.addFooterView(card);
         global.userManager.getFollowingList(firebaseUser.getUid(), new UserManager.OnCompleteGetUserFollowingListener()
         {
             @Override
@@ -121,21 +133,11 @@ public class ProfileMenuFragment extends Fragment
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
             {
+
                 onProfileActivity(list.get(i));
             }
         });
 
-        Card card = new Card(getContext());
-        card.setTitleText("친구 찾기");
-        card.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                Log.e("onClick", "findFriends");
-                onFindUserActivity();
-            }
-        });
-        listView.addFooterView(card);
+
     }
 }

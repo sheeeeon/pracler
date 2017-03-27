@@ -6,6 +6,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -26,6 +28,7 @@ public class FindUserActivity extends AppCompatActivity
 {
     private EditText editText;
     private ListView listView;
+    private Button button;
 
     private Global global;
 
@@ -44,29 +47,17 @@ public class FindUserActivity extends AppCompatActivity
     {
         editText = (EditText) findViewById(R.id.findText);
         listView = (ListView) findViewById(R.id.listview);
+        button = (Button) findViewById(R.id.commit);
     }
 
     private void prepare()
     {
-        editText.addTextChangedListener(new TextWatcher()
+        button.setOnClickListener(new View.OnClickListener()
         {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            public void onClick(View view)
             {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
-            {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable)
-            {
-                update(editable.toString());
-                Log.e("Editable", editable.toString());
+                update(editText.getText().toString());
             }
         });
     }

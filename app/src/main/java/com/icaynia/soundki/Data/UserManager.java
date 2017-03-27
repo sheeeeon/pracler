@@ -189,7 +189,7 @@ public class UserManager
             @Override
             public void onDataChange(DataSnapshot dataSnapshot)
             {
-                ArrayList<User> arrayList = new ArrayList<User>();
+                ArrayList<User> arrayList = new ArrayList<>();
 
                 Iterator<DataSnapshot> i = dataSnapshot.getChildren().iterator();
                 while (i.hasNext()) {
