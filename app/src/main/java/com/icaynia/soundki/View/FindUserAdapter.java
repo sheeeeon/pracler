@@ -83,7 +83,7 @@ public class FindUserAdapter extends BaseAdapter
             @Override
             public void onClick(View view)
             {
-                listener.onClick("position", position);
+                listener.onClick("profile", position);
             }
         });
 
