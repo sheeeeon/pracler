@@ -20,6 +20,7 @@ import com.icaynia.soundki.Model.State;
 import com.icaynia.soundki.Model.User;
 import com.icaynia.soundki.R;
 import com.icaynia.soundki.View.FindUserAdapter;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 
@@ -38,6 +39,8 @@ public class FindUserActivity extends AppCompatActivity
     private ArrayList<User> nowList;
     private ArrayList<String> followingList;
 
+    private AVLoadingIndicatorView loadingbar;
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -46,6 +49,7 @@ public class FindUserActivity extends AppCompatActivity
         global = (Global) getApplication();
         viewInitialize();
         prepare();
+        loadingbar.hide();
     }
 
     private void viewInitialize()
@@ -53,6 +57,8 @@ public class FindUserActivity extends AppCompatActivity
         editText = (EditText) findViewById(R.id.findText);
         listView = (ListView) findViewById(R.id.listview);
         button = (Button) findViewById(R.id.commit);
+        loadingbar = (AVLoadingIndicatorView) findViewById(R.id.loadingBar);
+
     }
 
     private void prepare()
@@ -70,6 +76,7 @@ public class FindUserActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
+                loadingbar.show();
                 update(editText.getText().toString());
             }
         });
@@ -110,15 +117,16 @@ public class FindUserActivity extends AppCompatActivity
                         else if (str.equals("follow-enable"))
                         {
                             global.userManager.setFollowing(global.firebaseAuth.getCurrentUser().getUid(),
-                                    nowList.get(position).uid, false);
+                                    nowList.get(position).uid, true);
                         }
                         else if (str.equals("follow-disable"))
                         {
                             global.userManager.setFollowing(global.firebaseAuth.getCurrentUser().getUid(),
-                                    nowList.get(position).uid, true);
+                                    nowList.get(position).uid, false);
                         }
                     }
                 });
+                loadingbar.hide();
             }
         });
     }

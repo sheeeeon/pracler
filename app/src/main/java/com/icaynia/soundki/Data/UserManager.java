@@ -181,11 +181,12 @@ public class UserManager
                 });
     }
 
-    public void getUserList(String findname, int limit, final OnCompleteGetUserListListener listener)
+    public void getUserList(final String findname, int limit, final OnCompleteGetUserListListener listener)
     {
+
         RemoteDatabaseManager rdm = new RemoteDatabaseManager();
         // 여기서 검색이 잘 동작하는지 모르겠음.
-        Query get = rdm.getUsersReference().orderByChild("profile/name").equalTo(findname);
+        Query get = rdm.getUsersReference().orderByChild("profile/name").startAt(findname);
 
         get.addListenerForSingleValueEvent(new ValueEventListener()
         {
@@ -195,15 +196,19 @@ public class UserManager
                 ArrayList<User> arrayList = new ArrayList<>();
 
                 Iterator<DataSnapshot> i = dataSnapshot.getChildren().iterator();
-                while (i.hasNext()) {
+
+                while (i.hasNext())
+                {
                     Log.e("UserManaer", "get");
                     DataSnapshot d = i.next();
                     User user = (User) d.child("profile").getValue(User.class);
+
                     if (user != null)
+                    if (user.name.contains(findname))
                         arrayList.add(user);
+
                     Log.e("UserManaer", user.name);
                 }
-
 
                 listener.onComplete(arrayList);
             }

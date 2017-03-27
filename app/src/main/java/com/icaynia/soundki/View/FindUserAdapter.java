@@ -117,14 +117,14 @@ public class FindUserAdapter extends BaseAdapter
                 if (searchList.get(position).uid.equals(followList.get(i)))
                 {
                     state.setState(true);
-                    button.setBackgroundResource(R.drawable.view_follow_enable);
+                    setButtonState(button, true);
                     break;
                 }
                 /* 아닌 경우 */
                 else
                 {
                     state.setState(false);
-                    button.setBackgroundResource(R.drawable.view_follow_disable);
+                    setButtonState(button, false);
                     break;
                 }
             }
@@ -133,15 +133,19 @@ public class FindUserAdapter extends BaseAdapter
                 @Override
                 public void onClick(View view)
                 {
+                    // TODO 현재 상태가 팔로잉 상태일 때, 팔로잉을 삭제함
                     if ( state.getState() )
                     {
-                        listener.onClick("follow-enable", position);
-                        button.setBackgroundResource(R.drawable.view_follow_disable);
-                        state.setState(false);
-                    } else if ( !state.getState() )
-                    {
                         listener.onClick("follow-disable", position);
-                        button.setBackgroundResource(R.drawable.view_follow_enable);
+                        setButtonState(button, false);
+                        state.setState(false);
+                    }
+
+                    // TODO 현재 상태가 팔로잉 상태가 아닐 때 팔로우함
+                    else if ( !state.getState() )
+                    {
+                        listener.onClick("follow-enable", position);
+                        setButtonState(button, true);
                         state.setState(true);
                     }
                 }
@@ -149,6 +153,23 @@ public class FindUserAdapter extends BaseAdapter
         }
 
         return convertView;
+    }
+
+    public void setButtonState(Button button, boolean state)
+    {
+        /* 팔로우 중인 유저인 경우 */
+        if (state)
+        {
+            button.setText("팔로우 중");
+            button.setBackgroundResource(R.drawable.view_follow_enable);
+            button.setTextColor(context.getResources().getColor(android.R.color.white));
+        }
+        else
+        {
+            button.setText("팔로잉");
+            button.setBackgroundResource(R.drawable.view_follow_disable);
+            button.setTextColor(context.getResources().getColor(android.R.color.black));
+        }
     }
 
     public void setOnClickListener(OnClickListener listener)
