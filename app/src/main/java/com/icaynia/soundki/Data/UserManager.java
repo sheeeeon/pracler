@@ -226,7 +226,7 @@ public class UserManager
                 ArrayList<String> arrayList = new ArrayList<String>();
 
                 for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
-                    String name = (String) messageSnapshot.getValue();
+                    String name = (String) messageSnapshot.getKey();
                     Log.e("UserManager", "Name : "+ name);
                     arrayList.add(name);
                 }
