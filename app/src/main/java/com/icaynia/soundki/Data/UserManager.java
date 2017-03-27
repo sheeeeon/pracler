@@ -24,6 +24,7 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Locale;
 
 /**
@@ -181,21 +182,26 @@ public class UserManager
     {
         RemoteDatabaseManager rdm = new RemoteDatabaseManager();
         // 여기서 검색이 잘 동작하는지 모르겠음.
-        Query get = rdm.getUsersReference().startAt(findname).limitToFirst(limit);
+        Query get = rdm.getUsersReference().orderByChild("profile/name").equalTo(findname);
 
         get.addListenerForSingleValueEvent(new ValueEventListener()
         {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot)
             {
-                ArrayList<User> arrayList = new ArrayList<>();
+                ArrayList<User> arrayList = new ArrayList<User>();
 
-                for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
-                    User user = new User();
-                    user.name = (String) messageSnapshot.getValue();
+                Iterator<DataSnapshot> i = dataSnapshot.getChildren().iterator();
+                while (i.hasNext()) {
+                    Log.e("UserManaer", "get");
+                    DataSnapshot d = i.next();
+                    User user = (User) d.child("profile").getValue(User.class);
+                    if (user != null)
+                        arrayList.add(user);
 
-                    arrayList.add(user);
+                    Log.e("UserManaer", user.name);
                 }
+
 
                 listener.onComplete(arrayList);
             }

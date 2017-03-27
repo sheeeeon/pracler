@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -36,6 +37,7 @@ public class FindUserActivity extends AppCompatActivity
         setContentView(R.layout.activity_finduser);
         global = (Global) getApplication();
         viewInitialize();
+        prepare();
     }
 
     private void viewInitialize()
@@ -64,11 +66,12 @@ public class FindUserActivity extends AppCompatActivity
             public void afterTextChanged(Editable editable)
             {
                 update(editable.toString());
+                Log.e("Editable", editable.toString());
             }
         });
     }
 
-    private void update(String username)
+    private void update(final String username)
     {
         if (username.equals("")) return ;
 
@@ -77,6 +80,7 @@ public class FindUserActivity extends AppCompatActivity
             @Override
             public void onComplete(ArrayList<User> UserList)
             {
+                Log.e("username", username);
                 FindUserAdapter adapter = new FindUserAdapter(getBaseContext(), UserList);
                 listView.setAdapter(adapter);
             }

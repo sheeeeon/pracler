@@ -19,6 +19,7 @@ import android.widget.RelativeLayout;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
+import com.icaynia.soundki.Activity.FindUserActivity;
 import com.icaynia.soundki.Activity.ProfileActivity;
 import com.icaynia.soundki.Data.RemoteDatabaseManager;
 import com.icaynia.soundki.Data.UserManager;
@@ -80,6 +81,12 @@ public class ProfileMenuFragment extends Fragment
         startActivity(intent);
     }
 
+    private void onFindUserActivity()
+    {
+        Intent intent = new Intent(getContext(), FindUserActivity.class);
+        startActivity(intent);
+    }
+
     private void prepare()
     {
         global.userManager.getFollowingList(firebaseUser.getUid(), new UserManager.OnCompleteGetUserFollowingListener()
@@ -126,6 +133,7 @@ public class ProfileMenuFragment extends Fragment
             public void onClick(View view)
             {
                 Log.e("onClick", "findFriends");
+                onFindUserActivity();
             }
         });
         listView.addFooterView(card);

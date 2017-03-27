@@ -43,6 +43,11 @@
             android:theme="@style/AppTheme">
         </activity>
         <activity
+            android:name=".Activity.FindUserActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+        </activity>
+        <activity
             android:name=".Activity.Splash"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">

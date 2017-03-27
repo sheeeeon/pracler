@@ -72,7 +72,6 @@ public class FindUserAdapter extends BaseAdapter
         }
 
         TextView viewTitle = (TextView) convertView.findViewById(R.id.view_title);
-
         viewTitle.setText(followingList.get(position).name);
 
         return convertView;
