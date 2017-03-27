@@ -137,7 +137,10 @@ public class ProfileMenuFragment extends Fragment
                 {
                     onFindUserActivity();
                 }
-                onProfileActivity(list.get(i));
+                else
+                {
+                    onProfileActivity(list.get(i));
+                }
             }
         });
 

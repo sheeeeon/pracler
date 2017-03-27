@@ -103,42 +103,50 @@ public class FindUserAdapter extends BaseAdapter
 
         final State state = new State();
 
-        for (int i = 0; i < followList.size(); i++)
+        /* 자신의 계정일 경우 */
+        if (searchList.get(position).uid.equals(global.loginUid))
         {
-            /* 팔로우 하는 중인 유저인 경우 */
-            if (searchList.get(position).uid.equals(followList.get(i)))
-            {
-                state.setState(true);
-                button.setBackgroundResource(R.drawable.view_follow_enable);
-                break;
-            }
-            /* 아닌 경우 */
-            else
-            {
-                state.setState(false);
-                button.setBackgroundResource(R.drawable.view_follow_disable);
-                break;
-            }
+            button.setVisibility(View.GONE);
         }
-        button.setOnClickListener(new View.OnClickListener()
+        /* 자신의 계정이 아닌 경우 */
+        else
         {
-            @Override
-            public void onClick(View view)
+            for (int i = 0; i < followList.size(); i++)
             {
-                if (state.getState())
+                /* 팔로우 하는 중인 유저인 경우 */
+                if (searchList.get(position).uid.equals(followList.get(i)))
                 {
-                    listener.onClick("follow-enable", position);
-                    button.setBackgroundResource(R.drawable.view_follow_disable);
-                    state.setState(false);
-                }
-                else if (!state.getState())
-                {
-                    listener.onClick("follow-disable", position);
-                    button.setBackgroundResource(R.drawable.view_follow_enable);
                     state.setState(true);
+                    button.setBackgroundResource(R.drawable.view_follow_enable);
+                    break;
+                }
+                /* 아닌 경우 */
+                else
+                {
+                    state.setState(false);
+                    button.setBackgroundResource(R.drawable.view_follow_disable);
+                    break;
                 }
             }
-        });
+            button.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View view)
+                {
+                    if ( state.getState() )
+                    {
+                        listener.onClick("follow-enable", position);
+                        button.setBackgroundResource(R.drawable.view_follow_disable);
+                        state.setState(false);
+                    } else if ( !state.getState() )
+                    {
+                        listener.onClick("follow-disable", position);
+                        button.setBackgroundResource(R.drawable.view_follow_enable);
+                        state.setState(true);
+                    }
+                }
+            });
+        }
 
         return convertView;
     }
