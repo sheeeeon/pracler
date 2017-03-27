@@ -93,7 +93,11 @@ public class FindUserActivity extends AppCompatActivity
 
     private void update(final String username)
     {
-        if (username.equals("")) return ;
+        if (username.equals(""))
+        {
+            loadingbar.hide();
+            return ;
+        }
 
         global.userManager.getUserList(username, 10, new UserManager.OnCompleteGetUserListListener()
         {
