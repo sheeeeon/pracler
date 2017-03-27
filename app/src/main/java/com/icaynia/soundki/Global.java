@@ -73,6 +73,7 @@ public class Global extends Application
 
 
     /* Firebase */
+    public String loginUid;
     public FirebaseAuth firebaseAuth;
     public FirebaseUser loginUser;
 
@@ -128,6 +129,8 @@ public class Global extends Application
         userManager = new UserManager();
         localHistoryManager = new LocalHistoryManager(this);
         localLikeManager = new LocalLikeManager(this);
+
+        loginUid = loginUser.getUid();
 
         Log.e("Global", "onCreate: called");
     }

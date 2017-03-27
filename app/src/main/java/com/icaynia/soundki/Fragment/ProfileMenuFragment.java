@@ -133,7 +133,10 @@ public class ProfileMenuFragment extends Fragment
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
             {
-
+                if (i >= list.size())
+                {
+                    onFindUserActivity();
+                }
                 onProfileActivity(list.get(i));
             }
         });

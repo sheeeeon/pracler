@@ -40,6 +40,8 @@ public class UserManager
 
     private OnCompleteGetNowListening nowListeningListener;
 
+    public ArrayList<String> followingListCache = new ArrayList<>();
+
     public UserManager()
     {
         firebaseAuth = FirebaseAuth.getInstance();
@@ -232,6 +234,7 @@ public class UserManager
                 }
 
                 listener.onComplete(arrayList);
+                followingListCache = arrayList;
             }
 
             @Override
@@ -246,7 +249,10 @@ public class UserManager
         {
             rdm.getUsersReference().child(userId).child("following").child(followingUserId).setValue(null);
         }
-        rdm.getUsersReference().child(userId).child("following").child(followingUserId).setValue(s);
+        else
+        {
+            rdm.getUsersReference().child(userId).child("following").child(followingUserId).setValue(s);
+        }
     }
 
     public interface OnCompleteGetUserListener

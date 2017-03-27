@@ -19,6 +19,7 @@ import com.icaynia.soundki.Activity.ProfileActivity;
 import com.icaynia.soundki.Data.UserManager;
 import com.icaynia.soundki.Fragment.ProfileMenuFragment;
 import com.icaynia.soundki.Global;
+import com.icaynia.soundki.Model.State;
 import com.icaynia.soundki.Model.User;
 import com.icaynia.soundki.R;
 
@@ -36,29 +37,37 @@ public class FindUserAdapter extends BaseAdapter
 {
     private Context context;
     public Global global;
-    private ArrayList<User> followingList;
+    private ArrayList<User> searchList;
     private LayoutInflater inflater;
+
+    private ArrayList<String> followList;
 
     private OnClickListener listener;
 
-    public FindUserAdapter(Context context, ArrayList<User> followingList)
+    public FindUserAdapter(Context context, ArrayList<User> searchList)
     {
         this.context = context;
-        this.followingList = followingList;
+        this.searchList = searchList;
         this.global = (Global) context.getApplicationContext();
         inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+    }
+
+    /* 팔로우 되어있는지를 확인하기 위한 리스트 */
+    public void setFollowList(ArrayList<String> followList)
+    {
+        this.followList = followList;
     }
 
     @Override
     public int getCount()
     {
-        return followingList.size();
+        return searchList.size();
     }
 
     @Override
     public User getItem(int position)
     {
-        return followingList.get(position);
+        return searchList.get(position);
     }
 
     @Override
@@ -88,15 +97,46 @@ public class FindUserAdapter extends BaseAdapter
         });
 
         TextView viewTitle = (TextView) convertView.findViewById(R.id.view_title);
-        viewTitle.setText(followingList.get(position).name);
+        viewTitle.setText(searchList.get(position).name);
 
-        Button button = (Button) convertView.findViewById(R.id.button_follow);
+        final Button button = (Button) convertView.findViewById(R.id.button_follow);
+
+        final State state = new State();
+
+        for (int i = 0; i < followList.size(); i++)
+        {
+            /* 팔로우 하는 중인 유저인 경우 */
+            if (searchList.get(position).uid.equals(followList.get(i)))
+            {
+                state.setState(true);
+                button.setBackgroundResource(R.drawable.view_follow_enable);
+                break;
+            }
+            /* 아닌 경우 */
+            else
+            {
+                state.setState(false);
+                button.setBackgroundResource(R.drawable.view_follow_disable);
+                break;
+            }
+        }
         button.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-                listener.onClick("follow", position);
+                if (state.getState())
+                {
+                    listener.onClick("follow-enable", position);
+                    button.setBackgroundResource(R.drawable.view_follow_disable);
+                    state.setState(false);
+                }
+                else if (!state.getState())
+                {
+                    listener.onClick("follow-disable", position);
+                    button.setBackgroundResource(R.drawable.view_follow_enable);
+                    state.setState(true);
+                }
             }
         });
 
