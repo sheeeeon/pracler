@@ -112,6 +112,7 @@ public class UserManager
         user.name = loginUser.getDisplayName();
         user.picture = loginUser.getPhotoUrl().toString();
         user.email = loginUser.getEmail();
+        user.uid = loginUser.getUid();
 
         dr.child(loginUser.getUid()).child("profile").setValue(user);
     }
@@ -198,7 +199,6 @@ public class UserManager
                     User user = (User) d.child("profile").getValue(User.class);
                     if (user != null)
                         arrayList.add(user);
-
                     Log.e("UserManaer", user.name);
                 }
 
@@ -239,14 +239,14 @@ public class UserManager
         });
     }
 
-    public void setFollowing(String userId, String followingUserId, boolean State)
+    public void setFollowing(String userId, String followingUserId, boolean s)
     {
         RemoteDatabaseManager rdm = new RemoteDatabaseManager();
-        if (!State)
+        if (!s)
         {
             rdm.getUsersReference().child(userId).child("following").child(followingUserId).setValue(null);
         }
-        rdm.getUsersReference().child(userId).child("following").child(followingUserId).setValue(State);
+        rdm.getUsersReference().child(userId).child("following").child(followingUserId).setValue(s);
     }
 
     public interface OnCompleteGetUserListener

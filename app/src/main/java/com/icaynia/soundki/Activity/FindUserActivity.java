@@ -1,5 +1,6 @@
 package com.icaynia.soundki.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -7,6 +8,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 
 import com.icaynia.soundki.Data.UserManager;
 import com.icaynia.soundki.Global;
+import com.icaynia.soundki.Model.State;
 import com.icaynia.soundki.Model.User;
 import com.icaynia.soundki.R;
 import com.icaynia.soundki.View.FindUserAdapter;
@@ -32,6 +35,7 @@ public class FindUserActivity extends AppCompatActivity
 
     private Global global;
 
+    private ArrayList<User> nowList;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -60,6 +64,14 @@ public class FindUserActivity extends AppCompatActivity
                 update(editText.getText().toString());
             }
         });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
+            {
+            }
+        });
     }
 
     private void update(final String username)
@@ -71,13 +83,39 @@ public class FindUserActivity extends AppCompatActivity
             @Override
             public void onComplete(ArrayList<User> UserList)
             {
+                nowList = UserList;
                 Log.e("username", username);
                 FindUserAdapter adapter = new FindUserAdapter(getBaseContext(), UserList);
                 listView.setAdapter(adapter);
+                adapter.setOnClickListener(new FindUserAdapter.OnClickListener()
+                {
+                    @Override
+                    public void onClick(String str, int position)
+                    {
+                        if (str.equals("profile"))
+                        {
+                            onProfileActivity(nowList.get(position).uid);
+                        }
+                        else if (str.equals("follow"))
+                        {
+
+                            global.userManager.setFollowing(global.firebaseAuth.getCurrentUser().getUid(),
+                                    nowList.get(position).uid, true);
+                        }
+                    }
+                });
             }
         });
-
     }
+
+    private void onProfileActivity(String uid)
+    {
+        Intent intent = new Intent(this, ProfileActivity.class);
+        intent.putExtra("targetUid", uid);
+        startActivity(intent);
+    }
+
+
 
 
 }

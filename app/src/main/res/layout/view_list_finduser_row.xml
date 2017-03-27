@@ -5,40 +5,50 @@
               android:layout_height="match_parent">
 
     <RelativeLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/container"
-        android:background="@drawable/view_card"
-        android:layout_margin="4dp">
+        android:layout_margin="4dp"
+        android:background="@drawable/view_card">
+
 
         <ImageView
+            android:id="@+id/view_image"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background="#2f2a36"
-            android:id="@+id/view_image"
             android:layout_margin="8dp"
+            android:background="#2f2a36"
             />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:orientation="vertical"
-            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:layout_toEndOf="@+id/view_image">
+            android:layout_toEndOf="@+id/view_image"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
 
             <TextView
+                android:id="@+id/view_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/view_title"
-                android:textSize="16dp"
-                android:textColor="#efffff"/>
+                android:textColor="#efffff"
+                android:textSize="16dp"/>
 
 
         </LinearLayout>
+
+        <Button
+            android:id="@+id/button_follow"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_margin="13dp"
+            android:background="@drawable/view_follow_enable"
+            android:text="Follow"/>
     </RelativeLayout>
 
 </LinearLayout>

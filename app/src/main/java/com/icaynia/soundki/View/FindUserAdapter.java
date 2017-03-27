@@ -1,6 +1,7 @@
 package com.icaynia.soundki.View;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -8,10 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.icaynia.soundki.Activity.ProfileActivity;
 import com.icaynia.soundki.Data.UserManager;
 import com.icaynia.soundki.Fragment.ProfileMenuFragment;
 import com.icaynia.soundki.Global;
@@ -34,6 +38,8 @@ public class FindUserAdapter extends BaseAdapter
     public Global global;
     private ArrayList<User> followingList;
     private LayoutInflater inflater;
+
+    private OnClickListener listener;
 
     public FindUserAdapter(Context context, ArrayList<User> followingList)
     {
@@ -71,10 +77,35 @@ public class FindUserAdapter extends BaseAdapter
             convertView.setLayoutParams(layoutParams);
         }
 
+        RelativeLayout container = (RelativeLayout) convertView.findViewById(R.id.container);
+        container.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                listener.onClick("position", position);
+            }
+        });
+
         TextView viewTitle = (TextView) convertView.findViewById(R.id.view_title);
         viewTitle.setText(followingList.get(position).name);
 
+        Button button = (Button) convertView.findViewById(R.id.button_follow);
+        button.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                listener.onClick("follow", position);
+            }
+        });
+
         return convertView;
+    }
+
+    public void setOnClickListener(OnClickListener listener)
+    {
+        this.listener = listener;
     }
 
     public class UpdateView extends AsyncTask<String, Void, Bitmap>
@@ -124,4 +155,10 @@ public class FindUserAdapter extends BaseAdapter
             }
         }
     }
+
+    public interface OnClickListener
+    {
+        void onClick(String str, int position);
+    }
+
 }

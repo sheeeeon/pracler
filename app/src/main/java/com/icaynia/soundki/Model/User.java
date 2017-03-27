@@ -6,7 +6,7 @@ package com.icaynia.soundki.Model;
 
 public class User
 {
-    public String uid;
+    public String uid = "";
     public String id = "";
     public String name = "";
     public String email = "";
