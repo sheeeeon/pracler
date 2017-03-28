@@ -1,0 +1,24 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="com.icaynia.pracler.activities.MainActivity">
+
+    <item
+        android:id="@+id/action_newplaylist"
+        android:orderInCategory="100"
+        android:title="새로운 재생목록"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_nowplaying"
+        android:orderInCategory="100"
+        android:title="지금 재생 중"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="환경설정"
+        app:showAsAction="never"/>
+
+</menu>
