@@ -14,8 +14,7 @@ import com.icaynia.soundki.Model.MusicList;
 import com.icaynia.soundki.Model.PlayList;
 import com.icaynia.soundki.R;
 import com.icaynia.soundki.View.CardHeader;
-import com.icaynia.soundki.View.MusicListAdapter;
-import com.icaynia.soundki.View.PlayListAdapter;
+import com.icaynia.soundki.adapters.MusicListAdapter;
 
 import java.util.ArrayList;
 import java.util.Random;

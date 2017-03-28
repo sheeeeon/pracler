@@ -8,10 +8,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 
-import com.icaynia.soundki.Global;
-import com.icaynia.soundki.Model.MusicList;
 import com.icaynia.soundki.R;
-import com.icaynia.soundki.View.MusicListAdapter;
 
 /**
  * Created by icaynia on 16/03/2017.

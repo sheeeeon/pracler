@@ -1,4 +1,4 @@
-package com.icaynia.soundki.View;
+package com.icaynia.soundki.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,7 +11,6 @@ import com.icaynia.soundki.Model.MusicDto;
 import com.icaynia.soundki.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by icaynia on 13/03/2017.

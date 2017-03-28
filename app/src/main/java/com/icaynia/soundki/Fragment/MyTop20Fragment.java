@@ -10,12 +10,11 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.icaynia.soundki.Global;
-import com.icaynia.soundki.Model.LocalPlayHistory;
 import com.icaynia.soundki.Model.PlayCount;
 import com.icaynia.soundki.Model.PlayList;
 import com.icaynia.soundki.R;
 import com.icaynia.soundki.View.CardHeader;
-import com.icaynia.soundki.View.TopMusicAdapter;
+import com.icaynia.soundki.adapters.TopMusicAdapter;
 
 import java.util.ArrayList;
 

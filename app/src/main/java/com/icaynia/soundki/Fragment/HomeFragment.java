@@ -1,7 +1,5 @@
 package com.icaynia.soundki.Fragment;
 
-import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,26 +9,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.ListView;
 
-import com.icaynia.soundki.Activity.PlayListActivity;
-import com.icaynia.soundki.CardLayout.ButtonView;
-import com.icaynia.soundki.Data.MusicFileManager;
-import com.icaynia.soundki.Data.PlayListManager;
 import com.icaynia.soundki.Global;
-import com.icaynia.soundki.CardLayout.FriendStateView;
 import com.icaynia.soundki.CardLayout.MyStateView;
 import com.icaynia.soundki.CardLayout.RecommandSongView;
 import com.icaynia.soundki.Model.MusicDto;
 import com.icaynia.soundki.R;
 import com.icaynia.soundki.View.Card;
-import com.icaynia.soundki.View.CardView;
-import com.icaynia.soundki.View.MenuSelecter;
-import com.icaynia.soundki.View.PlayListsAdapter;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 /**

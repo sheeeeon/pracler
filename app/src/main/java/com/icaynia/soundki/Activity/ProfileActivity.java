@@ -1,31 +1,22 @@
 package com.icaynia.soundki.Activity;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.icaynia.soundki.Data.UserManager;
 import com.icaynia.soundki.Model.MusicDto;
 import com.icaynia.soundki.Model.User;
 import com.icaynia.soundki.R;
-import com.icaynia.soundki.View.PlayLogListAdapter;
-
-import org.w3c.dom.Text;
+import com.icaynia.soundki.adapters.PlayLogListAdapter;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.zip.Inflater;
 
 /**
  * Created by icaynia on 06/03/2017.

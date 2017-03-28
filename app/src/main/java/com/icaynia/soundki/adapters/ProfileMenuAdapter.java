@@ -1,4 +1,4 @@
-package com.icaynia.soundki.View;
+package com.icaynia.soundki.adapters;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -16,6 +16,7 @@ import com.icaynia.soundki.Fragment.ProfileMenuFragment;
 import com.icaynia.soundki.Global;
 import com.icaynia.soundki.Model.User;
 import com.icaynia.soundki.R;
+import com.icaynia.soundki.View.ProfileRow;
 
 import java.io.InputStream;
 import java.net.URL;

@@ -1,31 +1,22 @@
 package com.icaynia.soundki.Activity;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.icaynia.soundki.Data.PlayListManager;
 import com.icaynia.soundki.Global;
 import com.icaynia.soundki.Model.PlayList;
 import com.icaynia.soundki.R;
-import com.icaynia.soundki.View.MusicListAdapter;
-import com.icaynia.soundki.View.PlayListAdapter;
-
-import java.util.List;
+import com.icaynia.soundki.adapters.PlayListAdapter;
 
 public class PlayListActivity extends AppCompatActivity
 {

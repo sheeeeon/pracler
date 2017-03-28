@@ -11,7 +11,7 @@ import android.widget.ListView;
 
 import com.icaynia.soundki.Global;
 import com.icaynia.soundki.R;
-import com.icaynia.soundki.View.PlayListsAdapter;
+import com.icaynia.soundki.adapters.PlayListsAdapter;
 
 import java.util.ArrayList;
 

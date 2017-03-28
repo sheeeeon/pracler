@@ -1,4 +1,4 @@
-package com.icaynia.soundki.View;
+package com.icaynia.soundki.adapters;
 
 import android.content.Context;
 import android.content.Intent;

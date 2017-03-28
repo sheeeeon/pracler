@@ -1,9 +1,6 @@
 package com.icaynia.soundki.Fragment;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -12,27 +9,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
 import com.icaynia.soundki.Activity.FindUserActivity;
 import com.icaynia.soundki.Activity.ProfileActivity;
-import com.icaynia.soundki.Data.RemoteDatabaseManager;
 import com.icaynia.soundki.Data.UserManager;
 import com.icaynia.soundki.Global;
 import com.icaynia.soundki.Model.User;
 import com.icaynia.soundki.R;
 import com.icaynia.soundki.View.Card;
-import com.icaynia.soundki.View.ProfileMenuAdapter;
-import com.icaynia.soundki.View.ProfileMenuHeader;
-import com.icaynia.soundki.View.ProfileRow;
+import com.icaynia.soundki.adapters.ProfileMenuAdapter;
 
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 
 /**

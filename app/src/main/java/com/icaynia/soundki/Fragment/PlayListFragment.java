@@ -14,9 +14,8 @@ import com.icaynia.soundki.Global;
 import com.icaynia.soundki.Model.MusicDto;
 import com.icaynia.soundki.Model.PlayList;
 import com.icaynia.soundki.R;
-import com.icaynia.soundki.View.PlayListAdapter;
+import com.icaynia.soundki.adapters.PlayListAdapter;
 import com.icaynia.soundki.View.PlayListSelectPopup;
-import com.icaynia.soundki.View.PlayListsAdapter;
 import com.icaynia.soundki.View.SelectPopup;
 
 import java.util.ArrayList;

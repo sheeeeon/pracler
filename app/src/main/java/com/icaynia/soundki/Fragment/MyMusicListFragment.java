@@ -1,39 +1,22 @@
 package com.icaynia.soundki.Fragment;
 
-import android.accounts.Account;
-import android.app.ActionBar;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.database.DataSetObserver;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
-import android.text.Layout;
-import android.util.AttributeSet;
 import android.util.Log;
-import android.view.ActionMode;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.icaynia.soundki.Activity.MainActivity;
-import com.icaynia.soundki.Data.FileManager;
 import com.icaynia.soundki.Data.MusicFileManager;
 import com.icaynia.soundki.Data.PlayListManager;
 import com.icaynia.soundki.Global;
@@ -42,12 +25,10 @@ import com.icaynia.soundki.Model.MusicList;
 import com.icaynia.soundki.Model.PlayList;
 import com.icaynia.soundki.R;
 import com.icaynia.soundki.View.Card;
-import com.icaynia.soundki.View.MenuListAdapter;
-import com.icaynia.soundki.View.MusicListAdapter;
-import com.icaynia.soundki.View.PlayListAdapter;
+import com.icaynia.soundki.adapters.MenuListAdapter;
+import com.icaynia.soundki.adapters.MusicListAdapter;
 import com.icaynia.soundki.View.PlayListSelecter;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 

@@ -9,19 +9,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 ;
-import com.icaynia.soundki.Activity.MainActivity;
 import com.icaynia.soundki.Data.PlayListManager;
-import com.icaynia.soundki.Fragment.MyMusicListFragment;
 import com.icaynia.soundki.Global;
-import com.icaynia.soundki.Model.MusicList;
 import com.icaynia.soundki.R;
+import com.icaynia.soundki.adapters.MenuListAdapter;
 
 import java.util.ArrayList;
 
