@@ -3,7 +3,9 @@ pracle.me
 
 An Android application project that tracks listening to music. This is project that under development.
 
-> [![acme2](screenshot/MainActivity_Fragment_MyMusicListFragment.png)](screenshot)
+> [![acme2](screenshot/1.png)](screenshot)
+> [![acme2](screenshot/2.png)](screenshot)
+> [![acme2](screenshot/3.png)](screenshot)
 
 License
 -----
