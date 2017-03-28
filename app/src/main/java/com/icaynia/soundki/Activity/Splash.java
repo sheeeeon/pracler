@@ -21,7 +21,9 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.icaynia.soundki.Data.UserManager;
 import com.icaynia.soundki.Global;
+import com.icaynia.soundki.Model.User;
 import com.icaynia.soundki.R;
 
 /**
@@ -33,7 +35,8 @@ public class Splash extends AppCompatActivity
     private Global global;
     private LoginButton facebookLoginButton;
     private CallbackManager mCallbackManager;
-    private FirebaseAuth mAuth;
+    FirebaseAuth firebaseAuth;
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -42,7 +45,7 @@ public class Splash extends AppCompatActivity
 
         global = (Global) getApplication();
         mCallbackManager = CallbackManager.Factory.create();
-        mAuth = FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
 
         facebookLoginButton = (LoginButton) findViewById(R.id.login_button);
         facebookLoginButton.setReadPermissions("email", "public_profile");
@@ -52,8 +55,6 @@ public class Splash extends AppCompatActivity
             {
                 Log.d("facebook", "facebook:onSuccess:" + loginResult);
                 handleFacebookAccessToken(loginResult.getAccessToken());
-                global.loginUser = mAuth.getCurrentUser();
-                onMainActivity();
             }
 
             @Override
@@ -77,7 +78,7 @@ public class Splash extends AppCompatActivity
             @Override
             public void run()
             {
-                if (mAuth.getCurrentUser() != null)
+                if (firebaseAuth.getCurrentUser() != null)
                 {
                     onMainActivity();
                 }
@@ -101,7 +102,7 @@ public class Splash extends AppCompatActivity
         Log.d("Facebook", "handleFacebookAccessToken:" + token);
 
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-        mAuth.signInWithCredential(credential)
+        firebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -112,10 +113,25 @@ public class Splash extends AppCompatActivity
                         // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
                             Log.w("Facebook", "signInWithCredential", task.getException());
-
                         }
 
-                        // ...
+                        global.loginUser = firebaseAuth.getCurrentUser();
+
+                        global.userManager.setLoginUser(global.loginUser);
+
+                        global.userManager.getUser(global.loginUser.getUid(), new UserManager.OnCompleteGetUserListener()
+                        {
+                            @Override
+                            public void onComplete(User user)
+                            {
+                                if (user == null)
+                                {
+                                    global.userManager.addNewUser();
+                                }
+
+                                onMainActivity();
+                            }
+                        });
                     }
                 });
 

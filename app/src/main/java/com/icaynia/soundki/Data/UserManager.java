@@ -49,6 +49,11 @@ public class UserManager
         rdm = new RemoteDatabaseManager();
     }
 
+    public void setLoginUser(FirebaseUser firebaseUser)
+    {
+        loginUser = firebaseUser;
+    }
+
     public void getUser(String userId, final OnCompleteGetUserListener listener)
     {
         rdm.getUsersReference().child(userId).child("profile").addListenerForSingleValueEvent(

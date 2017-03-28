@@ -94,7 +94,10 @@ public class HomeFragment extends Fragment
         {
             Random rand = new Random();
             int size = global.mMusicManager.getMusicList().size();
+            if (size != 0)
             randint = rand.nextInt(size);
+            else
+                randint = 0;
             MusicDto musicDto = global.mMusicManager.getMusicList().getItem(randint);
 
             for (String i : id)

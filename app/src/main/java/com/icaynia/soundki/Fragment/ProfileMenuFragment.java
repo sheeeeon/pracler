@@ -66,7 +66,6 @@ public class ProfileMenuFragment extends Fragment
         firebaseUser = global.loginUser;
         Log.e("looog", firebaseUser.getDisplayName());
         Log.e("looog", firebaseUser.getPhotoUrl().toString());
-        Log.e("looog", firebaseUser.getEmail());
         Log.e("looog", firebaseUser.getProviders().toString());
 
         listView = (ListView) v.findViewById(R.id.listview);

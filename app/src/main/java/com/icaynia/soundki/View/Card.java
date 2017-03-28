@@ -39,11 +39,12 @@ public class Card extends RelativeLayout
         onCreate();
     }
 
-    @TargetApi(21)
-    public Card(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
+    public Card(Context context, AttributeSet attrs, int defStyle)
+    {
+        super(context, attrs, defStyle);
         onCreate();
     }
+
     public void onCreate()
     {
         initializeView();

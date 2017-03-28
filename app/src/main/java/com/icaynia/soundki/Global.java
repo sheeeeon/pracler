@@ -129,7 +129,7 @@ public class Global extends Application
         userManager = new UserManager();
         localHistoryManager = new LocalHistoryManager(this);
         localLikeManager = new LocalLikeManager(this);
-
+        if (loginUser != null)
         loginUid = loginUser.getUid();
 
         Log.e("Global", "onCreate: called");
