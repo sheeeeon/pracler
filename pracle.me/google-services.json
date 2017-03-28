@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1006504111355",
+    "firebase_url": "https://pracleme.firebaseio.com",
+    "project_id": "pracleme",
+    "storage_bucket": "pracleme.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1006504111355:android:ec8aea65ef44bdc9",
+        "android_client_info": {
+          "package_name": "com.icaynia.pracleme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1006504111355-9u3q899aj2vg783kslo7612tsdn1nj47.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBo9XUKk0nKuuit-cvju6n02WD9-Fk4lqo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

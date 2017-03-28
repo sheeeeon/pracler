@@ -9,7 +9,6 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/encryptionExample" />
             <option value="$PROJECT_DIR$/facebook-android-sdk-4.19.0" />
             <option value="$PROJECT_DIR$/gridViewExample" />
@@ -23,6 +22,7 @@
             <option value="$PROJECT_DIR$/moduleExample/library" />
             <option value="$PROJECT_DIR$/newsreaderExample" />
             <option value="$PROJECT_DIR$/objectServerExample" />
+            <option value="$PROJECT_DIR$/pracle.me" />
             <option value="$PROJECT_DIR$/rxJavaExample" />
             <option value="$PROJECT_DIR$/secureTokenAndroidKeyStore" />
             <option value="$PROJECT_DIR$/threadExample" />

@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/moduleExample/app/app.iml" filepath="$PROJECT_DIR$/moduleExample/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/encryptionExample/encryptionExample.iml" filepath="$PROJECT_DIR$/encryptionExample/encryptionExample.iml" />
       <module fileurl="file://$PROJECT_DIR$/facebook-android-sdk-4.19.0/facebook-android-sdk-4.19.0.iml" filepath="$PROJECT_DIR$/facebook-android-sdk-4.19.0/facebook-android-sdk-4.19.0.iml" />
       <module fileurl="file://$PROJECT_DIR$/gridViewExample/gridViewExample.iml" filepath="$PROJECT_DIR$/gridViewExample/gridViewExample.iml" />
@@ -12,13 +13,12 @@
       <module fileurl="file://$PROJECT_DIR$/moduleExample/library/library.iml" filepath="$PROJECT_DIR$/moduleExample/library/library.iml" />
       <module fileurl="file://$PROJECT_DIR$/migrationExample/migrationExample.iml" filepath="$PROJECT_DIR$/migrationExample/migrationExample.iml" />
       <module fileurl="file://$PROJECT_DIR$/moduleExample/moduleExample.iml" filepath="$PROJECT_DIR$/moduleExample/moduleExample.iml" />
-      <module fileurl="file://$PROJECT_DIR$/moduleExample/app/moduleExample-app.iml" filepath="$PROJECT_DIR$/moduleExample/app/moduleExample-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/newsreaderExample/newsreaderExample.iml" filepath="$PROJECT_DIR$/newsreaderExample/newsreaderExample.iml" />
       <module fileurl="file://$PROJECT_DIR$/objectServerExample/objectServerExample.iml" filepath="$PROJECT_DIR$/objectServerExample/objectServerExample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pracle.me/pracle.me.iml" filepath="$PROJECT_DIR$/pracle.me/pracle.me.iml" />
       <module fileurl="file://$PROJECT_DIR$/rxJavaExample/rxJavaExample.iml" filepath="$PROJECT_DIR$/rxJavaExample/rxJavaExample.iml" />
       <module fileurl="file://$PROJECT_DIR$/secureTokenAndroidKeyStore/secureTokenAndroidKeyStore.iml" filepath="$PROJECT_DIR$/secureTokenAndroidKeyStore/secureTokenAndroidKeyStore.iml" />
       <module fileurl="file://$PROJECT_DIR$/soundki.iml" filepath="$PROJECT_DIR$/soundki.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/soundki-app.iml" filepath="$PROJECT_DIR$/app/soundki-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/threadExample/threadExample.iml" filepath="$PROJECT_DIR$/threadExample/threadExample.iml" />
       <module fileurl="file://$PROJECT_DIR$/unitTestExample/unitTestExample.iml" filepath="$PROJECT_DIR$/unitTestExample/unitTestExample.iml" />
     </modules>
