@@ -131,9 +131,9 @@ public class Global extends Application
         if (loginUser != null)
         loginUid = loginUser.getUid();
 
+
         Log.e("Global", "onCreate: called");
     }
-
 
 
     @Override

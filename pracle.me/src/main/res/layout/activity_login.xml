@@ -12,9 +12,9 @@
         android:paddingLeft="24dp"
         android:paddingRight="24dp">
 
-        <ImageView android:src="@drawable/soundki_beta_2_1"
-            android:layout_width="wrap_content"
-            android:layout_height="72dp"
+        <ImageView android:src="@drawable/logo_beta"
+            android:layout_width="205dp"
+            android:layout_height="84dp"
             android:layout_marginBottom="24dp"
             android:layout_gravity="center_horizontal" />
 

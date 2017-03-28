@@ -26,6 +26,7 @@ public class ProfileActivity extends AppCompatActivity
 {
     private String targetUid;
     private FirebaseUser firebaseUser;
+
     /** VIEW */
     private TextView text_name;
     private TextView text_description;
@@ -99,7 +100,7 @@ public class ProfileActivity extends AppCompatActivity
         {
             MusicDto dto = new MusicDto();
             dto.setTitle("0000-00-00 - name "+i);
-            musicDto.add(dto);
+            //musicDto.add(dto)=
         }
         recyclerView.setAdapter(new PlayLogListAdapter(musicDto));
     }
