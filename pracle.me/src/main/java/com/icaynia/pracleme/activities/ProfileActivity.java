@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.icaynia.pracleme.Data.UserManager;
-import com.icaynia.pracleme.Model.MusicDto;
-import com.icaynia.pracleme.Model.User;
+import com.icaynia.pracleme.models.MusicDto;
+import com.icaynia.pracleme.models.User;
 import com.icaynia.pracleme.R;
 import com.icaynia.pracleme.adapters.PlayLogListAdapter;
 

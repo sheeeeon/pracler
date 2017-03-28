@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.icaynia.pracleme.Data.PlayListManager;
 import com.icaynia.pracleme.Global;
-import com.icaynia.pracleme.Model.PlayList;
+import com.icaynia.pracleme.models.PlayList;
 import com.icaynia.pracleme.R;
 import com.icaynia.pracleme.adapters.PlayListAdapter;
 

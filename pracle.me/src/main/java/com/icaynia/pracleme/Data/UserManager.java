@@ -11,10 +11,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.icaynia.pracleme.Model.MusicDto;
-import com.icaynia.pracleme.Model.PlayHistory;
-import com.icaynia.pracleme.Model.State;
-import com.icaynia.pracleme.Model.User;
+import com.icaynia.pracleme.models.MusicDto;
+import com.icaynia.pracleme.models.PlayHistory;
+import com.icaynia.pracleme.models.State;
+import com.icaynia.pracleme.models.User;
 
 import java.io.InputStream;
 import java.net.URL;

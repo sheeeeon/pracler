@@ -22,7 +22,7 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.icaynia.pracleme.Data.UserManager;
 import com.icaynia.pracleme.Global;
-import com.icaynia.pracleme.Model.User;
+import com.icaynia.pracleme.models.User;
 import com.icaynia.pracleme.R;
 
 /**

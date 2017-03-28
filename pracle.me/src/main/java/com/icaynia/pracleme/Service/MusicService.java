@@ -10,7 +10,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 
 import com.icaynia.pracleme.Global;
-import com.icaynia.pracleme.Model.MusicDto;
+import com.icaynia.pracleme.models.MusicDto;
 
 /**
  * Created by icaynia on 2017. 2. 9..

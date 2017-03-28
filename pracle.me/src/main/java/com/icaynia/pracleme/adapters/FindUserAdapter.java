@@ -15,8 +15,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.icaynia.pracleme.Global;
-import com.icaynia.pracleme.Model.State;
-import com.icaynia.pracleme.Model.User;
+import com.icaynia.pracleme.models.State;
+import com.icaynia.pracleme.models.User;
 import com.icaynia.pracleme.R;
 
 import java.io.InputStream;

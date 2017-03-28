@@ -12,7 +12,7 @@ import android.widget.ListView;
 
 import com.icaynia.pracleme.Data.UserManager;
 import com.icaynia.pracleme.Global;
-import com.icaynia.pracleme.Model.User;
+import com.icaynia.pracleme.models.User;
 import com.icaynia.pracleme.R;
 import com.icaynia.pracleme.adapters.FindUserAdapter;
 import com.wang.avi.AVLoadingIndicatorView;

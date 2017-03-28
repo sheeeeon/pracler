@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.icaynia.pracleme.Global;
-import com.icaynia.pracleme.Model.User;
+import com.icaynia.pracleme.models.User;
 import com.icaynia.pracleme.View.ProfileRow;
 
 import java.io.InputStream;

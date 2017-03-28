@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.icaynia.pracleme.Model.MusicDto;
+import com.icaynia.pracleme.models.MusicDto;
 import com.icaynia.pracleme.R;
 
 import java.util.ArrayList;

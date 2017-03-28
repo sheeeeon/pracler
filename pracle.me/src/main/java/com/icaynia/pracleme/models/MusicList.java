@@ -1,4 +1,4 @@
-package com.icaynia.pracleme.Model;
+package com.icaynia.pracleme.models;
 
 import java.io.Serializable;
 import java.util.ArrayList;

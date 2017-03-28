@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import com.icaynia.pracleme.Global;
 import com.icaynia.pracleme.CardLayout.MyStateView;
 import com.icaynia.pracleme.CardLayout.RecommandSongView;
-import com.icaynia.pracleme.Model.MusicDto;
+import com.icaynia.pracleme.models.MusicDto;
 import com.icaynia.pracleme.R;
 import com.icaynia.pracleme.View.Card;
 

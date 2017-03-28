@@ -14,8 +14,8 @@ import android.widget.TextView;
 
 import com.icaynia.pracleme.Data.MusicFileManager;
 import com.icaynia.pracleme.Global;
-import com.icaynia.pracleme.Model.MusicDto;
-import com.icaynia.pracleme.Model.MusicList;
+import com.icaynia.pracleme.models.MusicDto;
+import com.icaynia.pracleme.models.MusicList;
 import com.icaynia.pracleme.R;
 
 import java.util.ArrayList;

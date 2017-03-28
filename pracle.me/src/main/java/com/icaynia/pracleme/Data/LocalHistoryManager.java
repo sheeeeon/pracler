@@ -3,9 +3,9 @@ package com.icaynia.pracleme.Data;
 import android.content.Context;
 import android.util.Log;
 
-import com.icaynia.pracleme.Model.LocalPlayHistory;
-import com.icaynia.pracleme.Model.MusicList;
-import com.icaynia.pracleme.Model.PlayCount;
+import com.icaynia.pracleme.models.LocalPlayHistory;
+import com.icaynia.pracleme.models.MusicList;
+import com.icaynia.pracleme.models.PlayCount;
 
 import java.util.ArrayList;
 

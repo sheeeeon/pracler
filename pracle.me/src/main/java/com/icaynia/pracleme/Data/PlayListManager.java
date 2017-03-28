@@ -2,7 +2,7 @@ package com.icaynia.pracleme.Data;
 
 import android.content.Context;
 
-import com.icaynia.pracleme.Model.PlayList;
+import com.icaynia.pracleme.models.PlayList;
 
 import java.util.ArrayList;
 

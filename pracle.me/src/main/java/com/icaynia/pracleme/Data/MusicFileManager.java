@@ -12,8 +12,8 @@ import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.util.Log;
 
-import com.icaynia.pracleme.Model.MusicDto;
-import com.icaynia.pracleme.Model.MusicList;
+import com.icaynia.pracleme.models.MusicDto;
+import com.icaynia.pracleme.models.MusicList;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

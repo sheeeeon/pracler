@@ -1,4 +1,4 @@
-package com.icaynia.pracleme.Model;
+package com.icaynia.pracleme.models;
 
 /**
  * Created by icaynia on 2017. 2. 9..
