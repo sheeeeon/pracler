@@ -15,9 +15,9 @@
       <module fileurl="file://$PROJECT_DIR$/moduleExample/moduleExample.iml" filepath="$PROJECT_DIR$/moduleExample/moduleExample.iml" />
       <module fileurl="file://$PROJECT_DIR$/newsreaderExample/newsreaderExample.iml" filepath="$PROJECT_DIR$/newsreaderExample/newsreaderExample.iml" />
       <module fileurl="file://$PROJECT_DIR$/objectServerExample/objectServerExample.iml" filepath="$PROJECT_DIR$/objectServerExample/objectServerExample.iml" />
-      <module fileurl="file://$PROJECT_DIR$/pracle.me.iml" filepath="$PROJECT_DIR$/pracle.me.iml" />
       <module fileurl="file://$PROJECT_DIR$/pracle.me/pracle.me.iml" filepath="$PROJECT_DIR$/pracle.me/pracle.me.iml" />
-      <module fileurl="file://$PROJECT_DIR$/pracler/pracler.iml" filepath="$PROJECT_DIR$/pracler/pracler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pracler.iml" filepath="$PROJECT_DIR$/pracler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pracler/pracler-pracler.iml" filepath="$PROJECT_DIR$/pracler/pracler-pracler.iml" />
       <module fileurl="file://$PROJECT_DIR$/rxJavaExample/rxJavaExample.iml" filepath="$PROJECT_DIR$/rxJavaExample/rxJavaExample.iml" />
       <module fileurl="file://$PROJECT_DIR$/secureTokenAndroidKeyStore/secureTokenAndroidKeyStore.iml" filepath="$PROJECT_DIR$/secureTokenAndroidKeyStore/secureTokenAndroidKeyStore.iml" />
       <module fileurl="file://$PROJECT_DIR$/soundki.iml" filepath="$PROJECT_DIR$/soundki.iml" />
