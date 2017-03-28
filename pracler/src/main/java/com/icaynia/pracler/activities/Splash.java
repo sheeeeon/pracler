@@ -179,8 +179,7 @@ public class Splash extends AppCompatActivity
                                 {
                                     global.userManager.addNewUser();
                                 }
-
-                                onMainActivity();
+                                checkPermission();
                             }
                         });
                     }

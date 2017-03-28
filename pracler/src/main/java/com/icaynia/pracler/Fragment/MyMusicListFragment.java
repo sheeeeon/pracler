@@ -68,7 +68,7 @@ public class MyMusicListFragment extends Fragment
 
         Card today_recommand_20 = (Card) v.findViewById(R.id.today_recommand_20);
         today_recommand_20.setButtonImageDrawable(getResources().getDrawable(R.drawable.ic_grade));
-        today_recommand_20.setButtonTitleText("지금 SoundKi가 추천하는 10곡");
+        today_recommand_20.setButtonTitleText("지금 pracler가 추천하는 10곡");
         today_recommand_20.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
