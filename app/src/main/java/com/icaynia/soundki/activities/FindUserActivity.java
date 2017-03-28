@@ -1,4 +1,4 @@
-package com.icaynia.soundki.Activity;
+package com.icaynia.soundki.activities;
 
 import android.content.Intent;
 import android.os.Bundle;

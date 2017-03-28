@@ -1,4 +1,4 @@
-package com.icaynia.soundki.Activity;
+package com.icaynia.soundki.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;

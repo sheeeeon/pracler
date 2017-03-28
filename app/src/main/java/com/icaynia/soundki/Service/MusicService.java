@@ -3,14 +3,12 @@ package com.icaynia.soundki.Service;
 import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;
-import android.media.TimedText;
 import android.net.Uri;
 import android.os.Binder;
 import android.os.IBinder;
 import android.provider.MediaStore;
 import android.util.Log;
 
-import com.icaynia.soundki.Activity.PlayerActivity;
 import com.icaynia.soundki.Global;
 import com.icaynia.soundki.Model.MusicDto;
 

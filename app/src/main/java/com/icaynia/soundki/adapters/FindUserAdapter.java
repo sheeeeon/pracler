@@ -1,7 +1,6 @@
 package com.icaynia.soundki.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -15,15 +14,10 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.icaynia.soundki.Activity.ProfileActivity;
-import com.icaynia.soundki.Data.UserManager;
-import com.icaynia.soundki.Fragment.ProfileMenuFragment;
 import com.icaynia.soundki.Global;
 import com.icaynia.soundki.Model.State;
 import com.icaynia.soundki.Model.User;
 import com.icaynia.soundki.R;
-
-import org.w3c.dom.Text;
 
 import java.io.InputStream;
 import java.net.URL;

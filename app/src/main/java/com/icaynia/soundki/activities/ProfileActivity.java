@@ -1,4 +1,4 @@
-package com.icaynia.soundki.Activity;
+package com.icaynia.soundki.activities;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;

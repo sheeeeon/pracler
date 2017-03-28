@@ -12,8 +12,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseUser;
-import com.icaynia.soundki.Activity.FindUserActivity;
-import com.icaynia.soundki.Activity.ProfileActivity;
+import com.icaynia.soundki.activities.FindUserActivity;
+import com.icaynia.soundki.activities.ProfileActivity;
 import com.icaynia.soundki.Data.UserManager;
 import com.icaynia.soundki.Global;
 import com.icaynia.soundki.Model.User;

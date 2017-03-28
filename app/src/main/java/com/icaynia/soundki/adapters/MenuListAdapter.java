@@ -28,7 +28,6 @@ public class MenuListAdapter extends BaseAdapter
         this.context = context;
         this.list = list;
         inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-
     }
 
     @Override

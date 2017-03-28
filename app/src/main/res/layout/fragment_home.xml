@@ -3,7 +3,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/colorFragmentBackground"
-                tools:context="com.icaynia.soundki.Activity.MainActivity">
+                tools:context="com.icaynia.soundki.activities.MainActivity">
 
     <ListView
         android:id="@+id/playlistview"
