@@ -10,4 +10,6 @@
     <string name="my_play_count">My Play Count</string>
     <string name="permission_must_to_grant_for_use_pracler">Permission must to grant for use permission.</string>
     <string name="like">Like</string>
+    <string name="input_user_name">Input user name here</string>
+    <string name="search_user">Search user</string>
 </resources>
