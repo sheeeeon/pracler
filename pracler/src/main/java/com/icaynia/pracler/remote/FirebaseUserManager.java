@@ -23,6 +23,8 @@ public class FirebaseUserManager
         database.child(newUser.uid).child("profile").setValue(newUser);
     }
 
+
+
     public static void getNowListening()
     {
 

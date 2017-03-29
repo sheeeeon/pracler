@@ -18,6 +18,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.icaynia.pracler.Data.PlayListManager;
 import com.icaynia.pracler.Data.UserManager;
 import com.icaynia.pracler.Fragment.HomeFragment;
@@ -30,6 +35,7 @@ import com.icaynia.pracler.models.User;
 import com.icaynia.pracler.R;
 import com.icaynia.pracler.View.InputPopup;
 import com.icaynia.pracler.View.MusicController;
+import com.icaynia.pracler.remote.models.PraclerAlert;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -103,6 +109,27 @@ public class MainActivity extends AppCompatActivity
 
         updateController();
 
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference("Users");
+        database.child(global.loginUser.getUid()).child("alert").addChildEventListener(new ChildEventListener() {  // message는 child의 이벤트를 수신합니다.
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                PraclerAlert alert = dataSnapshot.getValue(PraclerAlert.class);
+                global.newAlert(alert);
+                Log.e("alert_service", "changed - " + alert.messages);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) { }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) { }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) { }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
+        });
     }
 
     @Override

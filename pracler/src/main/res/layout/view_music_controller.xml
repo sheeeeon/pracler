@@ -49,7 +49,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingBottom="3dp"
-                        android:text="재생중인 항목이 없습니다."
+                        android:text="@string/no_playing_song"
                         android:textSize="15dp"
                         android:textColor="#FFF"
                         android:ellipsize="marquee"

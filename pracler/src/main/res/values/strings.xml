@@ -12,4 +12,11 @@
     <string name="like">Like</string>
     <string name="input_user_name">Input user name here</string>
     <string name="search_user">Search user</string>
+    <string name="mymusic_now_recommand">Now recommanded 10 songs by pracler</string>
+    <string name="mymusic_most_20">Your top 20 songs</string>
+    <string name="mymusic_myplaylist">My playlist</string>
+    <string name="mymusic_myalbum">My album</string>
+    <string name="mymusic_myartist">My artists</string>
+    <string name="search_friend">Find your friends</string>
+    <string name="no_playing_song">You are not playing any song.</string>
 </resources>

@@ -18,7 +18,12 @@ import android.util.Log;
 import com.facebook.FacebookSdk;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.icaynia.pracler.Service.AlertService;
 import com.icaynia.pracler.activities.PlayerActivity;
 import com.icaynia.pracler.Data.LocalHistoryManager;
 import com.icaynia.pracler.Data.LocalLikeManager;
@@ -34,6 +39,10 @@ import com.icaynia.pracler.models.MusicRes;
 import com.icaynia.pracler.models.PlayList;
 import com.icaynia.pracler.models.PlayHistory;
 import com.icaynia.pracler.Service.MusicService;
+import com.icaynia.pracler.models.User;
+import com.icaynia.pracler.remote.FirebaseUserManager;
+import com.icaynia.pracler.remote.listener.OnCompleteGetFirebaseUserListener;
+import com.icaynia.pracler.remote.models.PraclerAlert;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -53,8 +62,10 @@ public class Global extends Application
     public int SORT_LENGTH = 3;
     public int SORT_PLAYCOUNT = 4;
 
+    public AlertService alertService;
     public MusicService musicService;
     public Intent musicServiceIntent;
+    public Intent alertServiceIntent;
     public MusicFileManager mMusicManager;
 
     public PlayListManager playListManager;
@@ -84,16 +95,12 @@ public class Global extends Application
             musicService = binder.getService();
             musicService.getPlayingMusic();
 
-            musicService.mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            musicService.mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener()
+            {
                 @Override
-                public void onCompletion(MediaPlayer mp) {
-                    int songid = musicService.getPlayingMusic();
-                    addHistory(songid);
+                public void onCompletion(MediaPlayer mediaPlayer)
+                {
 
-                    generateMusicFinishedEvent();
-
-                    playNextMusic();
-                    generatePlayerChangeEvent();
                 }
             });
 
@@ -108,6 +115,72 @@ public class Global extends Application
         }
     };
 
+    private ServiceConnection alertServiceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(final ComponentName name, IBinder service)
+        {
+            AlertService.AlertBinder binder = (AlertService.AlertBinder) service;
+            alertService = binder.getService();
+            alertService.getPlayingMusic();
+
+            alertService.setOnAddedAlertListener(new AlertService.OnAddedAlertListener()
+            {
+                @Override
+                public void onAdded(PraclerAlert alert)
+                {
+                    newAlert(alert);
+                }
+            });
+
+            Log.e("Global", "onServiceConnected: called");
+
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name)
+        {
+
+        }
+    };
+
+    public void newAlert(final PraclerAlert alert)
+    {
+        Intent notificationIntent = new Intent(this, PlayerActivity.class);
+        notificationIntent.putExtra("notificationId", 3333); //전달할 값
+        final PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        final NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        int songId = musicService.getPlayingMusic();
+        MusicDto musicDto = mMusicManager.getMusicDto(songId+"");
+        //Bitmap albumArt = mMusicManager.getAlbumImage(getApplicationContext(), Integer.parseInt(musicDto.getAlbumId()), 100);
+        FirebaseUserManager.getUser(alert.user_uid, new OnCompleteGetFirebaseUserListener()
+        {
+            @Override
+            public void onComplete(User user)
+            {
+                builder.setContentTitle(alert.messages)
+                        .setContentText(alert.messages)
+                        .setTicker(alert.messages)
+                        .setSmallIcon(R.drawable.ic_headset_white)
+                        .setContentIntent(contentIntent)
+                        .setAutoCancel(false)
+                        .setWhen(System.currentTimeMillis());
+
+
+
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                    builder.setCategory(Notification.CATEGORY_MESSAGE)
+                            .setPriority(Notification.PRIORITY_HIGH)
+                            .setVisibility(Notification.VISIBILITY_PUBLIC);
+                }
+
+                NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                nm.notify(3333, builder.build());
+            }
+        });
+
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -120,6 +193,12 @@ public class Global extends Application
             bindService(musicServiceIntent, musicServiceConnection, Context.BIND_AUTO_CREATE);
             startService(musicServiceIntent);
         }
+        if (alertServiceIntent == null)
+        {
+            alertServiceIntent = new Intent(this, AlertService.class);
+            bindService(alertServiceIntent, alertServiceConnection, Context.BIND_AUTO_CREATE);
+            startService(alertServiceIntent);
+        }
 
         mMusicManager = new MusicFileManager(getApplicationContext());
         playListManager = new PlayListManager(this);
@@ -130,7 +209,6 @@ public class Global extends Application
         localLikeManager = new LocalLikeManager(this);
         if (loginUser != null)
         loginUid = loginUser.getUid();
-
 
         Log.e("Global", "onCreate: called");
     }

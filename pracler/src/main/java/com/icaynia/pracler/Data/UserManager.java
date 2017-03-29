@@ -15,6 +15,7 @@ import com.icaynia.pracler.models.MusicDto;
 import com.icaynia.pracler.models.PlayHistory;
 import com.icaynia.pracler.models.State;
 import com.icaynia.pracler.models.User;
+import com.icaynia.pracler.remote.FirebaseAlertManager;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -260,6 +261,7 @@ public class UserManager
         else
         {
             rdm.getUsersReference().child(userId).child("following").child(followingUserId).setValue(s);
+            FirebaseAlertManager.sendAlert(userId, followingUserId, loginUser.getDisplayName()+"님이 당신을 팔로우합니다!", loginUser.getPhotoUrl().toString());
         }
     }
 

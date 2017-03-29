@@ -8,4 +8,7 @@ package com.icaynia.pracler.remote.models;
 
 public class PraclerSong
 {
+    public String artist;
+    public String album;
+    public String title;
 }

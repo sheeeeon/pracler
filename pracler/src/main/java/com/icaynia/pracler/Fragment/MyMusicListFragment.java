@@ -68,7 +68,7 @@ public class MyMusicListFragment extends Fragment
 
         Card today_recommand_20 = (Card) v.findViewById(R.id.today_recommand_20);
         today_recommand_20.setButtonImageDrawable(getResources().getDrawable(R.drawable.ic_grade));
-        today_recommand_20.setButtonTitleText("지금 pracler가 추천하는 10곡");
+        today_recommand_20.setButtonTitleText(getString(R.string.mymusic_now_recommand));
         today_recommand_20.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -83,7 +83,7 @@ public class MyMusicListFragment extends Fragment
 
         Card top_20 = (Card) v.findViewById(R.id.top_20);
         top_20.setButtonImageDrawable(getResources().getDrawable(R.drawable.ic_thumb_up));
-        top_20.setButtonTitleText("가장 많이 들은 곡 20곡");
+        top_20.setButtonTitleText(getString(R.string.mymusic_most_20));
         top_20.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -98,7 +98,7 @@ public class MyMusicListFragment extends Fragment
 
         Card playlist = (Card) v.findViewById(R.id.playlist);
         playlist.setButtonImageDrawable(getResources().getDrawable(R.drawable.ic_playlist_play_black));
-        playlist.setButtonTitleText("내 플레이리스트");
+        playlist.setButtonTitleText(getString(R.string.mymusic_myplaylist));
         playlist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -113,7 +113,7 @@ public class MyMusicListFragment extends Fragment
 
         Card album = (Card) v.findViewById(R.id.album);
         album.setButtonImageDrawable(getResources().getDrawable(R.drawable.ic_album));
-        album.setButtonTitleText("내 앨범");
+        album.setButtonTitleText(getString(R.string.mymusic_myalbum));
         album.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -128,7 +128,7 @@ public class MyMusicListFragment extends Fragment
 
         Card artist = (Card) v.findViewById(R.id.artist);
         artist.setButtonImageDrawable(getResources().getDrawable(R.drawable.ic_recent_actors));
-        artist.setButtonTitleText("내 아티스트");
+        artist.setButtonTitleText(getString(R.string.mymusic_myartist));
         artist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
