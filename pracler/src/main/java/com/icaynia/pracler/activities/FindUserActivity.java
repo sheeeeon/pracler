@@ -3,6 +3,7 @@ package com.icaynia.pracler.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -53,6 +54,10 @@ public class FindUserActivity extends AppCompatActivity
         listView = (ListView) findViewById(R.id.listview);
         button = (Button) findViewById(R.id.commit);
         loadingbar = (AVLoadingIndicatorView) findViewById(R.id.loadingBar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setTitle(getString(R.string.search_user));
 
     }
 
@@ -93,6 +98,8 @@ public class FindUserActivity extends AppCompatActivity
             loadingbar.hide();
             return ;
         }
+
+        loadingbar.show();
 
         global.userManager.getUserList(username, 10, new UserManager.OnCompleteGetUserListListener()
         {

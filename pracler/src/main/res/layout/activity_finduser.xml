@@ -1,70 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorFragmentBackground">
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.icaynia.pracler.activities.SongDetailsActivity">
 
-    <RelativeLayout
-        android:id="@+id/findform"
+
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="7dp"
-        android:layout_marginRight="7dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp">
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <EditText
-            android:id="@+id/findText"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay"/>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorFragmentBackground">
+        <RelativeLayout
+            android:id="@+id/findform"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/commit"
-            android:layout_alignParentStart="true"
-            android:layout_toStartOf="@+id/commit"
-            android:textColor="#EFFFFF"/>
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="7dp"
+            android:layout_marginRight="7dp"
+            android:layout_marginTop="60dp">
 
-        <Button
-            android:id="@+id/commit"
-            android:layout_width="100dp"
+            <EditText
+                android:id="@+id/findText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/commit"
+                android:layout_alignParentStart="true"
+                android:layout_toStartOf="@+id/commit"
+                android:hint="@string/input_user_name"
+                android:textColor="#EFFFFF"
+                android:textColorHint="#888888"/>
+
+            <Button
+                android:id="@+id/commit"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:text="SEARCH"/>
+
+        </RelativeLayout>
+
+        <ListView
+            android:id="@+id/listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:dividerHeight="0dp"
+            android:background="@color/colorFragmentBackground"
+            android:layout_marginLeft="7dp"
+            android:layout_marginRight="7dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:layout_below="@id/findform">
+
+        </ListView>
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:text="SEARCH"/>
+            android:gravity="center_horizontal"
+            android:layout_below="@id/findform">
+
+            <com.wang.avi.AVLoadingIndicatorView
+                android:id="@+id/loadingBar"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:indicatorName="BallPulseIndicator"
+                android:padding="30dp"
+                android:gravity="center_horizontal"
+                android:layout_alignParentEnd="true"
+                android:layout_alignStart="@+id/listview"/>
+
+        </LinearLayout>
 
     </RelativeLayout>
 
 
-    <ListView
-        android:id="@+id/listview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:dividerHeight="0dp"
-        android:background="@color/colorFragmentBackground"
-        android:layout_marginLeft="7dp"
-        android:layout_marginRight="7dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
-        android:layout_below="@id/findform">
 
-    </ListView>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:layout_below="@id/findform">
-
-        <com.wang.avi.AVLoadingIndicatorView
-            android:id="@+id/loadingBar"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            app:indicatorName="BallPulseIndicator"
-            android:padding="30dp"
-            android:gravity="center_horizontal"
-            android:layout_alignParentEnd="true"
-            android:layout_alignStart="@+id/listview"/>
-
-    </LinearLayout>
-
-
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

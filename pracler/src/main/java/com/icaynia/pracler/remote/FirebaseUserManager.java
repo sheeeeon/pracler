@@ -23,6 +23,11 @@ public class FirebaseUserManager
         database.child(newUser.uid).child("profile").setValue(newUser);
     }
 
+    public static void getNowListening()
+    {
+
+    }
+
     public static void getUser(String uid, final OnCompleteGetFirebaseUserListener listener)
     {
         DatabaseReference database = getUsersReference();
