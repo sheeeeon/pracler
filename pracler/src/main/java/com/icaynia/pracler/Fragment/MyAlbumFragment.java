@@ -9,11 +9,14 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.icaynia.pracler.Global;
+import com.icaynia.pracler.adapters.SongListAdapter;
+import com.icaynia.pracler.dataloader.SongLoader;
 import com.icaynia.pracler.models.MusicList;
 import com.icaynia.pracler.models.PlayList;
 import com.icaynia.pracler.R;
 import com.icaynia.pracler.View.CardHeader;
 import com.icaynia.pracler.adapters.MusicListAdapter;
+import com.icaynia.pracler.models.SongList;
 
 /**
  * Created by icaynia on 16/03/2017.
@@ -47,9 +50,9 @@ public class MyAlbumFragment extends Fragment
     {
         global = (Global) getContext().getApplicationContext();
 
-        final MusicList musicList = global.mMusicManager.sort(global.mMusicManager.getMusicList(), 1); // 1 means sort by album name.
+        final SongList songList = SongLoader.getSongs(getContext());
 
-        MusicListAdapter adapter = new MusicListAdapter(getContext(), musicList);
+        SongListAdapter adapter = new SongListAdapter(getContext(), songList);
         listView.setAdapter(adapter);
 
         CardHeader cardHeader = new CardHeader(getContext());
@@ -61,12 +64,12 @@ public class MyAlbumFragment extends Fragment
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 i -= 1;
-                global.playMusic(Integer.parseInt(musicList.getItem(i).getUid_local()));
+                global.playMusic(songList.get(i).uid);
 
                 PlayList newNowPlayingList = new PlayList();
-                for (int t = 0; t < musicList.size(); t++)
+                for (int t = 0; t < songList.size(); t++)
                 {
-                    newNowPlayingList.addItem(musicList.getItem(t).getUid_local());
+                    newNowPlayingList.addItem(songList.get(t).uid+"");
                 }
 
                 newNowPlayingList.setPosition(i);

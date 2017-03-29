@@ -210,7 +210,7 @@ public class Global extends Application
         userManager.addHistory(playHistory);
     }
 
-    public void playMusic(int songId)
+    public void playMusic(long songId)
     {
         MusicDto musicDto = mMusicManager.getMusicDto(songId+"");
 
