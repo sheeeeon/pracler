@@ -208,9 +208,7 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings)
         {
-            Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
-            return true;
+
         }
         else if (id == R.id.action_nowplaying)
         {
@@ -285,11 +283,11 @@ public class MainActivity extends AppCompatActivity
             switch (position)
             {
                 case 0:
-                    return "홈";
+                    return getString(R.string.tab_home);
                 case 1:
-                    return "내 음악";
+                    return getString(R.string.tab_mymusic);
                 case 2:
-                    return "프로필";
+                    return getString(R.string.tab_profile);
             }
             return null;
         }

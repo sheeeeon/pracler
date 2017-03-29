@@ -5,6 +5,8 @@
     <string name="tab_mymusic" translatable="false">My Music</string>
     <string name="tab_profile" translatable="false">Profile</string>
     <string name="no_playing_item" translatable="false">재생중인 항목이 없습니다.</string>
+    <string name="recommand_for_you" translatable="false">이 곡도 들어보세요</string>
+    <string name="my_history" translatable="false">내 기록</string>
 
 
 </resources>

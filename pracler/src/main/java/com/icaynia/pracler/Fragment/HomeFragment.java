@@ -103,7 +103,7 @@ public class HomeFragment extends Fragment
             rsv.setRecommandSong(result);
             rsv.setImage(global.mMusicManager.getAlbumImage(getContext(), Integer.parseInt(result.getAlbumId()), 100));
             Card card = (Card) v.findViewById(R.id.card_recommand);
-            card.setTitleText("이 곡도 들어 보세요");
+            card.setTitleText(getString(R.string.recommand_for_you));
             card.deleteContent();
             card.addContent(rsv);
             card.setOnClickListener(new View.OnClickListener() {
@@ -115,7 +115,7 @@ public class HomeFragment extends Fragment
             });
 
             Card cv = (Card) v.findViewById(R.id.card_yourstate);
-            cv.setTitleText("내 기록");
+            cv.setTitleText(getString(R.string.my_history));
             cv.deleteContent();
             MyStateView msv = new MyStateView(getContext());
             msv.setPlayCount(global.localHistoryManager.getHistoryCount());
