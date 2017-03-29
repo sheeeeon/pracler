@@ -2,4 +2,6 @@
 <resources>
     <string name="app_name">pracler</string>
     <string name="facebook_app_id">424097974597566</string>
+    <string name="permission_must_to_grant_for_use_pracler" translatable="false">pracler를 사용하려면 권한 허가가 필요합니다.</string>
+    <string name="recommand_for_you" translatable="false">이 곡도 들어 보세요</string>
 </resources>
