@@ -1,8 +1,10 @@
 package com.icaynia.pracler.activities;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -95,22 +97,31 @@ public class Splash extends AppCompatActivity
     }
 
     private void checkPermission() {
-        if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED
-                || checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
+        // m 버전 이상일 때만 호출
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+        {
+            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED
+                    || checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
 
-            // Should we show an explanation?
-            if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                // Explain to the user why we need to write the permission.
-                Toast.makeText(this, "Read/Write external storage", Toast.LENGTH_SHORT).show();
+                // Should we show an explanation?
+                if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    // Explain to the user why we need to write the permission.
+                    Toast.makeText(this, "Read/Write external storage", Toast.LENGTH_SHORT).show();
+                }
+
+                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        1);
+            } else {
+                onMainActivity();
             }
-
-            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    1);
-        } else {
+        }
+        else
+        {
             onMainActivity();
         }
+
     }
 
     @Override
@@ -122,7 +133,6 @@ public class Splash extends AppCompatActivity
 
 
                     prepare();
-                    onMainActivity();
                     // permission was granted, yay! do the
                     // calendar task you need to do.
 
