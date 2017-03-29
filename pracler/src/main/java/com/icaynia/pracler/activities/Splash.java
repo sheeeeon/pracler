@@ -27,6 +27,8 @@ import com.icaynia.pracler.Data.UserManager;
 import com.icaynia.pracler.Global;
 import com.icaynia.pracler.models.User;
 import com.icaynia.pracler.R;
+import com.icaynia.pracler.remote.FirebaseUserManager;
+import com.icaynia.pracler.remote.listener.OnCompleteGetFirebaseUserListener;
 
 /**
  * Created by icaynia on 13/02/2017.
@@ -70,7 +72,7 @@ public class Splash extends AppCompatActivity
             public void onError(FacebookException error)
             {
                 Log.d("facebook", "facebook:error" + error.toString());
-
+                Toast.makeText(getBaseContext(), "서버에 연결할 수 없습니다. 인터넷 연결을 확인해주세요.", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -82,7 +84,7 @@ public class Splash extends AppCompatActivity
             {
                 if (firebaseAuth.getCurrentUser() != null)
                 {
-                    checkPermission();
+                    prepare();
                 }
                 else
                 {
@@ -106,13 +108,7 @@ public class Splash extends AppCompatActivity
 
             requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     1);
-
-            // MY_PERMISSION_REQUEST_STORAGE is an
-            // app-defined int constant
-
         } else {
-            // 다음 부분은 항상 허용일 경우에 해당이 됩니다.
-
             onMainActivity();
         }
     }
@@ -125,6 +121,7 @@ public class Splash extends AppCompatActivity
                         && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
 
 
+                    prepare();
                     onMainActivity();
                     // permission was granted, yay! do the
                     // calendar task you need to do.
@@ -132,7 +129,7 @@ public class Splash extends AppCompatActivity
                 } else {
 
                     Log.d("splash", "Permission always deny");
-                    Toast.makeText(this, "pracle.me 를 사용하기 위해서는 권한 허가가 꼭 필요합니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "pracler를 사용하기 위해서는 권한 허가가 꼭 필요합니다.", Toast.LENGTH_SHORT).show();
                     finish();
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
@@ -165,25 +162,41 @@ public class Splash extends AppCompatActivity
                         if (!task.isSuccessful()) {
                             Log.w("Facebook", "signInWithCredential", task.getException());
                         }
-
-                        global.loginUser = firebaseAuth.getCurrentUser();
-
-                        global.userManager.setLoginUser(global.loginUser);
-
-                        global.userManager.getUser(global.loginUser.getUid(), new UserManager.OnCompleteGetUserListener()
-                        {
-                            @Override
-                            public void onComplete(User user)
-                            {
-                                if (user == null)
-                                {
-                                    global.userManager.addNewUser();
-                                }
-                                checkPermission();
-                            }
-                        });
+                        prepare();
                     }
                 });
+
+    }
+
+    public void prepare()
+    {
+        global.loginUser = firebaseAuth.getCurrentUser();
+
+        global.userManager.setLoginUser(global.loginUser);
+
+        /* 신규인지 확인 */
+        FirebaseUserManager.getUser(global.loginUser.getUid(), new OnCompleteGetFirebaseUserListener()
+        {
+            @Override
+            public void onComplete(User user)
+            {
+                if (user != null)
+                {
+                    Log.e("tag", "user "+user.uid+" already created.");
+                }
+                else if (user == null)
+                {
+                    Log.e("tag", "user wasn't created! now create.");
+                    User newUser = new User();
+                    newUser.uid = global.loginUser.getUid();
+                    newUser.email = global.loginUser.getEmail();
+                    newUser.name = global.loginUser.getDisplayName();
+                    newUser.picture = global.loginUser.getPhotoUrl().toString();
+                    FirebaseUserManager.addNewUser(newUser);
+                }
+                checkPermission();
+            }
+        });
 
     }
 

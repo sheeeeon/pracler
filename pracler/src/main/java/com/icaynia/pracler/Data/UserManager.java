@@ -44,6 +44,7 @@ public class UserManager
         firebaseAuth = FirebaseAuth.getInstance();
         loginUser = firebaseAuth.getCurrentUser();
         rdm = new RemoteDatabaseManager();
+
     }
 
     public void setLoginUser(FirebaseUser firebaseUser)
