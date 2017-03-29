@@ -7,10 +7,11 @@ package com.icaynia.pracler.models;
 public class Song
 {
     public long uid;
-    public long artistUid;
-    public long albumUid;
+    public int artistUid;
+    public int albumUid;
     public String title;
     public String artist;
     public String album;
-    public String length;
+
+    public int length;
 }
