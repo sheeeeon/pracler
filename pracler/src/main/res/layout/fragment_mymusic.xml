@@ -12,11 +12,6 @@
         android:background="#cc402b3e"
         android:visibility="gone">
 
-        <Spinner android:id="@+id/spin1"
-                 android:layout_height="wrap_content"
-                 android:layout_width="match_parent"
-                 android:layout_marginLeft="8dp"
-                 android:layout_marginRight="8dp"/>
 
     </LinearLayout>
 
