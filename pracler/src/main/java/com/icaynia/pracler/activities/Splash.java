@@ -129,7 +129,7 @@ public class Splash extends AppCompatActivity
                 } else {
 
                     Log.d("splash", "Permission always deny");
-                    Toast.makeText(this, "pracler를 사용하기 위해서는 권한 허가가 꼭 필요합니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.permission_must_to_grant_for_use_pracler), Toast.LENGTH_SHORT).show();
                     finish();
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.

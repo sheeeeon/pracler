@@ -1,12 +1,13 @@
-<resources>
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">pracler</string>
     <string name="facebook_app_id">424097974597566</string>
-    <string name="tab_home" translatable="false">Home</string>
-    <string name="tab_mymusic" translatable="false">My Music</string>
-    <string name="tab_profile" translatable="false">Profile</string>
-    <string name="recommand_for_you" translatable="false">Recommand for you</string>
-    <string name="my_history" translatable="false">내 기록</string>
-    <string name="permission_must_to_grant_for_use_pracler" translatable="false">Permission must to grant for use permission.</string>
-
-
+    <string name="tab_home">Home</string>
+    <string name="tab_mymusic">My Music</string>
+    <string name="tab_profile">Profile</string>
+    <string name="recommand_for_you">Recommand for you</string>
+    <string name="my_history">My History</string>
+    <string name="my_play_count">My Play Count</string>
+    <string name="permission_must_to_grant_for_use_pracler">Permission must to grant for use permission.</string>
+    <string name="like">Like</string>
 </resources>

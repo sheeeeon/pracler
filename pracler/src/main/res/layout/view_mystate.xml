@@ -12,7 +12,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="내 플레이 회수"
+            android:text="@string/my_play_count"
             android:textSize="13dp"
             android:textColor="#efffff"/>
 
@@ -36,7 +36,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="내 좋아요"
+            android:text="@string/like"
             android:textSize="13dp"
             android:textColor="#efffff"/>
 

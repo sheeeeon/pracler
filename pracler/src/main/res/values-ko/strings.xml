@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">pracler</string>
     <string name="facebook_app_id">424097974597566</string>
-    <string name="permission_must_to_grant_for_use_pracler" translatable="false">pracler를 사용하려면 권한 허가가 필요합니다.</string>
-    <string name="recommand_for_you" translatable="false">이 곡도 들어 보세요</string>
+    <string name="tab_home">홈</string>
+    <string name="tab_mymusic">내 음악</string>
+    <string name="tab_profile">프로필</string>
+    <string name="recommand_for_you">이 곡도 들어보세요</string>
+    <string name="my_history">내 기록</string>
+    <string name="permission_must_to_grant_for_use_pracler">pracler를 사용하려면 권한이 꼭 필요합니다.</string>
+    <string name="my_play_count">내 플레이 회수</string>
+    <string name="like">좋아요</string>
 </resources>
