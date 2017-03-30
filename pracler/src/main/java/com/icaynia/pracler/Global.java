@@ -18,12 +18,10 @@ import android.util.Log;
 import com.facebook.FacebookSdk;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.icaynia.pracler.Service.AlertService;
+import com.icaynia.pracler.notifications.MusicNotification;
+import com.icaynia.pracler.remote.FirebaseSongManager;
+import com.icaynia.pracler.services.AlertService;
 import com.icaynia.pracler.activities.PlayerActivity;
 import com.icaynia.pracler.Data.LocalHistoryManager;
 import com.icaynia.pracler.Data.LocalLikeManager;
@@ -38,7 +36,7 @@ import com.icaynia.pracler.models.MusicDto;
 import com.icaynia.pracler.models.MusicRes;
 import com.icaynia.pracler.models.PlayList;
 import com.icaynia.pracler.models.PlayHistory;
-import com.icaynia.pracler.Service.MusicService;
+import com.icaynia.pracler.services.MusicService;
 import com.icaynia.pracler.models.User;
 import com.icaynia.pracler.remote.FirebaseUserManager;
 import com.icaynia.pracler.remote.listener.OnCompleteGetFirebaseUserListener;
@@ -56,12 +54,6 @@ import io.realm.Realm;
 
 public class Global extends Application
 {
-    public int SORT_NAME = 0;
-    public int SORT_ALBUM = 1;
-    public int SORT_ARTIST = 2;
-    public int SORT_LENGTH = 3;
-    public int SORT_PLAYCOUNT = 4;
-
     public AlertService alertService;
     public MusicService musicService;
     public Intent musicServiceIntent;
@@ -78,14 +70,11 @@ public class Global extends Application
 
     public UserManager userManager;
 
-    public OnMusicFinishListener finishListener;
-    private PlayStateChangeListener playStateChangeListener;
-
-
     /* Firebase */
     public String loginUid;
     public FirebaseAuth firebaseAuth;
     public FirebaseUser loginUser;
+
 
     private ServiceConnection musicServiceConnection = new ServiceConnection() {
         @Override
@@ -143,15 +132,21 @@ public class Global extends Application
         }
     };
 
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        this.init();
+    }
+
+
     public void newAlert(final PraclerAlert alert)
     {
         Intent notificationIntent = new Intent(this, PlayerActivity.class);
-        notificationIntent.putExtra("notificationId", 3333); //전달할 값
+        notificationIntent.putExtra("notificationId", 3333);
         final PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         final NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         int songId = musicService.getPlayingMusic();
-        MusicDto musicDto = mMusicManager.getMusicDto(songId+"");
         //Bitmap albumArt = mMusicManager.getAlbumImage(getApplicationContext(), Integer.parseInt(musicDto.getAlbumId()), 100);
         FirebaseUserManager.getUser(alert.user_uid, new OnCompleteGetFirebaseUserListener()
         {
@@ -181,10 +176,10 @@ public class Global extends Application
 
     }
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
 
+
+    public void init()
+    {
         Realm.init(getApplicationContext());
         FacebookSdk.sdkInitialize(getApplicationContext());
         if (musicServiceIntent == null)
@@ -208,59 +203,17 @@ public class Global extends Application
         localHistoryManager = new LocalHistoryManager(this);
         localLikeManager = new LocalLikeManager(this);
         if (loginUser != null)
-        loginUid = loginUser.getUid();
-
-        Log.e("Global", "onCreate: called");
-    }
-
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-    }
-
-    @Override
-    public void onLowMemory() {
-        super.onLowMemory();
-    }
-
-    @Override
-    public void onTerminate() {
-        super.onTerminate();
+            loginUid = loginUser.getUid();
     }
 
     public void addNewSongInfoToRemote(MusicDto musicDto)
     {
-        MusicRes info = new MusicRes();
-        ArtistRes arres = new ArtistRes();
-        AlbumRes albumRes = new AlbumRes();
-
-        RemoteDatabaseManager rdm = new RemoteDatabaseManager();
-
-        DatabaseReference dr = rdm.getSongsReference()
-                .child(MusicDto.replaceForInput(musicDto.getArtist()))
-                .child(MusicDto.replaceForInput(musicDto.getAlbum()))
-                .child(MusicDto.replaceForInput(musicDto.getTitle()));
-
-        DatabaseReference ar = rdm.getSongsReference()
-                .child(MusicDto.replaceForInput(musicDto.getArtist()));
-
-        DatabaseReference br = rdm.getSongsReference()
-                .child(MusicDto.replaceForInput(musicDto.getArtist()))
-                .child(MusicDto.replaceForInput(musicDto.getAlbum()));
-
-        dr.child("&info").setValue(info);
-        dr.child("&play").push().setValue("icaynia");
-
-        ar.child("&info").setValue(arres);
-
-        br.child("&info").setValue(albumRes);
+        FirebaseSongManager.addNewSong(musicDto);
     }
 
     public void setNowListening(MusicDto musicDto)
     {
-        UserManager userManager = new UserManager();
-        userManager.setNowlistening(musicDto.getArtist(), musicDto.getAlbum(), musicDto.getTitle());
+        FirebaseUserManager.setNowListening(musicDto);
     }
 
     public void addHistory(int songid)
@@ -309,23 +262,6 @@ public class Global extends Application
         }
     }
 
-    public void generateMusicFinishedEvent()
-    {
-        if (finishListener != null)
-        {
-            finishListener.onFinish();
-        }
-    }
-
-    public void generatePlayStateChangeEvent(boolean state)
-    {
-        if (playStateChangeListener != null)
-        {
-            playStateChangeListener.onChange(state);
-        }
-    }
-
-
     public void playPrevMusic()
     {
         musicService.pause();
@@ -356,47 +292,9 @@ public class Global extends Application
         generatePlayerChangeEvent();
     }
 
-    public void setFinishListener(OnMusicFinishListener listener)
-    {
-        this.finishListener = listener;
-    }
-
-    public void setPlayStateChangeListener(PlayStateChangeListener listener)
-    {
-        playStateChangeListener = listener;
-    }
-
     public void setMusicNotification()
     {
-        Intent notificationIntent = new Intent(this, PlayerActivity.class);
-        notificationIntent.putExtra("notificationId", 9999); //전달할 값
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-        int songId = musicService.getPlayingMusic();
-        MusicDto musicDto = mMusicManager.getMusicDto(songId+"");
-        Bitmap albumArt = mMusicManager.getAlbumImage(getApplicationContext(), Integer.parseInt(musicDto.getAlbumId()), 100);
-
-        builder.setContentTitle("현재 기록 중")
-                .setContentText(musicDto.getArtist() + " - " + musicDto.getTitle() + " ")
-                .setTicker(musicDto.getArtist() + " - " + musicDto.getTitle())
-                .setSmallIcon(R.drawable.ic_headset_white)
-                .setLargeIcon(albumArt)
-                .setContentIntent(contentIntent)
-                .setAutoCancel(false)
-                .setWhen(System.currentTimeMillis())
-                .setDefaults(Notification.DEFAULT_LIGHTS);
-
-
-
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            builder.setCategory(Notification.CATEGORY_MESSAGE)
-                    .setPriority(Notification.PRIORITY_HIGH)
-                    .setVisibility(Notification.VISIBILITY_PUBLIC);
-        }
-
-        NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        nm.notify(1234, builder.build());
+        MusicNotification.update(this, musicService.getPlayingMusic());
     }
 
 
@@ -408,16 +306,6 @@ public class Global extends Application
     public interface OnChangeListener
     {
         void onChange();
-    }
-
-    public interface OnMusicFinishListener
-    {
-        void onFinish();
-    }
-
-    public interface PlayStateChangeListener
-    {
-        void onChange(boolean state);
     }
 
 }

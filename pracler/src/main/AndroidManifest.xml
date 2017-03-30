@@ -55,7 +55,7 @@
         </activity>
 
         <service
-            android:name="com.icaynia.pracler.Service.MusicService"
+            android:name="com.icaynia.pracler.services.MusicService"
             android:enabled="true">
             <intent-filter>
                 <action android:name="com.icaynia.soundki"/>

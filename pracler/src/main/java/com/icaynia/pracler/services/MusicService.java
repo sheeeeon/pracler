@@ -1,4 +1,4 @@
-package com.icaynia.pracler.Service;
+package com.icaynia.pracler.services;
 
 import android.app.Service;
 import android.content.Intent;

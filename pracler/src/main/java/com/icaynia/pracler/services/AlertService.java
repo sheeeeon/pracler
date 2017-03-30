@@ -1,24 +1,12 @@
-package com.icaynia.pracler.Service;
+package com.icaynia.pracler.services;
 
 import android.app.Service;
 import android.content.Intent;
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Binder;
 import android.os.IBinder;
-import android.provider.MediaStore;
 import android.util.Log;
 
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.icaynia.pracler.Global;
-import com.icaynia.pracler.models.MusicDto;
-import com.icaynia.pracler.models.User;
-import com.icaynia.pracler.remote.FirebaseAlertManager;
 import com.icaynia.pracler.remote.models.PraclerAlert;
 
 /**

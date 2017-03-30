@@ -100,17 +100,6 @@ public class PlayerActivity extends AppCompatActivity
                 update();
             }
         });
-
-        global.setFinishListener(new Global.OnMusicFinishListener()
-        {
-            @Override
-            public void onFinish()
-            {
-                global.musicService.mediaPlayer.stop();
-                global.musicService.mediaPlayer.reset();
-            }
-        });
-
     }
 
     @Override
@@ -119,7 +108,6 @@ public class PlayerActivity extends AppCompatActivity
         albumImageView = null;
         albumImageBackgroundView = null;
         musicTimeBar.setOnClickListener(null);
-        global.setFinishListener(null);
         global = null;
         Log.e("finish", "fin");
         threadController = false;

@@ -8,6 +8,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.icaynia.pracler.Data.RemoteDatabaseManager;
+import com.icaynia.pracler.Data.UserManager;
+import com.icaynia.pracler.models.MusicDto;
 import com.icaynia.pracler.models.User;
 import com.icaynia.pracler.remote.listener.OnCompleteGetFirebaseUserListener;
 
@@ -28,6 +30,12 @@ public class FirebaseUserManager
     public static void getNowListening()
     {
 
+    }
+
+    public static void setNowListening(MusicDto musicDto)
+    {
+        UserManager userManager = new UserManager();
+        userManager.setNowlistening(musicDto.getArtist(), musicDto.getAlbum(), musicDto.getTitle());
     }
 
     public static void getUser(String uid, final OnCompleteGetFirebaseUserListener listener)
