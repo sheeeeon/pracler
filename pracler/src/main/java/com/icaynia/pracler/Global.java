@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.icaynia.pracler.notifications.MusicNotification;
+import com.icaynia.pracler.notifications.UserNotification;
 import com.icaynia.pracler.remote.FirebaseSongManager;
 import com.icaynia.pracler.services.AlertService;
 import com.icaynia.pracler.activities.PlayerActivity;
@@ -141,42 +142,8 @@ public class Global extends Application
 
     public void newAlert(final PraclerAlert alert)
     {
-        Intent notificationIntent = new Intent(this, PlayerActivity.class);
-        notificationIntent.putExtra("notificationId", 3333);
-        final PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        final NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-        int songId = musicService.getPlayingMusic();
-        //Bitmap albumArt = mMusicManager.getAlbumImage(getApplicationContext(), Integer.parseInt(musicDto.getAlbumId()), 100);
-        FirebaseUserManager.getUser(alert.user_uid, new OnCompleteGetFirebaseUserListener()
-        {
-            @Override
-            public void onComplete(User user)
-            {
-                builder.setContentTitle(alert.messages)
-                        .setContentText(alert.messages)
-                        .setTicker(alert.messages)
-                        .setSmallIcon(R.drawable.ic_headset_white)
-                        .setContentIntent(contentIntent)
-                        .setAutoCancel(false)
-                        .setWhen(System.currentTimeMillis());
-
-
-
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                    builder.setCategory(Notification.CATEGORY_MESSAGE)
-                            .setPriority(Notification.PRIORITY_HIGH)
-                            .setVisibility(Notification.VISIBILITY_PUBLIC);
-                }
-
-                NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                nm.notify(3333, builder.build());
-            }
-        });
-
+        UserNotification.build(this, alert);
     }
-
-
 
     public void init()
     {
