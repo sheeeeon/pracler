@@ -66,6 +66,9 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         global = (Global) getApplication();
+
+        global.loginUid = global.loginUser.getUid();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

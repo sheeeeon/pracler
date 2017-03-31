@@ -35,6 +35,7 @@ import com.icaynia.pracler.Global;
 import com.icaynia.pracler.models.MusicDto;
 import com.icaynia.pracler.R;
 import com.icaynia.pracler.View.MusicSeekBar;
+import com.icaynia.pracler.utils.ImageUtils;
 import com.wang.avi.AVLoadingIndicatorView;
 
 /**
@@ -479,9 +480,9 @@ public class PlayerActivity extends AppCompatActivity
             {
                 Bitmap tmpBitmap = result;
                 AlbumImageView.setImageBitmap(tmpBitmap);
-                tmpBitmap = blur(context, tmpBitmap, 15);
+                tmpBitmap = ImageUtils.blur(context, tmpBitmap, 15);
 
-                BackgroundImageView.setImageBitmap(cropBitmap(getScreenSize(), tmpBitmap));
+                BackgroundImageView.setImageBitmap(ImageUtils.cropBitmap(getScreenSize(), tmpBitmap));
                 tmpBitmap.recycle();
                 tmpBitmap = null;
 
@@ -507,43 +508,6 @@ public class PlayerActivity extends AppCompatActivity
             Log.e("renewsize ", width + ", " + height);
             size.y = 1280;
             return size;
-        }
-
-
-
-        public Bitmap cropBitmap(Point screensize, Bitmap original) {
-            int startX = original.getWidth() / 2 - screensize.x / 2;
-            Log.e("TAG", original.getHeight()+"");
-
-            Bitmap result = Bitmap.createBitmap(original
-                    , startX //X 시작위치 (원본의 4/1지점)
-                    , 1 //Y 시작위치 (원본의 4/1지점)
-                    , screensize.x // 넓이 (원본의 절반 크기)
-                    , screensize.y - 1); // 높이 (원본의 절반 크기)
-            if (result != original) {
-                original.recycle();
-            }
-            return result;
-        }
-
-        public Bitmap blur(Context context, Bitmap sentBitmap, int radius) {
-
-            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
-                Bitmap bitmap = sentBitmap.copy(sentBitmap.getConfig(), true);
-
-                final RenderScript rs = RenderScript.create(context);
-                final Allocation input = Allocation.createFromBitmap(rs, sentBitmap, Allocation.MipmapControl.MIPMAP_NONE,
-                        Allocation.USAGE_SCRIPT);
-                final Allocation output = Allocation.createTyped(rs, input.getType());
-                final ScriptIntrinsicBlur script = ScriptIntrinsicBlur.create(rs, Element.U8_4(rs));
-                script.setRadius(radius); //0.0f ~ 25.0f
-                script.setInput(input);
-                script.forEach(output);
-                output.copyTo(bitmap);
-                return bitmap;
-            } else {
-                return sentBitmap;
-            }
         }
     }
 

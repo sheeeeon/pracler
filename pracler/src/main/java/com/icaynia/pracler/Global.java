@@ -19,6 +19,7 @@ import com.facebook.FacebookSdk;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
+import com.icaynia.pracler.lockscreen.LockScreenService;
 import com.icaynia.pracler.notifications.MusicNotification;
 import com.icaynia.pracler.notifications.UserNotification;
 import com.icaynia.pracler.remote.FirebaseSongManager;
@@ -164,6 +165,9 @@ public class Global extends Application
             bindService(alertServiceIntent, alertServiceConnection, Context.BIND_AUTO_CREATE);
             startService(alertServiceIntent);
         }
+
+        Intent lockScreenIntent = new Intent(this, LockScreenService.class);
+        startService(lockScreenIntent);
 
         mMusicManager = new MusicFileManager(getApplicationContext());
         playListManager = new PlayListManager(this);

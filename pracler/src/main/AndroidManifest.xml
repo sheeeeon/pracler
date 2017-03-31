@@ -19,6 +19,13 @@
             android:value="@string/facebook_app_id"/>
 
         <activity
+            android:name="com.icaynia.pracler.lockscreen.LockScreenActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+        />
+
+        <activity
             android:name="com.icaynia.pracler.activities.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
@@ -61,6 +68,15 @@
                 <action android:name="com.icaynia.soundki"/>
             </intent-filter>
         </service>
+
+        <service
+            android:name="com.icaynia.pracler.lockscreen.LockScreenService"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="com.icaynia.soundki"/>
+            </intent-filter>
+        </service>
+
 
         <activity
             android:name="com.icaynia.pracler.activities.PlayListActivity"
