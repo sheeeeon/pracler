@@ -143,6 +143,8 @@ public class MainActivity extends AppCompatActivity
             }
         });
         super.onResume();
+
+        updateController();
     }
 
     public void updateController()

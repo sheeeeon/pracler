@@ -19,6 +19,7 @@
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="환경설정"
-        app:showAsAction="never"/>
+        app:showAsAction="never"
+        android:visible="false"/>
 
 </menu>

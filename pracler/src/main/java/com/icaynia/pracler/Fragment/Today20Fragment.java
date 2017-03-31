@@ -61,7 +61,7 @@ public class Today20Fragment extends Fragment
         mainListView.setAdapter(adapter);
         CardHeader cardHeader = new CardHeader(getContext());
         cardHeader.setTitleIcon(getResources().getDrawable(R.drawable.ic_grade));
-        cardHeader.setTitleText("지금 SoundKi가 추천하는 10곡");
+        cardHeader.setTitleText(getString(R.string.mymusic_now_recommand));
         mainListView.addHeaderView(cardHeader);
 
         mainListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
