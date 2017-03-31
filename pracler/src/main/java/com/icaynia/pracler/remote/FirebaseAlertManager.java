@@ -23,6 +23,12 @@ public class FirebaseAlertManager
         database.child(toUid).child("alert").push().setValue(alert);
     }
 
+    public static void deleteAlert(String uid)
+    {
+        DatabaseReference database = getUsersReference();
+        database.child(uid).child("alert").setValue(null);
+    }
+
     private static DatabaseReference getUsersReference()
     {
         DatabaseReference database = FirebaseDatabase.getInstance().getReference("Users");

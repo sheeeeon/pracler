@@ -7,9 +7,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.NotificationCompat;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.icaynia.pracler.Global;
 import com.icaynia.pracler.R;
 import com.icaynia.pracler.activities.PlayerActivity;
 import com.icaynia.pracler.models.User;
+import com.icaynia.pracler.remote.FirebaseAlertManager;
 import com.icaynia.pracler.remote.FirebaseUserManager;
 import com.icaynia.pracler.remote.listener.OnCompleteGetFirebaseUserListener;
 import com.icaynia.pracler.remote.models.PraclerAlert;
@@ -53,5 +57,9 @@ public class UserNotification
                 nm.notify(3333, builder.build());
             }
         });
+
+        Global global = (Global) context.getApplicationContext();
+        FirebaseAlertManager.deleteAlert(global.loginUser.getUid());
     }
+
 }

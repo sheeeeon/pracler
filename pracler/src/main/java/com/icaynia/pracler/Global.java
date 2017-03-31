@@ -90,7 +90,10 @@ public class Global extends Application
                 @Override
                 public void onCompletion(MediaPlayer mediaPlayer)
                 {
-
+                    int songid = musicService.getPlayingMusic();
+                    addHistory(songid);
+                    playNextMusic();
+                    generatePlayerChangeEvent();
                 }
             });
 

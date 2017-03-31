@@ -2,10 +2,11 @@
 .gradle
 /local.properties
 /.idea/workspace.xml
-/.idea/libraries
+/.idea
+/.vscode
 .DS_Store
 /build
 /captures
 .externalNativeBuild
 
-/app/google-services.json
+/pracler/google-services.json
