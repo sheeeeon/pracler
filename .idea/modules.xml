@@ -2,27 +2,27 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/moduleExample/app/app.iml" filepath="$PROJECT_DIR$/moduleExample/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pracler/lib/moduleExample/app/app.iml" filepath="$PROJECT_DIR$/pracler/lib/moduleExample/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/encryptionExample/encryptionExample.iml" filepath="$PROJECT_DIR$/encryptionExample/encryptionExample.iml" />
       <module fileurl="file://$PROJECT_DIR$/facebook-android-sdk-4.19.0/facebook-android-sdk-4.19.0.iml" filepath="$PROJECT_DIR$/facebook-android-sdk-4.19.0/facebook-android-sdk-4.19.0.iml" />
-      <module fileurl="file://$PROJECT_DIR$/gridViewExample/gridViewExample.iml" filepath="$PROJECT_DIR$/gridViewExample/gridViewExample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pracler/lib/gridViewExample/gridViewExample.iml" filepath="$PROJECT_DIR$/pracler/lib/gridViewExample/gridViewExample.iml" />
       <module fileurl="file://$PROJECT_DIR$/gson-2.8.0-sources/gson-2.8.0-sources.iml" filepath="$PROJECT_DIR$/gson-2.8.0-sources/gson-2.8.0-sources.iml" />
-      <module fileurl="file://$PROJECT_DIR$/introExample/introExample.iml" filepath="$PROJECT_DIR$/introExample/introExample.iml" />
-      <module fileurl="file://$PROJECT_DIR$/jsonExample/jsonExample.iml" filepath="$PROJECT_DIR$/jsonExample/jsonExample.iml" />
-      <module fileurl="file://$PROJECT_DIR$/kotlinExample/kotlinExample.iml" filepath="$PROJECT_DIR$/kotlinExample/kotlinExample.iml" />
-      <module fileurl="file://$PROJECT_DIR$/moduleExample/library/library.iml" filepath="$PROJECT_DIR$/moduleExample/library/library.iml" />
-      <module fileurl="file://$PROJECT_DIR$/migrationExample/migrationExample.iml" filepath="$PROJECT_DIR$/migrationExample/migrationExample.iml" />
-      <module fileurl="file://$PROJECT_DIR$/moduleExample/moduleExample.iml" filepath="$PROJECT_DIR$/moduleExample/moduleExample.iml" />
-      <module fileurl="file://$PROJECT_DIR$/newsreaderExample/newsreaderExample.iml" filepath="$PROJECT_DIR$/newsreaderExample/newsreaderExample.iml" />
-      <module fileurl="file://$PROJECT_DIR$/objectServerExample/objectServerExample.iml" filepath="$PROJECT_DIR$/objectServerExample/objectServerExample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pracler/lib/introExample/introExample.iml" filepath="$PROJECT_DIR$/pracler/lib/introExample/introExample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pracler/lib/jsonExample/jsonExample.iml" filepath="$PROJECT_DIR$/pracler/lib/jsonExample/jsonExample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pracler/lib/kotlinExample/kotlinExample.iml" filepath="$PROJECT_DIR$/pracler/lib/kotlinExample/kotlinExample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pracler/lib/moduleExample/library/library.iml" filepath="$PROJECT_DIR$/pracler/lib/moduleExample/library/library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pracler/lib/migrationExample/migrationExample.iml" filepath="$PROJECT_DIR$/pracler/lib/migrationExample/migrationExample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pracler/lib/moduleExample/moduleExample.iml" filepath="$PROJECT_DIR$/pracler/lib/moduleExample/moduleExample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pracler/lib/newsreaderExample/newsreaderExample.iml" filepath="$PROJECT_DIR$/pracler/lib/newsreaderExample/newsreaderExample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pracler/lib/objectServerExample/objectServerExample.iml" filepath="$PROJECT_DIR$/pracler/lib/objectServerExample/objectServerExample.iml" />
       <module fileurl="file://$PROJECT_DIR$/pracle.me/pracle.me.iml" filepath="$PROJECT_DIR$/pracle.me/pracle.me.iml" />
       <module fileurl="file://$PROJECT_DIR$/pracler.iml" filepath="$PROJECT_DIR$/pracler.iml" />
       <module fileurl="file://$PROJECT_DIR$/pracler/pracler-pracler.iml" filepath="$PROJECT_DIR$/pracler/pracler-pracler.iml" />
-      <module fileurl="file://$PROJECT_DIR$/rxJavaExample/rxJavaExample.iml" filepath="$PROJECT_DIR$/rxJavaExample/rxJavaExample.iml" />
-      <module fileurl="file://$PROJECT_DIR$/secureTokenAndroidKeyStore/secureTokenAndroidKeyStore.iml" filepath="$PROJECT_DIR$/secureTokenAndroidKeyStore/secureTokenAndroidKeyStore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pracler/lib/rxJavaExample/rxJavaExample.iml" filepath="$PROJECT_DIR$/pracler/lib/rxJavaExample/rxJavaExample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pracler/lib/secureTokenAndroidKeyStore/secureTokenAndroidKeyStore.iml" filepath="$PROJECT_DIR$/pracler/lib/secureTokenAndroidKeyStore/secureTokenAndroidKeyStore.iml" />
       <module fileurl="file://$PROJECT_DIR$/soundki.iml" filepath="$PROJECT_DIR$/soundki.iml" />
-      <module fileurl="file://$PROJECT_DIR$/threadExample/threadExample.iml" filepath="$PROJECT_DIR$/threadExample/threadExample.iml" />
-      <module fileurl="file://$PROJECT_DIR$/unitTestExample/unitTestExample.iml" filepath="$PROJECT_DIR$/unitTestExample/unitTestExample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pracler/lib/threadExample/threadExample.iml" filepath="$PROJECT_DIR$/pracler/lib/threadExample/threadExample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pracler/lib/unitTestExample/unitTestExample.iml" filepath="$PROJECT_DIR$/pracler/lib/unitTestExample/unitTestExample.iml" />
     </modules>
   </component>
 </project>
