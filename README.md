@@ -1,3 +1,7 @@
+<div align="center">
+    <img src="pracler/src/main/res/drawable/logo_beta_512.png" width="130"/>
+</div>
+
 pracler
 =======
 
