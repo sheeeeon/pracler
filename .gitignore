@@ -17,6 +17,10 @@ out/
 .gradle/
 build/
 
+# IDE settings
+.vscode/
+.idea/
+
 # Local configuration file (sdk path, etc)
 local.properties
 
@@ -38,5 +42,6 @@ captures/
 
 # Keystore files
 *.jks
+
 /pracler/google-services.json
 
