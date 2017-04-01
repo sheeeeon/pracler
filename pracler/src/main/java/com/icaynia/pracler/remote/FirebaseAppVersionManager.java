@@ -44,7 +44,7 @@ public class FirebaseAppVersionManager
                         catch ( Exception e )
                         {
                             Log.e("tag", "exception");
-                            listener.onComplete(null);
+                            e.printStackTrace();
                         }
                     }
 

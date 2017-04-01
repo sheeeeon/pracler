@@ -1,9 +1,16 @@
 package com.icaynia.pracler.activities;
 
+import android.app.Activity;
+import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -30,6 +37,7 @@ import com.icaynia.pracler.Fragment.HomeFragment;
 import com.icaynia.pracler.Fragment.ProfileMenuFragment;
 import com.icaynia.pracler.Fragment.RootFragmentPos1;
 import com.icaynia.pracler.Global;
+import com.icaynia.pracler.View.SelectPopup;
 import com.icaynia.pracler.models.MusicDto;
 import com.icaynia.pracler.models.PlayList;
 import com.icaynia.pracler.models.User;
@@ -40,6 +48,8 @@ import com.icaynia.pracler.remote.FirebaseAppVersionManager;
 import com.icaynia.pracler.remote.listener.OnCompleteGetFirebaseAppVersionListener;
 import com.icaynia.pracler.remote.models.AppVersion;
 import com.icaynia.pracler.remote.models.PraclerAlert;
+import com.icaynia.pracler.selectors.ConfirmPopupSelector;
+import com.icaynia.pracler.selectors.callbacks.OnConfirmSelectListener;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -51,7 +61,7 @@ public class MainActivity extends AppCompatActivity
     private MusicController musicController;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
+    protected void onCreate(final Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -65,7 +75,21 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onComplete(AppVersion version)
             {
-                Toast.makeText(getBaseContext(), version.VERSION + " ver , " + version.CHANGE_NOTE, Toast.LENGTH_SHORT).show();
+                try
+                {
+                    PackageInfo i = getBaseContext().getPackageManager().getPackageInfo(getBaseContext().getPackageName(), 0);
+                    int appVersion = i.versionCode;
+                    if (appVersion < version.VERSION)
+                    {
+                        checkUpdateAlert(version.CHANGE_NOTE);
+                    }
+                }
+                catch (Exception e)
+                {
+
+                }
+
+
             }
         });
 
@@ -133,6 +157,36 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onCancelled(DatabaseError databaseError) { }
         });
+    }
+
+    public void checkUpdateAlert(String note)
+    {
+        AlertDialog.Builder alert_confirm = new AlertDialog.Builder(this);
+
+        Log.e("PackageName", getPackageName());
+        alert_confirm.setMessage("앱 업데이트가 있습니다. \n - "+note+"\nPlay Store에서 업데이트 하시겠습니까?").setCancelable(false).setPositiveButton("확인",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setData(Uri.parse("market://details?id=" + getPackageName()));
+                        startActivity(intent);
+
+                        // 'YES'
+                    }
+                }).setNegativeButton("취소",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        // 'No'
+                        return;
+                    }
+                });
+        AlertDialog alert = alert_confirm.create();
+        alert.show();
+
     }
 
     @Override
