@@ -78,20 +78,28 @@ public class HomeFragment extends Fragment
         @Override
         protected MusicDto doInBackground(String... id)
         {
-            Random rand = new Random();
-            int size = global.mMusicManager.getMusicList().size();
-            if (size != 0)
-            randint = rand.nextInt(size);
-            else
-                randint = 0;
-            MusicDto musicDto = global.mMusicManager.getMusicList().getItem(randint);
-
-            for (String i : id)
+            if (global.mMusicManager.getMusicList().size() != 0)
             {
+                Random rand = new Random();
+                int size = global.mMusicManager.getMusicList().size();
+                if (size != 0)
+                    randint = rand.nextInt(size);
+                else
+                    randint = 0;
+                MusicDto musicDto = global.mMusicManager.getMusicList().getItem(randint);
 
+                for (String i : id)
+                {
+
+                }
+
+                return musicDto;
+            }
+            else
+            {
+                return null;
             }
 
-            return musicDto;
         }
 
         @Override
@@ -99,6 +107,19 @@ public class HomeFragment extends Fragment
         {
             super.onPostExecute(result);
 
+            Card cv = (Card) v.findViewById(R.id.card_yourstate);
+            cv.setTitleText(getString(R.string.my_history));
+            cv.deleteContent();
+            MyStateView msv = new MyStateView(getContext());
+            msv.setPlayCount(global.localHistoryManager.getHistoryCount());
+            msv.setMylikecount(global.localLikeManager.getSongLikeCount());
+            cv.addContent(msv);
+
+            if (result == null)
+            {
+                swipeRefreshLayout.setRefreshing(false);
+                return;
+            }
             RecommandSongView rsv = new RecommandSongView(getContext());
             rsv.setRecommandSong(result);
             rsv.setImage(global.mMusicManager.getAlbumImage(getContext(), Integer.parseInt(result.getAlbumId()), 100));
@@ -114,13 +135,7 @@ public class HomeFragment extends Fragment
                 }
             });
 
-            Card cv = (Card) v.findViewById(R.id.card_yourstate);
-            cv.setTitleText(getString(R.string.my_history));
-            cv.deleteContent();
-            MyStateView msv = new MyStateView(getContext());
-            msv.setPlayCount(global.localHistoryManager.getHistoryCount());
-            msv.setMylikecount(global.localLikeManager.getSongLikeCount());
-            cv.addContent(msv);
+
 
             Handler handler = new Handler();
             handler.postDelayed(new Runnable()

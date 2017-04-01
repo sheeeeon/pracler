@@ -42,21 +42,8 @@ public class MainActivity extends AppCompatActivity
     private Global global;
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
-
-    public Snackbar playRemoteController;
-
-
-    private boolean snackbarState = false;
-
     private OnBackPressedListener backPressedListener = null;
-
-    private Snackbar.SnackbarLayout layout;
-
     private UserManager userManager;
-
-    private Fragment mFragmentAtPos1;
-
-
     private MusicController musicController;
 
     @Override
