@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -35,6 +36,9 @@ import com.icaynia.pracler.models.User;
 import com.icaynia.pracler.R;
 import com.icaynia.pracler.View.InputPopup;
 import com.icaynia.pracler.View.MusicController;
+import com.icaynia.pracler.remote.FirebaseAppVersionManager;
+import com.icaynia.pracler.remote.listener.OnCompleteGetFirebaseAppVersionListener;
+import com.icaynia.pracler.remote.models.AppVersion;
 import com.icaynia.pracler.remote.models.PraclerAlert;
 
 public class MainActivity extends AppCompatActivity
@@ -55,6 +59,15 @@ public class MainActivity extends AppCompatActivity
         global = (Global) getApplication();
 
         global.loginUid = global.loginUser.getUid();
+
+        FirebaseAppVersionManager.getAppVersion(new OnCompleteGetFirebaseAppVersionListener()
+        {
+            @Override
+            public void onComplete(AppVersion version)
+            {
+                Toast.makeText(getBaseContext(), version.VERSION + " ver , " + version.CHANGE_NOTE, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
