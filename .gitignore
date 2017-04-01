@@ -16,10 +16,14 @@ out/
 # Gradle files
 .gradle/
 build/
+gradle.properties
+settings.gradle
 
 # IDE settings
 .vscode/
 .idea/
+pracler.iml
+local.properties
 
 # Local configuration file (sdk path, etc)
 local.properties
