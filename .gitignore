@@ -15,9 +15,10 @@ out/
 
 # Gradle files
 .gradle/
+gradle/
 build/
-gradle.properties
-settings.gradle
+/gradle.properties
+/settings.gradle
 
 # IDE settings
 .vscode/
