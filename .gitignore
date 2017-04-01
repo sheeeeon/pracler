@@ -36,6 +36,9 @@ proguard/
 # Android Studio captures folder
 captures/
 
+# Firebase
+/pracler/google-services.json
+
 # Intellij
 *.iml
 .idea/workspace.xml
@@ -43,5 +46,7 @@ captures/
 # Keystore files
 *.jks
 
-/pracler/google-services.json
+# Others
+*.swp
+
 
