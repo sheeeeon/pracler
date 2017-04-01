@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/pracler/lib/moduleExample/app/app.iml" filepath="$PROJECT_DIR$/pracler/lib/moduleExample/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/encryptionExample/encryptionExample.iml" filepath="$PROJECT_DIR$/encryptionExample/encryptionExample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pracler/lib/encryptionExample/encryptionExample.iml" filepath="$PROJECT_DIR$/pracler/lib/encryptionExample/encryptionExample.iml" />
       <module fileurl="file://$PROJECT_DIR$/facebook-android-sdk-4.19.0/facebook-android-sdk-4.19.0.iml" filepath="$PROJECT_DIR$/facebook-android-sdk-4.19.0/facebook-android-sdk-4.19.0.iml" />
       <module fileurl="file://$PROJECT_DIR$/pracler/lib/gridViewExample/gridViewExample.iml" filepath="$PROJECT_DIR$/pracler/lib/gridViewExample/gridViewExample.iml" />
       <module fileurl="file://$PROJECT_DIR$/gson-2.8.0-sources/gson-2.8.0-sources.iml" filepath="$PROJECT_DIR$/gson-2.8.0-sources/gson-2.8.0-sources.iml" />
