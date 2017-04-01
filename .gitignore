@@ -17,14 +17,16 @@ out/
 .gradle/
 gradle/
 build/
-/gradle.properties
-/settings.gradle
+gradle.properties
+settings.gradle
+build.gradle
 
 # IDE settings
-.vscode/
 .idea/
+.vscode/
 pracler.iml
 local.properties
+*.DS_Store
 
 # Local configuration file (sdk path, etc)
 local.properties
