@@ -78,6 +78,8 @@ public class MainActivity extends AppCompatActivity
                 try
                 {
                     PackageInfo i = getBaseContext().getPackageManager().getPackageInfo(getBaseContext().getPackageName(), 0);
+
+                    Log.e("Version", i.versionCode + ", server : " + version.VERSION);
                     int appVersion = i.versionCode;
                     if (appVersion < version.VERSION)
                     {
