@@ -140,12 +140,15 @@ public class PlayListsFragment extends Fragment
                                     @Override
                                     public void onComplete(String str)
                                     {
-                                        PlayList playList = new PlayList();
-                                        playList.setName(str);
                                         PlayListManager playListManager = new PlayListManager(getContext());
+                                        PlayList playList = playListManager.getPlayList(playLists.get(i));
+                                        playList.setName(str);
+                                        playListManager.deletePlayList(playLists.get(i));
+
+
                                         playListManager.savePlayList(playList);
 
-                                        prepare();
+                                        update();
                                     }
                                 });
                                 inputPopup.show();
@@ -179,9 +182,8 @@ public class PlayListsFragment extends Fragment
                     @Override
                     public void onClick(DialogInterface dialog, int which)
                     {
-
                         global.playListManager.deletePlayList(playlistName);
-
+                        update();
                         // 'YES'
                     }
                 }).setNegativeButton("취소",

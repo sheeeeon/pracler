@@ -25,6 +25,7 @@ public class InputPopup
     private Context context;
     private Bundle bundle;
     private OnCompleteInputValue listener;
+    private String titleText;
 
     public InputPopup(Context context)
     {
@@ -47,13 +48,14 @@ public class InputPopup
 
         MyDialogFragment newFragment = MyDialogFragment.newInstance(bundle);
         newFragment.setContext(context);
+        newFragment.setTitleText(titleText);
         newFragment.setListener(listener);
         newFragment.show(ft, "dialog2");
     }
 
     public void setTitleText(String titleText)
     {
-        bundle.putString("titleText", titleText);
+        this.titleText = titleText;
     }
 
     public void setListener(OnCompleteInputValue listener)
@@ -71,6 +73,7 @@ public class InputPopup
     {
         private Context mContext;
         private OnCompleteInputValue listener;
+        private String titleText;
         public void setContext(Context context)
         {
             mContext = context;
@@ -87,6 +90,11 @@ public class InputPopup
             return f;
         }
 
+        public void setTitleText(String titleText)
+        {
+            this.titleText = titleText;
+        }
+
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             final Global global = (Global) getActivity().getApplicationContext();
@@ -97,21 +105,13 @@ public class InputPopup
 
             final AlertDialog.Builder builder  = new AlertDialog.Builder(getActivity());
             builder.setIcon(R.mipmap.ic_launcher);
-            String titleText = "";
-            try
-            {
-                titleText = savedInstanceState.getString("titleText");
-            }
-            catch (Exception e)
-            {
-                titleText = getString(R.string.new_playlist);
-            }
             builder.setTitle(titleText);
             builder.setView(view);
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {
                     if (listener != null)
                         listener.onComplete(editText.getText().toString());
+                    dialog.dismiss();
                 }
             });
 
