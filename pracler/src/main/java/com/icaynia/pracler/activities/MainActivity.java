@@ -1,14 +1,10 @@
 package com.icaynia.pracler.activities;
 
-import android.app.Activity;
-import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -24,20 +20,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.icaynia.pracler.Data.PlayListManager;
-import com.icaynia.pracler.Data.UserManager;
+import com.icaynia.pracler.data.PlayListManager;
+import com.icaynia.pracler.data.UserManager;
 import com.icaynia.pracler.Fragment.HomeFragment;
 import com.icaynia.pracler.Fragment.ProfileMenuFragment;
 import com.icaynia.pracler.Fragment.RootFragmentPos1;
 import com.icaynia.pracler.Global;
-import com.icaynia.pracler.View.SelectPopup;
 import com.icaynia.pracler.models.MusicDto;
 import com.icaynia.pracler.models.PlayList;
 import com.icaynia.pracler.models.User;
@@ -48,8 +42,6 @@ import com.icaynia.pracler.remote.FirebaseAppVersionManager;
 import com.icaynia.pracler.remote.listener.OnCompleteGetFirebaseAppVersionListener;
 import com.icaynia.pracler.remote.models.AppVersion;
 import com.icaynia.pracler.remote.models.PraclerAlert;
-import com.icaynia.pracler.selectors.ConfirmPopupSelector;
-import com.icaynia.pracler.selectors.callbacks.OnConfirmSelectListener;
 
 public class MainActivity extends AppCompatActivity
 {

@@ -10,12 +10,10 @@ import android.widget.ListView;
 
 import com.icaynia.pracler.Global;
 import com.icaynia.pracler.adapters.SongListAdapter;
-import com.icaynia.pracler.dataloader.SongLoader;
-import com.icaynia.pracler.models.MusicList;
+import com.icaynia.pracler.data.SongLoader;
 import com.icaynia.pracler.models.PlayList;
 import com.icaynia.pracler.R;
 import com.icaynia.pracler.View.CardHeader;
-import com.icaynia.pracler.adapters.MusicListAdapter;
 import com.icaynia.pracler.models.SongList;
 
 /**

@@ -1,47 +1,33 @@
 package com.icaynia.pracler;
 
 import android.app.Application;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.content.res.Configuration;
-import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.os.IBinder;
-import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
 import com.facebook.FacebookSdk;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
 import com.icaynia.pracler.lockscreen.LockScreenService;
 import com.icaynia.pracler.notifications.MusicNotification;
 import com.icaynia.pracler.notifications.UserNotification;
 import com.icaynia.pracler.remote.FirebaseSongManager;
 import com.icaynia.pracler.services.AlertService;
-import com.icaynia.pracler.activities.PlayerActivity;
-import com.icaynia.pracler.Data.LocalHistoryManager;
-import com.icaynia.pracler.Data.LocalLikeManager;
-import com.icaynia.pracler.Data.MusicFileManager;
-import com.icaynia.pracler.Data.PlayListManager;
-import com.icaynia.pracler.Data.RemoteDatabaseManager;
-import com.icaynia.pracler.Data.UserManager;
-import com.icaynia.pracler.models.AlbumRes;
-import com.icaynia.pracler.models.ArtistRes;
+import com.icaynia.pracler.data.LocalHistoryManager;
+import com.icaynia.pracler.data.LocalLikeManager;
+import com.icaynia.pracler.data.MusicFileManager;
+import com.icaynia.pracler.data.PlayListManager;
+import com.icaynia.pracler.data.UserManager;
 import com.icaynia.pracler.models.LocalPlayHistory;
 import com.icaynia.pracler.models.MusicDto;
-import com.icaynia.pracler.models.MusicRes;
 import com.icaynia.pracler.models.PlayList;
 import com.icaynia.pracler.models.PlayHistory;
 import com.icaynia.pracler.services.MusicService;
-import com.icaynia.pracler.models.User;
 import com.icaynia.pracler.remote.FirebaseUserManager;
-import com.icaynia.pracler.remote.listener.OnCompleteGetFirebaseUserListener;
 import com.icaynia.pracler.remote.models.PraclerAlert;
 
 import java.text.SimpleDateFormat;
@@ -217,13 +203,20 @@ public class Global extends Application
 
     public void playMusic(long songId)
     {
-        MusicDto musicDto = mMusicManager.getMusicDto(songId+"");
+        try
+        {
+            MusicDto musicDto = mMusicManager.getMusicDto(songId + "");
 
-        this.musicService.playMusic(songId+"");
-        this.setNowListening(musicDto);
-        this.addNewSongInfoToRemote(musicDto);
-        this.setMusicNotification();
-        generatePlayerChangeEvent();
+            this.musicService.playMusic(songId + "");
+            this.setNowListening(musicDto);
+            this.addNewSongInfoToRemote(musicDto);
+            this.setMusicNotification();
+            generatePlayerChangeEvent();
+        }
+        catch (Exception e)
+        {
+
+        }
 
     }
 

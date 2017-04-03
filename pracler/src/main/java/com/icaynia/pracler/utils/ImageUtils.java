@@ -3,18 +3,12 @@ package com.icaynia.pracler.utils;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Point;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
-import android.widget.ImageView;
-
-import com.icaynia.pracler.Data.MusicFileManager;
 
 /**
  * Created by icaynia on 28/03/2017.

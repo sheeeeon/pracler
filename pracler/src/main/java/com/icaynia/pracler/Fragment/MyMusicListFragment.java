@@ -12,13 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Spinner;
 
 import com.icaynia.pracler.activities.MainActivity;
-import com.icaynia.pracler.Data.MusicFileManager;
-import com.icaynia.pracler.Data.PlayListManager;
+import com.icaynia.pracler.data.MusicFileManager;
+import com.icaynia.pracler.data.PlayListManager;
 import com.icaynia.pracler.Global;
 import com.icaynia.pracler.models.MusicDto;
 import com.icaynia.pracler.models.MusicList;

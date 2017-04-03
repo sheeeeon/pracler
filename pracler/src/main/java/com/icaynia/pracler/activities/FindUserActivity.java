@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import com.icaynia.pracler.Data.UserManager;
+import com.icaynia.pracler.data.UserManager;
 import com.icaynia.pracler.Global;
 import com.icaynia.pracler.models.User;
 import com.icaynia.pracler.R;

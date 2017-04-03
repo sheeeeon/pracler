@@ -1,15 +1,11 @@
-package com.icaynia.pracler.dataloader;
+package com.icaynia.pracler.data;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.MediaStore;
 
-import com.icaynia.pracler.models.MusicDto;
-import com.icaynia.pracler.models.MusicList;
 import com.icaynia.pracler.models.Song;
 import com.icaynia.pracler.models.SongList;
-
-import java.util.ArrayList;
 
 /**
  * Created by icaynia on 29/03/2017.

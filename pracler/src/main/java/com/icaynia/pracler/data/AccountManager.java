@@ -1,4 +1,4 @@
-package com.icaynia.pracler.Data;
+package com.icaynia.pracler.data;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.FirebaseAuth;

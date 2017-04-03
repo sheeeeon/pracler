@@ -1,7 +1,6 @@
 package com.icaynia.pracler.activities;
 
 import android.Manifest;
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -25,7 +24,6 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
-import com.icaynia.pracler.Data.UserManager;
 import com.icaynia.pracler.Global;
 import com.icaynia.pracler.models.User;
 import com.icaynia.pracler.R;

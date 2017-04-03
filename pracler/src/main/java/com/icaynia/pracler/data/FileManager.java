@@ -1,4 +1,4 @@
-package com.icaynia.pracler.Data;
+package com.icaynia.pracler.data;
 
 import android.content.Context;
 import android.util.Log;
@@ -94,6 +94,20 @@ public class FileManager
         }
 
         return playlist;
+    }
+
+    public void deletePlayList(String playlistName)
+    {
+        try
+        {
+            String filename = dirPath+"/playlist/"+playlistName+".soundki";
+            File tmpFile = new File(filename);
+            tmpFile.delete();
+        }
+        catch (Exception e)
+        {
+            Log.e(TAG, "delete playlist exception");
+        }
     }
 
     public ArrayList<String> getPlayLists()

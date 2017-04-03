@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseUser;
-import com.icaynia.pracler.Data.UserManager;
+import com.icaynia.pracler.data.UserManager;
 import com.icaynia.pracler.models.MusicDto;
 import com.icaynia.pracler.models.User;
 import com.icaynia.pracler.R;

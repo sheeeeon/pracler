@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.icaynia.pracler.Data.UserManager;
+import com.icaynia.pracler.data.UserManager;
 import com.icaynia.pracler.Global;
 import com.icaynia.pracler.models.MusicDto;
 import com.icaynia.pracler.models.User;

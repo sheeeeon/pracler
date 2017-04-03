@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.app.NotificationCompat;
 
-import com.icaynia.pracler.Data.MusicFileManager;
+import com.icaynia.pracler.data.MusicFileManager;
 import com.icaynia.pracler.R;
 import com.icaynia.pracler.activities.PlayerActivity;
 import com.icaynia.pracler.models.MusicDto;

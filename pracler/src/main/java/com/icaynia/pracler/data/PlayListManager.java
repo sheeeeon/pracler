@@ -1,4 +1,4 @@
-package com.icaynia.pracler.Data;
+package com.icaynia.pracler.data;
 
 import android.content.Context;
 
@@ -52,6 +52,9 @@ public class PlayListManager
         fileManager.savePlaylist(playlist);
     }
 
-
+    public void deletePlayList(String playlistName)
+    {
+        fileManager.deletePlayList(playlistName);
+    }
 
 }

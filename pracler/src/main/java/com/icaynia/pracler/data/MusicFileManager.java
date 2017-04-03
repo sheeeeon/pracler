@@ -1,4 +1,4 @@
-package com.icaynia.pracler.Data;
+package com.icaynia.pracler.data;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;

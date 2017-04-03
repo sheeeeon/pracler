@@ -12,7 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.icaynia.pracler.Data.PlayListManager;
+import com.icaynia.pracler.data.PlayListManager;
 import com.icaynia.pracler.Global;
 import com.icaynia.pracler.models.PlayList;
 import com.icaynia.pracler.R;

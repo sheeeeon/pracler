@@ -14,7 +14,7 @@ import android.widget.ListView;
 import com.google.firebase.auth.FirebaseUser;
 import com.icaynia.pracler.activities.FindUserActivity;
 import com.icaynia.pracler.activities.ProfileActivity;
-import com.icaynia.pracler.Data.UserManager;
+import com.icaynia.pracler.data.UserManager;
 import com.icaynia.pracler.Global;
 import com.icaynia.pracler.models.User;
 import com.icaynia.pracler.R;

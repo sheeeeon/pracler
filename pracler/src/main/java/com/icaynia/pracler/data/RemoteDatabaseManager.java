@@ -1,4 +1,4 @@
-package com.icaynia.pracler.Data;
+package com.icaynia.pracler.data;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;

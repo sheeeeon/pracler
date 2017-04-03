@@ -49,7 +49,11 @@ public class InputPopup
         newFragment.setContext(context);
         newFragment.setListener(listener);
         newFragment.show(ft, "dialog2");
+    }
 
+    public void setTitleText(String titleText)
+    {
+        bundle.putString("titleText", titleText);
     }
 
     public void setListener(OnCompleteInputValue listener)
@@ -93,7 +97,16 @@ public class InputPopup
 
             final AlertDialog.Builder builder  = new AlertDialog.Builder(getActivity());
             builder.setIcon(R.mipmap.ic_launcher);
-            builder.setTitle("새로운 이름");
+            String titleText = "";
+            try
+            {
+                titleText = savedInstanceState.getString("titleText");
+            }
+            catch (Exception e)
+            {
+                titleText = getString(R.string.new_playlist);
+            }
+            builder.setTitle(titleText);
             builder.setView(view);
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {

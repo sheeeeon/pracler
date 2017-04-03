@@ -19,4 +19,9 @@
     <string name="mymusic_myartist">My artists</string>
     <string name="search_friend">Find your friends</string>
     <string name="no_playing_song">You are not playing any song.</string>
+    <string name="havent_any_playlist">You haven\'t any playlist. \nClick me to add playlist !</string>
+    <string name="new_playlist">New Playlist</string>
+    <string name="edit_playlist">Edit playlist</string>
+    <string name="sure_delete">Are you sure to delete this item?</string>
+    <string name="no_item_playlist">This playlist haven\'t any song.</string>
 </resources>
