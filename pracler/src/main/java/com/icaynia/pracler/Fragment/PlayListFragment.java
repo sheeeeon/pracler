@@ -129,6 +129,7 @@ public class PlayListFragment extends Fragment
                                 popup.show();
                                 break;
                         }
+
                     }
                 });
                 selectPopup.show();

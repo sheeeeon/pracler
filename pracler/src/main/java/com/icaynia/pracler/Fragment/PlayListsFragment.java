@@ -84,6 +84,8 @@ public class PlayListsFragment extends Fragment
                             prepare();
                         }
                     });
+
+                    inputPopup.setTitleText("새로운 재생목록 만들기");
                     inputPopup.show();
                 }
             });
@@ -108,17 +110,19 @@ public class PlayListsFragment extends Fragment
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int i, long l)
             {
-                SelectPopup selectPopup = new SelectPopup(getContext());
+                final SelectPopup selectPopup = new SelectPopup(getContext());
                 ArrayList<String> arrayList = new ArrayList<>();
                 arrayList.add("재생");
                 arrayList.add("재생목록 이름 변경");
                 arrayList.add("재생목록 삭제");
                 selectPopup.setList(arrayList);
+                selectPopup.setTitleText("이 재생목록을...");
                 selectPopup.setListener(new SelectPopup.OnCompleteSelect()
                 {
                     @Override
                     public void onComplete(int position)
                     {
+
                         switch(position)
                         {
                             case 0:
@@ -157,6 +161,8 @@ public class PlayListsFragment extends Fragment
                                 checkDelete(playLists.get(i));
                                 break;
                         }
+
+
                     }
                 });
                 selectPopup.show();

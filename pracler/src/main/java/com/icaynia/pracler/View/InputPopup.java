@@ -40,7 +40,7 @@ public class InputPopup
     public void showDialog(Bundle bundle) {
         final Activity activity = (Activity) context;
         FragmentTransaction ft = activity.getFragmentManager().beginTransaction();
-        Fragment prev = activity.getFragmentManager().findFragmentByTag("dialog2");
+        Fragment prev = activity.getFragmentManager().findFragmentByTag("dialog3");
         if (prev != null) {
             ft.remove(prev);
         }
@@ -50,7 +50,7 @@ public class InputPopup
         newFragment.setContext(context);
         newFragment.setTitleText(titleText);
         newFragment.setListener(listener);
-        newFragment.show(ft, "dialog2");
+        newFragment.show(ft, "dialog3");
     }
 
     public void setTitleText(String titleText)
@@ -103,6 +103,7 @@ public class InputPopup
 
             final EditText editText = (EditText) view.findViewById(R.id.view_editText);
 
+
             final AlertDialog.Builder builder  = new AlertDialog.Builder(getActivity());
             builder.setIcon(R.mipmap.ic_launcher);
             builder.setTitle(titleText);
@@ -111,10 +112,9 @@ public class InputPopup
                 public void onClick(DialogInterface dialog, int whichButton) {
                     if (listener != null)
                         listener.onComplete(editText.getText().toString());
-                    dialog.dismiss();
+                    dismiss();
                 }
             });
-
             final AlertDialog dialog = builder.create();
             return dialog;
         }

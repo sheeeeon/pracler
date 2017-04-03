@@ -31,6 +31,7 @@ public class SelectPopup
     private Bundle bundle;
     private OnCompleteSelect listener;
     private ArrayList<String> list;
+    private MyDialogFragment newFragment;
 
     public SelectPopup(Context context)
     {
@@ -47,6 +48,16 @@ public class SelectPopup
         this.list = strings;
     }
 
+    public void dismiss()
+    {
+        newFragment.dismiss();
+    }
+
+    public void setTitleText(String titleText)
+    {
+
+    }
+
     public void showDialog(Bundle bundle) {
         final Activity activity = (Activity) context;
         FragmentTransaction ft = activity.getFragmentManager().beginTransaction();
@@ -56,7 +67,7 @@ public class SelectPopup
         }
         ft.addToBackStack(null);
 
-        MyDialogFragment newFragment = MyDialogFragment.newInstance(bundle);
+        newFragment = MyDialogFragment.newInstance(bundle);
         newFragment.setList(list);
         newFragment.setContext(context);
         newFragment.setListener(listener);
@@ -80,6 +91,8 @@ public class SelectPopup
         private Context mContext;
         private OnCompleteSelect listener;
         private ArrayList<String> list;
+        private String titleText;
+
         public void setContext(Context context)
         {
             mContext = context;
@@ -113,11 +126,11 @@ public class SelectPopup
             listView.setAdapter(Adapter);
             final AlertDialog.Builder builder  = new AlertDialog.Builder(getActivity());
             builder.setIcon(R.mipmap.ic_launcher);
-            builder.setTitle("새로운 이름");
+            builder.setTitle("이 재생목록을...");
             builder.setView(view);
 
-            final AlertDialog dialog = builder.create();
 
+            final AlertDialog dialog = builder.create();
 
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
             {
@@ -125,10 +138,21 @@ public class SelectPopup
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
                 {
                     listener.onComplete(i);
-                    dialog.dismiss();
                 }
             });
+
             return dialog;
+        }
+
+        public void setTitleText(String str)
+        {
+            titleText = str;
+        }
+
+        @Override
+        public void dismiss()
+        {
+            super.dismiss();
         }
 
     }
