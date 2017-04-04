@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -86,6 +87,7 @@ public class Splash extends AppCompatActivity
         firebaseAuth = FirebaseAuth.getInstance();
 
         facebookLoginButton = (LoginButton) findViewById(R.id.login_button);
+        facebookLoginButton.setVisibility(View.VISIBLE);
         facebookLoginButton.setReadPermissions("email", "public_profile");
         facebookLoginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -129,12 +131,10 @@ public class Splash extends AppCompatActivity
                 requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
                         1);
             } else {
-                onMainActivity();
             }
         }
         else
         {
-            onMainActivity();
         }
 
     }
@@ -214,6 +214,7 @@ public class Splash extends AppCompatActivity
 
     public void checkNewUser()
     {
+        prepare();
 
         FirebaseUserManager.getUser(global.loginUser.getUid(), new OnCompleteGetFirebaseUserListener()
         {
