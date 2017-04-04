@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class PlayList implements Serializable
 {
     private String playListName = "이름 없는 재생목록";
+    private String playListDescription = "플레이리스트 설명";
     private ArrayList<String> list = new ArrayList<>(); // 곡의 uid가 들어감.
     private int position = 0;
 
@@ -33,6 +34,11 @@ public class PlayList implements Serializable
     public void setName(String name)
     {
         this.playListName = name;
+    }
+
+    public void setDescription(String description)
+    {
+        this.playListDescription = description;
     }
 
     public void addPositionCount()
@@ -68,6 +74,11 @@ public class PlayList implements Serializable
     public String getName()
     {
         return this.playListName;
+    }
+
+    public String getDescription()
+    {
+        return this.playListDescription;
     }
 
     public int size()

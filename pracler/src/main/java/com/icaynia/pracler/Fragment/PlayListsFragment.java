@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.icaynia.pracler.View.CardHeader;
 import com.icaynia.pracler.data.PlayListManager;
 import com.icaynia.pracler.Global;
 import com.icaynia.pracler.R;
@@ -94,8 +95,11 @@ public class PlayListsFragment extends Fragment
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                final int realPosition = i-1;
+
                 PlayListFragment plf = new PlayListFragment();
-                plf.setPlayList(playLists.get(i));
+                plf.setPlayList(playLists.get(realPosition));
                 getFragmentManager().beginTransaction()
                         .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
                         .add(R.id.framelayout, plf)
@@ -108,8 +112,9 @@ public class PlayListsFragment extends Fragment
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
         {
             @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int i, long l)
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l)
             {
+                final int realPosition = i-1;
                 final SelectPopup selectPopup = new SelectPopup(getContext());
                 ArrayList<String> arrayList = new ArrayList<>();
                 arrayList.add("재생");
@@ -128,7 +133,7 @@ public class PlayListsFragment extends Fragment
                             case 0:
                                 try
                                 {
-                                    global.nowPlayingList = global.playListManager.getPlayList(playLists.get(i));
+                                    global.nowPlayingList = global.playListManager.getPlayList(playLists.get(realPosition));
                                     global.playMusic(Integer.parseInt(global.nowPlayingList.get(0)));
                                 }
                                 catch (Exception e)
@@ -145,9 +150,9 @@ public class PlayListsFragment extends Fragment
                                     public void onComplete(String str)
                                     {
                                         PlayListManager playListManager = new PlayListManager(getContext());
-                                        PlayList playList = playListManager.getPlayList(playLists.get(i));
+                                        PlayList playList = playListManager.getPlayList(playLists.get(realPosition));
                                         playList.setName(str);
-                                        playListManager.deletePlayList(playLists.get(i));
+                                        playListManager.deletePlayList(playLists.get(realPosition));
 
 
                                         playListManager.savePlayList(playList);
@@ -158,7 +163,7 @@ public class PlayListsFragment extends Fragment
                                 inputPopup.show();
                                 break;
                             case 2:
-                                checkDelete(playLists.get(i));
+                                checkDelete(playLists.get(realPosition));
                                 break;
                         }
 
@@ -177,6 +182,11 @@ public class PlayListsFragment extends Fragment
 
         PlayListsAdapter playListsAdapter = new PlayListsAdapter(getContext(), playLists);
         listView.setAdapter(playListsAdapter);
+
+        CardHeader cardHeader = new CardHeader(getContext());
+        cardHeader.setTitleIcon(getResources().getDrawable(R.drawable.ic_playlist_play_black));
+        cardHeader.setTitleText("내 재생목록");
+        listView.addHeaderView(cardHeader);
     }
 
     public void checkDelete(final String playlistName)
