@@ -7,5 +7,8 @@
     <color name="colorAccent">#a487cc</color>
 
 
-    <color name="colorFragmentBackground">#232028</color>
+    <color name="colorFragmentBackground">#383341</color>
+
+
+    <color name="colorFragmentCard">#494158</color>
 </resources>
