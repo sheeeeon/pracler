@@ -24,4 +24,5 @@
     <string name="edit_playlist">재생목록 편집</string>
     <string name="sure_delete">정말 삭제하시겠습니까?</string>
     <string name="no_item_playlist">재생목록에 곡이 없습니다!</string>
+    <string name="no_internet">네트워크 연결을 확인해 주세요.</string>
 </resources>

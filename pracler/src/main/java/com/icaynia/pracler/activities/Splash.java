@@ -1,8 +1,10 @@
 package com.icaynia.pracler.activities;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -48,6 +50,38 @@ public class Splash extends AppCompatActivity
         setContentView(R.layout.activity_splash);
 
         global = (Global) getApplication();
+
+        if (checkLogin())
+        {
+            prepare();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run()
+                {
+                    onMainActivity();
+                }
+            }, 1500);
+        }
+        else
+        {
+            showFacebookLoginButton();
+        }
+
+    }
+
+    public boolean checkLogin()
+    {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        if (firebaseAuth.getCurrentUser() != null)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public void showFacebookLoginButton()
+    {
         mCallbackManager = CallbackManager.Factory.create();
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -75,23 +109,6 @@ public class Splash extends AppCompatActivity
                 Toast.makeText(getBaseContext(), "서버에 연결할 수 없습니다. 인터넷 연결을 확인해주세요.", Toast.LENGTH_SHORT).show();
             }
         });
-
-
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run()
-            {
-                if (firebaseAuth.getCurrentUser() != null)
-                {
-                    prepare();
-                }
-                else
-                {
-                    facebookLoginButton.setVisibility(LinearLayout.VISIBLE);
-                }
-            }
-        }, 1500);
     }
 
     private void checkPermission() {
@@ -171,18 +188,33 @@ public class Splash extends AppCompatActivity
                             Log.w("Facebook", "signInWithCredential", task.getException());
                         }
                         prepare();
+
+                        /* 신규인지 확인 */
+                        if (isNetworkConnected())
+                        {
+                            checkNewUser();
+                        }
+
+                        onMainActivity();
                     }
                 });
-
     }
 
     public void prepare()
     {
-        global.loginUser = firebaseAuth.getCurrentUser();
+        firebaseAuth = FirebaseAuth.getInstance();
+        if (firebaseAuth.getCurrentUser() == null)
+        {
+            global.loginUser = firebaseAuth.getCurrentUser();
+            global.userManager.setLoginUser(global.loginUser);
 
-        global.userManager.setLoginUser(global.loginUser);
+            checkPermission();
+        }
+    }
 
-        /* 신규인지 확인 */
+    public void checkNewUser()
+    {
+
         FirebaseUserManager.getUser(global.loginUser.getUid(), new OnCompleteGetFirebaseUserListener()
         {
             @Override
@@ -202,10 +234,8 @@ public class Splash extends AppCompatActivity
                     newUser.picture = global.loginUser.getPhotoUrl().toString();
                     FirebaseUserManager.addNewUser(newUser);
                 }
-                checkPermission();
             }
         });
-
     }
 
     public void onMainActivity()
@@ -214,4 +244,11 @@ public class Splash extends AppCompatActivity
         startActivity(intent);
         finish();
     }
+
+    private boolean isNetworkConnected()
+    {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService( Context.CONNECTIVITY_SERVICE );
+        return cm.getActiveNetworkInfo() != null;
+    }
+
 }

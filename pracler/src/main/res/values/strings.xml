@@ -24,4 +24,5 @@
     <string name="edit_playlist">Edit playlist</string>
     <string name="sure_delete">Are you sure to delete this item?</string>
     <string name="no_item_playlist">This playlist haven\'t any song.</string>
+    <string name="no_internet">Please check your network.</string>
 </resources>
