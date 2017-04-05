@@ -90,6 +90,7 @@ public class MyArtistFragment extends Fragment
                 final MusicDto musicDto = musicList.getItem(i);
 
                 final SelectPopup selectPopup = new SelectPopup(getContext());
+                selectPopup.setTag("MyArtistFragmentPopup");
                 ArrayList<String> arrayList = new ArrayList<>();
                 arrayList.add("재생");
                 arrayList.add("다음 재생");
@@ -104,12 +105,14 @@ public class MyArtistFragment extends Fragment
                         {
                             case 0:
                                 global.playMusic(Integer.parseInt(musicDto.getUid_local()));
+                                selectPopup.dismiss();
                                 break;
                             case 1:
                                 global.nowPlayingList.addItem(Integer.parseInt(musicDto.getUid_local()), global.nowPlayingList.getPosition() + 1);
+                                selectPopup.dismiss();
                                 break;
                             case 2:
-                                PlayListSelectPopup popup = new PlayListSelectPopup(getContext());
+                                final PlayListSelectPopup popup = new PlayListSelectPopup(getContext());
 
                                 final ArrayList<String> arrayList = global.playListManager.getPlayListList();
                                 popup.setList(arrayList);
@@ -123,12 +126,13 @@ public class MyArtistFragment extends Fragment
                                         tmpPlayList.addItem(musicDto);
                                         global.playListManager.savePlayList(tmpPlayList);
                                         Toast.makeText(getContext(), "저장되었습니다.", Toast.LENGTH_SHORT).show();
+                                        popup.dismiss();
+                                        selectPopup.dismiss();
                                     }
                                 });
                                 popup.show();
                                 break;
                         }
-
                     }
                 });
                 selectPopup.show();

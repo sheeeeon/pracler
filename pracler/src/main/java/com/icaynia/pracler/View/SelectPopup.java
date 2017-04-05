@@ -33,6 +33,8 @@ public class SelectPopup
     private ArrayList<String> list;
     private MyDialogFragment newFragment;
 
+    private String fragmentTag;
+
     public SelectPopup(Context context)
     {
         this.context = context;
@@ -58,10 +60,15 @@ public class SelectPopup
 
     }
 
+    public void setTag(String tag)
+    {
+        this.fragmentTag = tag;
+    }
+
     public void showDialog(Bundle bundle) {
         final Activity activity = (Activity) context;
         FragmentTransaction ft = activity.getFragmentManager().beginTransaction();
-        Fragment prev = activity.getFragmentManager().findFragmentByTag("dialog2");
+        Fragment prev = activity.getFragmentManager().findFragmentByTag(fragmentTag);
         if (prev != null) {
             ft.remove(prev);
         }
@@ -71,7 +78,7 @@ public class SelectPopup
         newFragment.setList(list);
         newFragment.setContext(context);
         newFragment.setListener(listener);
-        newFragment.show(ft, "dialog2");
+        newFragment.show(ft, fragmentTag);
 
     }
 

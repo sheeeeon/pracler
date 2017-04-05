@@ -12,6 +12,8 @@ public class PlayListSelectPopup extends SelectPopup
     {
         super(ct);
         context = ct;
+
+        setTag("PlayListSelectPopup");
     }
 
     @Override
