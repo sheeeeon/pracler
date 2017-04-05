@@ -86,10 +86,10 @@ public class MyArtistFragment extends Fragment
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l)
             {
-                i += 1;
+                i -= 1;
                 final MusicDto musicDto = musicList.getItem(i);
 
-                SelectPopup selectPopup = new SelectPopup(getContext());
+                final SelectPopup selectPopup = new SelectPopup(getContext());
                 ArrayList<String> arrayList = new ArrayList<>();
                 arrayList.add("재생");
                 arrayList.add("다음 재생");
@@ -128,6 +128,7 @@ public class MyArtistFragment extends Fragment
                                 popup.show();
                                 break;
                         }
+
                     }
                 });
                 selectPopup.show();
