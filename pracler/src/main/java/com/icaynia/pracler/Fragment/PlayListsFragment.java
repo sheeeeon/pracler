@@ -181,6 +181,7 @@ public class PlayListsFragment extends Fragment
 
     public void update()
     {
+        listView.removeHeaderView(listView.getChildAt(0));
         playLists = global.playListManager.getPlayListList();
 
         PlayListsAdapter playListsAdapter = new PlayListsAdapter(getContext(), playLists);

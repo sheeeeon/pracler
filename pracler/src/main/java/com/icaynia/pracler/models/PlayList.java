@@ -63,7 +63,14 @@ public class PlayList implements Serializable
 
     public void addItem(int uid, int position)
     {
-        list.add(position, uid+"");
+        if (list.size() < position)
+        {
+            this.addItem(uid);
+        }
+        else
+        {
+            list.add(position, uid + "");
+        }
     }
 
     public void addItem(String uid)

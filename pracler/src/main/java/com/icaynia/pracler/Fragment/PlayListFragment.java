@@ -90,7 +90,7 @@ public class PlayListFragment extends Fragment
             {
                 final MusicDto musicDto = global.mMusicManager.getMusicDto(playList.get(i));
 
-                SelectPopup selectPopup = new SelectPopup(getContext());
+                final SelectPopup selectPopup = new SelectPopup(getContext());
                 ArrayList<String> arrayList = new ArrayList<>();
                 arrayList.add("재생");
                 arrayList.add("다음 재생");
@@ -105,9 +105,11 @@ public class PlayListFragment extends Fragment
                         {
                             case 0:
                                 global.playMusic(Integer.parseInt(musicDto.getUid_local()));
+                                selectPopup.dismiss();
                                 break;
                             case 1:
                                 global.nowPlayingList.addItem(Integer.parseInt(musicDto.getUid_local()), global.nowPlayingList.getPosition() + 1);
+                                selectPopup.dismiss();
                                 break;
                             case 2:
                                 PlayListSelectPopup popup = new PlayListSelectPopup(getContext());
@@ -124,6 +126,7 @@ public class PlayListFragment extends Fragment
                                         tmpPlayList.addItem(musicDto);
                                         global.playListManager.savePlayList(tmpPlayList);
                                         Toast.makeText(getContext(), "저장되었습니다.", Toast.LENGTH_SHORT).show();
+                                        selectPopup.dismiss();
                                     }
                                 });
                                 popup.show();
