@@ -141,6 +141,7 @@ public class PlayListsFragment extends Fragment
                                     e.printStackTrace();
                                     Toast.makeText(getContext(), getString(R.string.no_item_playlist), Toast.LENGTH_SHORT).show();
                                 }
+                                selectPopup.dismiss();
                                 break;
                             case 1:
                                 InputPopup inputPopup = new InputPopup(getContext());
@@ -156,6 +157,7 @@ public class PlayListsFragment extends Fragment
 
 
                                         playListManager.savePlayList(playList);
+                                        selectPopup.dismiss();
 
                                         update();
                                     }
@@ -164,6 +166,7 @@ public class PlayListsFragment extends Fragment
                                 break;
                             case 2:
                                 checkDelete(playLists.get(realPosition));
+                                selectPopup.dismiss();
                                 break;
                         }
 
@@ -193,7 +196,7 @@ public class PlayListsFragment extends Fragment
     {
         AlertDialog.Builder alert_confirm = new AlertDialog.Builder(getContext());
 
-        alert_confirm.setMessage("").setCancelable(false).setPositiveButton("확인",
+        alert_confirm.setMessage("정말로 삭제할까요? ").setCancelable(false).setPositiveButton("확인",
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which)
