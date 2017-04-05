@@ -58,6 +58,8 @@ public class Global extends Application
 
     public UserManager userManager;
 
+    public MusicDto nowPlaying;
+
     /* Firebase */
     public String loginUid;
     public FirebaseAuth firebaseAuth;
@@ -205,11 +207,11 @@ public class Global extends Application
     {
         try
         {
-            MusicDto musicDto = mMusicManager.getMusicDto(songId + "");
+            nowPlaying = mMusicManager.getMusicDto(songId + "");
 
             this.musicService.playMusic(songId + "");
-            this.setNowListening(musicDto);
-            this.addNewSongInfoToRemote(musicDto);
+            this.setNowListening(nowPlaying);
+            this.addNewSongInfoToRemote(nowPlaying);
             this.setMusicNotification();
             generatePlayerChangeEvent();
         }

@@ -2,6 +2,8 @@ package com.icaynia.pracler.models;
 
 import android.util.Log;
 
+import com.icaynia.pracler.remote.models.PraclerSong;
+
 /**
  * Created by icaynia on 2017. 2. 8..
  *
@@ -116,5 +118,14 @@ public class MusicDto
         return str;
     }
 
+    public PraclerSong convertToPraclerSong()
+    {
+        PraclerSong praclerSong = new PraclerSong();
+        praclerSong.artist = this.artist;
+        praclerSong.album = this.album;
+        praclerSong.title = this.title;
+
+        return praclerSong;
+    }
 
 }

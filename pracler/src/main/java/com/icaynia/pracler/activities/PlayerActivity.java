@@ -31,6 +31,7 @@ import com.icaynia.pracler.Global;
 import com.icaynia.pracler.models.MusicDto;
 import com.icaynia.pracler.R;
 import com.icaynia.pracler.View.MusicSeekBar;
+import com.icaynia.pracler.remote.models.PraclerSong;
 import com.icaynia.pracler.utils.ImageUtils;
 import com.wang.avi.AVLoadingIndicatorView;
 
@@ -395,6 +396,9 @@ public class PlayerActivity extends AppCompatActivity
             case R.id.action_onnowplaying:
                 onNowPlayingActivity();
                 break;
+            case R.id.action_songdetails:
+                onSongDetailsActivity(global.nowPlaying.convertToPraclerSong());
+                break;
         }
 
         return super.onContextItemSelected(item);
@@ -407,6 +411,10 @@ public class PlayerActivity extends AppCompatActivity
         {
             case R.id.action_onnowplaying:
                 onNowPlayingActivity();
+                break;
+
+            case R.id.action_songdetails:
+                onSongDetailsActivity(global.nowPlaying.convertToPraclerSong());
                 break;
         }
         return true;
@@ -434,6 +442,15 @@ public class PlayerActivity extends AppCompatActivity
     {
         Intent intent = new Intent(this, PlayListActivity.class);
         intent.putExtra("list", "0"); // '0' means now playlist.
+        startActivity(intent);
+    }
+
+    public void onSongDetailsActivity(PraclerSong song)
+    {
+        Intent intent = new Intent(this, SongDetailsActivity.class);
+        intent.putExtra("artist", song.artist);
+        intent.putExtra("album", song.album);
+        intent.putExtra("title", song.title);
         startActivity(intent);
     }
 
