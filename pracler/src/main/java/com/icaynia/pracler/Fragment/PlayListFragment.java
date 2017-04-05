@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.icaynia.pracler.View.CardHeader;
 import com.icaynia.pracler.data.PlayListManager;
 import com.icaynia.pracler.Global;
 import com.icaynia.pracler.models.MusicDto;
@@ -67,9 +68,16 @@ public class PlayListFragment extends Fragment
         PlayListAdapter playListAdapter = new PlayListAdapter(getContext(), this.playList);
         listView.setAdapter(playListAdapter);
 
+
+        CardHeader cardHeader = new CardHeader(getContext());
+        cardHeader.setTitleIcon(getResources().getDrawable(R.drawable.ic_playlist_play_black));
+        cardHeader.setTitleText(playListName);
+        listView.addHeaderView(cardHeader);
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                i -= 1;
                 global.playMusic(Integer.parseInt(playList.get(i)));
 
                 PlayList newNowPlayingList = new PlayList();
@@ -88,9 +96,11 @@ public class PlayListFragment extends Fragment
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l)
             {
+                i -= 1;
                 final MusicDto musicDto = global.mMusicManager.getMusicDto(playList.get(i));
 
                 final SelectPopup selectPopup = new SelectPopup(getContext());
+                selectPopup.setTag("PlayListFragmentPopup");
                 ArrayList<String> arrayList = new ArrayList<>();
                 arrayList.add("재생");
                 arrayList.add("다음 재생");
@@ -112,7 +122,7 @@ public class PlayListFragment extends Fragment
                                 selectPopup.dismiss();
                                 break;
                             case 2:
-                                PlayListSelectPopup popup = new PlayListSelectPopup(getContext());
+                                final PlayListSelectPopup popup = new PlayListSelectPopup(getContext());
 
                                 final ArrayList<String> arrayList = global.playListManager.getPlayListList();
                                 popup.setList(arrayList);
@@ -126,13 +136,13 @@ public class PlayListFragment extends Fragment
                                         tmpPlayList.addItem(musicDto);
                                         global.playListManager.savePlayList(tmpPlayList);
                                         Toast.makeText(getContext(), "저장되었습니다.", Toast.LENGTH_SHORT).show();
+                                        popup.dismiss();
                                         selectPopup.dismiss();
                                     }
                                 });
                                 popup.show();
                                 break;
                         }
-
                     }
                 });
                 selectPopup.show();
